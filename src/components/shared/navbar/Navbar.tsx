@@ -17,17 +17,17 @@ const Navbar = () => {
         </div>
 
         {/* logo */}
-        <div className="flex items-center gap-3">
-          <div className="size-12">
+        <div className="flex justify-center items-center gap-3 w-full">
+          <div className="size-9 md:size-12">
             <img src={logo} alt="Laivaly" />
           </div>
-          <h1 id="logo" className="text-4xl font-extrabold">
+          <h1 id="logo" className="text-3xl md:text-4xl font-extrabold">
             Laivaly
           </h1>
         </div>
 
         {/* login, cart and search icon */}
-        <div className="text-2xl flex items-center gap-8">
+        <div className="text-2xl hidden md:flex items-center gap-8">
           <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
           <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
           <BiUser className="cursor-pointer hover:scale-110 duration-700" />
