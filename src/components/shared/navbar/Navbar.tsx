@@ -5,11 +5,7 @@ import logo from "../../../assets/images/logo/lBlack160.png";
 import Container from "@/components/ui/Container";
 import NavItems from "./NavItems";
 
-// const navItems = [
-//   { label: "Home", path: "/" },
-//   { label: "Collection", path: "/collection" },
-//   { label: "Home", path: "/" },
-// ];
+
 
 const Navbar = () => {
   return (
