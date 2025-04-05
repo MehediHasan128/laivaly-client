@@ -2,15 +2,13 @@ import { BiUser } from "react-icons/bi";
 import { FiSearch } from "react-icons/fi";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/lBlack160.png";
-import Container from "@/components/ui/Container";
 import NavItems from "./NavItems";
-
-
+import TooltipWrapper from "@/components/ui/TooltipWrapper";
 
 const Navbar = () => {
   return (
-    <Container>
-      <div className="flex justify-between items-center py-8">
+    <div className="bg-[#EDF4F2]">
+      <div className="flex justify-between items-center py-8 w-[90%] mx-auto">
         {/* Nav Item */}
         <div>
           <NavItems child={<IoMenu />} />
@@ -28,12 +26,27 @@ const Navbar = () => {
 
         {/* login, cart and search icon */}
         <div className="text-2xl hidden md:flex items-center gap-8">
-          <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
-          <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
-          <BiUser className="cursor-pointer hover:scale-110 duration-700" />
+          <TooltipWrapper
+            child={
+              <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
+            }
+            name="Search"
+          />
+          <TooltipWrapper
+            child={
+              <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
+            }
+            name="Cart"
+          />
+          <TooltipWrapper
+            child={
+              <BiUser className="cursor-pointer hover:scale-110 duration-700" />
+            }
+            name="User"
+          />
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 

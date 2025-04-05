@@ -29,7 +29,7 @@ const navItems = [
 const NavItems = ({ child }: { child: ReactNode }) => {
   return (
     <Drawer>
-      <DrawerTrigger className="text-3xl bg-gray-100 p-1.5 rounded-full cursor-pointer hover:scale-110 duration-500">
+      <DrawerTrigger className="text-4xl rounded-full cursor-pointer hover:scale-110 duration-500">
         {child}
       </DrawerTrigger>
 
