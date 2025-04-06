@@ -22,6 +22,8 @@ const SignInForm = () => {
       {/* Form */}
       <LForm onSubmit={userLogin}>
         <div>
+
+          {/* Form input */}
           <div className="space-y-5">
             {/* User email input */}
             <div className="relative">
@@ -82,6 +84,7 @@ const SignInForm = () => {
               <button>Forgot Password?</button>
             </div>
           </div>
+
         </div>
 
         {/* Sign in button */}

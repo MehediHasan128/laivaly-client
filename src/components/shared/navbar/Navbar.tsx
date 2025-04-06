@@ -5,6 +5,7 @@ import SignInModal from "@/pages/authentication/signIn/SignInModal";
 import TooltipWrapper from "@/components/ui/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/lBlack160.png";
+import Cart from "@/pages/cart/Cart";
 
 const Navbar = () => {
   return (
@@ -33,11 +34,15 @@ const Navbar = () => {
             }
             name="Search"
           />
-          <TooltipWrapper
+          <Cart
             child={
-              <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
+              <TooltipWrapper
+                child={
+                  <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
+                }
+                name="Cart"
+              />
             }
-            name="Cart"
           />
           <SignInModal
             child={
