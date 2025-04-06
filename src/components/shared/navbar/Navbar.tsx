@@ -7,8 +7,8 @@ import TooltipWrapper from "@/components/ui/TooltipWrapper";
 
 const Navbar = () => {
   return (
-    <div className="bg-[#EDF4F2]">
-      <div className="flex justify-between items-center py-8 w-[90%] mx-auto">
+    <div className="bg-[#EDF4F2] fixed w-full">
+      <div className="flex justify-between items-center py-5 w-[90%] mx-auto">
         {/* Nav Item */}
         <div>
           <NavItems child={<IoMenu />} />
