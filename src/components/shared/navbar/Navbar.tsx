@@ -7,6 +7,7 @@ import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/logo.png";
 import Cart from "@/pages/cart/Cart";
 import SearchModal from "@/utils/SearchModal";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -18,17 +19,19 @@ const Navbar = () => {
         </div>
 
         {/* logo */}
-        <div className="flex justify-center items-center gap-3 w-full">
-          <div className="size-9 md:size-12">
-            <img src={logo} alt="Laivaly" />
+        <NavLink to="/">
+          <div className="flex justify-center items-center gap-3 w-full">
+            <div className="size-9 md:size-12">
+              <img src={logo} alt="Laivaly" />
+            </div>
+            <h1
+              id="logo"
+              className="text-3xl md:text-4xl font-extrabold text-[#31473A]"
+            >
+              Laivaly
+            </h1>
           </div>
-          <h1
-            id="logo"
-            className="text-3xl md:text-4xl font-extrabold text-[#31473A]"
-          >
-            Laivaly
-          </h1>
-        </div>
+        </NavLink>
 
         {/* login, cart and search icon */}
         <div className="text-2xl hidden md:flex items-center gap-8">
