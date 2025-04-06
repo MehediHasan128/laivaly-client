@@ -6,6 +6,7 @@ import TooltipWrapper from "@/components/ui/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/logo.png";
 import Cart from "@/pages/cart/Cart";
+import SearchModal from "@/utils/SearchModal";
 
 const Navbar = () => {
   return (
@@ -21,18 +22,25 @@ const Navbar = () => {
           <div className="size-9 md:size-12">
             <img src={logo} alt="Laivaly" />
           </div>
-          <h1 id="logo" className="text-3xl md:text-4xl font-extrabold text-[#31473A]">
+          <h1
+            id="logo"
+            className="text-3xl md:text-4xl font-extrabold text-[#31473A]"
+          >
             Laivaly
           </h1>
         </div>
 
         {/* login, cart and search icon */}
         <div className="text-2xl hidden md:flex items-center gap-8">
-          <TooltipWrapper
+          <SearchModal
             child={
-              <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
+              <TooltipWrapper
+                child={
+                  <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
+                }
+                name="Search"
+              />
             }
-            name="Search"
           />
           <Cart
             child={
