@@ -1,7 +1,7 @@
 import NavItems from "./NavItems";
 import { FiSearch } from "react-icons/fi";
 import { LuUserRound } from "react-icons/lu";
-import SignIn from "@/pages/authentication/signIn/SignIn";
+import SignInModal from "@/pages/authentication/signIn/SignInModal";
 import TooltipWrapper from "@/components/ui/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/lBlack160.png";
@@ -39,7 +39,7 @@ const Navbar = () => {
             }
             name="Cart"
           />
-          <SignIn
+          <SignInModal
             child={
               <TooltipWrapper
                 child={

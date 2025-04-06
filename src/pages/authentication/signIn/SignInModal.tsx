@@ -8,8 +8,9 @@ import {
 } from "@/components/ui/dialog";
 import { ReactNode } from "react";
 import tShirt from "../../../assets/images/tShirt/shirt-mockup-concept-with-plain-clothing.jpg";
+import SignInForm from "./SignInForm";
 
-const SignIn = ({ child }: { child: ReactNode }) => {
+const SignInModal = ({ child }: { child: ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger className="flex">{child}</DialogTrigger>
@@ -30,9 +31,8 @@ const SignIn = ({ child }: { child: ReactNode }) => {
             </DialogHeader>
 
             {/* Login form */}
-            <div>
-                
-            </div>
+            <SignInForm />
+            
           </div>
         </div>
 
@@ -45,4 +45,4 @@ const SignIn = ({ child }: { child: ReactNode }) => {
   );
 };
 
-export default SignIn;
+export default SignInModal;
