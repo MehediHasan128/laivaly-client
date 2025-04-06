@@ -1,9 +1,10 @@
-import { BiUser } from "react-icons/bi";
+import NavItems from "./NavItems";
 import { FiSearch } from "react-icons/fi";
+import { LuUserRound } from "react-icons/lu";
+import SignIn from "@/pages/authentication/signIn/SignIn";
+import TooltipWrapper from "@/components/ui/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/lBlack160.png";
-import NavItems from "./NavItems";
-import TooltipWrapper from "@/components/ui/TooltipWrapper";
 
 const Navbar = () => {
   return (
@@ -38,11 +39,15 @@ const Navbar = () => {
             }
             name="Cart"
           />
-          <TooltipWrapper
+          <SignIn
             child={
-              <BiUser className="cursor-pointer hover:scale-110 duration-700" />
+              <TooltipWrapper
+                child={
+                  <LuUserRound className="cursor-pointer hover:scale-110 duration-700" />
+                }
+                name="User"
+              />
             }
-            name="User"
           />
         </div>
       </div>
