@@ -17,14 +17,14 @@ const SignInModal = ({ child }: { child: ReactNode }) => {
       <DialogContent className="flex items-center max-w-[800px] sm:max-w-[900px] lg:max-w-[50%]">
         {/* SignIn form */}
         <div className="w-[50%] flex justify-center items-center">
-          <div>
+          <div className="w-[80%] mx-auto">
             <DialogHeader>
               <DialogTitle>
                 <h1 className="text-3xl text-center">Sign In .</h1>
               </DialogTitle>
 
               <DialogDescription>
-                <p className="text-lg text-gray-600 mb-8">
+                <p className="text-lg text-gray-600 mb-8 text-center">
                   Sign in to your Laivaly account
                 </p>
               </DialogDescription>
