@@ -14,10 +14,10 @@ const SignInModal = ({ child }: { child: ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger className="flex">{child}</DialogTrigger>
-      <DialogContent className="flex items-center max-w-[800px] sm:max-w-[900px] lg:max-w-[50%]">
+      <DialogContent className="flex flex-col lg:flex-row items-center md:max-w-[80%] lg:max-w-[50%]">
         {/* SignIn form */}
-        <div className="w-[50%] flex justify-center items-center">
-          <div className="w-[80%] mx-auto">
+        <div className="md:w-full lg:w-[50%] flex justify-center items-center">
+          <div className="md:w-[70%] lg:w-[80%] mx-auto">
             <DialogHeader>
               <DialogTitle>
                 <h1 className="text-3xl text-center">Sign In .</h1>
@@ -37,7 +37,7 @@ const SignInModal = ({ child }: { child: ReactNode }) => {
         </div>
 
         {/* Image contetnt */}
-        <div className="rounded-lg overflow-hidden w-[50%]">
+        <div className="rounded-lg overflow-hidden lg:w-[50%] hidden lg:flex">
           <img src={tShirt} alt="tShirt" />
         </div>
       </DialogContent>

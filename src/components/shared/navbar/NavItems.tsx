@@ -36,7 +36,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
       <DrawerContent>
         <DrawerHeader>
           {/* Close button */}
-          <DrawerClose>
+          <DrawerClose className="hidden lg:flex">
             <div className="text-3xl bg-gray-300 p-1.5 rounded-full cursor-pointer hover:scale-90 duration-500 w-fit">
               <RxCross2 />
             </div>
@@ -44,7 +44,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
 
           {/* Nav items */}
           <DrawerTitle>
-            <div className="my-10 px-10 lg:px-20 flex flex-col text-start space-y-7 text-xl font-light">
+            <div className="lg:my-10 px-10 lg:px-20 flex flex-col text-start space-y-7 md:text-xl font-light">
               {navItems.map((item) => (
                 <NavLink
                   to={item.path}
@@ -61,9 +61,9 @@ const NavItems = ({ child }: { child: ReactNode }) => {
               ))}
             </div>
 
-            <div className="border border-gray-300 mb-5 md:hidden"></div>
+            <div className="flex md:hidden flex-grow border-t border-gray-300 my-10"></div>
 
-            <div className="px-10 font-light text-xl gap-5 space-y-3 md:hidden">
+            <div className="px-10 font-light md:text-xl gap-5 space-y-5 md:hidden">
               <div className="flex items-center gap-1.5">
                 <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
                 <h1>Search</h1>
