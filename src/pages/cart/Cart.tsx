@@ -10,6 +10,7 @@ import { ReactNode } from "react";
 import { IoBagHandleOutline } from "react-icons/io5";
 
 const Cart = ({ child }: { child: ReactNode }) => {
+  
   return (
     <Drawer direction="right">
       <DrawerTrigger className="flex">{child}</DrawerTrigger>
