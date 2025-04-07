@@ -19,8 +19,8 @@ const Navbar = () => {
         </div>
 
         {/* logo */}
-        <NavLink to="/">
-          <div className="flex justify-center items-center gap-3 w-full">
+        <NavLink to="/" className="w-full">
+          <div className="flex justify-center items-center gap-3">
             <div className="size-9 md:size-12">
               <img src={logo} alt="Laivaly" />
             </div>
