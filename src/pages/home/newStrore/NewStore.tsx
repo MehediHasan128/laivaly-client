@@ -4,7 +4,7 @@ import shop from "../../../assets/images/shop/shop5.jpg";
 const NewStore = () => {
   return (
     <Container>
-      <div className="flex justify-between items-center gap-10 mb-64">
+      <div className="flex justify-between items-center gap-10">
         <div className="w-[60%] overflow-hidden rounded-2xl">
           <img className="w-full object-cover" src={shop} alt="" />
         </div>

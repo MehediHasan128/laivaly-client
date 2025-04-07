@@ -2,7 +2,7 @@ const HeaderTitle = ({title, colorTitle, subTitle}: {title: string; colorTitle?:
     return (
         <div className="text-center space-y-4 w-[50%] mx-auto">
             <h1 className="text-5xl font-semibold">{title} <span className="text-[#31473A]">{colorTitle}</span></h1>
-            <p className="text-gray-600 font-medium">{subTitle}</p>
+            <p className="text-gray-600 font-medium text-lg">{subTitle}</p>
         </div>
     );
 };
