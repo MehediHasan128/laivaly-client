@@ -19,7 +19,7 @@ const FeaturedCollection = () => {
             subTitle="Dare to mix and match! Check our collection to level up your fashion game"
           />
         </div>
-        <div className="mt-20 grid grid-cols-3 gap-5 w-[80%] mx-auto">
+        <div className="mt-12 lg:mt-20 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:w-[80%] mx-auto">
           <FeaturedCard productImage={product1} productCategory="Footwear" description="Step up your style with our latest range of sneakers, boots, and more." />
           <FeaturedCard productImage={product2} productCategory="Jacket" description="Stay warm and stylish with our premium selection of jackets for every season." />
           <FeaturedCard productImage={product3} productCategory="Bottoms" description="From jeans to joggers, find the perfect fit for any vibe." />

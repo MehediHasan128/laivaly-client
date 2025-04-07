@@ -23,7 +23,7 @@ const NewArrival = () => {
       </div>
 
       {/* Arrival card */}
-      <div className="mt-20 grid grid-cols-4 gap-8 w-[80%] mx-auto">
+      <div className="mt-10 lg:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8 lg:w-[80%] mx-auto">
           <ArrivalCard productId="01" productImage={product1} productTitle="Royal Perfume 25ml" productPrice="25.99" />
           <ArrivalCard productId="02" productImage={product2} productTitle="Boys Cargo Pant" productPrice="45.50" />
           <ArrivalCard productId="03" productImage={product3} productTitle="Glossy Lipstick" productPrice="5.00" />
