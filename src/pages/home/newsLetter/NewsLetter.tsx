@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 
 const NewsLetter = () => {
   return (
-    <div id="newsLetterBackground" className="flex justify-center items-center py-42 bg-amber-100 mb-96 bg-fixed">
+    <div id="newsLetterBackground" className="flex justify-center items-center py-42 bg-amber-100 bg-fixed">
       <div>
         <div className="text-center space-y-3 text-white">
           <h1 className="text-4xl font-semibold">Sign Up yo Our Newsletter</h1>
