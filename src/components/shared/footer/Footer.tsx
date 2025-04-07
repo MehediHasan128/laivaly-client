@@ -25,14 +25,14 @@ const Footer = () => {
   return (
     <div className="bg-black px-10 text-white">
 
-      <div className="flex justify-between py-20">
-        <div className="flex gap-46">
-          <div className="text-justify text-5xl space-y-5 w-[20%]">
+      <div className="flex justify-between flex-col lg:flex-row gap-20 lg:gap-0 py-20">
+        <div className="flex flex-wrap gap-16 lg:gap-46">
+          <div className="text-justify text-5xl space-y-5 lg:w-[20%]">
             <div className="space-y-5 w-fit">
               <img className="w-16 mx-auto" src={logo} alt="" />
               <h1 id="logo">Laivaly</h1>
             </div>
-            <div className="text-sm">
+            <div className="text-sm md:w-[50%] lg:w-auto">
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus,
                 ducimus nemo. Non voluptate fugiat neque quasi. Aliquam,

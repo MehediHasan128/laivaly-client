@@ -21,7 +21,7 @@ const FooterNav = ({navTitle, items}: TFooterNavProps) => {
                 ? "pending"
                 : isActive
                 ? "text-white"
-                : "hover:translate-x-2 duration-1000 text-gray-400"
+                : "hover:translate-x-2 duration-1000 text-gray-400 hover:text-white"
             }
           >
             {item.lable}
