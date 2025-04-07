@@ -18,8 +18,8 @@ const ArrivalCard = ({productId, productImage, productTitle, productPrice}: TArr
   return (
     <div>
       {/* Card image */}
-      <div className="overflow-hidden rounded-xl shadow">
-        <img className="" src={productImage} alt="" />
+      <div className="overflow-hidden rounded-xl shadow cursor-pointer">
+        <img className="hover:scale-110 duration-700" src={productImage} alt="" />
       </div>
       {/* Card title */}
       <div className="p-2 flex justify-between items-center">

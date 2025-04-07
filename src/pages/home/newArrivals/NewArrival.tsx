@@ -24,14 +24,14 @@ const NewArrival = () => {
 
       {/* Arrival card */}
       <div className="mt-20 grid grid-cols-4 gap-8 w-[80%] mx-auto">
-          <ArrivalCard productId="01" productImage={product1} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product2} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product3} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product4} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product5} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product6} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product7} productTitle="Perfume 25ml" productPrice="25.99" />
-          <ArrivalCard productId="01" productImage={product8} productTitle="Perfume 25ml" productPrice="25.99" />
+          <ArrivalCard productId="01" productImage={product1} productTitle="Royal Perfume 25ml" productPrice="25.99" />
+          <ArrivalCard productId="02" productImage={product2} productTitle="Boys Cargo Pant" productPrice="45.50" />
+          <ArrivalCard productId="03" productImage={product3} productTitle="Glossy Lipstick" productPrice="5.00" />
+          <ArrivalCard productId="04" productImage={product4} productTitle="Sweet Night Perfume 20ml" productPrice="20.99" />
+          <ArrivalCard productId="05" productImage={product5} productTitle="Laivaly Cap" productPrice="25.99" />
+          <ArrivalCard productId="06" productImage={product6} productTitle="Winter Jacket" productPrice="50.00" />
+          <ArrivalCard productId="07" productImage={product7} productTitle="Casual Shoes" productPrice="15.60" />
+          <ArrivalCard productId="08" productImage={product8} productTitle="Leather hand bag" productPrice="35.99" />
       </div>
     </Container>
   );
