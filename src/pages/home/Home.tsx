@@ -1,6 +1,7 @@
 import Banner from "./banner/Banner";
 import FeaturedCollection from "./featuredCollection/FeaturedCollection";
 import NewArrival from "./newArrivals/NewArrival";
+import NewsLetter from "./newsLetter/NewsLetter";
 import NewStore from "./newStrore/NewStore";
 
 const Home = () => {
@@ -14,9 +15,11 @@ const Home = () => {
 
       <NewStore />
 
-      <div className="mt-20 lg:mt-72 mb-20">
+      <div className="mt-20 lg:mt-72 mb-32">
         <FeaturedCollection />
       </div>
+
+      <NewsLetter />
 
     </>
   );

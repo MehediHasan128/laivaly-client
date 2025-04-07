@@ -11,4 +11,11 @@
   font-family: "Great Vibes", cursive;
 }
 
+#newsLetterBackground {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../src/assets/images/banner/background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* #31473A, #EDF4F2 */
