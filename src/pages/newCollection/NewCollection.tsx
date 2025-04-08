@@ -3,6 +3,7 @@ import banner from "../../assets/images/tShirt/shirt1.jpg";
 import promoCode from "../../assets/images/others/promoCode.png";
 import CollectionBanner from "@/components/ui/CollectionBanner";
 import CollectionFilter from "@/components/ui/CollectionFilter";
+import ProductCard from "@/components/ui/ProductCard";
 
 const title = {
   title1: "Get 25% Cash back",
@@ -28,6 +29,19 @@ const NewCollection = () => {
           />
 
           <CollectionFilter />
+
+          <div className="my-10 grid grid-cols-5 gap-5">
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
         </div>
       </Container>
     </div>
