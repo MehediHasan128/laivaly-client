@@ -5,9 +5,9 @@ import CollectionBanner from "@/components/ui/CollectionBanner";
 import CollectionFilter from "@/components/ui/CollectionFilter";
 
 const title = {
-    title1: "Get 25% Cash back",
-    title2: "On $150",
-}
+  title1: "Get 25% Cash back",
+  title2: "On $150",
+};
 
 const NewCollection = () => {
   return (
@@ -15,10 +15,9 @@ const NewCollection = () => {
       <Container>
         <div>
           <h1 className="text-xl md:text-2xl font-[600]">
-            New In <span className="text-gray-600 text-sm md:text-lg">(230)</span>
+            New In{" "}
+            <span className="text-gray-600 text-sm md:text-lg">(230)</span>
           </h1>
-
-          <CollectionFilter />
 
           <CollectionBanner
             bannerImage={banner}
@@ -28,7 +27,7 @@ const NewCollection = () => {
             sometimes troubling for the bank balance."
           />
 
-
+          <CollectionFilter />
         </div>
       </Container>
     </div>

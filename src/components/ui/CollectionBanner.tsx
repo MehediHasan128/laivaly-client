@@ -10,7 +10,7 @@ type TCollectionBannerProps = {
 
 const CollectionBanner = ({bannerImage, promoCodeIcon, title, message}: TCollectionBannerProps) => {
   return (
-    <div className="relative">
+    <div className="relative lg:my-8">
       <img className="h-46 md:h-52 lg:h-72 w-full brightness-75 rounded-2xl" src={bannerImage} alt="" />
 
       <div className="absolute top-0 w-full h-full px-5 md:px-10 lg:px-16 flex items-center text-white">
