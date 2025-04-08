@@ -6,9 +6,9 @@ import banner from "../../../assets/images/banner/banner1.png";
 
 const Banner = () => {
   return (
-    <div className="bg-[#EDF4F2] w-full">
+    <div className="bg-[#EDF4F2]">
       <Container>
-        <div className="flex justify-between items-center pt-44 md:pt-36">
+        <div className="flex justify-between items-center pt-10 md:pt-24 lg:pt-10">
           <div className="hidden lg:flex space-y-3 pl-42">
             <div>
               {/* Main title */}

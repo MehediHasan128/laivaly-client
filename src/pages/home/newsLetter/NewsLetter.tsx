@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 
 const NewsLetter = () => {
   return (
-    <div id="newsLetterBackground" className="flex justify-center items-center py-42 bg-amber-100 bg-fixed">
+    <div id="newsLetterBackground" className="flex justify-center items-center py-24 md:py-32 lg:py-42 bg-amber-100 bg-fixed">
       <div className="px-5 md:px-0">
         <div className="text-center space-y-3 text-white">
           <h1 className="text-3xl md:text-4xl font-semibold">Sign Up to Our Newsletter</h1>
@@ -20,7 +20,7 @@ const NewsLetter = () => {
                 placeholder="Your email"
                 className="rounded-full px-5 border border-[#31473A] focus:border bg-white/10 backdrop-blur-md text-white"
               />
-              <button className="border border-[#31473A] px-5 py-2 rounded-full bg-[#31473A] text-white w-[40%] md:w-auto mx-auto md:mx-0">
+              <button className="border border-[#31473A] px-5 py-2 rounded-full bg-[#31473A] text-white w-[40%] md:w-auto mx-auto md:mx-0 cursor-pointer">
                 Subscribe
               </button>
             </div>

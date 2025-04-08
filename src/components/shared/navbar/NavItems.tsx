@@ -3,6 +3,7 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
+  DrawerOverlay,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
@@ -30,6 +31,9 @@ const NavItems = ({ child }: { child: ReactNode }) => {
   
   return (
     <Drawer>
+      
+      <DrawerOverlay />
+
       <DrawerTrigger className="text-4xl rounded-full cursor-pointer hover:scale-110 duration-500">
         {child}
       </DrawerTrigger>
@@ -81,6 +85,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
           </DrawerTitle>
         </DrawerHeader>
       </DrawerContent>
+
     </Drawer>
   );
 };

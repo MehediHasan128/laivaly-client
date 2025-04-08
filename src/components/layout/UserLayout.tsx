@@ -3,13 +3,13 @@ import Navbar from "../shared/navbar/Navbar";
 import Footer from "../shared/footer/Footer";
 
 const UserLayout = () => {
-    return (
-        <>
-            <Navbar />
-            <Outlet />
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
 };
 
 export default UserLayout;
