@@ -1,6 +1,6 @@
 import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import logo from "../../../assets/images/logo/lWhite160.png";
-import FooterNav from "@/components/ui/FooterNav";
+import FooterNav from "@/components/reusable/FooterNav";
 
 const categories = [
   { lable: "Shirt", path: "/shirt" },

@@ -2,7 +2,7 @@ import NavItems from "./NavItems";
 import { FiSearch } from "react-icons/fi";
 import { LuUserRound } from "react-icons/lu";
 import SignInModal from "@/pages/authentication/signIn/SignInModal";
-import TooltipWrapper from "@/components/ui/TooltipWrapper";
+import TooltipWrapper from "@/components/reusable/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/logo.png";
 import Cart from "@/pages/cart/Cart";

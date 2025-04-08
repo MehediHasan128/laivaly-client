@@ -1,6 +1,6 @@
 import { BsTwitterX } from "react-icons/bs";
 import { BsArrowRight } from "react-icons/bs";
-import Container from "@/components/ui/Container";
+import Container from "@/components/reusable/Container";
 import { FaInstagram, FaMeta } from "react-icons/fa6";
 import banner from "../../../assets/images/banner/banner1.png";
 
