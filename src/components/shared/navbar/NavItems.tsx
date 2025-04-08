@@ -16,15 +16,14 @@ import { NavLink } from "react-router-dom";
 
 const navItems = [
   { label: "New In", path: "/newIn" },
-  { label: "Handbags", path: "/handbags" },
-  { label: "Women", path: "/women" },
   { label: "Men", path: "/men" },
+  { label: "Women", path: "/women" },
   { label: "Children", path: "/children" },
+  { label: "Handbags", path: "/handbags" },
   { label: "Travel", path: "/travel" },
-  { label: "Jewelry & Watches", path: "/jewelry&Watches" },
   { label: "Lifestyle", path: "/lifestyle" },
-  { label: "Fragrances & Make-Up", path: "/fragrances&Make-Up" },
-  { label: "Gifts", path: "/gifts" },
+  { label: "Jewelry & Watches", path: "/jewelry&Watches" },
+  { label: "Fragrances & Make-Up", path: "/fragrances&Make-Up" }
 ];
 
 const NavItems = ({ child }: { child: ReactNode }) => {
@@ -49,7 +48,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
 
           {/* Nav items */}
           <DrawerTitle>
-            <div className="lg:my-10 px-10 lg:px-20 flex flex-col text-start space-y-7 md:text-xl font-light">
+            <div className="lg:my-10 px-10 lg:px-20 flex flex-col text-start md:text-xl font-light">
               {navItems.map((item) => (
                 <NavLink
                   to={item.path}
@@ -57,8 +56,8 @@ const NavItems = ({ child }: { child: ReactNode }) => {
                     isPending
                       ? "pending"
                       : isActive
-                      ? "text-blue-500"
-                      : "hover:translate-x-3 duration-700"
+                      ? "hover:translate-x-3 duration-1000 text-[#337a51] py-4 font-bold"
+                      : "hover:translate-x-3 duration-1000 py-4"
                   }
                 >
                   {item.label}
