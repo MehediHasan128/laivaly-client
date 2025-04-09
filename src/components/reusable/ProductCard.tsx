@@ -1,5 +1,5 @@
 import { useState } from "react";
-import product from "../../assets/images/product/product7.jpg";
+import product from "../../assets/images/product/product4.jpg";
 import { IoMdHeart } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { IoBagHandleOutline } from "react-icons/io5";
