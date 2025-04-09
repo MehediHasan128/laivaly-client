@@ -49,7 +49,6 @@ const Footer = () => {
               </p>
             </div>
           </div>
-dev
           <FooterNav navTitle="Categories" items={categories} />
           <FooterNav navTitle="Coustomer Care" items={customerCares} />
           <FooterNav navTitle="Company" items={companies} />
