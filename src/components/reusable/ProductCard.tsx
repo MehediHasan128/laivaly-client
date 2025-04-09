@@ -8,7 +8,7 @@ const ProductCard = () => {
   const [fav, setFav] = useState(false);
 
   return (
-    <div className="rounded-lg lg:rounded-xl overflow-hidden shadow p-1 duration-1000">
+    <div className="rounded-lg lg:rounded-xl overflow-hidden shadow p-1 bg-white duration-1000">
       {/* Product image */}
       <div className="relative overflow-hidden">
         <img className="rounded-t-lg lg:rounded-t-xl cursor-pointer hover:scale-125 duration-1000" src={product} alt="" />

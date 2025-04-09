@@ -18,7 +18,7 @@ const sizeOptions = [
 
 const CollectionFilter = () => {
   return (
-    <div className="bg-gray-100 rounded-xl p-3 lg:p-5">
+    <div className="bg-gray-200 rounded-xl p-3 lg:p-5 w-full">
       <div className="flex">
         <SelectWrapper selectTitle="Price" options={priceOptions} />
         <SelectWrapper selectTitle="Size" options={sizeOptions} />

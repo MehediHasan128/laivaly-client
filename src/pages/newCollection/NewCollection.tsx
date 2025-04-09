@@ -13,15 +13,11 @@ const title = {
 
 const NewCollection = () => {
   return (
-    <div className="min-h-screen py-5 md:py-7 lg:py-10">
+    <div className="min-h-screen py-5 md:py-7 lg:py-8 bg-gray-50">
       <Container>
         <div>
-          <h1 className="text-xl md:text-2xl font-[600]">
-            New In{" "}
-            <span className="text-gray-600 text-sm md:text-lg">(230)</span>
-          </h1>
 
-          <div className="my-5">
+          <div className="mb-8">
             <CollectionBanner
               bannerImage={banner}
               title={title}
@@ -31,11 +27,11 @@ const NewCollection = () => {
             />
           </div>
 
-          <div className="hidden">
+          <div className="hidden lg:flex">
             <CollectionFilter />
           </div>
 
-          <div className="my-5 lg:my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+          <div className="my-5 lg:my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 md:gap-5">
             <ProductCard />
             <ProductCard />
             <ProductCard />
