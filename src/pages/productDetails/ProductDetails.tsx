@@ -8,6 +8,8 @@ import { PiChats } from "react-icons/pi";
 import { useState } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { FaArrowLeft } from "react-icons/fa6";
+import { Rate } from "antd";
+import { Progress } from "@/components/ui/progress";
 
 const ProductDetails = () => {
   const [color, setColor] = useState("green");
@@ -28,7 +30,7 @@ const ProductDetails = () => {
                 src={product}
               />
               <div className="md:hidden flex justify-between items-center text-2xl px-3 absolute top-3 w-full">
-              <FaArrowLeft />
+                <FaArrowLeft />
                 <div className="flex items-center gap-3.5">
                   <IoMdHeartEmpty />
                   <GoShareAndroid />
@@ -222,7 +224,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div className="my-5 lg:my-12 flex gap-3.5">
+              <div className="my-5 lg:mt-12 flex gap-3.5">
                 <button className="bg-[#31473A] hover:bg-[#1d2c23] duration-1000 border border-[#31473A] text-white w-full py-2 lg:py-4 flex justify-center gap-3 rounded lg:text-lg font-medium cursor-pointer">
                   <IoBagHandleOutline className="text-2xl" /> Add to Cart
                 </button>
@@ -232,7 +234,7 @@ const ProductDetails = () => {
                 </button>
               </div>
 
-              <div className="flex justify-between items-center lg:px-20">
+              <div className="hidden md:flex justify-between items-center lg:py-5 lg:px-20">
                 <div className="lg:text-xl flex items-center gap-1.5">
                   <PiChats className="text-xl lg:text-2xl" />
                   <h1>Chat</h1>
@@ -257,10 +259,50 @@ const ProductDetails = () => {
         </div>
       </Container>
 
-      <div className="border-b border-gray-300 my-20"></div>
+      <div className="border-b border-gray-300 my-8 md:my-10 lg:my-20"></div>
 
       <Container>
-        <div></div>
+        <div className="flex gap-20">
+          <div className="w-[60%]"></div>
+          <div className="w-[40%]">
+            <div className="border border-gray-300 rounded-xl overflow-hidden">
+              <div className="px-10 py-3 flex justify-between items-center">
+                <Rate disabled allowHalf defaultValue={4.5} style={{color: '#FFA534'}} />
+                <h1 className="text-2xl font-bold">4.5</h1>
+              </div>
+
+              <div className="border-b border-gray-300"></div>
+
+              <div className="my-5 px-10 space-y-3 text-gray-600">
+                    <div className="flex items-center gap-3.5 font-semibold">
+                        <h1>5</h1>
+                        <Progress value={90} className="" />
+                        <h1>256</h1>
+                    </div>
+                    <div className="flex items-center gap-3.5 font-semibold">
+                        <h1>4</h1>
+                        <Progress value={75} className="" />
+                        <h1>150</h1>
+                    </div>
+                    <div className="flex items-center gap-3.5 font-semibold">
+                        <h1>3</h1>
+                        <Progress value={65} className="" />
+                        <h1>120</h1>
+                    </div>
+                    <div className="flex items-center gap-3.5 font-semibold">
+                        <h1>2</h1>
+                        <Progress value={55} className="" />
+                        <h1>80</h1>
+                    </div>
+                    <div className="flex items-center gap-3.5 font-semibold">
+                        <h1>1</h1>
+                        <Progress value={30} className="" />
+                        <h1>15</h1>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </Container>
     </div>
   );
