@@ -264,9 +264,9 @@ const ProductDetails = () => {
       <div className="border-b border-gray-300 my-8 md:my-10 lg:my-20"></div>
 
       <Container>
-        <div className="flex flex-col-reverse md:flex-row gap-6 md:gap-20">
+        <div className="flex flex-col-reverse lg:flex-row gap-6 md:gap-20">
 
-          <div className="md:w-[60%]">
+          <div className="lg:w-[60%]">
             <h1 className="text-xl font-semibold">Reviews</h1>
             <p className="text-sm font-medium text-gray-600">
               Showing 5 from 225 reviews
@@ -286,7 +286,7 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className="md:w-[40%]">
+          <div className="lg:w-[40%]">
             <div className="border border-gray-300 rounded-xl overflow-hidden">
               <div className="px-10 py-3 flex justify-between items-center">
                 <Rate
@@ -337,7 +337,7 @@ const ProductDetails = () => {
 
       <Container>
         <h1 className="text-2xl font-semibold">Similer Product</h1>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-5 mt-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16">
                       <ProductCard />
                       <ProductCard />
                       <ProductCard />

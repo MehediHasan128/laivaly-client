@@ -19,6 +19,7 @@ const SignInForm = () => {
 
   return (
     <div>
+
       {/* Form */}
       <LForm onSubmit={userLogin}>
         <div>
@@ -92,7 +93,7 @@ const SignInForm = () => {
           onClick={() => setLogin(!login)}
           className="bg-[#31473A] hover:bg-[#203026] duration-500 w-full mt-8 py-3 rounded-lg text-md text-white cursor-pointer"
         >
-          {login ? <Spinner /> : "SIGN IN"}
+          {login ? <Spinner /> : "Sign In"}
         </button>
       </LForm>
 
@@ -105,14 +106,13 @@ const SignInForm = () => {
 
       {/* Login with google or apple */}
       <div className="flex justify-between gap-5">
-        <button className="w-[50%] text-xl flex justify-center items-center gap-2 font-medium border py-3 rounded-lg cursor-pointer">
+        <button className="w-[50%] text-xl flex justify-center items-center gap-2 font-medium border border-gray-300 py-3 rounded-lg cursor-pointer">
           <FcGoogle className="text-2xl" /> Google
         </button>
-        <button className="w-[50%] text-xl flex justify-center items-center gap-2 font-medium border py-3 rounded-lg cursor-pointer">
+        <button className="w-[50%] text-xl flex justify-center items-center gap-2 font-medium border border-gray-300 py-3 rounded-lg cursor-pointer">
           <IoLogoApple className="text-3xl" /> Apple
         </button>
       </div>
-
       
     </div>
   );

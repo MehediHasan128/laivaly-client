@@ -5,7 +5,6 @@ import Footer from "../shared/footer/Footer";
 const UserLayout = () => {
 
   const {pathname} = useLocation();
-  console.log(pathname);
 
   return (
     <>
