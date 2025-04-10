@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -9,6 +10,7 @@ import {
 import { ReactNode } from "react";
 import tShirt from "../../../assets/images/tShirt/shirt-mockup-concept-with-plain-clothing.jpg";
 import SignInForm from "./SignInForm";
+import { NavLink } from "react-router-dom";
 
 const SignInModal = ({ child }: { child: ReactNode }) => {
   return (
@@ -32,7 +34,20 @@ const SignInModal = ({ child }: { child: ReactNode }) => {
 
             {/* Login form */}
             <SignInForm />
-            
+
+            {/* Sign up link */}
+            <div className="mt-8 text-center text-sm text-gray-600">
+              <h1>
+                Don't an account?{" "}
+                <DialogClose asChild>
+                  <NavLink to="/signUp">
+                    <span className="font-semibold text-blue-700 cursor-pointer">
+                      SignUp
+                    </span>
+                  </NavLink>
+                </DialogClose>
+              </h1>
+            </div>
           </div>
         </div>
 

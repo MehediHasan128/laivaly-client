@@ -113,13 +113,7 @@ const SignInForm = () => {
         </button>
       </div>
 
-      {/* Sign up link */}
-      <div className="mt-8 text-center text-sm text-gray-600">
-        <h1>
-          Don't an account?{" "}
-          <span className="font-semibold text-blue-700">SignUp</span>
-        </h1>
-      </div>
+      
     </div>
   );
 };

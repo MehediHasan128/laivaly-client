@@ -5,15 +5,16 @@ type TInputProps = {
     type: string;
     name: string;
     placeholder: string;
-    icon: boolean
+    icon: boolean;
+    className?: string;
 }
 
-const LInput = ({type, name, placeholder, icon}: TInputProps) => {
+const LInput = ({type, name, placeholder, icon, className}: TInputProps) => {
     return (
         <>
            <Controller name={name}
             render={({field}) => (
-                <Input {...field} type={type} name={name} placeholder={placeholder} icon={icon}/>
+                <Input {...field} type={type} name={name} placeholder={placeholder} icon={icon} className={className} />
             )}
            /> 
         </>

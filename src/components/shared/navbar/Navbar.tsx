@@ -10,6 +10,7 @@ import SearchModal from "@/utils/SearchModal";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+
   return (
     <div className="bg-[#EDF4F2] sticky top-0 z-10">
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto">

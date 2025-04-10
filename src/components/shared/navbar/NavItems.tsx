@@ -23,14 +23,12 @@ const navItems = [
   { label: "Travel", path: "/travel" },
   { label: "Lifestyle", path: "/lifestyle" },
   { label: "Jewelry & Watches", path: "/jewelry&Watches" },
-  { label: "Fragrances & Make-Up", path: "/fragrances&Make-Up" }
+  { label: "Fragrances & Make-Up", path: "/fragrances&Make-Up" },
 ];
 
 const NavItems = ({ child }: { child: ReactNode }) => {
-  
   return (
     <Drawer>
-      
       <DrawerOverlay />
 
       <DrawerTrigger className="text-4xl rounded-full cursor-pointer hover:scale-110 duration-500">
@@ -60,7 +58,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
                       : "hover:translate-x-3 duration-1000 py-4"
                   }
                 >
-                  {item.label}
+                  <DrawerClose>{item.label}</DrawerClose>
                 </NavLink>
               ))}
             </div>
@@ -84,7 +82,6 @@ const NavItems = ({ child }: { child: ReactNode }) => {
           </DrawerTitle>
         </DrawerHeader>
       </DrawerContent>
-
     </Drawer>
   );
 };
