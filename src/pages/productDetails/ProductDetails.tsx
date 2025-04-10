@@ -10,6 +10,8 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Rate } from "antd";
 import { Progress } from "@/components/ui/progress";
+import CustomerReview from "@/components/reusable/CustomerReview";
+import ProductCard from "@/components/reusable/ProductCard";
 
 const ProductDetails = () => {
   const [color, setColor] = useState("green");
@@ -19,7 +21,7 @@ const ProductDetails = () => {
   console.log(id?.productId);
 
   return (
-    <div className="min-h-screen pb-8 md:py-12 bg-gray-100">
+    <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
       <Container>
         <div className="flex flex-col md:flex-row gap-5 lg:gap-16">
           {/* Image section */}
@@ -262,46 +264,85 @@ const ProductDetails = () => {
       <div className="border-b border-gray-300 my-8 md:my-10 lg:my-20"></div>
 
       <Container>
-        <div className="flex gap-20">
-          <div className="w-[60%]"></div>
-          <div className="w-[40%]">
+        <div className="flex flex-col-reverse md:flex-row gap-6 md:gap-20">
+
+          <div className="md:w-[60%]">
+            <h1 className="text-xl font-semibold">Reviews</h1>
+            <p className="text-sm font-medium text-gray-600">
+              Showing 5 from 225 reviews
+            </p>
+
+            {/* Customer reviews */}
+            <div className="mb-10">
+              <CustomerReview />
+              <CustomerReview />
+              <CustomerReview />
+              <CustomerReview />
+              <CustomerReview />
+
+              <div className="my-4 md:my-8 font-bold w-fit cursor-pointer">
+                <p>Show more</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:w-[40%]">
             <div className="border border-gray-300 rounded-xl overflow-hidden">
               <div className="px-10 py-3 flex justify-between items-center">
-                <Rate disabled allowHalf defaultValue={4.5} style={{color: '#FFA534'}} />
+                <Rate
+                  disabled
+                  allowHalf
+                  defaultValue={4.5}
+                  style={{ color: "#FFA534" }}
+                />
                 <h1 className="text-2xl font-bold">4.5</h1>
               </div>
 
               <div className="border-b border-gray-300"></div>
 
-              <div className="my-5 px-10 space-y-3 text-gray-600">
-                    <div className="flex items-center gap-3.5 font-semibold">
-                        <h1>5</h1>
-                        <Progress value={90} className="" />
-                        <h1>256</h1>
-                    </div>
-                    <div className="flex items-center gap-3.5 font-semibold">
-                        <h1>4</h1>
-                        <Progress value={75} className="" />
-                        <h1>150</h1>
-                    </div>
-                    <div className="flex items-center gap-3.5 font-semibold">
-                        <h1>3</h1>
-                        <Progress value={65} className="" />
-                        <h1>120</h1>
-                    </div>
-                    <div className="flex items-center gap-3.5 font-semibold">
-                        <h1>2</h1>
-                        <Progress value={55} className="" />
-                        <h1>80</h1>
-                    </div>
-                    <div className="flex items-center gap-3.5 font-semibold">
-                        <h1>1</h1>
-                        <Progress value={30} className="" />
-                        <h1>15</h1>
-                    </div>
+              <div className="my-5 px-5 md:px-10 space-y-1.5 md:space-y-3 text-gray-600">
+                <div className="flex items-center gap-3.5 font-semibold">
+                  <h1>5</h1>
+                  <Progress value={90} className="" />
+                  <h1>256</h1>
+                </div>
+                <div className="flex items-center gap-3.5 font-semibold">
+                  <h1>4</h1>
+                  <Progress value={75} className="" />
+                  <h1>150</h1>
+                </div>
+                <div className="flex items-center gap-3.5 font-semibold">
+                  <h1>3</h1>
+                  <Progress value={65} className="" />
+                  <h1>120</h1>
+                </div>
+                <div className="flex items-center gap-3.5 font-semibold">
+                  <h1>2</h1>
+                  <Progress value={55} className="" />
+                  <h1>80</h1>
+                </div>
+                <div className="flex items-center gap-3.5 font-semibold">
+                  <h1>1</h1>
+                  <Progress value={30} className="" />
+                  <h1>15</h1>
+                </div>
               </div>
             </div>
           </div>
+
+        </div>
+      </Container>
+
+      <div className="border-b border-gray-300 my-5 md:my-10"></div>
+
+      <Container>
+        <h1 className="text-2xl font-semibold">Similer Product</h1>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-5 mt-8 mb-16">
+                      <ProductCard />
+                      <ProductCard />
+                      <ProductCard />
+                      <ProductCard />
+                      <ProductCard />
         </div>
       </Container>
     </div>

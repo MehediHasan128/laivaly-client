@@ -48,7 +48,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
 
           {/* Nav items */}
           <DrawerTitle>
-            <div className="lg:my-10 px-10 lg:px-16 flex flex-col text-start md:text-xl">
+            <div className="lg:my-10 px-10 lg:px-20 flex flex-col text-start md:text-xl">
               {navItems.map((item) => (
                 <NavLink
                   to={item.path}
