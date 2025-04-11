@@ -5,12 +5,11 @@ import SignInModal from "@/pages/authentication/signIn/SignInModal";
 import TooltipWrapper from "@/components/reusable/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/logo.png";
-import Cart from "@/pages/cart/Cart";
 import SearchModal from "@/utils/SearchModal";
 import { NavLink } from "react-router-dom";
+import CartDrawer from "@/pages/cart/CartDrawer";
 
 const Navbar = () => {
-
   return (
     <div className="bg-[#EDF4F2] sticky top-0 z-10">
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto">
@@ -46,7 +45,7 @@ const Navbar = () => {
               />
             }
           />
-          <Cart
+          <CartDrawer
             child={
               <TooltipWrapper
                 child={
