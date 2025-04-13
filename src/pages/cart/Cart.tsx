@@ -1,24 +1,101 @@
+import LForm from "@/components/form/LForm";
+import LInput from "@/components/form/LInput";
 import CartCard from "@/components/reusable/CartCard";
 import Container from "@/components/reusable/Container";
+import { FieldValues } from "react-hook-form";
 
 const Cart = () => {
+  const handleApplyCouponCode = (data: FieldValues) => {
+    console.log(data);
+  };
+
   return (
     <div className="min-h-screen">
       <Container>
-        <div className="flex gap-10 py-10">
-          <div className="w-[75%] min-h-screen">
+        <div className="flex flex-col lg:flex-row lg:gap-10 py-10">
+          <div className="lg:w-[75%]">
+            <h1 className="text-3xl font-bold">Shopping Cart</h1>
 
-              <h1 className="text-3xl font-bold">Shopping Cart</h1>
+            {/* Card container */}
+            <div className="mt-10">
+              <CartCard />
+              <CartCard />
+              <CartCard />
+              <CartCard />
+            </div>
+          </div>
+          <div className="hidden lg:block lg:w-[25%] py-[60px] lg:pl-10">
+            <div>
+              <h1 className="text-3xl font-semibold">Summary</h1>
 
-              {/* Card container */}
-              <div className="mt-10">
-                <CartCard />
+              <div className="my-10">
+                <p className="mb-3 font-medium">Do you have any coupon code?</p>
+                <LForm onSubmit={handleApplyCouponCode}>
+                  <div className="flex items-center gap-3 w-full relative">
+                    <LInput
+                      type="text"
+                      name="coupponCode"
+                      placeholder="Enter coupon code"
+                      icon={false}
+                    />
+                    <button
+                      type="submit"
+                      className="absolute right-0 border border-[#31473A]  bg-[#31473A] font-semibold py-2.5 px-5 text-white rounded-r-lg cursor-pointer"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </LForm>
               </div>
 
+              <div className="text-lg">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-gray-600">
+                      Sub Total:
+                    </span>
+                    <span className="text-2xl font-semibold">$0.00</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-gray-600">
+                      Estimated Shipping & Handling:
+                    </span>
+                    <span className="text-2xl font-semibold">$0.00</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-gray-600">
+                      Estimated Tax:
+                    </span>
+                    <span className="text-2xl font-semibold">$0.00</span>
+                  </div>
+                </div>
+                <div className="border-b border-gray-300 my-5"></div>
+                <div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-gray-600 text-xl">
+                      Total:
+                    </span>
+                    <span className="text-3xl font-medium">$0.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 space-y-3.5">
+                <button className="border border-[#31473A] bg-[#31473A] w-full py-3 rounded-lg text-lg font-medium text-white cursor-pointer hover:bg-[#1e3327] duration-700">
+                  Check Out
+                </button>
+                <button className="border border-[#03399e] w-full py-3 rounded-lg text-lg font-extrabold cursor-pointer italic">
+                  <span className="text-[#03399e]">Pay</span>
+                  <span className="text-[#009cde]">Pal</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="w-[25%] border min-h-screen"></div>
         </div>
       </Container>
+      <div className="bg-gray-700 fixed bottom-0 w-full lg:hidden flex justify-center p-5 pt-2 text-white rounded-t-xl">
+        <div className="border-2 rounded-full w-[20%]"></div>
+      </div>
     </div>
   );
 };
