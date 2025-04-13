@@ -4,6 +4,7 @@ import CartCard from "@/components/reusable/CartCard";
 import Container from "@/components/reusable/Container";
 import { FieldValues } from "react-hook-form";
 import CartPricingDrawer from "./CartPricingDrawer";
+import CartCardForMoile from "@/components/reusable/CartCardForMoile";
 
 const Cart = () => {
   const handleApplyCouponCode = (data: FieldValues) => {
@@ -14,16 +15,21 @@ const Cart = () => {
     <div className="min-h-screen">
       <Container>
         <div className="flex flex-col lg:flex-row lg:gap-10 py-5 md:py-10">
-
           <div className="lg:w-[75%]">
             <h1 className="text-2xl md:text-3xl font-bold">Shopping Cart</h1>
 
             {/* Card container */}
-            <div className="mt-5 md:mt-10">
+            <div className="mt-5 md:mt-10 hidden md:block">
               <CartCard />
               <CartCard />
               <CartCard />
               <CartCard />
+            </div>
+            <div className="mt-5 md:mt-10 block md:hidden">
+              <CartCardForMoile />
+              <CartCardForMoile />
+              <CartCardForMoile />
+              <CartCardForMoile />
             </div>
           </div>
 
@@ -94,7 +100,6 @@ const Cart = () => {
               </div>
             </div>
           </div>
-          
         </div>
       </Container>
       <CartPricingDrawer

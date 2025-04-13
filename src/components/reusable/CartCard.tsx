@@ -9,7 +9,7 @@ const CartCard = () => {
 
   return (
     <div className="border-b border-gray-300 py-3 flex justify-between items-center select-none">
-      <div className="w-16 md:w-20 lg:w-42 flex items-center gap-0.5 md:gap-1.5 lg:gap-2.5">
+      <div className="w-20 lg:w-42 flex items-center gap-0.5 md:gap-1.5 lg:gap-2.5">
         <Checkbox id="remember" />
         <img src={product} alt="" />
       </div>
