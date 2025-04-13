@@ -9,12 +9,14 @@ const CartCard = () => {
 
   return (
     <div className="border-b border-gray-300 py-3 flex justify-between items-center select-none">
-      <div className="md:w-20 lg:w-42 flex items-center md:gap-1.5 lg:gap-2.5">
+      <div className="w-16 md:w-20 lg:w-42 flex items-center gap-0.5 md:gap-1.5 lg:gap-2.5">
         <Checkbox id="remember" />
         <img src={product} alt="" />
       </div>
       <div>
-        <h1 className="text-base lg:text-xl font-semibold">Royal Perfume 25ml</h1>
+        <h1 className="text-base lg:text-xl font-semibold">
+          Royal Perfume 25ml
+        </h1>
         <p className="text-sm lg:text-lg font-medium text-gray-600">Perfume</p>
       </div>
       <div className="flex items-center md:gap-1.5 lg:gap-3">
@@ -45,6 +47,5 @@ const CartCard = () => {
 };
 
 export default CartCard;
-
 
 // F8407189r**

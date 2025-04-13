@@ -3,6 +3,7 @@ import LInput from "@/components/form/LInput";
 import CartCard from "@/components/reusable/CartCard";
 import Container from "@/components/reusable/Container";
 import { FieldValues } from "react-hook-form";
+import CartPricingDrawer from "./CartPricingDrawer";
 
 const Cart = () => {
   const handleApplyCouponCode = (data: FieldValues) => {
@@ -12,18 +13,20 @@ const Cart = () => {
   return (
     <div className="min-h-screen">
       <Container>
-        <div className="flex flex-col lg:flex-row lg:gap-10 py-10">
+        <div className="flex flex-col lg:flex-row lg:gap-10 py-5 md:py-10">
+
           <div className="lg:w-[75%]">
-            <h1 className="text-3xl font-bold">Shopping Cart</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Shopping Cart</h1>
 
             {/* Card container */}
-            <div className="mt-10">
+            <div className="mt-5 md:mt-10">
               <CartCard />
               <CartCard />
               <CartCard />
               <CartCard />
             </div>
           </div>
+
           <div className="hidden lg:block lg:w-[25%] py-[60px] lg:pl-10">
             <div>
               <h1 className="text-3xl font-semibold">Summary</h1>
@@ -91,11 +94,16 @@ const Cart = () => {
               </div>
             </div>
           </div>
+          
         </div>
       </Container>
-      <div className="bg-gray-700 fixed bottom-0 w-full lg:hidden flex justify-center p-5 pt-2 text-white rounded-t-xl">
-        <div className="border-2 rounded-full w-[20%]"></div>
-      </div>
+      <CartPricingDrawer
+        child={
+          <div className="bg-gray-700 fixed bottom-0 w-full lg:hidden flex justify-center p-5 pt-2 text-white rounded-t-xl">
+            <div className="border-2 rounded-full w-[20%]"></div>
+          </div>
+        }
+      />
     </div>
   );
 };
