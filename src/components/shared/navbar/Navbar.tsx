@@ -14,14 +14,14 @@ const Navbar = () => {
     <div className="bg-[#EDF4F2] sticky top-0 z-10">
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto">
         {/* Nav Item */}
-        <div>
+        <div className="flex justify-center items-center">
           <NavItems child={<IoMenu />} />
         </div>
 
         {/* logo */}
         <NavLink to="/" className="w-full">
           <div className="flex justify-center items-center gap-3">
-            <div className="size-9 md:size-12">
+            <div className="size-10 md:size-12">
               <img src={logo} alt="Laivaly" />
             </div>
             <h1
@@ -34,7 +34,7 @@ const Navbar = () => {
         </NavLink>
 
         {/* login, cart and search icon */}
-        <div className="text-2xl hidden md:flex items-center gap-8">
+        <div className="text-xl md:text-2xl flex items-center gap-3 lg:gap-8">
           <SearchModal
             child={
               <TooltipWrapper

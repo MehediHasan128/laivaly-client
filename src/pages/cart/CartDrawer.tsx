@@ -60,11 +60,11 @@ const CartDrawer = ({ child }: { child: ReactNode }) => {
 
           <NavLink
             to="/cart"
-            className="bg-[#31473A] border border-[#31473A] mt-5 py-2.5 text-lg font-semibold text-center text-white rounded-lg overflow-hidden cursor-pointer hover:bg-[#101f16] duration-1000"
+            className="bg-[#31473A] border border-[#31473A] mt-5 py-2 font-medium text-center text-white rounded-lg overflow-hidden cursor-pointer hover:bg-[#101f16] duration-1000"
           >
             <DrawerClose>
               <div className="flex items-center justify-center gap-1.5">
-                <IoBagHandleOutline className="text-2xl" />
+                <IoBagHandleOutline className="text-xl" />
                 View Cart
               </div>
             </DrawerClose>
