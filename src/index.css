@@ -11,6 +11,7 @@
 html {
   scrollbar-width: thin;
   scrollbar-color: #31473A #EDF4F2;
+  font-family: "Inter", sans-serif;
 }
 
 #logo {

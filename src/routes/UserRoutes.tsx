@@ -1,5 +1,4 @@
 import UserLayout from "@/components/layout/UserLayout";
-import UserProfileLayout from "@/components/layout/UserProfileLayout";
 import SignUp from "@/pages/authentication/signUp/SignUp";
 import Cart from "@/pages/cart/Cart";
 import Home from "@/pages/home/Home";
@@ -34,8 +33,4 @@ export const router = createBrowserRouter([
             },
         ]
     },
-    {
-        path: '/userProfile',
-        element: <UserProfileLayout />
-    }
 ])
