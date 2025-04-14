@@ -12,6 +12,7 @@ const FeaturedCollection = () => {
   return (
     <Container>
       <div>
+        {/* Header title */}
         <div>
           <HeaderTitle
             title="Featured"
@@ -19,6 +20,8 @@ const FeaturedCollection = () => {
             subTitle="Dare to mix and match! Check our collection to level up your fashion game"
           />
         </div>
+
+        {/* Card container */}
         <div className="mt-12 lg:mt-20 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:w-[80%] mx-auto">
           <FeaturedCard
             productImage={product1}

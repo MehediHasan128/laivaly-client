@@ -11,7 +11,7 @@ import CartDrawer from "@/pages/cart/CartDrawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileMenu from "@/components/reusable/ProfileMenu";
 
-const user = true;
+const user = false;
 
 const Navbar = () => {
   return (
@@ -25,12 +25,12 @@ const Navbar = () => {
         {/* logo */}
         <NavLink to="/" className="w-full">
           <div className="flex justify-center items-center gap-3">
-            <div className="size-10 md:size-12">
+            <div className="size-9 md:size-12">
               <img src={logo} alt="Laivaly" />
             </div>
             <h1
               id="logo"
-              className="text-3xl md:text-4xl font-extrabold text-[#31473A]"
+              className="text-2xl md:text-4xl font-extrabold text-[#31473A]"
             >
               Laivaly
             </h1>
@@ -38,7 +38,8 @@ const Navbar = () => {
         </NavLink>
 
         {/* login, cart and search icon */}
-        <div className="text-xl md:text-2xl flex items-center gap-3 lg:gap-8">
+        <div className="text-xl md:text-2xl flex items-center gap-4 lg:gap-8">
+          {/* Search Icon */}
           <div>
             <SearchModal
               child={
@@ -51,6 +52,7 @@ const Navbar = () => {
               }
             />
           </div>
+          {/* Cart Icon */}
           <div>
             <CartDrawer
               child={
@@ -63,6 +65,7 @@ const Navbar = () => {
               }
             />
           </div>
+          {/* User Icon */}
           <div className={`${user ? "hidden" : "block"}`}>
             <SignInModal
               child={
@@ -75,9 +78,10 @@ const Navbar = () => {
               }
             />
           </div>
+          {/* Avatar */}
           <div className={`${user ? "block" : "hidden"}`}>
             <ProfileMenu>
-              <Avatar className="size-7 md:size-10">
+              <Avatar className="size-7 md:size-10 rounded-full">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
