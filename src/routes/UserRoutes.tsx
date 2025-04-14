@@ -1,3 +1,4 @@
+import AdminLayout from "@/components/layout/AdminLayout";
 import UserLayout from "@/components/layout/UserLayout";
 import SignUp from "@/pages/authentication/signUp/SignUp";
 import Cart from "@/pages/cart/Cart";
@@ -33,4 +34,11 @@ export const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: '/admin',
+        element: <AdminLayout />,
+        children: [
+            
+        ]
+    }
 ])
