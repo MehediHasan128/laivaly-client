@@ -2,9 +2,6 @@
 @import "tw-animate-css";
 
 
-
-
-
 ::-webkit-scrollbar{
   width: 8px;
   position: fixed;
@@ -18,6 +15,7 @@ html {
 
 #logo {
   font-family: "Great Vibes", cursive;
+  color: #31473A;
 }
 
 #fixedBackground {
@@ -28,3 +26,5 @@ html {
 }
 
 /* #31473A, #EDF4F2 */
+
+

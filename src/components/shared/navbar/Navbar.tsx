@@ -8,6 +8,10 @@ import logo from "../../../assets/images/logo/logo.png";
 import SearchModal from "@/utils/SearchModal";
 import { NavLink } from "react-router-dom";
 import CartDrawer from "@/pages/cart/CartDrawer";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ProfileMenu from "@/components/reusable/ProfileMenu";
+
+const user = true;
 
 const Navbar = () => {
   return (
@@ -35,36 +39,50 @@ const Navbar = () => {
 
         {/* login, cart and search icon */}
         <div className="text-xl md:text-2xl flex items-center gap-3 lg:gap-8">
-          <SearchModal
-            child={
-              <TooltipWrapper
-                child={
-                  <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
-                }
-                name="Search"
-              />
-            }
-          />
-          <CartDrawer
-            child={
-              <TooltipWrapper
-                child={
-                  <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
-                }
-                name="Cart"
-              />
-            }
-          />
-          <SignInModal
-            child={
-              <TooltipWrapper
-                child={
-                  <LuUserRound className="cursor-pointer hover:scale-110 duration-700" />
-                }
-                name="User"
-              />
-            }
-          />
+          <div>
+            <SearchModal
+              child={
+                <TooltipWrapper
+                  child={
+                    <FiSearch className="cursor-pointer hover:scale-110 duration-700" />
+                  }
+                  name="Search"
+                />
+              }
+            />
+          </div>
+          <div>
+            <CartDrawer
+              child={
+                <TooltipWrapper
+                  child={
+                    <IoBagHandleOutline className="cursor-pointer hover:scale-110 duration-700" />
+                  }
+                  name="Cart"
+                />
+              }
+            />
+          </div>
+          <div className={`${user ? "hidden" : "block"}`}>
+            <SignInModal
+              child={
+                <TooltipWrapper
+                  child={
+                    <LuUserRound className="cursor-pointer hover:scale-110 duration-700" />
+                  }
+                  name="User"
+                />
+              }
+            />
+          </div>
+          <div className={`${user ? "block" : "hidden"}`}>
+            <ProfileMenu>
+              <Avatar className="size-7 md:size-10">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </ProfileMenu>
+          </div>
         </div>
       </div>
     </div>

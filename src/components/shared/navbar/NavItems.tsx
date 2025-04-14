@@ -43,7 +43,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
 
           {/* Nav items */}
           <DrawerTitle>
-            <div className="lg:my-10 px-5 lg:px-20 flex flex-col text-start md:text-xl">
+            <div className="flex flex-col text-start md:text-xl">
               {navItems.map((item) => (
                 <NavLink
                   to={item.path}
@@ -51,11 +51,11 @@ const NavItems = ({ child }: { child: ReactNode }) => {
                     isPending
                       ? "pending"
                       : isActive
-                      ? "hover:translate-x-3 duration-1000 text-[#337a51] py-4 font-medium md:font-bold"
-                      : "hover:translate-x-3 duration-1000 py-4"
+                      ? "hover:translate-x-3 duration-1000 text-[#337a51] font-medium md:font-bold w-full"
+                      : "hover:translate-x-3 duration-1000 w-full"
                   }
                 >
-                  <DrawerClose>{item.label}</DrawerClose>
+                  <DrawerClose className="w-full h-full py-4 px-16 text-start cursor-pointer">{item.label}</DrawerClose>
                 </NavLink>
               ))}
             </div>
