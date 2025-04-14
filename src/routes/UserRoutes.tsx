@@ -1,3 +1,4 @@
+import AdminDashboard from "@/admin/adminDashboard.tsx/AdminDashboard";
 import AdminLayout from "@/components/layout/AdminLayout";
 import UserLayout from "@/components/layout/UserLayout";
 import SignUp from "@/pages/authentication/signUp/SignUp";
@@ -8,37 +9,44 @@ import ProductDetails from "@/pages/productDetails/ProductDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <UserLayout />,
-        children: [
-            {
-                path: '/',
-                element: <Home />
-            },
-            {
-                path: '/newIn',
-                element: <NewCollection />
-            },
-            {
-                path: '/productDetails/:productId',
-                element: <ProductDetails />
-            },
-            {
-                path: '/cart',
-                element: <Cart />
-            },
-            {
-                path: '/signUp',
-                element: <SignUp />
-            },
-        ]
-    },
-    {
-        path: '/admin',
-        element: <AdminLayout />,
-        children: [
-            
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <UserLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/newIn",
+        element: <NewCollection />,
+      },
+      {
+        path: "/productDetails/:productId",
+        element: <ProductDetails />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/signUp",
+        element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminDashboard />,
+      },
+      {
+        path: "/admin/dashBoard",
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+]);
