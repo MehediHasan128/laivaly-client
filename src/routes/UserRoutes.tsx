@@ -1,4 +1,5 @@
 import AdminDashboard from "@/admin/adminDashboard.tsx/AdminDashboard";
+import Users from "@/admin/users/Users";
 import AdminLayout from "@/components/layout/AdminLayout";
 import UserLayout from "@/components/layout/UserLayout";
 import SignUp from "@/pages/authentication/signUp/SignUp";
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "/admin/dashBoard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "/admin/users",
+        element: <Users />,
       },
     ],
   },
