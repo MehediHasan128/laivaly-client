@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { PanelLeftIcon } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -168,7 +168,7 @@ function Sidebar({
       <div
         data-slot="sidebar"
         className={cn(
-          "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
+          "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col shadow",
           className
         )}
         {...props}
@@ -251,29 +251,34 @@ function Sidebar({
   )
 }
 
+
+interface TSidebarTrigger extends React.ComponentProps<typeof Button> {
+  clicked: boolean
+}
+
+
+
 function SidebarTrigger({
+  clicked,
   className,
   onClick,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: TSidebarTrigger) {
   const { toggleSidebar } = useSidebar()
 
   return (
-    <Button
-      data-sidebar="trigger"
-      data-slot="sidebar-trigger"
-      variant="ghost"
+    <button
       size="icon"
-      className={cn("size-10", className)}
+      variant="ghost"
+      className={cn("my-5 cursor-pointer px-2", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+      <ArrowRight className={`${clicked? "rotate-[180deg] md:rotate-[0deg] duration-700" : "rotate-[0deg] md:rotate-[180deg] duration-700"}`}  />
+    </button>
   )
 }
 

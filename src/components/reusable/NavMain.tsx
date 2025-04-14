@@ -18,7 +18,7 @@ const NavMain = ({
 }) => {
   return (
     <SidebarGroup>
-      <SidebarMenu className="space-y-1">
+      <SidebarMenu className="space-y-2">
         {items.map((item, idx) => (
           <NavLink
             key={idx}
@@ -36,7 +36,7 @@ const NavMain = ({
                 tooltip={item.title}
                 className="cursor-pointer"
               >
-                <span className="text-2xl">{item.icon}</span>
+                <span className="text-2xl text-gray-600">{item.icon}</span>
                 <span className="font-medium">{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>

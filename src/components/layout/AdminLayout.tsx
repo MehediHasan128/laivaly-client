@@ -1,17 +1,27 @@
 import { Outlet } from "react-router-dom";
 import AppSidebar from "../reusable/AppSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
+import { useState } from "react";
 
 const AdminLayout = () => {
+
+  const [buttonClicked, setButtonClicked] = useState(false)
+
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <SidebarTrigger />
-      <SidebarInset>
-        <div>
-            <Outlet />
+
+      <AppSidebar buttonClicked={buttonClicked} setButtonClicked={setButtonClicked} />
+
+      <div className="h-fit">
+        <SidebarTrigger onClick={() => setButtonClicked(!buttonClicked)} clicked={buttonClicked} />
+      </div>
+
+      <SidebarInset className="md:bg-gray-50">
+        <div className="bg-black">
+          <Outlet />
         </div>
       </SidebarInset>
+      
     </SidebarProvider>
   );
 };
