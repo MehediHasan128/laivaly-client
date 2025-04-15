@@ -12,9 +12,9 @@ const Cart = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-32">
       <Container>
-        <div className="flex flex-col lg:flex-row 2xl:gap-10 py-5 md:py-10">
+        <div className="flex flex-col lg:flex-row gap-10 2xl:gap-16 py-5 md:py-10">
           <div className="xl:w-[70%] 2xl:w-[75%]">
             <h1 className="text-2xl md:text-3xl font-bold">Shopping Cart</h1>
 
@@ -33,7 +33,7 @@ const Cart = () => {
             </div>
           </div>
 
-          <div className="hidden xl:block xl:w-[30%] 2xl:w-[25%] py-[60px] lg:pl-10">
+          <div className="hidden xl:block xl:w-[30%] 2xl:w-[25%] py-[60px]">
             <div>
               <h1 className="text-xl 2xl:text-3xl font-semibold">Summary</h1>
 
