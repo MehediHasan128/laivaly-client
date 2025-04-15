@@ -270,7 +270,7 @@ function SidebarTrigger({
     <button
       size="icon"
       variant="ghost"
-      className={cn("my-5 cursor-pointer px-2", className)}
+      className={cn("cursor-pointer", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()

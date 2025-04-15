@@ -34,7 +34,7 @@ const Footer = () => {
           <div className="text-justify text-5xl space-y-5 lg:w-[20%]">
             <div className="space-y-5 w-fit">
               <img className="w-16 mx-auto" src={logo} alt="" />
-              <h1 id="logo">Laivaly</h1>
+              <h1 style={{fontFamily: "Great Vibes"}}>Laivaly</h1>
             </div>
             <div className="text-sm md:w-[50%] lg:w-[100%] text-gray-400">
               <p>

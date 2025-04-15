@@ -13,8 +13,11 @@ const AdminLayout = () => {
         setButtonClicked={setButtonClicked}
       />
 
-      <div className="h-fit">
+      <div
+        className={`h-fit fixed z-20 duration-300 top-2 p-2 ${buttonClicked ? "md:left-20" : "md:left-52"}`}
+      >
         <SidebarTrigger
+          className=""
           onClick={() => setButtonClicked(!buttonClicked)}
           clicked={buttonClicked}
         />
