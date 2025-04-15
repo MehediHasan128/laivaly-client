@@ -16,17 +16,17 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
     <Drawer direction="top">
       <DrawerTrigger className="flex">{child}</DrawerTrigger>
 
-      <DrawerContent className="pb-8">
-        <DrawerHeader className="md:w-[70%] lg:w-[50%] mx-auto">
+      <DrawerContent className="md:py-5">
+        <DrawerHeader className="md:w-[80%] md:mx-auto xl:w-[60%] 2xl:w-[50%]">
           <div className="relative">
             <Input
               type="text"
               name="searchText"
               placeholder="Search product"
-              className="font-medium pr-16"
+              className="pr-16 text-sm md:text-base font-medium"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <div className="text-2xl absolute top-0 right-0 rounded-r-lg h-full px-5 flex items-center">
+            <div className="text-xl md:text-2xl absolute top-0 right-0 rounded-r-lg h-full px-5 flex items-center">
               <LuSearch />
             </div>
           </div>

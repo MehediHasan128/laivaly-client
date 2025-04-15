@@ -19,11 +19,9 @@ const SignInForm = () => {
 
   return (
     <div>
-
       {/* Form */}
       <LForm onSubmit={userLogin}>
         <div>
-
           {/* Form input */}
           <div className="space-y-5">
             {/* User email input */}
@@ -85,7 +83,6 @@ const SignInForm = () => {
               <button>Forgot Password?</button>
             </div>
           </div>
-
         </div>
 
         {/* Sign in button */}
@@ -113,7 +110,6 @@ const SignInForm = () => {
           <IoLogoApple className="text-3xl" /> Apple
         </button>
       </div>
-      
     </div>
   );
 };

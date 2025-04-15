@@ -22,7 +22,7 @@ const FeaturedCollection = () => {
         </div>
 
         {/* Card container */}
-        <div className="mt-12 lg:mt-20 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:w-[80%] mx-auto">
+        <div className="mt-12 2xl:mt-20 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:w-[80%] mx-auto">
           <FeaturedCard
             productImage={product1}
             productCategory="Footwear"

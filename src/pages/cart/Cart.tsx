@@ -14,8 +14,8 @@ const Cart = () => {
   return (
     <div className="min-h-screen">
       <Container>
-        <div className="flex flex-col lg:flex-row lg:gap-10 py-5 md:py-10">
-          <div className="lg:w-[75%]">
+        <div className="flex flex-col lg:flex-row 2xl:gap-10 py-5 md:py-10">
+          <div className="xl:w-[70%] 2xl:w-[75%]">
             <h1 className="text-2xl md:text-3xl font-bold">Shopping Cart</h1>
 
             {/* Card container */}
@@ -33,11 +33,11 @@ const Cart = () => {
             </div>
           </div>
 
-          <div className="hidden lg:block lg:w-[25%] py-[60px] lg:pl-10">
+          <div className="hidden xl:block xl:w-[30%] 2xl:w-[25%] py-[60px] lg:pl-10">
             <div>
-              <h1 className="text-3xl font-semibold">Summary</h1>
+              <h1 className="text-xl 2xl:text-3xl font-semibold">Summary</h1>
 
-              <div className="my-10">
+              <div className="my-5 2xl:my-10">
                 <p className="mb-3 font-medium">Do you have any coupon code?</p>
                 <LForm onSubmit={handleApplyCouponCode}>
                   <div className="flex items-center gap-3 w-full relative">
@@ -57,43 +57,49 @@ const Cart = () => {
                 </LForm>
               </div>
 
-              <div className="text-lg">
+              <div className="text-base 2xl:text-lg">
                 <div className="space-y-4">
+
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600">
                       Sub Total:
                     </span>
-                    <span className="text-2xl font-semibold">$0.00</span>
+                    <span className="text-base 2xl:text-xl font-semibold">$0.00</span>
                   </div>
+
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600">
                       Estimated Shipping & Handling:
                     </span>
-                    <span className="text-2xl font-semibold">$0.00</span>
+                    <span className="text-base 2xl:text-xl font-semibold">$0.00</span>
                   </div>
+
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600">
                       Estimated Tax:
                     </span>
-                    <span className="text-2xl font-semibold">$0.00</span>
+                    <span className="text-base 2xl:text-xl font-semibold">$0.00</span>
                   </div>
+
                 </div>
+
                 <div className="border-b border-gray-300 my-5"></div>
+
                 <div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600 text-xl">
                       Total:
                     </span>
-                    <span className="text-3xl font-medium">$0.00</span>
+                    <span className="text-2xl font-medium">$0.00</span>
                   </div>
                 </div>
               </div>
 
               <div className="mt-10 space-y-3.5">
-                <button className="border border-[#31473A] bg-[#31473A] w-full py-3 rounded-lg text-lg font-medium text-white cursor-pointer hover:bg-[#1e3327] duration-700">
+                <button className="border border-[#31473A] bg-[#31473A] w-full py-2 2xl:py-3 rounded-lg font-medium text-white cursor-pointer hover:bg-[#1e3327] duration-700">
                   Check Out
                 </button>
-                <button className="border border-[#03399e] w-full py-3 rounded-lg text-lg font-extrabold cursor-pointer italic">
+                <button className="border border-[#03399e] w-full py-2 2xl:py-3 rounded-lg font-extrabold cursor-pointer italic">
                   <span className="text-[#03399e]">Pay</span>
                   <span className="text-[#009cde]">Pal</span>
                 </button>

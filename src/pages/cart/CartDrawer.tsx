@@ -16,49 +16,63 @@ const CartDrawer = ({ child }: { child: ReactNode }) => {
     <Drawer direction="right">
       <DrawerTrigger className="flex">{child}</DrawerTrigger>
 
-      <DrawerContent>
+      <DrawerContent className="w-[70%] md:w-[50%] xl:w-[30%] 2xl:w-[20%]">
         <DrawerHeader>
           {/* Nav items */}
-          <DrawerTitle className="px-16 md:px-24">
-            <div className="flex items-center justify-between w-full gap-10">
-              <h1 className="text-xl w-full">Shopping Cart</h1>
-            </div>
+          <DrawerTitle className="text-center">
+            <h1 className="text-lg md:text-2xl">Shopping Cart</h1>
           </DrawerTitle>
         </DrawerHeader>
 
         <div className="h-full flex justify-center items-center">
           <div className="text-center">
-            <IoBagHandleOutline className="text-8xl md:text-[140px] text-[#31473A] mx-auto" />
-            <h1 className="text-xl md:text-2xl">Your cart in empty</h1>
-            <button className="mt-5 md:mt-10 border-2 border-[#31473A] px-4 md:px-5 py-1.5 md:py-2 rounded-full font-semibold hover:bg-[#31473A] hover:text-white duration-500 cursor-pointer">
-              Shop Now
-            </button>
+            <IoBagHandleOutline className="text-[#31473A] text-6xl md:text-8xl xl:text-7xl 2xl:text-8xl mx-auto" />
+            <h1 className="font-medium text-xl md:text-2xl 2xl:text-3xl my-1 md:my-2 2xl:my-3">
+              Your cart in empty
+            </h1>
+            <DrawerClose asChild>
+              <NavLink to="/newIn">
+                <div className="bg-[#31473A] rounded-full text-white font-medium px-3 py-1 md:px-4 md:py-2 mt-3 cursor-pointer">
+                  Shop Now
+                </div>
+              </NavLink>
+            </DrawerClose>
           </div>
         </div>
 
         <DrawerFooter>
-          <div className="space-y-3 px-3 md:text-lg">
+
+          <div className="space-y-1.5 md:space-y-2.5 xl:space-y-1.5 2xl:space-y-3 text-base md:text-lg xl:text-base font-medium">
+
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Sub total:</span>{" "}
+              <span className="text-gray-600">Sub Total:</span>{" "}
               <span>$0.00</span>
             </div>
+
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Shipping:</span>{" "}
+              <span className="text-gray-600">Estimated Shipping:</span>{" "}
               <span>$0.00</span>
             </div>
+
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Tax(15%):</span>{" "}
+              <span className="text-gray-600">Estimated Tax(15%):</span>{" "}
               <span>$0.00</span>
             </div>
+
           </div>
+
           {/* divider */}
-          <div className="flex-grow border-t border-gray-300 my-3 md:my-5"></div>
+          <div className="flex-grow border-t border-gray-300 my-1.5 md:my-2"></div>
+
           {/* total */}
-          <div className="flex justify-between items-center text-xl md:text-2xl px-3 font-semibold">
+          <div className="flex justify-between items-center text-lg md:text-xl font-medium md:font-semibold">
             <span>Total:</span> <span>$0.00</span>
           </div>
 
-          <DrawerClose asChild className="bg-[#31473A] border border-[#31473A] mt-5 py-2 font-medium text-center text-white rounded-lg overflow-hidden cursor-pointer hover:bg-[#101f16] duration-1000">
+          <DrawerClose
+            asChild
+            className="bg-[#31473A] border border-[#31473A] text-center text-white rounded-lg overflow-hidden cursor-pointer hover:bg-[#101f16] duration-1000 py-1 md:py-2 md:mt-1.5"
+          >
             <NavLink to="/cart">
               <div className="flex items-center justify-center gap-1.5">
                 <IoBagHandleOutline className="text-xl" />
@@ -66,6 +80,7 @@ const CartDrawer = ({ child }: { child: ReactNode }) => {
               </div>
             </NavLink>
           </DrawerClose>
+
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

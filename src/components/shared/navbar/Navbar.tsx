@@ -25,7 +25,7 @@ const Navbar = () => {
         {/* logo */}
         <NavLink to="/" className="w-full">
           <div className="flex justify-center items-center gap-3">
-            <div className="size-9 md:size-12">
+            <div className="size-9 md:size-12 xl:size-11 2xl:size-12">
               <img src={logo} alt="Laivaly" />
             </div>
             <h1
@@ -38,7 +38,7 @@ const Navbar = () => {
         </NavLink>
 
         {/* login, cart and search icon */}
-        <div className="text-xl md:text-2xl flex items-center gap-4 lg:gap-8">
+        <div className="flex items-center gap-4 text-xl md:gap-6 md:text-3xl xl:gap-7 xl:text-2xl 2xl:gap-8">
           {/* Search Icon */}
           <div>
             <SearchModal
@@ -81,7 +81,7 @@ const Navbar = () => {
           {/* Avatar */}
           <div className={`${user ? "block" : "hidden"}`}>
             <ProfileMenu>
-              <Avatar className="size-7 md:size-10 rounded-full">
+              <Avatar className="hidden md:block md:size-12 rounded-full">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>

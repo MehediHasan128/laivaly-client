@@ -15,11 +15,14 @@ import { NavLink } from "react-router-dom";
 const SignInModal = ({ child }: { child: ReactNode }) => {
   return (
     <Dialog>
+      {/* Sign in button */}
       <DialogTrigger className="flex">{child}</DialogTrigger>
-      <DialogContent className="flex flex-col lg:flex-row items-center md:max-w-[80%] lg:max-w-[50%]">
+      {/* Main Sign in content */}
+      <DialogContent className="flex justify-center items-center xl:max-w-[70%] 2xl:max-w-[50%]">
+
         {/* SignIn form */}
-        <div className="md:w-full lg:w-[50%] flex justify-center items-center">
-          <div className="md:w-[70%] lg:w-[80%] mx-auto">
+        <div className="flex justify-center items-center md:w-[80%] xl:w-[50%]">
+          <div className="mx-auto w-full xl:w-[90%]">
             <DialogHeader>
               <DialogTitle>
                 <h1 className="text-3xl text-center">Sign In .</h1>
@@ -52,10 +55,12 @@ const SignInModal = ({ child }: { child: ReactNode }) => {
         </div>
 
         {/* Image contetnt */}
-        <div className="rounded-lg overflow-hidden lg:w-[50%] hidden lg:flex">
+        <div className="rounded-lg overflow-hidden hidden xl:block xl:w-[50%]">
           <img src={tShirt} alt="tShirt" />
         </div>
+
       </DialogContent>
+
     </Dialog>
   );
 };

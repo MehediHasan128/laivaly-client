@@ -9,16 +9,21 @@ const CartCard = () => {
 
   return (
     <div className="border-b border-gray-300 py-3 flex justify-between items-center select-none">
-      <div className="w-20 lg:w-42 flex items-center gap-0.5 md:gap-1.5 lg:gap-2.5">
+      {/* Product Image */}
+      <div className="w-20 xl:w-24 2xl:w-42 flex items-center gap-0.5 md:gap-1.5 lg:gap-2.5">
         <Checkbox id="remember" />
         <img src={product} alt="" />
       </div>
+
+      {/* Product Title */}
       <div>
-        <h1 className="text-base lg:text-xl font-semibold">
+        <h1 className="text-base 2xl:text-xl font-semibold">
           Royal Perfume 25ml
         </h1>
-        <p className="text-sm lg:text-lg font-medium text-gray-600">Perfume</p>
+        <p className="text-sm 2xl:text-lg font-medium text-gray-600">Perfume</p>
       </div>
+
+      {/* Product quantity */}
       <div className="flex items-center md:gap-1.5 lg:gap-3">
         <span
           onClick={() => quantity > 1 && setQuantity(quantity - 1)}
@@ -36,9 +41,13 @@ const CartCard = () => {
           <FiPlus />
         </span>
       </div>
+
+      {/* Product price */}
       <div>
-        <h1 className="text-lg lg:text-2xl font-bold">$25.00</h1>
+        <h1 className="text-lg xl:text-xl 2xl:text-2xl font-bold">$25.00</h1>
       </div>
+
+      {/* Remove product */}
       <div className="text-lg lg:text-2xl bg-gray-200 p-2 rounded-full active:scale-95 transition transform duration-100 cursor-pointer">
         <RxCross2 />
       </div>

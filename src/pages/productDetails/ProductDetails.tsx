@@ -28,12 +28,14 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
+      {/* Details container */}
       <Container>
-        <div className="flex flex-col md:flex-row gap-5 lg:gap-16">
+        {/* Main comtainer */}
+        <div className="flex flex-col md:flex-row items-start gap-5 xl:gap-10">
           {/* Image section */}
           <div className="md:w-[50%]">
-            <div className="flex flex-col lg:flex-row-reverse gap-2">
-              <div className="relative lg:w-[80%]">
+            <div className="flex flex-col lg:flex-row-reverse gap-2 w-full">
+              <div className="relative xl:w-[80%]">
                 <img
                   className="h-[400px] md:h-[430px] lg:h-full w-full object-cover"
                   src={mainImg}
@@ -47,28 +49,44 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 lg:flex flex-row lg:flex-col gap-2 lg:w-[20%]">
+              <div className="grid grid-cols-4 lg:flex flex-row lg:flex-col gap-2 xl:w-[20%]">
                 <img
                   onClick={() => setMainImg(product1)}
-                  className={`object-cover cursor-pointer border-2 ${(mainImg === product1)? "border-[#31473A]" : "border-gray-200"}`}
+                  className={`object-cover cursor-pointer border-2 ${
+                    mainImg === product1
+                      ? "border-[#31473A]"
+                      : "border-gray-200"
+                  }`}
                   src={product1}
                   alt=""
                 />
                 <img
                   onClick={() => setMainImg(product3)}
-                  className={`object-cover cursor-pointer border-2 ${(mainImg === product3)? "border-[#31473A]" : "border-gray-200"}`}
+                  className={`object-cover cursor-pointer border-2 ${
+                    mainImg === product3
+                      ? "border-[#31473A]"
+                      : "border-gray-200"
+                  }`}
                   src={product3}
                   alt=""
                 />
                 <img
                   onClick={() => setMainImg(product4)}
-                  className={`object-cover cursor-pointer border-2 ${(mainImg === product4)? "border-[#31473A]" : "border-gray-200"}`}
+                  className={`object-cover cursor-pointer border-2 ${
+                    mainImg === product4
+                      ? "border-[#31473A]"
+                      : "border-gray-200"
+                  }`}
                   src={product4}
                   alt=""
                 />
                 <img
                   onClick={() => setMainImg(product5)}
-                  className={`object-cover cursor-pointer border-2 ${(mainImg === product5)? "border-[#31473A]" : "border-gray-200"}`}
+                  className={`object-cover cursor-pointer border-2 ${
+                    mainImg === product5
+                      ? "border-[#31473A]"
+                      : "border-gray-200"
+                  }`}
                   src={product5}
                   alt=""
                 />
@@ -77,13 +95,15 @@ const ProductDetails = () => {
           </div>
 
           {/* Details section */}
-          <div className="md:w-[50%] ">
+          <div className="md:w-[50%]">
             <div>
-              <h1 className="text-xl lg:text-3xl font-bold">
+              {/* Product Title */}
+              <h1 className="font-semibold text-xl md:text-2xl 2xl:text-3xl">
                 Artificial Leather Fashionable hand Bag for Women
               </h1>
 
-              <div className="my-3 lg:my-8 lg:w-[90%] font-medium text-gray-700 text-sm lg:text-base text-justify">
+              {/* Product Description */}
+              <div className="text-gray-600 font-medium text-justify text-sm md:text-base 2xl:text-lg my-2 2xl:my-5">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque distinctio perferendis provident odio at nostrum
@@ -95,7 +115,8 @@ const ProductDetails = () => {
                 </p>
               </div>
 
-              <div className="flex items-end gap-2.5 lg:gap-5">
+              {/* Product review */}
+              <div className="flex gap-3 my-3">
                 <h1 className="flex items-end gap-1.5 text-base lg:text-xl font-bold">
                   5K{" "}
                   <span className="text-base font-medium text-gray-700">
@@ -115,21 +136,23 @@ const ProductDetails = () => {
                 </h1>
               </div>
 
-              <div className="my-4 lg:my-10">
-                <h1 className="text-2xl lg:text-5xl font-bold">
+              {/* Product Price */}
+              <div className="my-5">
+                <h1 className="font-bold text-2xl 2xl:text-4xl">
                   $25.00{" "}
-                  <sub className="text-base lg:text-2xl line-through font-light text-red-800">
+                  <sub className="line-through font-medium text-red-800 2xl:text-2xl">
                     $50.00
                   </sub>
                 </h1>
               </div>
 
-              <div className="lg:my-5">
-                <h1 className="hidden lg:flex text-lg font-medium">
-                  Color: {color.charAt(0).toUpperCase() + color.slice(1)}
+              {/* Product color */}
+              <div className="">
+                <h1 className="hidden 2xl:block text-lg font-medium mb-1.5">
+                  Color:
                 </h1>
 
-                <div className="mt-1.5 lg:mt-3 flex items-center gap-3">
+                <div className="flex gap-2">
                   <div
                     onClick={() => setColor("red")}
                     className={`${
@@ -157,12 +180,13 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div>
-                <h1 className="hidden lg:flex text-lg font-medium">
-                  Size: {size.charAt(0).toUpperCase() + size.slice(1)}
+              {/* Product size */}
+              <div className="my-5">
+                <h1 className="hidden 2xl:block text-lg font-medium mb-1.5">
+                  Size:
                 </h1>
 
-                <div className="mt-3 flex items-center gap-3">
+                <div className="flex gap-3 text-xs font-medium">
                   <div
                     onClick={() => setSize("XS")}
                     className="border border-gray-500 rounded overflow-hidden cursor-pointer"
@@ -250,41 +274,44 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div className="my-5 lg:my-10">
-                <h1 className="hidden lg:flex text-lg font-medium mb-3">
+              {/* Product quantity */}
+              <div className="">
+                <h1 className="hidden lg:flex text-lg font-medium mb-1.5">
                   Quantity
                 </h1>
 
-                <div className="flex items-center md:gap-1.5 lg:gap-3">
+                <div className="flex items-center gap-2">
                   <span
-                    onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                    className="bg-gray-200 font-semibold p-2 rounded active:scale-95 transition transform duration-100 cursor-pointer text-sm lg:text-base"
+                    onClick={() => quantity > 0 && setQuantity(quantity - 1)}
+                    className="bg-gray-200 font-semibold p-2 rounded active:scale-95 transition transform duration-100 cursor-pointer text-sm md:text-base"
                   >
                     <FiMinus />
                   </span>
-                  <span className="w-16 text-center text-base lg:text-xl font-semibold">
+                  <span className="w-16 text-center text-lg lg:text-xl font-semibold">
                     {quantity}
                   </span>
                   <span
                     onClick={() => setQuantity(quantity + 1)}
-                    className="bg-gray-200 font-semibold p-2 rounded active:scale-95 transition transform duration-100 cursor-pointer text-sm lg:text-base"
+                    className="bg-gray-200 font-semibold p-2 rounded active:scale-95 transition transform duration-100 cursor-pointer text-sm  md:text-base"
                   >
                     <FiPlus />
                   </span>
                 </div>
               </div>
 
-              <div className="my-5 lg:mb-5 flex gap-3.5">
-                <button className="bg-[#31473A] hover:bg-[#1d2c23] duration-1000 border border-[#31473A] text-white w-full py-2 lg:py-4 flex justify-center gap-3 rounded lg:text-lg font-medium cursor-pointer">
-                  <IoBagHandleOutline className="text-2xl" /> Add to Cart
+              {/* Cart or buy button */}
+              <div className="flex gap-3 font-medium my-5 2xl:my-10">
+                <button className="bg-[#31473A] hover:bg-[#1d2c23] border border-[#31473A] w-full flex justify-center items-center gap-2 rounded text-white text-sm 2xl:text-base py-2 xl:py-2.5 2xl:py-3">
+                  <IoBagHandleOutline className="text-xl 2xl:text-2xl" /> Add to
+                  Cart
                 </button>
 
-                <button className="border border-[#31473A] w-full py-2 lg:py-4 flex justify-center gap-3 rounded lg:text-lg font-medium cursor-pointer">
+                <button className="border border-[#31473A] w-full flex justify-center items-center gap-2 rounded text-[#31473A] text-sm 2xl:text-base py-2 xl:py-2.5 2xl:py-3">
                   Buy Now
                 </button>
               </div>
 
-              <div className="hidden md:flex justify-between items-center lg:py-5 lg:px-20">
+              <div className="flex justify-around items-center">
                 <div className="lg:text-xl flex items-center gap-1.5">
                   <PiChats className="text-xl lg:text-2xl" />
                   <h1>Chat</h1>
@@ -311,6 +338,7 @@ const ProductDetails = () => {
 
       <div className="border-b border-gray-300 my-8 md:my-10 lg:my-20"></div>
 
+      {/* Customer review container */}
       <Container>
         <div className="flex flex-col-reverse lg:flex-row gap-6 md:gap-20">
           <div className="lg:w-[60%]">

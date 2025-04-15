@@ -6,7 +6,7 @@ const CustomerReview = () => {
   return (
     <div className="py-6 md:py-8 border-b border-gray-300">
       <div className="flex items-center gap-2">
-        <Avatar className="size-10 md:size-12">
+        <Avatar className="size-10 md:size-12 rounded-full">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
