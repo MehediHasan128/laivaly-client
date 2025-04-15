@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 const SignUp = () => {
   return (
     <div className="flex justify-between h-screen overflow-hidden">
-      <div className="w-full lg:w-[50%] relative">
+
+      <div className="w-full xl:w-[50%] relative">
         <NavLink
           to="/"
           className="flex justify-center items-center gap-3 p-5 w-full lg:w-fit cursor-pointer relative z-20"
@@ -19,10 +20,10 @@ const SignUp = () => {
         </NavLink>
 
         <div className="absolute top-0 w-full h-full flex justify-center items-center">
-          <div className="lg:w-[50%] p-8">
+          <div className="2xl:w-[50%] p-8">
             <div className="text-center">
-              <h1 className="text-3xl font-bold">Welcome to Laivaly</h1>
-              <p className="text-lg text-gray-600 mt-2">
+              <h1 className="text-2xl 2xl:text-3xl font-bold">Welcome to Laivaly</h1>
+              <p className="text-sm 2xl:text-lg text-gray-600 mt-2">
                 Create your first Laivaly accout
               </p>
             </div>
@@ -33,9 +34,10 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <div className="hidden lg:flex w-[50%] p-3 relative">
+
+      <div className="hidden xl:flex w-[50%] relative">
         <img
-          className="w-full object-cover rounded-2xl brightness-[50%]"
+          className="w-full object-cover brightness-[50%]"
           src={banner}
           alt=""
         />
@@ -46,8 +48,8 @@ const SignUp = () => {
             transition={{ duration: 2, ease: "easeOut" }}
             className="rounded-2xl p-6 md:p-10 text-white text-center max-w-2xl mx-auto mt-10"
           >
-            <h2 className="text-7xl font-bold mb-4">Join Laivaly Today</h2>
-            <p className="text-lg leading-relaxed">
+            <h2 className="text-5xl 2xl:text-6xl font-bold mb-4">Join Laivaly Today</h2>
+            <p className="text-lg text-gray-300 leading-relaxed">
               Discover your style, stay trendy, and enjoy exclusive member
               perks. Be part of a fashion-forward community built for you.
             </p>

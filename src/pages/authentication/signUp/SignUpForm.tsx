@@ -134,10 +134,10 @@ const SignUpForm = () => {
 
       {/* Login with google or apple */}
       <div className="flex justify-between gap-5">
-        <button className="w-[50%] text-xl flex justify-center items-center gap-2 font-medium border border-gray-300 py-3 rounded-lg cursor-pointer">
+        <button className="w-[50%] flex justify-center items-center gap-2 font-medium border border-gray-300 py-3 rounded-lg cursor-pointer">
           <FcGoogle className="text-2xl" /> Google
         </button>
-        <button className="w-[50%] text-xl flex justify-center items-center gap-2 font-medium border border-gray-300 py-3 rounded-lg cursor-pointer">
+        <button className="w-[50%] flex justify-center items-center gap-2 font-medium border border-gray-300 py-3 rounded-lg cursor-pointer">
           <IoLogoApple className="text-3xl" /> Apple
         </button>
       </div>
