@@ -50,7 +50,10 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
 
     if (!input) return;
 
-    html2canvas(input).then((canvas) => {
+    html2canvas(input, {
+      scale: window.devicePixelRatio || 2,
+      useCORS: true,
+    }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4", true);
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -59,7 +62,7 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
       const imgHeight = canvas.height;
       const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 30;
+      const imgY = 5;
       pdf.addImage(
         imgData,
         "PNG",
@@ -78,9 +81,9 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
         <button className="text-blue-700 cursor-pointer">{btn}</button>
       </DialogTrigger>
 
-      <DialogContent className="p-0 2xl:max-w-[40%]">
+      <DialogContent className="p-0 xl:max-w-[60%] 2xl:max-w-[40%]">
         <div ref={pdfRef}>
-          <DialogHeader className=" py-4 px-4">
+          <DialogHeader className="xl:py-2 2xl:py-4 px-4">
             <DialogTitle className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <img className="w-8" src={logo} alt={logo} />
@@ -96,9 +99,9 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
 
           <div className="border-t border-gray-300"></div>
 
-          <div className="px-5 my-4">
-            <img className="w-24 rounded-lg" src={product} alt="" />
-            <div className="flex justify-between mt-3">
+          <div className="px-5 xl:my-2 2xl:my-4">
+            <img className="xl:w-20 2xl:w-24 rounded-lg" src={product} alt="" />
+            <div className="flex justify-between xl:mt-1.5 2xl:mt-3">
               <div>
                 <h1 className="font-medium">Invoice from Laivaly</h1>
                 <p className="text-sm font-medium text-gray-600">
@@ -116,33 +119,32 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
 
           <div className="border-t border-gray-300"></div>
 
-          <div className="flex gap-20 px-5 my-4">
-            <div>
-              <p className="font-medium text-gray-600">Bill from:</p>
-              <h1 className="text-xl font-bold ">Laivaly</h1>
-              <h2 className="text-lg font-medium">
+          <div className="flex gap-28 px-5 xl:my-2 2xl:my-4">
+            <div className="font-medium">
+              <p className="font-bold text-gray-600">Bill from:</p>
+              <h1 className="text-xl">Laivaly</h1>
+              <h2>
                 House: 10, Road: 2/B, Sector: 4, <br /> Uttara Dhaka-1230
               </h2>
             </div>
-            <div>
-              <p className="font-medium text-gray-600">Bill to:</p>
-              <h1 className="text-xl font-bold ">Mehedi Hasan</h1>
-              <p className="text-sm font-medium text-gray-600">
-                #507f191e810c19729de860ea
-              </p>
-              <h2 className="text-lg font-medium">
+            <div className="font-medium">
+              <p className="font-bold text-gray-600">Bill to:</p>
+              <h1 className="text-xl">Mehedi Hasan</h1>
+              <p className="text-sm text-gray-600">#507f191e810c19729de860ea</p>
+              <h2>
                 House: 10, Road: 2/B, Sector: 4, <br /> Uttara Dhaka-1230
               </h2>
             </div>
           </div>
 
-          <div className="border-t border-gray-300 my-4"></div>
+          <div className="border-t border-gray-300 xl:my-2 2xl:my-4"></div>
 
-          <div className="px-5 my-4">
+          <div className="px-5 2xl:my-4">
             <Table className="font-medium">
               <TableHeader className="bg-gray-300">
                 <TableRow className="border-gray-400">
                   <TableHead>Items</TableHead>
+                  <TableHead className="text-center">Product Code</TableHead>
                   <TableHead className="text-center">Quantity</TableHead>
                   <TableHead className="text-center">Price</TableHead>
                   <TableHead className="text-end">Total Price</TableHead>
@@ -154,6 +156,10 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
                   <TableRow key={invoice.invoice} className="border-gray-200">
                     <TableCell>
                       <p>Royal Perfume 25ml</p>
+                    </TableCell>
+
+                    <TableCell className="text-center">
+                      <p>TSH-BLK-M-001</p>
                     </TableCell>
 
                     <TableCell className="text-center">
@@ -173,8 +179,8 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
             </Table>
           </div>
 
-          <div className="flex justify-end px-7 font-medium">
-            <div className="space-y-1.5 w-[40%]">
+          <div className="flex justify-end px-7 font-medium mt-2.5 2xl:mt-5">
+            <div className="space-y-1 2xl:space-y-1.5 text-sm w-[40%]">
               <div className="flex justify-between">
                 <span className="text-gray-600">Sub Total:</span>{" "}
                 <span>$ 30.00</span>
@@ -190,18 +196,20 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
             </div>
           </div>
 
-          <div className="border-t border-gray-300 my-3"></div>
+          <div className="border-t border-gray-300 xl:my-2 2xl:my-3"></div>
 
-          <div className="flex justify-end px-7 font-medium">
+          <div className="flex justify-end px-7 font-medium text-base 2xl:text-lg">
             <div className="w-[40%]">
-              <div className="flex justify-between text-lg">
+              <div className="flex justify-between">
                 <span className="text-gray-600">Total:</span>{" "}
                 <span>$ 30.00</span>
               </div>
             </div>
           </div>
 
-          
+          <div className="xl:mt-3 2xl:mt-10 text-center font-medium text-gray-600">
+            <h1>Thank you for shopping with Laivaly!</h1>
+          </div>
         </div>
 
         <DialogFooter className="p-5">

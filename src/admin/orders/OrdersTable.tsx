@@ -79,6 +79,7 @@ const OrdersTable = () => {
           <TableHead className="text-center">Product Code</TableHead>
           <TableHead className="text-center">Date</TableHead>
           <TableHead className="text-center">Total Price</TableHead>
+          <TableHead className="text-center">Payment Method</TableHead>
           <TableHead className="text-center">Payment</TableHead>
           <TableHead className="text-center">Status</TableHead>
           <TableHead className="text-center">Bill</TableHead>
@@ -107,6 +108,10 @@ const OrdersTable = () => {
 
             <TableCell className="text-center">
               <p>$ 25.00</p>
+            </TableCell>
+
+            <TableCell className="text-center">
+              <p>Paypal</p>
             </TableCell>
 
             <TableCell className="text-center">
