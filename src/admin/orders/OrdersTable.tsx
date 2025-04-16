@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { HiDotsVertical } from "react-icons/hi";
+import ProductBillPage from "./ProductBillPage";
 
 const invoices = [
   {
@@ -117,7 +118,7 @@ const OrdersTable = () => {
             </TableCell>
 
             <TableCell className="text-center">
-              <button className="text-blue-700 cursor-pointer">Details</button>
+              <ProductBillPage btn="Details" />
             </TableCell>
 
             <TableCell className="">
