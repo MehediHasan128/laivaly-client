@@ -1,4 +1,5 @@
 import AdminDashboard from "@/admin/adminDashboard.tsx/AdminDashboard";
+import Orders from "@/admin/orders/Orders";
 import Products from "@/admin/products/Products";
 import Users from "@/admin/users/Users";
 import AdminLayout from "@/components/layout/AdminLayout";
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "/admin/products",
         element: <Products />,
+      },
+      {
+        path: "/admin/orders",
+        element: <Orders />,
       },
     ],
   },
