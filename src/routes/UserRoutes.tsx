@@ -4,6 +4,7 @@ import Products from "@/admin/products/Products";
 import Users from "@/admin/users/Users";
 import AdminLayout from "@/components/layout/AdminLayout";
 import UserLayout from "@/components/layout/UserLayout";
+import UserProfile from "@/components/layout/UserProfile";
 import SignUp from "@/pages/authentication/signUp/SignUp";
 import Cart from "@/pages/cart/Cart";
 import Home from "@/pages/home/Home";
@@ -63,5 +64,9 @@ export const router = createBrowserRouter([
         element: <Orders />,
       },
     ],
+  },
+  {
+    path: "/profile",
+    element: <UserProfile />,
   },
 ]);

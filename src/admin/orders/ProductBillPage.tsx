@@ -141,6 +141,7 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
 
           <div className="px-5 2xl:my-4">
             <Table className="font-medium">
+
               <TableHeader className="bg-gray-300">
                 <TableRow className="border-gray-400">
                   <TableHead>Items</TableHead>
@@ -176,6 +177,7 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
                   </TableRow>
                 ))}
               </TableBody>
+
             </Table>
           </div>
 

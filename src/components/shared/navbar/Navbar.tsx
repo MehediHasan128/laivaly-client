@@ -11,7 +11,7 @@ import CartDrawer from "@/pages/cart/CartDrawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileMenu from "@/components/reusable/ProfileMenu";
 
-const user = false;
+const user = true;
 
 const Navbar = () => {
   return (

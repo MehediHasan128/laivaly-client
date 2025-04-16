@@ -22,7 +22,7 @@ const ProfileMenu = ({ children }: { children: ReactNode }) => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <NavLink to="/userProfile">
+          <NavLink to="/profile">
             <DropdownMenuItem className="cursor-pointer">
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
