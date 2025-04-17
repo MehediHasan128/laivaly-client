@@ -5,7 +5,7 @@ import SignInModal from "@/pages/authentication/signIn/SignInModal";
 import TooltipWrapper from "@/components/reusable/TooltipWrapper";
 import { IoBagHandleOutline, IoMenu } from "react-icons/io5";
 import logo from "../../../assets/images/logo/logo.png";
-import SearchModal from "@/utils/SearchModal";
+import SearchModal from "@/components/reusable/SearchModal";
 import { NavLink } from "react-router-dom";
 import CartDrawer from "@/pages/cart/CartDrawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
