@@ -7,6 +7,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { generateUserPaths } from "@/utils/generateUserPaths";
 import { adminRoutesAndPaths } from "@/routes/AdminRoutes";
+import { userRoutesAndPaths } from "@/routes/UserRoutes";
 
 const UserRole = {
   ADMIN: "admin",
@@ -14,12 +15,16 @@ const UserRole = {
 };
 
 const NavMain = () => {
-  const role = "admin";
+  const role = "buyer";
   let navItems;
 
   switch (role) {
     case UserRole.ADMIN:
       navItems = generateUserPaths(adminRoutesAndPaths);
+      break;
+
+    case UserRole.BUYER:
+      navItems = generateUserPaths(userRoutesAndPaths);
       break;
 
     default:
