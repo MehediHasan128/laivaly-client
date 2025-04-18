@@ -10,41 +10,7 @@ import {
 import NavMain from "./NavMain";
 import NavUser from "./NavUser";
 import logo from "../../assets/images/logo/logo.png";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { HiOutlineUsers } from "react-icons/hi2";
-import { AiOutlineProduct } from "react-icons/ai";
-import { LiaClipboardListSolid } from "react-icons/lia";
-import { HiOutlineShoppingBag } from "react-icons/hi";
 
-const data = {
-  navMain: [
-    {
-      title: "Dashboard",
-      path: "/admin/dashboard",
-      icon: <MdOutlineSpaceDashboard />,
-    },
-    {
-      title: "Users",
-      path: "/admin/users",
-      icon: <HiOutlineUsers />,
-    },
-    {
-      title: "Products",
-      path: "/admin/products",
-      icon: <AiOutlineProduct />,
-    },
-    {
-      title: "Oders",
-      path: "/admin/orders",
-      icon: <LiaClipboardListSolid />,
-    },
-    {
-      title: "Shop",
-      path: "/",
-      icon: <HiOutlineShoppingBag />,
-    },
-  ],
-};
 
 interface TAppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   buttonClicked: boolean;
@@ -84,7 +50,7 @@ const AppSidebar = ({
       </SidebarHeader>
 
       <SidebarContent className="my-3">
-        <NavMain items={data.navMain} />
+        <NavMain />
       </SidebarContent>
 
       <SidebarFooter>

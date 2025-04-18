@@ -5,23 +5,33 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 import { NavLink } from "react-router-dom";
-import { ReactNode } from "react";
+import { generateUserPaths } from "@/utils/generateUserPaths";
+import { adminRoutesAndPaths } from "@/routes/AdminRoutes";
 
-const NavMain = ({
-  items,
-}: {
-  items: {
-    title: string;
-    path: string;
-    icon?: ReactNode;
-  }[];
-}) => {
+const UserRole = {
+  ADMIN: "admin",
+  BUYER: "buyer",
+};
+
+const NavMain = () => {
+  const role = "admin";
+  let navItems;
+
+  switch (role) {
+    case UserRole.ADMIN:
+      navItems = generateUserPaths(adminRoutesAndPaths);
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <SidebarGroup>
       <SidebarMenu className="space-y-2">
-        {items.map((item, idx) => (
+        {navItems!.map((item) => (
           <NavLink
-            key={idx}
+            key={item.title}
             to={item.path}
             className={({ isActive, isPending }) =>
               isPending
