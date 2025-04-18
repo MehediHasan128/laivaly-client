@@ -1,29 +1,29 @@
-import { generateUserRoutes } from "@/utils/generateUserRoutes";
-import { LiaClipboardListSolid } from "react-icons/lia";
-import { VscAccount } from "react-icons/vsc";
-import { MdOutlineLocalShipping, MdOutlinePayment } from "react-icons/md";
 import { BiSupport } from "react-icons/bi";
-import { IoGiftOutline, IoSettingsOutline } from "react-icons/io5";
-import MyAccount from "@/buyer/myAccount/MyAccount";
-import MyOrders from "@/buyer/myOrders/MyOrders";
-import Payment from "@/buyer/payment/Payment";
-import SupportAndCommunication from "@/buyer/support&Communication/SupportAndCommunication";
-import ShippingAndReturns from "@/buyer/shipping&Returns/ShippingAndReturns";
 import Reward from "@/buyer/rewards/Reward";
+import Payment from "@/buyer/payment/Payment";
+import MyOrders from "@/buyer/myOrders/MyOrders";
 import Settings from "@/buyer/settings/Settings";
+import MyAccount from "@/buyer/myAccount/MyAccount";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { LiaClipboardListSolid } from "react-icons/lia";
+import { generateUserRoutes } from "@/utils/generateUserRoutes";
+import { IoGiftOutline, IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineLocalShipping, MdOutlinePayment } from "react-icons/md";
+import ShippingAndReturns from "@/buyer/shipping&Returns/ShippingAndReturns";
+import SupportAndCommunication from "@/buyer/support&Communication/SupportAndCommunication";
 
 export const userRoutesAndPaths = [
   {
     index: true,
     title: "My Account",
     element: <MyAccount />,
-    icon: <VscAccount />,
+    icon: <RiAccountCircleLine />,
   },
   {
     title: "My Account",
     path: "/profile/my-account",
     element: <MyAccount />,
-    icon: <VscAccount />,
+    icon: <RiAccountCircleLine />,
   },
   {
     title: "My Oders",

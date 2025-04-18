@@ -8,6 +8,7 @@ import NewCollection from "@/pages/newCollection/NewCollection";
 import ProductDetails from "@/pages/productDetails/ProductDetails";
 import { createBrowserRouter } from "react-router-dom";
 import { adminRoutes } from "./AdminRoutes";
+import { userRoutes } from "./UserRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -44,5 +45,6 @@ export const router = createBrowserRouter([
   {
     path: "/profile",
     element: <UserProfile />,
+    children: userRoutes
   },
 ]);
