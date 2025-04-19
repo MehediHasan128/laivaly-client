@@ -25,7 +25,7 @@ const UserProfile = () => {
         />
       </div>
 
-      <SidebarInset className="md:bg-gray-50 overflow-hidden p-5">
+      <SidebarInset className="md:bg-gray-50 overflow-hidden p-10">
         <Outlet />
       </SidebarInset>
     </SidebarProvider>

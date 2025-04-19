@@ -1,9 +1,16 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 const MyAccount = () => {
-    return (
-        <div>
-            <h1>This is my account</h1>
-        </div>
-    );
+  return (
+    <div>
+      <div>
+        <Avatar className="size-52 rounded-xl">
+          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </div>
+    </div>
+  );
 };
 
 export default MyAccount;

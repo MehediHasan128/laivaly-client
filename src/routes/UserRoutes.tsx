@@ -11,6 +11,7 @@ import { IoGiftOutline, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLocalShipping, MdOutlinePayment } from "react-icons/md";
 import ShippingAndReturns from "@/buyer/shipping&Returns/ShippingAndReturns";
 import SupportAndCommunication from "@/buyer/support&Communication/SupportAndCommunication";
+import { IoMdHeartEmpty } from "react-icons/io";
 
 export const userRoutesAndPaths = [
   {
@@ -30,6 +31,12 @@ export const userRoutesAndPaths = [
     path: "/profile/my-orders",
     element: <MyOrders />,
     icon: <LiaClipboardListSolid />,
+  },
+  {
+    title: "My Wishlist",
+    path: "/profile/my-wishlist",
+    element: <MyOrders />,
+    icon: <IoMdHeartEmpty />,
   },
   {
     title: "Payment",

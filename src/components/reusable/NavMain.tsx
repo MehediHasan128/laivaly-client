@@ -42,8 +42,8 @@ const NavMain = () => {
               isPending
                 ? "pending"
                 : isActive
-                ? "text-[#337a51] font-medium"
-                : "font-medium"
+                ? "text-[#077c38] font-medium"
+                : "font-medium text-gray-700"
             }
           >
             <SidebarMenuItem>
@@ -51,7 +51,7 @@ const NavMain = () => {
                 tooltip={item.title}
                 className="cursor-pointer"
               >
-                <span className="text-2xl text-gray-600">{item.icon}</span>
+                <span className="text-2xl">{item.icon}</span>
                 <span className="font-medium">{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
