@@ -24,7 +24,7 @@ const LSelect = ({ name, placeholder, className, options }: TSelectProps) => {
       <Controller
         name={name}
         render={({ field }) => (
-          <Select {...field} name={name}>
+          <Select {...field} onValueChange={field.onChange}>
             <SelectTrigger className={className}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>

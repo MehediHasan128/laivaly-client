@@ -1,18 +1,19 @@
+import LDatePicker from "@/components/form/LDatePicker";
 import LForm from "@/components/form/LForm";
 import LSelect from "@/components/form/LSelect";
 import { Label } from "@/components/ui/label";
 import { FieldValues } from "react-hook-form";
 
 const genderOption = [
-    {
-        value: 'male',
-        label: 'Male'
-    },
-    {
-        value: 'female',
-        label: 'Female'
-    },
-]
+  {
+    value: "male",
+    label: "Male",
+  },
+  {
+    value: "female",
+    label: "Female",
+  },
+];
 
 const UserInformationForm = () => {
   const handleSubmitUserInformation = (data: FieldValues) => {
@@ -32,14 +33,26 @@ const UserInformationForm = () => {
             minute!
           </p>
         </div>
+
         <div className="mt-10">
           <LForm onSubmit={handleSubmitUserInformation}>
-            <div>
-              <div className="space-y-2">
+            <div className="flex justify-between gap-3">
+              <div className="space-y-2 w-full">
                 <Label>Gender</Label>
-                <LSelect name="gender" placeholder="Select gender" options={genderOption} className="border w-full flex justify-between border-gray-300" />
+                <LSelect
+                  name="gender"
+                  placeholder="Select gender"
+                  options={genderOption}
+                  className="border w-full flex justify-between border-gray-300 py-5"
+                />
+              </div>
+              <div className="space-y-2 w-full">
+                <Label>Date of Birth</Label>
+                <LDatePicker name="dateOfBirth" />
               </div>
             </div>
+
+            <button type="submit">Submit</button>
           </LForm>
         </div>
       </div>
