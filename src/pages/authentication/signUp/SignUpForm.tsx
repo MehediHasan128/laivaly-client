@@ -7,15 +7,26 @@ import { FieldValues } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { GoLock, GoMail } from "react-icons/go";
-import { IoLogoApple } from "react-icons/io5";
+import { IoCheckmarkDoneSharp, IoLogoApple } from "react-icons/io5";
 
 const SignUpForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pass, setPass] = useState<string | null>(null);
+  const [confirmPass, setConfirmPass] = useState<string | null>(null);
+
+  const passLength = (pass?.length ?? 0) >= 8;
+  const passCapitalLetter = /[A-Z]/.test(pass as string);
+  const passSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(pass as string);
+  const passNumber = /[0-9]/.test(pass as string);
 
   const handleSignUpUser = (data: FieldValues) => {
-    console.log(data);
+    
+    if((pass === confirmPass) && passLength && passCapitalLetter && passSpecialChar && passNumber){
+      console.log(data);
+    }
+
   };
 
   return (
@@ -49,30 +60,72 @@ const SignUpForm = () => {
             </span>
           </div>
 
-          <div className="relative">
-            <LInput
-              type={showPass ? "text" : "password"}
-              name="userPassword"
-              placeholder="Enter password"
-              icon
-            />
+          <div>
+            <div className="relative">
+              <LInput
+                type={showPass ? "text" : "password"}
+                name="userPassword"
+                placeholder="Enter password"
+                setValue={setPass}
+                icon
+              />
 
-            <span className="absolute top-0 h-full px-4 rounded-l-lg flex justify-center items-center text-lg">
-              <GoLock />
-            </span>
+              <span className="absolute top-0 h-full px-4 rounded-l-lg flex justify-center items-center text-lg">
+                <GoLock />
+              </span>
 
-            <div className="absolute top-0 right-0 h-full px-4 rounded-l-lg flex justify-center items-center text-lg">
-              {showPass ? (
-                <AiOutlineEye
-                  onClick={() => setShowPass(!showPass)}
-                  className="cursor-pointer"
-                />
-              ) : (
-                <AiOutlineEyeInvisible
-                  onClick={() => setShowPass(!showPass)}
-                  className="cursor-pointer"
-                />
-              )}
+              <div className="absolute top-0 right-0 h-full px-4 rounded-l-lg flex justify-center items-center text-lg">
+                {showPass ? (
+                  <AiOutlineEye
+                    onClick={() => setShowPass(!showPass)}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <AiOutlineEyeInvisible
+                    onClick={() => setShowPass(!showPass)}
+                    className="cursor-pointer"
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Checking pass */}
+            <div
+              className={`${pass ? "text-xs px-2 mt-2 font-medium" : "hidden"}`}
+            >
+              <span
+                className={`flex items-center gap-1 ${
+                  passLength && "text-green-600"
+                }`}
+              >
+                <IoCheckmarkDoneSharp className="text-sm" />
+                Password must be at least 8 characters long
+              </span>
+              <span
+                className={`flex items-center gap-1 ${
+                  passCapitalLetter && "text-green-600"
+                }`}
+              >
+                <IoCheckmarkDoneSharp className="text-sm" />
+                Password must contain at least one uppercase letter
+              </span>
+              <span
+                className={`flex items-center gap-1 ${
+                  passSpecialChar &&
+                  "text-green-600"
+                }`}
+              >
+                <IoCheckmarkDoneSharp className="text-sm" />
+                Password must contain at least one special character
+              </span>
+              <span
+                className={`flex items-center gap-1 ${
+                  passNumber && "text-green-600"
+                }`}
+              >
+                <IoCheckmarkDoneSharp className="text-sm" />
+                Password must contain at least one number
+              </span>
             </div>
           </div>
 
@@ -81,7 +134,13 @@ const SignUpForm = () => {
               type={showConfirmPass ? "text" : "password"}
               name="confirmPassword"
               placeholder="Confirm password"
+              setValue={setConfirmPass}
               icon
+              className={`${
+                pass === confirmPass
+                  ? "focus:border-green-600"
+                  : "focus:border-red-700"
+              }`}
             />
             <span className="absolute top-0 h-full px-4 rounded-l-lg flex justify-center items-center text-lg">
               <GoLock />
