@@ -8,9 +8,9 @@ const UserLayout = () => {
 
   return (
     <>
-      {(pathname !== '/signUp') && <Navbar />}
+      {!['/signUp', '/signUp/user/information'].includes(pathname) && <Navbar />}
       <Outlet />
-      {(pathname !== '/signUp') && <Footer />}
+      {!['/signUp', '/signUp/user/information'].includes(pathname) && <Footer />}
     </>
   );
 };

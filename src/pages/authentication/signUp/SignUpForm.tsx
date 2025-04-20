@@ -24,7 +24,15 @@ const SignUpForm = () => {
   const handleSignUpUser = (data: FieldValues) => {
     
     if((pass === confirmPass) && passLength && passCapitalLetter && passSpecialChar && passNumber){
-      console.log(data);
+      
+      const formData = {
+        userName: data?.userName,
+        userEmail: data?.userEmail,
+        password: data?.password
+      };
+
+      console.log(formData);
+
     }
 
   };
@@ -64,7 +72,7 @@ const SignUpForm = () => {
             <div className="relative">
               <LInput
                 type={showPass ? "text" : "password"}
-                name="userPassword"
+                name="password"
                 placeholder="Enter password"
                 setValue={setPass}
                 icon
