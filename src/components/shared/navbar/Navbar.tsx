@@ -10,10 +10,14 @@ import { NavLink } from "react-router-dom";
 import CartDrawer from "@/pages/cart/CartDrawer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProfileMenu from "@/components/reusable/ProfileMenu";
-
-const user = true;
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hook";
 
 const Navbar = () => {
+
+  const user = useAppSelector(currentUser);
+  console.log(user);
+  
   return (
     <div className="bg-[#EDF4F2] sticky top-0 z-10">
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto">

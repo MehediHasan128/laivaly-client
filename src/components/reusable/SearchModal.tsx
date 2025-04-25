@@ -10,7 +10,6 @@ import { LuSearch } from "react-icons/lu";
 
 const SearchModal = ({ child }: { child: ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
-  console.log(searchTerm);
 
   return (
     <Drawer direction="top">
