@@ -16,7 +16,6 @@ import { useAppSelector } from "@/redux/hook";
 const Navbar = () => {
 
   const user = useAppSelector(currentUser);
-  console.log(user);
   
   return (
     <div className="bg-[#EDF4F2] sticky top-0 z-10">
@@ -86,7 +85,7 @@ const Navbar = () => {
           <div className={`${user ? "block" : "hidden"}`}>
             <ProfileMenu>
               <Avatar className="hidden md:block md:size-12 rounded-full">
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src={user?.profileImage} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </ProfileMenu>

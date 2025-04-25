@@ -10,8 +10,16 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
+import { useAppDispatch } from "@/redux/hook";
+import { userSignOut } from "@/redux/features/auth/authSlice";
 
 const ProfileMenu = ({ children }: { children: ReactNode }) => {
+
+  const dispatch  = useAppDispatch();
+  const handleUserSignOut = () => {
+    dispatch(userSignOut());
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,7 +39,7 @@ const ProfileMenu = ({ children }: { children: ReactNode }) => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuItem onClick={handleUserSignOut} className="cursor-pointer">
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
