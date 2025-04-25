@@ -7,14 +7,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import tShirt from "../../../assets/images/tShirt/shirt-mockup-concept-with-plain-clothing.jpg";
 import SignInForm from "./SignInForm";
 import { NavLink } from "react-router-dom";
 
 const SignInModal = ({ child }: { child: ReactNode }) => {
+
+  const [open, setOpen] = useState(false)
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       {/* Sign in button */}
       <DialogTrigger className="flex">{child}</DialogTrigger>
       {/* Main Sign in content */}
@@ -36,7 +39,7 @@ const SignInModal = ({ child }: { child: ReactNode }) => {
             </DialogHeader>
 
             {/* Login form */}
-            <SignInForm />
+            <SignInForm onSuccess={() => setOpen(false)} />
 
             {/* Sign up link */}
             <div className="mt-8 text-center text-sm text-gray-600">

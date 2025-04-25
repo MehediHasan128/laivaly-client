@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
 import { FieldValues } from "react-hook-form";
@@ -8,13 +9,64 @@ import Spinner from "@/components/ui/spinner";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAppDispatch } from "@/redux/hook";
+import { useSignInMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
+import { decodedUserToken } from "@/utils/decodedUserToken";
+import { setUser, Tuser } from "@/redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
-const SignInForm = () => {
+type TResponce = {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: any
+}
+
+type TError = {
+  status: number;
+  data: {
+    success: boolean;
+    message: string;
+    errorSource: {
+      path: string;
+      message: string;
+    }[]
+  }
+}
+
+// laivaly.bd@gmail.com
+// Shaheen@123
+
+const SignInForm = ({ onSuccess }: { onSuccess?: () => void }) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState(false);
-  const [login, setLogin] = useState(false);
+  const [signIn, { isLoading }] = useSignInMutation();
 
-  const userLogin = (data: FieldValues) => {
-    console.log(data);
+  const userLogin = async (formData: FieldValues) => {
+    const toastId = toast.loading(null);
+
+    try {
+      const res = await signIn(formData).unwrap() as TResponce;
+      const userData = decodedUserToken(res?.data?.accessToken) as Tuser;
+
+      dispatch(setUser({user: userData, token: res?.data?.sccessToken}))
+
+      if(userData?.role === 'admin'){
+        navigate(`/${userData?.role}`);
+        onSuccess?.();
+        toast.success(res?.message, { id: toastId, duration: 2000 });
+      }else{
+        navigate('/');
+        onSuccess?.();
+        toast.success(res?.message, { id: toastId, duration: 2000 });
+      }
+
+    } catch (err) {
+      const error = err as TError
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
   };
 
   return (
@@ -41,7 +93,7 @@ const SignInForm = () => {
             <div className="relative">
               <LInput
                 type={showPass ? "text" : "password"}
-                name="userPassword"
+                name="password"
                 placeholder="*****"
                 icon={true}
               />
@@ -86,11 +138,8 @@ const SignInForm = () => {
         </div>
 
         {/* Sign in button */}
-        <button
-          onClick={() => setLogin(!login)}
-          className="bg-[#31473A] hover:bg-[#203026] duration-500 w-full mt-8 py-3 rounded-lg text-md text-white cursor-pointer"
-        >
-          {login ? <Spinner /> : "Sign In"}
+        <button className="bg-[#31473A] hover:bg-[#203026] duration-500 w-full mt-8 py-3 rounded-lg text-md text-white cursor-pointer">
+          {isLoading ? <Spinner /> : "Sign In"}
         </button>
       </LForm>
 
