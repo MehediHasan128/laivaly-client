@@ -4,6 +4,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export type Tuser = {
   userEmail: string;
   userId: string;
+  userName: {
+    firstName: string;
+    lastName: string;
+  };
   id: string;
   profileImage: string;
   role: string;

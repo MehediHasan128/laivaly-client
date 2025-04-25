@@ -8,6 +8,8 @@ import { NavLink } from "react-router-dom";
 import { generateUserPaths } from "@/utils/generateUserPaths";
 import { adminRoutesAndPaths } from "@/routes/AdminRoutes";
 import { userRoutesAndPaths } from "@/routes/UserRoutes";
+import { useAppSelector } from "@/redux/hook";
+import { currentUser } from "@/redux/features/auth/authSlice";
 
 const UserRole = {
   ADMIN: "admin",
@@ -15,7 +17,8 @@ const UserRole = {
 };
 
 const NavMain = () => {
-  const role = "buyer";
+  const user = useAppSelector(currentUser);
+  const role = user?.role;
   let navItems;
 
   switch (role) {

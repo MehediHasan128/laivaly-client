@@ -22,15 +22,17 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "../ui/sidebar";
-
-const user = {
-  name: "Mehedi Hasan",
-  email: "mehedihasan12926@gmail.com",
-  avatar: "https://github.com/shadcn.png",
-};
+import { currentUser, userSignOut } from "@/redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 
 const NavUser = () => {
   const { isMobile } = useSidebar();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(currentUser);
+  
+  const handleSignOut = () => {
+    dispatch(userSignOut());
+  }
 
   return (
     <SidebarMenu>
@@ -42,13 +44,13 @@ const NavUser = () => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="size-10 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage src={user?.profileImage} alt={user?.userName?.lastName} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
 
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">{user?.userName?.firstName} {user?.userName?.lastName}</span>
+                <span className="truncate text-xs font-medium">{user?.userEmail}</span>
               </div>
 
               <ChevronsUpDown className="ml-auto size-4" />
@@ -64,12 +66,12 @@ const NavUser = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="size-10 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage src={user?.profileImage} alt={user?.userName?.lastName} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold">{user?.userName?.firstName} {user?.userName?.lastName}</span>
+                  <span className="truncate text-xs">{user?.userEmail}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -96,7 +98,7 @@ const NavUser = () => {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSignOut}>
               <LogOut />
               Log out
             </DropdownMenuItem>
