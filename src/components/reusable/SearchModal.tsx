@@ -50,16 +50,17 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
               </div>
             </div>
             <div className="hidden absolute top-0 right-0 w-[10%] h-full xl:flex justify-center items-center text-2xl 2xl:text-3xl">
-              <DrawerClose className="bg-gray-100 p-1 2xl:p-2 rounded-full">
+              <DrawerClose className="bg-gray-100 p-1 2xl:p-2 rounded-full cursor-pointer">
                 <RxCross2 />
               </DrawerClose>
             </div>
           </div>
         </DrawerHeader>
+
         <DrawerFooter
           className={`${
             searchText[0]?.value.length > 0 ? "block" : "hidden"
-          } mt-5 2xl:mt-10`}
+          } max-h-[80vh] mt-5 2xl:mt-10`}
         >
           <ScrollArea className="w-full h-full">
             <div className="grid grid-cols-2 2xl:grid-cols-5">
