@@ -98,7 +98,7 @@ const NavUser = () => {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleSignOut}>
+            <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
               <LogOut />
               Log out
             </DropdownMenuItem>

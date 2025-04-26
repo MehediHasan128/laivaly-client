@@ -1,15 +1,20 @@
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { ReactNode, useState } from "react";
 import { LuSearch } from "react-icons/lu";
+import SearchProductCard from "./SearchProductCard";
+import { ScrollArea } from "../ui/scroll-area";
 
 const SearchModal = ({ child }: { child: ReactNode }) => {
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
+  console.log(searchTerm);
 
   return (
     <Drawer direction="top">
@@ -30,6 +35,20 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
             </div>
           </div>
         </DrawerHeader>
+        <DrawerClose>
+          <div className="border p-3 w-fit rounded-full">
+            <span>close</span>
+          </div>
+        </DrawerClose>
+        <DrawerFooter className="p-0 h-[80vh]">
+          <ScrollArea className="w-full h-full">
+            <div className="grid grid-cols-5">
+              {[...Array(11)].map((i) => (
+                <SearchProductCard key={i} />
+              ))}
+            </div>
+          </ScrollArea>
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
