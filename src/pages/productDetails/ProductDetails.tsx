@@ -10,9 +10,9 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Rate } from "antd";
 import { Progress } from "@/components/ui/progress";
 import CustomerReview from "@/components/reusable/CustomerReview";
-// import ProductCard from "@/components/reusable/ProductCard";
+import ProductCard from "@/components/reusable/ProductCard";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { useGetSingleProductQuery } from "@/redux/features/product/productApi";
+import { useGetSimillerProductQuery, useGetSingleProductQuery } from "@/redux/features/product/productApi";
 
 const ProductDetails = () => {
   const id = useParams();
@@ -23,11 +23,15 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(0);
   const [mainImg, setMainImg] = useState<string | undefined>(undefined);
 
+  const {data: allSimillerProduct} = useGetSimillerProductQuery([productData?.targetAudience, productData?.subCategory, productData?._id]);
+  const simillerProducts = allSimillerProduct?.data;
+
   useEffect(() => {
     if (productData?.thumbnail) {
       setMainImg(productData?.thumbnail);
     }
   }, [productData]);
+
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
@@ -317,7 +321,11 @@ const ProductDetails = () => {
 
       <Container>
         <h1 className="text-2xl font-semibold">Similer Product</h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16"></div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16">
+                  {
+                    simillerProducts?.map((product) => <ProductCard data={product} />)
+                  }
+        </div>
       </Container>
     </div>
   );

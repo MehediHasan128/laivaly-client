@@ -5,8 +5,6 @@ import { NavLink } from "react-router-dom";
 const ProductCard = ({ data }) => {
   const [like, setLike] = useState(false);
 
-  console.log(data?.images[0]);
-
   return (
     <>
       <div className="rounded-lg overflow-hidden duration-1000">
