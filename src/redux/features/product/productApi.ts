@@ -8,8 +8,8 @@ export type TQueryParams = {
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProduct: builder.query({
-      query: (args) => {
-        
+      query: ([args, audiance]) => {
+
         const params = new URLSearchParams();
         if(params){
           args.forEach((item: TQueryParams) => {
@@ -18,7 +18,7 @@ const productApi = baseApi.injectEndpoints({
         }
 
         return {
-          url: "/products",
+          url: `/products/${audiance}`,
           method: "GET",
           params: params
         };
@@ -29,7 +29,13 @@ const productApi = baseApi.injectEndpoints({
         }
       }
     }),
+    getSingleProduct: builder.query({
+      query: (params) => ({
+        url: `/products/product/${params}`,
+        method: 'GET'
+      })
+    })
   }),
 });
 
-export const { useGetAllProductQuery } = productApi;
+export const { useGetAllProductQuery, useGetSingleProductQuery } = productApi;

@@ -23,7 +23,7 @@ type TSearch = {
 const SearchModal = ({ child }: { child: ReactNode }) => {
   const [searchText, setSearchText] = useState<TSearch[]>([]);
 
-  const { data: products } = useGetAllProductQuery(searchText);
+  const { data: products } = useGetAllProductQuery([searchText, 'all']);
   const productData = products?.data;
 
   return (

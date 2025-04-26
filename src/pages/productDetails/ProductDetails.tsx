@@ -1,30 +1,33 @@
 import Container from "@/components/reusable/Container";
 import { useParams } from "react-router-dom";
-import product4 from "../../assets/images/product/product4.jpg";
-import product5 from "../../assets/images/product/product5.jpg";
-import product3 from "../../assets/images/product/product3.jpg";
-import product1 from "../../assets/images/product/product1.jpg";
 import { FaStar } from "react-icons/fa6";
 import { GoDotFill, GoShareAndroid } from "react-icons/go";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { PiChats } from "react-icons/pi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Rate } from "antd";
 import { Progress } from "@/components/ui/progress";
 import CustomerReview from "@/components/reusable/CustomerReview";
-import ProductCard from "@/components/reusable/ProductCard";
+// import ProductCard from "@/components/reusable/ProductCard";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { useGetSingleProductQuery } from "@/redux/features/product/productApi";
 
 const ProductDetails = () => {
-  const [color, setColor] = useState("green");
-  const [size, setSize] = useState("XS");
-  const [quantity, setQuantity] = useState(0);
-  const [mainImg, setMainImg] = useState(product1);
-
   const id = useParams();
-  console.log(id?.productId);
+  const { data: product } = useGetSingleProductQuery(id?.productId);
+  const productData = product?.data;
+  const [color, setColor] = useState("green");
+  const [productSize, setProductSize] = useState(productData?.sizes[0]);
+  const [quantity, setQuantity] = useState(0);
+  const [mainImg, setMainImg] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (productData?.thumbnail) {
+      setMainImg(productData?.thumbnail);
+    }
+  }, [productData]);
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
@@ -33,11 +36,11 @@ const ProductDetails = () => {
         {/* Main comtainer */}
         <div className="flex flex-col md:flex-row items-start gap-5 xl:gap-10">
           {/* Image section */}
-          <div className="md:w-[50%]">
-            <div className="flex flex-col lg:flex-row-reverse gap-2 w-full">
+          <div className="md:w-[35%]">
+            <div className="flex flex-col lg:flex-row-reverse gap-2 ">
               <div className="relative xl:w-[80%]">
                 <img
-                  className="h-[400px] md:h-[430px] lg:h-full w-full object-cover"
+                  className="h-[450px] md:h-[430px] lg:h-full w-full"
                   src={mainImg}
                 />
                 <div className="md:hidden flex justify-between items-center text-2xl px-3 absolute top-3 w-full">
@@ -50,65 +53,32 @@ const ProductDetails = () => {
               </div>
 
               <div className="grid grid-cols-4 lg:flex flex-row lg:flex-col gap-2 xl:w-[20%]">
-                <img
-                  onClick={() => setMainImg(product1)}
-                  className={`object-cover cursor-pointer border-2 ${
-                    mainImg === product1
-                      ? "border-[#31473A]"
-                      : "border-gray-200"
-                  }`}
-                  src={product1}
-                  alt=""
-                />
-                <img
-                  onClick={() => setMainImg(product3)}
-                  className={`object-cover cursor-pointer border-2 ${
-                    mainImg === product3
-                      ? "border-[#31473A]"
-                      : "border-gray-200"
-                  }`}
-                  src={product3}
-                  alt=""
-                />
-                <img
-                  onClick={() => setMainImg(product4)}
-                  className={`object-cover cursor-pointer border-2 ${
-                    mainImg === product4
-                      ? "border-[#31473A]"
-                      : "border-gray-200"
-                  }`}
-                  src={product4}
-                  alt=""
-                />
-                <img
-                  onClick={() => setMainImg(product5)}
-                  className={`object-cover cursor-pointer border-2 ${
-                    mainImg === product5
-                      ? "border-[#31473A]"
-                      : "border-gray-200"
-                  }`}
-                  src={product5}
-                  alt=""
-                />
+                {productData?.images?.map((img: string) => (
+                  <img
+                    onClick={() => setMainImg(img)}
+                    className={`object-cover cursor-pointer border-2 ${
+                      mainImg === img ? "border-[#31473A]" : "border-gray-200"
+                    }`}
+                    src={img}
+                    alt=""
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           {/* Details section */}
-          <div className="md:w-[50%]">
+          <div className="md:w-[60%]">
             <div>
               {/* Product Title */}
               <h1 className="font-semibold text-xl md:text-2xl 2xl:text-3xl">
-                Artificial Leather Fashionable hand Bag for Women
+                {productData?.title}
               </h1>
 
               {/* Product Description */}
               <div className="text-gray-600 font-medium text-justify text-sm md:text-base 2xl:text-lg my-2 2xl:my-5">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque distinctio perferendis provident odio at nostrum
-                  ipsa quo quis! Saepe consectetur facere accusamus quasi
-                  voluptates ullam illo earum asperiores, nisi qui.
+                  {productData?.description}
                   <span className="text-blue-700 ml-3 cursor-pointer">
                     Read More.
                   </span>
@@ -139,9 +109,13 @@ const ProductDetails = () => {
               {/* Product Price */}
               <div className="my-5">
                 <h1 className="font-bold text-2xl 2xl:text-4xl">
-                  $25.00{" "}
+                  $
+                  {(
+                    productData?.price -
+                    productData?.price * (productData?.discount / 100)
+                  ).toFixed(2)}{" "}
                   <sub className="line-through font-medium text-red-800 2xl:text-2xl">
-                    $50.00
+                    ${productData?.price}
                   </sub>
                 </h1>
               </div>
@@ -187,90 +161,22 @@ const ProductDetails = () => {
                 </h1>
 
                 <div className="flex gap-3 text-xs font-medium">
-                  <div
-                    onClick={() => setSize("XS")}
-                    className="border border-gray-500 rounded overflow-hidden cursor-pointer"
-                  >
+                  {productData?.sizes.map((size: string) => (
                     <div
-                      className={`${
-                        size === "XS"
-                          ? "bg-[#31473A] text-white"
-                          : "bg-transparent"
-                      } size-6 lg:size-8 flex justify-center items-center`}
+                      onClick={() => setProductSize(size)}
+                      className="border border-gray-500 rounded overflow-hidden cursor-pointer"
                     >
-                      XS
+                      <div
+                        className={`${
+                          productSize === size
+                            ? "bg-[#31473A] text-white"
+                            : "bg-transparent"
+                        } size-6 lg:size-8 flex justify-center items-center`}
+                      >
+                        {size}
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    onClick={() => setSize("S")}
-                    className="border border-gray-500 rounded overflow-hidden cursor-pointer"
-                  >
-                    <div
-                      className={`${
-                        size === "S"
-                          ? "bg-[#31473A] text-white"
-                          : "bg-transparent"
-                      } size-6 lg:size-8 flex justify-center items-center`}
-                    >
-                      S
-                    </div>
-                  </div>
-                  <div
-                    onClick={() => setSize("M")}
-                    className="border border-gray-500 rounded overflow-hidden cursor-pointer"
-                  >
-                    <div
-                      className={`${
-                        size === "M"
-                          ? "bg-[#31473A] text-white"
-                          : "bg-transparent"
-                      } size-6 lg:size-8 flex justify-center items-center`}
-                    >
-                      M
-                    </div>
-                  </div>
-                  <div
-                    onClick={() => setSize("L")}
-                    className="border border-gray-500 rounded overflow-hidden cursor-pointer"
-                  >
-                    <div
-                      className={`${
-                        size === "L"
-                          ? "bg-[#31473A] text-white"
-                          : "bg-transparent"
-                      } size-6 lg:size-8 flex justify-center items-center`}
-                    >
-                      L
-                    </div>
-                  </div>
-                  <div
-                    onClick={() => setSize("XL")}
-                    className="border border-gray-500 rounded overflow-hidden cursor-pointer"
-                  >
-                    <div
-                      className={`${
-                        size === "XL"
-                          ? "bg-[#31473A] text-white"
-                          : "bg-transparent"
-                      } size-6 lg:size-8 flex justify-center items-center`}
-                    >
-                      XL
-                    </div>
-                  </div>
-                  <div
-                    onClick={() => setSize("XXL")}
-                    className="border border-gray-500 rounded overflow-hidden cursor-pointer"
-                  >
-                    <div
-                      className={`${
-                        size === "XXL"
-                          ? "bg-[#31473A] text-white"
-                          : "bg-transparent"
-                      } size-6 lg:size-8 flex justify-center items-center`}
-                    >
-                      XXL
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -411,13 +317,7 @@ const ProductDetails = () => {
 
       <Container>
         <h1 className="text-2xl font-semibold">Similer Product</h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16"></div>
       </Container>
     </div>
   );

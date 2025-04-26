@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Container from "@/components/reusable/Container";
 import banner from "../../assets/images/tShirt/shirt1.jpg";
 import promoCode from "../../assets/images/others/promoCode.png";
@@ -5,13 +6,26 @@ import CollectionBanner from "@/components/reusable/CollectionBanner";
 import CollectionFilter from "@/components/reusable/CollectionFilter";
 import ProductCard from "@/components/reusable/ProductCard";
 import PaginationWrapper from "@/components/reusable/PaginationWrapper";
+import { useState } from "react";
+import { useGetAllProductQuery } from "@/redux/features/product/productApi";
 
 const title = {
   title1: "Get 25% Cash back",
   title2: "On $150",
 };
 
+type TSearch = {
+  field: string;
+  value: string;
+};
+
 const NewCollection = () => {
+
+  const [searchText, setSearchText] = useState<TSearch[]>([]);
+  
+    const { data: products } = useGetAllProductQuery([searchText, 'all']);
+    const productData = products?.data;
+
   return (
     <div className="min-h-screen py-5 md:py-7 lg:py-8 bg-gray-50">
       <Container>
@@ -31,19 +45,10 @@ const NewCollection = () => {
             <CollectionFilter />
           </div>
 
-          <div className="my-5 lg:my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 md:gap-5">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+          <div className="my-5 lg:my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 md:gap-5">
+            {
+              productData?.map((product: any) => <ProductCard key={product?._id} data={product}/>)
+            }
           </div>
 
           <div>
