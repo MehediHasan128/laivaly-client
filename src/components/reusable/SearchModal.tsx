@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Drawer,
   DrawerClose,
@@ -7,15 +8,23 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
-import { ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import SearchProductCard from "./SearchProductCard";
 import { ScrollArea } from "../ui/scroll-area";
 import { RxCross2 } from "react-icons/rx";
+import { useGetAllProductQuery } from "@/redux/features/product/productApi";
+
+type TSearch = {
+  field: string;
+  value: string;
+};
 
 const SearchModal = ({ child }: { child: ReactNode }) => {
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);
-  console.log(searchTerm);
+  const [searchText, setSearchText] = useState<TSearch[]>([]);
+
+  const { data: products } = useGetAllProductQuery(searchText);
+  const productData = products?.data;
 
   return (
     <Drawer direction="top">
@@ -30,7 +39,11 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
                 name="searchText"
                 placeholder="Search product"
                 className="pr-16 text-sm md:text-base font-medium"
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setSearchText([
+                    { field: "searchTerm", value: e.target.value },
+                  ])
+                }
               />
               <div className="text-xl md:text-2xl absolute top-0 right-0 rounded-r-lg h-full px-5 flex items-center">
                 <LuSearch />
@@ -43,11 +56,20 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
             </div>
           </div>
         </DrawerHeader>
-        <DrawerFooter className="p-0 h-[80vh] mt-5 2xl:mt-10">
+        <DrawerFooter
+          className={`${
+            searchText[0]?.value.length > 0 ? "block" : "hidden"
+          } mt-5 2xl:mt-10`}
+        >
           <ScrollArea className="w-full h-full">
             <div className="grid grid-cols-2 2xl:grid-cols-5">
-              {[...Array(11)].map((i) => (
-                <SearchProductCard key={i} />
+              {productData?.map((product: any) => (
+                <SearchProductCard
+                  key={product?._id}
+                  thumbnail={product?.thumbnail}
+                  title={product?.title}
+                  price={product?.price}
+                />
               ))}
             </div>
           </ScrollArea>
