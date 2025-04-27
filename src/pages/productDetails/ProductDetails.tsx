@@ -12,7 +12,15 @@ import { Progress } from "@/components/ui/progress";
 import CustomerReview from "@/components/reusable/CustomerReview";
 import ProductCard from "@/components/reusable/ProductCard";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { useGetSimillerProductQuery, useGetSingleProductQuery } from "@/redux/features/product/productApi";
+import {
+  useGetSimillerProductQuery,
+  useGetSingleProductQuery,
+} from "@/redux/features/product/productApi";
+import {TError, TProductData, TResponce } from "@/types";
+import { useAppSelector } from "@/redux/hook";
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { toast } from "sonner";
+import { useAddWhislistMutation, useGetSingleProductFromWhislistQuery } from "@/redux/features/wishlist/whislistApi";
 
 const ProductDetails = () => {
   const id = useParams();
@@ -23,7 +31,11 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(0);
   const [mainImg, setMainImg] = useState<string | undefined>(undefined);
 
-  const {data: allSimillerProduct} = useGetSimillerProductQuery([productData?.targetAudience, productData?.subCategory, productData?._id]);
+  const { data: allSimillerProduct } = useGetSimillerProductQuery([
+    productData?.targetAudience,
+    productData?.subCategory,
+    productData?._id,
+  ]);
   const simillerProducts = allSimillerProduct?.data;
 
   useEffect(() => {
@@ -32,6 +44,34 @@ const ProductDetails = () => {
     }
   }, [productData]);
 
+
+  // Get user id
+  const user = useAppSelector(currentUser);
+  const userId = user?.userId;
+  const [addWhislist] = useAddWhislistMutation();
+
+  const {data: WhislistProduct} = useGetSingleProductFromWhislistQuery([userId, productData?._id]);
+  const isProductAddToWhislist = WhislistProduct?.data
+
+  const handleAddToWhishList = async() => {
+    const whislistInfo = {
+      userId,
+      productId: productData?._id
+    }
+    
+    const toastId = toast.loading(null);
+
+    try{
+      const res = await addWhislist(whislistInfo).unwrap() as TResponce;
+      toast.success(res?.message, { id: toastId, duration: 2000 });
+    }catch(err){
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
+
+  }
+
+  
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
@@ -229,10 +269,10 @@ const ProductDetails = () => {
 
                 <div className="border-l h-10 border-gray-300"></div>
 
-                <div className="lg:text-xl flex items-center gap-1.5">
+                <button onClick={handleAddToWhishList} className={`${(isProductAddToWhislist?.productId === productData?._id) && "text-red-800"} lg:text-xl flex items-center gap-1.5 cursor-pointer`}>
                   <IoMdHeartEmpty className="text-xl lg:text-2xl" />
                   <h1>Whislist</h1>
-                </div>
+                </button>
 
                 <div className="border-l h-10 border-gray-300"></div>
 
@@ -322,9 +362,9 @@ const ProductDetails = () => {
       <Container>
         <h1 className="text-2xl font-semibold">Similer Product</h1>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16">
-                  {
-                    simillerProducts?.map((product) => <ProductCard data={product} />)
-                  }
+          {simillerProducts?.map((product: TProductData) => (
+            <ProductCard data={product} />
+          ))}
         </div>
       </Container>
     </div>

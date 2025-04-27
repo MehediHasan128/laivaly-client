@@ -19,8 +19,20 @@ const whislistApi = baseApi.injectEndpoints({
           data: res?.data
         }
       }
+    }),
+    getSingleProductFromWhislist: builder.query({
+      query: ([userId, productId]) => ({
+        url: `/whislist/products/single-product?userId=${userId}&productId=${productId}`,
+        method: 'GET'
+      })
+    }),
+    deleteProductFromWhislist: builder.mutation({
+      query: (params) => ({
+        url: `/whislist/delete-whislist/${params}`,
+        method: 'DELETE'
+      })
     })
   }),
 });
 
-export const { useAddWhislistMutation, useGetAllWhislistProductQuery } = whislistApi;
+export const { useAddWhislistMutation, useGetAllWhislistProductQuery, useGetSingleProductFromWhislistQuery, useDeleteProductFromWhislistMutation } = whislistApi;

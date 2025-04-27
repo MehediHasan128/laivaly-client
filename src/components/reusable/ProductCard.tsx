@@ -1,6 +1,7 @@
 import { currentUser } from "@/redux/features/auth/authSlice";
 import {
   useAddWhislistMutation,
+  useDeleteProductFromWhislistMutation,
   useGetAllWhislistProductQuery,
 } from "@/redux/features/wishlist/whislistApi";
 import { useAppSelector } from "@/redux/hook";
@@ -16,28 +17,49 @@ const ProductCard = ({ data }: { data: TProductData }) => {
     (new Date().getTime() - new Date(data?.createdAt).getTime()) /
       (1000 * 60 * 60 * 24) <=
     1;
+
+  // Get user id
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
 
   // get wishlist product
   const { data: favProducts, refetch } = useGetAllWhislistProductQuery(userId);
   const whislistProducts = favProducts?.data;
-
-  const products = whislistProducts?.map(
-    (product: { productId: string }) => product.productId
+  const item = whislistProducts?.find(
+    (item: { productId: { _id: string } }) => item.productId._id === data?._id
   );
-  const favProductId = products?.map((item: { _id: string }) => item._id);
+  const whislistID = item?._id;
+  const whisListProduct = item?.productId;
+  const favProductIdd = whisListProduct?._id;
 
   // Handle add product whislist
   const [addWhislist, { isLoading }] = useAddWhislistMutation();
   const handleProductAddWishlist = async () => {
     const toastId = toast.loading(null);
 
+    const whislistData = {
+      userId,
+      productId: data?._id,
+    };
+
     try {
-      const res = (await addWhislist({
-        userId: `${userId}`,
-        productId: `${data?._id}`,
-      }).unwrap()) as TResponce;
+      const res = (await addWhislist(whislistData).unwrap()) as TResponce;
+      refetch();
+      toast.success(res?.message, { id: toastId, duration: 2000 });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
+  };
+
+  // Delete product from whislist
+  const [deleteProductFromWhislist] = useDeleteProductFromWhislistMutation();
+  const handleDeleteProductFromWishlist = async () => {
+    const toastId = toast.loading(null);
+    try {
+      const res = (await deleteProductFromWhislist(
+        whislistID
+      ).unwrap()) as TResponce;
       refetch();
       toast.success(res?.message, { id: toastId, duration: 2000 });
     } catch (err) {
@@ -77,12 +99,15 @@ const ProductCard = ({ data }: { data: TProductData }) => {
           <div className="text-sm lg:text-xl absolute top-5 right-5">
             {isLoading ? (
               <Spinner className="size-5" />
+            ) : favProductIdd ? (
+              <IoMdHeartEmpty
+                onClick={handleDeleteProductFromWishlist}
+                className="text-red-700 text-2xl transition duration-300 cursor-pointer"
+              />
             ) : (
               <IoMdHeartEmpty
                 onClick={handleProductAddWishlist}
-                className={`${
-                  favProductId?.includes(data?._id) && "text-red-700"
-                } text-black text-2xl transition duration-300 cursor-pointer`}
+                className="text-black text-2xl transition duration-300 cursor-pointer"
               />
             )}
           </div>
