@@ -5,6 +5,7 @@ import { TError, TResponce } from "@/types";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { toast } from "sonner";
+import Spinner from "../ui/spinner";
 
 const ProductCard = ({ data }) => {
   // Calculte new arrival product
@@ -16,26 +17,20 @@ const ProductCard = ({ data }) => {
   // Handle add product whislist
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
-  const [addWhislist, { isLoading }] =
-    useAddWhislistMutation();
+  const [addWhislist, { isLoading }] = useAddWhislistMutation();
   const handleProductAddWishlist = async () => {
     const toastId = toast.loading(null);
 
     try {
-
       const res = (await addWhislist({
         userId: `${userId}`,
         productId: `${data?._id}`,
       }).unwrap()) as TResponce;
       toast.success(res?.message, { id: toastId, duration: 2000 });
-
     } catch (err) {
-
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
-
     }
-
   };
 
   return (
@@ -67,10 +62,14 @@ const ProductCard = ({ data }) => {
           </div>
 
           <div className="text-sm lg:text-xl absolute top-5 right-5">
-            <IoMdHeartEmpty
-              onClick={handleProductAddWishlist}
-              className={`text-black text-2xl transition duration-300 cursor-pointer`}
-            />
+            {isLoading ? (
+              <Spinner className="size-5" />
+            ) : (
+              <IoMdHeartEmpty
+                onClick={handleProductAddWishlist}
+                className={`text-black text-2xl transition duration-300 cursor-pointer`}
+              />
+            )}
           </div>
         </div>
 
