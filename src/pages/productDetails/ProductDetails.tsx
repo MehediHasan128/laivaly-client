@@ -16,11 +16,15 @@ import {
   useGetSimillerProductQuery,
   useGetSingleProductQuery,
 } from "@/redux/features/product/productApi";
-import {TError, TProductData, TResponce } from "@/types";
+import { TError, TProductData, TResponce } from "@/types";
 import { useAppSelector } from "@/redux/hook";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { toast } from "sonner";
-import { useAddWhislistMutation, useGetSingleProductFromWhislistQuery } from "@/redux/features/wishlist/whislistApi";
+import {
+  useAddWhislistMutation,
+  useGetSingleProductFromWhislistQuery,
+} from "@/redux/features/wishlist/whislistApi";
+import { Textarea } from "@/components/ui/textarea";
 
 const ProductDetails = () => {
   const id = useParams();
@@ -44,34 +48,33 @@ const ProductDetails = () => {
     }
   }, [productData]);
 
-
   // Get user id
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
   const [addWhislist] = useAddWhislistMutation();
 
-  const {data: WhislistProduct} = useGetSingleProductFromWhislistQuery([userId, productData?._id]);
-  const isProductAddToWhislist = WhislistProduct?.data
+  const { data: WhislistProduct } = useGetSingleProductFromWhislistQuery([
+    userId,
+    productData?._id,
+  ]);
+  const isProductAddToWhislist = WhislistProduct?.data;
 
-  const handleAddToWhishList = async() => {
+  const handleAddToWhishList = async () => {
     const whislistInfo = {
       userId,
-      productId: productData?._id
-    }
-    
+      productId: productData?._id,
+    };
+
     const toastId = toast.loading(null);
 
-    try{
-      const res = await addWhislist(whislistInfo).unwrap() as TResponce;
+    try {
+      const res = (await addWhislist(whislistInfo).unwrap()) as TResponce;
       toast.success(res?.message, { id: toastId, duration: 2000 });
-    }catch(err){
+    } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
     }
-
-  }
-
-  
+  };
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
@@ -269,7 +272,13 @@ const ProductDetails = () => {
 
                 <div className="border-l h-10 border-gray-300"></div>
 
-                <button onClick={handleAddToWhishList} className={`${(isProductAddToWhislist?.productId === productData?._id) && "text-red-800"} lg:text-xl flex items-center gap-1.5 cursor-pointer`}>
+                <button
+                  onClick={handleAddToWhishList}
+                  className={`${
+                    isProductAddToWhislist?.productId === productData?._id &&
+                    "text-red-800"
+                  } lg:text-xl flex items-center gap-1.5 cursor-pointer`}
+                >
                   <IoMdHeartEmpty className="text-xl lg:text-2xl" />
                   <h1>Whislist</h1>
                 </button>
@@ -290,6 +299,23 @@ const ProductDetails = () => {
 
       {/* Customer review container */}
       <Container>
+        <div className="mb-16">
+          <div className="w-[40%]">
+            <div>
+              <Rate
+                allowHalf
+                defaultValue={0}
+                style={{ color: "#FFA534" }}
+              />
+            </div>
+
+            <Textarea className="my-3" placeholder="Type your comment here." />
+
+            <button className="text-sm font-medium px-4 py-1.5 rounded-lg cursor-pointer bg-[#31473A] text-white active:scale-95 transition transform duration-300">
+              Submit
+            </button>
+          </div>
+        </div>
         <div className="flex flex-col-reverse lg:flex-row gap-6 md:gap-20">
           <div className="lg:w-[60%]">
             <h1 className="text-xl font-semibold">Reviews</h1>
