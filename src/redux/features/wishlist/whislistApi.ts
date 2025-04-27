@@ -8,8 +8,19 @@ const whislistApi = baseApi.injectEndpoints({
             method: 'POST',
             body: data
         })
+    }),
+    getAllWhislistProduct: builder.query({
+      query: (userId) => ({
+        url: `/whislist/${userId}`,
+        method: 'GET'
+      }),
+      transformResponse: (res) => {
+        return {
+          data: res?.data
+        }
+      }
     })
   }),
 });
 
-export const { useAddWhislistMutation } = whislistApi;
+export const { useAddWhislistMutation, useGetAllWhislistProductQuery } = whislistApi;

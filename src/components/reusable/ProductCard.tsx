@@ -1,22 +1,34 @@
 import { currentUser } from "@/redux/features/auth/authSlice";
-import { useAddWhislistMutation } from "@/redux/features/wishlist/whislistApi";
+import {
+  useAddWhislistMutation,
+  useGetAllWhislistProductQuery,
+} from "@/redux/features/wishlist/whislistApi";
 import { useAppSelector } from "@/redux/hook";
-import { TError, TResponce } from "@/types";
+import { TError, TProductData, TResponce } from "@/types";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { toast } from "sonner";
 import Spinner from "../ui/spinner";
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data }: { data: TProductData }) => {
   // Calculte new arrival product
   const isNewArrival =
     (new Date().getTime() - new Date(data?.createdAt).getTime()) /
       (1000 * 60 * 60 * 24) <=
     1;
-
-  // Handle add product whislist
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
+
+  // get wishlist product
+  const { data: favProducts, refetch } = useGetAllWhislistProductQuery(userId);
+  const whislistProducts = favProducts?.data;
+
+  const products = whislistProducts?.map(
+    (product: { productId: string }) => product.productId
+  );
+  const favProductId = products?.map((item: { _id: string }) => item._id);
+
+  // Handle add product whislist
   const [addWhislist, { isLoading }] = useAddWhislistMutation();
   const handleProductAddWishlist = async () => {
     const toastId = toast.loading(null);
@@ -26,6 +38,7 @@ const ProductCard = ({ data }) => {
         userId: `${userId}`,
         productId: `${data?._id}`,
       }).unwrap()) as TResponce;
+      refetch();
       toast.success(res?.message, { id: toastId, duration: 2000 });
     } catch (err) {
       const error = err as TError;
@@ -67,7 +80,9 @@ const ProductCard = ({ data }) => {
             ) : (
               <IoMdHeartEmpty
                 onClick={handleProductAddWishlist}
-                className={`text-black text-2xl transition duration-300 cursor-pointer`}
+                className={`${
+                  favProductId?.includes(data?._id) && "text-red-700"
+                } text-black text-2xl transition duration-300 cursor-pointer`}
               />
             )}
           </div>

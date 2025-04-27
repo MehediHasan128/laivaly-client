@@ -17,3 +17,28 @@ export type TResponce = {
   message: string;
   data: any;
 };
+
+
+export type TProductData = {
+  _id: string;
+  title: string;
+  description: string;
+  group: string;
+  category: string;
+  subCategory: string;
+  targetAudience: string;
+  price: number;
+  discount: number;
+  quantity: number;
+  inStock: boolean;
+  color: string[];
+  sizes: string[];
+  images: string[];
+  thumbnail: string;
+  SKU: string;
+  weight: string;
+  isDeleted: boolean;
+  createdAt: string; // or Date if you will parse it
+  updatedAt: string; // or Date if you will parse it
+  __v: number;
+}

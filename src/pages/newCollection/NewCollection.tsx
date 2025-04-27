@@ -8,6 +8,7 @@ import ProductCard from "@/components/reusable/ProductCard";
 import PaginationWrapper from "@/components/reusable/PaginationWrapper";
 import { useState } from "react";
 import { useGetAllProductQuery } from "@/redux/features/product/productApi";
+import { TProductData } from "@/types";
 
 const title = {
   title1: "Get 25% Cash back",
@@ -47,7 +48,7 @@ const NewCollection = () => {
 
           <div className="my-5 lg:my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 md:gap-5">
             {
-              productData?.map((product: any) => <ProductCard key={product?._id} data={product}/>)
+              productData?.map((product: TProductData) => <ProductCard key={product?._id} data={product}/>)
             }
           </div>
 
