@@ -1,9 +1,42 @@
-import { useState } from "react";
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { useAddWhislistMutation } from "@/redux/features/wishlist/whislistApi";
+import { useAppSelector } from "@/redux/hook";
+import { TError, TResponce } from "@/types";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { NavLink } from "react-router-dom";
+import { toast } from "sonner";
 
 const ProductCard = ({ data }) => {
-  const [like, setLike] = useState(false);
+  // Calculte new arrival product
+  const isNewArrival =
+    (new Date().getTime() - new Date(data?.createdAt).getTime()) /
+      (1000 * 60 * 60 * 24) <=
+    1;
+
+  // Handle add product whislist
+  const user = useAppSelector(currentUser);
+  const userId = user?.userId;
+  const [addWhislist, { isLoading }] =
+    useAddWhislistMutation();
+  const handleProductAddWishlist = async () => {
+    const toastId = toast.loading(null);
+
+    try {
+
+      const res = (await addWhislist({
+        userId: `${userId}`,
+        productId: `${data?._id}`,
+      }).unwrap()) as TResponce;
+      toast.success(res?.message, { id: toastId, duration: 2000 });
+
+    } catch (err) {
+
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+
+    }
+
+  };
 
   return (
     <>
@@ -25,19 +58,19 @@ const ProductCard = ({ data }) => {
             </div>
           </NavLink>
 
-          <div className="absolute top-1.5 md:top-3 w-full flex justify-between items-center px-2 lg:p-2">
-            <div className="bg-white border px-2 rounded-full text-[#436350] text-xs">
-              <p>New Arrival</p>
-            </div>
+          <div
+            className={`${
+              isNewArrival ? "block" : "hidden"
+            } absolute top-5 left-2.5 text-sm font-medium bg-white/30 backdrop-blur-md px-2 rounded-full border border-white`}
+          >
+            <span>New Arrival</span>
+          </div>
 
-            <div className="text-sm lg:text-xl">
-              <IoMdHeartEmpty
-                onClick={() => setLike(!like)}
-                className={`${
-                  like ? "text-red-500" : "text-black"
-                } text-2xl transition duration-300 cursor-pointer`}
-              />
-            </div>
+          <div className="text-sm lg:text-xl absolute top-5 right-5">
+            <IoMdHeartEmpty
+              onClick={handleProductAddWishlist}
+              className={`text-black text-2xl transition duration-300 cursor-pointer`}
+            />
           </div>
         </div>
 

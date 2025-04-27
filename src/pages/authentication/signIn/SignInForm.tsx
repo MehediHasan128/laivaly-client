@@ -15,25 +15,7 @@ import { toast } from "sonner";
 import { decodedUserToken } from "@/utils/decodedUserToken";
 import { setUser, Tuser } from "@/redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-
-type TResponce = {
-  statusCode: number;
-  success: boolean;
-  message: string;
-  data: any
-}
-
-type TError = {
-  status: number;
-  data: {
-    success: boolean;
-    message: string;
-    errorSource: {
-      path: string;
-      message: string;
-    }[]
-  }
-}
+import { TError, TResponce } from "@/types";
 
 // laivaly.bd@gmail.com
 // Shaheen@123
