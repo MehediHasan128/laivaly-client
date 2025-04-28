@@ -1,22 +1,23 @@
 import { Rate } from "antd";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { SlLike, SlDislike } from "react-icons/sl";
+import { TUserReview } from "@/types";
 
-const CustomerReview = () => {
+const CustomerReview = ({userReview}: {userReview: TUserReview}) => {
   return (
     <div className="py-6 md:py-8 border-b border-gray-300">
       <div className="flex items-center gap-2">
         <Avatar className="size-10 md:size-12 rounded-full">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={userReview?.customerId?.profileImage} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>
-          <h1 className="text-sm md:text-base font-bold">Mehedi Hasan</h1>
+          <h1 className="text-sm md:text-base font-bold">{userReview?.customerId?.userName?.firstName} {userReview?.customerId?.userName?.lastName}</h1>
           <div>
             <Rate
               disabled
               allowHalf
-              defaultValue={5}
+              defaultValue={userReview?.rating}
               style={{ color: "#FFA534", fontSize: "16px" }}
             />
           </div>
@@ -25,10 +26,7 @@ const CustomerReview = () => {
 
       <div className="my-3 md:my-5 text-justify">
         <p className="font-medium text-gray-700 text-sm md:text-base">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed numquam
-          exercitationem ipsam doloremque dolorum sunt tempora. Cum magnam id
-          minima repellendus ipsa at voluptatum? Atque iure rerum exercitationem
-          id minus!
+          {userReview?.comment}
         </p>
       </div>
       

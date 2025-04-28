@@ -42,3 +42,16 @@ export type TProductData = {
   updatedAt: string; // or Date if you will parse it
   __v: number;
 }
+
+
+export type TUserReview = {
+  customerId: {
+    userName: {
+      firstName: string;
+      lastName: string;
+    };
+    profileImage: string;
+  },
+  rating: number;
+  comment: string;
+}

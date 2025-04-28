@@ -16,7 +16,7 @@ import {
   useGetSimillerProductQuery,
   useGetSingleProductQuery,
 } from "@/redux/features/product/productApi";
-import { TError, TProductData, TResponce } from "@/types";
+import { TError, TProductData, TResponce, TUserReview } from "@/types";
 import { useAppSelector } from "@/redux/hook";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { toast } from "sonner";
@@ -27,6 +27,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useAddUserCommentMutation, useGetAllUserReviewQuery } from "@/redux/features/reviews/reviewApi";
 import Spinner from "@/components/ui/spinner";
+
+
+
+
+
+
+
+
+
 
 const ProductDetails = () => {
   // get product id use params
@@ -91,6 +100,7 @@ const ProductDetails = () => {
   const {data: customerReviews, refetch} = useGetAllUserReviewQuery(productData?._id);
   const resviews = customerReviews?.data;
   const ratings = resviews?.ratings;
+  const allUserReview = resviews?.reviews;
 
 
   // Add user review
@@ -368,17 +378,14 @@ const ProductDetails = () => {
           <div className="lg:w-[60%]">
             <h1 className="text-xl font-semibold">Reviews</h1>
             <p className="text-sm font-medium text-gray-600">
-              Showing 5 from 225 reviews
+              {`Showing 3 from ${allUserReview?.length} reviews`}
             </p>
 
             {/* Customer reviews */}
             <div className="mb-10">
-              <CustomerReview />
-              <CustomerReview />
-              <CustomerReview />
-              <CustomerReview />
-              <CustomerReview />
-
+              {
+                allUserReview?.map((review: TUserReview) => <CustomerReview userReview={review} />)
+              }
               <div className="my-4 md:my-8 font-bold w-fit cursor-pointer">
                 <p>Show more</p>
               </div>
