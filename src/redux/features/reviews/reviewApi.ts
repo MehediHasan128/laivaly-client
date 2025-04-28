@@ -8,8 +8,14 @@ const reviewApi = baseApi.injectEndpoints({
             method: 'PATCH',
             body: data
         })
+    }),
+    getAllUserReview: builder.query({
+        query: (params) => ({
+            url: `/reviews/${params}`,
+            method: 'GET'
+        })
     })
   }),
 });
 
-export const { useAddUserCommentMutation } = reviewApi;
+export const { useAddUserCommentMutation, useGetAllUserReviewQuery } = reviewApi;

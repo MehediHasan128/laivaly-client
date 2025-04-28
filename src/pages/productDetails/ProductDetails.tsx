@@ -25,13 +25,18 @@ import {
   useGetSingleProductFromWhislistQuery,
 } from "@/redux/features/wishlist/whislistApi";
 import { Textarea } from "@/components/ui/textarea";
-import { useAddUserCommentMutation } from "@/redux/features/reviews/reviewApi";
+import { useAddUserCommentMutation, useGetAllUserReviewQuery } from "@/redux/features/reviews/reviewApi";
 import Spinner from "@/components/ui/spinner";
 
 const ProductDetails = () => {
+  // get product id use params
   const id = useParams();
+
+  // Get product data
   const { data: product } = useGetSingleProductQuery(id?.productId);
   const productData = product?.data;
+
+  // Manage ratings, comment, color, product size, quantity or main image state
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
   const [color, setColor] = useState("green");
@@ -39,6 +44,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(0);
   const [mainImg, setMainImg] = useState<string | undefined>(undefined);
 
+  // Get all similer data
   const { data: allSimillerProduct } = useGetSimillerProductQuery([
     productData?.targetAudience,
     productData?.subCategory,
@@ -46,6 +52,7 @@ const ProductDetails = () => {
   ]);
   const simillerProducts = allSimillerProduct?.data;
 
+  // Get main thumbnail image
   useEffect(() => {
     if (productData?.thumbnail) {
       setMainImg(productData?.thumbnail);
@@ -55,15 +62,14 @@ const ProductDetails = () => {
   // Get user id
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
-  const [addWhislist] = useAddWhislistMutation();
 
+  // Product add to whislist
+  const [addWhislist] = useAddWhislistMutation();
   const { data: WhislistProduct } = useGetSingleProductFromWhislistQuery([
     userId,
     productData?._id,
   ]);
   const isProductAddToWhislist = WhislistProduct?.data;
-
-  // Product add to whislist
   const handleAddToWhishList = async () => {
     const whislistInfo = {
       userId,
@@ -81,6 +87,12 @@ const ProductDetails = () => {
     }
   };
 
+  // Get all user reviews
+  const {data: customerReviews, refetch} = useGetAllUserReviewQuery(productData?._id);
+  const resviews = customerReviews?.data;
+  const ratings = resviews?.ratings;
+
+
   // Add user review
   const [addUserComment, { isLoading: cmntLoading }] =
     useAddUserCommentMutation();
@@ -96,12 +108,14 @@ const ProductDetails = () => {
         reviews,
         productData?._id,
       ]).unwrap()) as TResponce;
+      refetch();
       toast.success(res?.message, { id: toastId, duration: 2000 });
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
     }
   };
+  
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
@@ -377,10 +391,10 @@ const ProductDetails = () => {
                 <Rate
                   disabled
                   allowHalf
-                  defaultValue={4.5}
+                  defaultValue={resviews?.overAllRating}
                   style={{ color: "#FFA534" }}
                 />
-                <h1 className="text-2xl font-bold">4.5</h1>
+                <h1 className="text-2xl font-bold">{resviews?.overAllRating}</h1>
               </div>
 
               <div className="border-b border-gray-300"></div>
@@ -388,28 +402,28 @@ const ProductDetails = () => {
               <div className="my-5 px-5 md:px-10 space-y-1.5 md:space-y-3 text-gray-600">
                 <div className="flex items-center gap-3.5 font-semibold">
                   <h1>5</h1>
-                  <Progress value={90} className="" />
-                  <h1>256</h1>
+                  <Progress value={ratings?.fiveStar} className="" />
+                  <h1>{ratings?.fiveStar}</h1>
                 </div>
                 <div className="flex items-center gap-3.5 font-semibold">
                   <h1>4</h1>
-                  <Progress value={75} className="" />
-                  <h1>150</h1>
+                  <Progress value={ratings?.fourStar} className="" />
+                  <h1>{ratings?.fourStar}</h1>
                 </div>
                 <div className="flex items-center gap-3.5 font-semibold">
                   <h1>3</h1>
-                  <Progress value={65} className="" />
-                  <h1>120</h1>
+                  <Progress value={ratings?.threeStar} className="" />
+                  <h1>{ratings?.threeStar}</h1>
                 </div>
                 <div className="flex items-center gap-3.5 font-semibold">
                   <h1>2</h1>
-                  <Progress value={55} className="" />
-                  <h1>80</h1>
+                  <Progress value={ratings?.twoStar} className="" />
+                  <h1>{ratings?.twoStar}</h1>
                 </div>
                 <div className="flex items-center gap-3.5 font-semibold">
                   <h1>1</h1>
-                  <Progress value={30} className="" />
-                  <h1>15</h1>
+                  <Progress value={ratings?.oneStar} className="" />
+                  <h1>{ratings?.oneStar}</h1>
                 </div>
               </div>
             </div>
