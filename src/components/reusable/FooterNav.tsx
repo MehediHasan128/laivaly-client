@@ -1,20 +1,21 @@
 import { NavLink } from "react-router-dom";
 
 type TFooterNavProps = {
-    navTitle: string;
-    items: {
-        lable: string;
-        path: string;
-    }[]
-}
+  navTitle: string;
+  items: {
+    lable: string;
+    path: string;
+  }[];
+};
 
-const FooterNav = ({navTitle, items}: TFooterNavProps) => {
+const FooterNav = ({ navTitle, items }: TFooterNavProps) => {
   return (
     <div>
       <h1 className="text-2xl font-semibold">{navTitle}</h1>
       <div className="mt-8 space-y-3 flex flex-col">
-        {items?.map((item) => (
+        {items?.map((item, idx) => (
           <NavLink
+            key={idx}
             to={item.path}
             className={({ isActive, isPending }) =>
               isPending

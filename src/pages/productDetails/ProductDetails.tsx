@@ -25,17 +25,11 @@ import {
   useGetSingleProductFromWhislistQuery,
 } from "@/redux/features/wishlist/whislistApi";
 import { Textarea } from "@/components/ui/textarea";
-import { useAddUserCommentMutation, useGetAllUserReviewQuery } from "@/redux/features/reviews/reviewApi";
+import {
+  useAddUserCommentMutation,
+  useGetAllUserReviewQuery,
+} from "@/redux/features/reviews/reviewApi";
 import Spinner from "@/components/ui/spinner";
-
-
-
-
-
-
-
-
-
 
 const ProductDetails = () => {
   // get product id use params
@@ -97,11 +91,12 @@ const ProductDetails = () => {
   };
 
   // Get all user reviews
-  const {data: customerReviews, refetch} = useGetAllUserReviewQuery(productData?._id);
+  const { data: customerReviews, refetch } = useGetAllUserReviewQuery(
+    productData?._id
+  );
   const resviews = customerReviews?.data;
   const ratings = resviews?.ratings;
   const allUserReview = resviews?.reviews;
-
 
   // Add user review
   const [addUserComment, { isLoading: cmntLoading }] =
@@ -125,7 +120,6 @@ const ProductDetails = () => {
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
     }
   };
-  
 
   return (
     <div className="min-h-screen pb-8 md:pt-12 bg-gray-100">
@@ -151,8 +145,9 @@ const ProductDetails = () => {
               </div>
 
               <div className="grid grid-cols-4 lg:flex flex-row lg:flex-col gap-2 xl:w-[20%]">
-                {productData?.images?.map((img: string) => (
+                {productData?.images?.map((img: string, idx: number) => (
                   <img
+                    key={idx}
                     onClick={() => setMainImg(img)}
                     className={`object-cover cursor-pointer border-2 ${
                       mainImg === img ? "border-[#31473A]" : "border-gray-200"
@@ -259,8 +254,9 @@ const ProductDetails = () => {
                 </h1>
 
                 <div className="flex gap-3 text-xs font-medium">
-                  {productData?.sizes.map((size: string) => (
+                  {productData?.sizes.map((size: string, idx: number) => (
                     <div
+                    key={idx}
                       onClick={() => setProductSize(size)}
                       className="border border-gray-500 rounded overflow-hidden cursor-pointer"
                     >
@@ -383,9 +379,9 @@ const ProductDetails = () => {
 
             {/* Customer reviews */}
             <div className="mb-10">
-              {
-                allUserReview?.map((review: TUserReview) => <CustomerReview userReview={review} />)
-              }
+              {allUserReview?.map((review: TUserReview, idx: number) => (
+                <CustomerReview key={idx} userReview={review} />
+              ))}
               <div className="my-4 md:my-8 font-bold w-fit cursor-pointer">
                 <p>Show more</p>
               </div>
@@ -398,10 +394,12 @@ const ProductDetails = () => {
                 <Rate
                   disabled
                   allowHalf
-                  defaultValue={resviews?.overAllRating}
+                  value={resviews?.overAllRating}
                   style={{ color: "#FFA534" }}
                 />
-                <h1 className="text-2xl font-bold">{resviews?.overAllRating}</h1>
+                <h1 className="text-2xl font-bold">
+                  {resviews?.overAllRating}
+                </h1>
               </div>
 
               <div className="border-b border-gray-300"></div>
@@ -444,7 +442,7 @@ const ProductDetails = () => {
         <h1 className="text-2xl font-semibold">Similer Product</h1>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-8 mb-16">
           {simillerProducts?.map((product: TProductData) => (
-            <ProductCard data={product} />
+            <ProductCard key={product?._id} data={product} />
           ))}
         </div>
       </Container>

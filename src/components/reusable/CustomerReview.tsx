@@ -17,7 +17,7 @@ const CustomerReview = ({userReview}: {userReview: TUserReview}) => {
             <Rate
               disabled
               allowHalf
-              defaultValue={userReview?.rating}
+              value={userReview?.rating}
               style={{ color: "#FFA534", fontSize: "16px" }}
             />
           </div>
