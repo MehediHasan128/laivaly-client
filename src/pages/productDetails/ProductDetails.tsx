@@ -25,11 +25,15 @@ import {
   useGetSingleProductFromWhislistQuery,
 } from "@/redux/features/wishlist/whislistApi";
 import { Textarea } from "@/components/ui/textarea";
+import { useAddUserCommentMutation } from "@/redux/features/reviews/reviewApi";
+import Spinner from "@/components/ui/spinner";
 
 const ProductDetails = () => {
   const id = useParams();
   const { data: product } = useGetSingleProductQuery(id?.productId);
   const productData = product?.data;
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState<string>("");
   const [color, setColor] = useState("green");
   const [productSize, setProductSize] = useState(productData?.sizes[0]);
   const [quantity, setQuantity] = useState(0);
@@ -59,6 +63,7 @@ const ProductDetails = () => {
   ]);
   const isProductAddToWhislist = WhislistProduct?.data;
 
+  // Product add to whislist
   const handleAddToWhishList = async () => {
     const whislistInfo = {
       userId,
@@ -69,6 +74,28 @@ const ProductDetails = () => {
 
     try {
       const res = (await addWhislist(whislistInfo).unwrap()) as TResponce;
+      toast.success(res?.message, { id: toastId, duration: 2000 });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
+  };
+
+  // Add user review
+  const [addUserComment, { isLoading: cmntLoading }] =
+    useAddUserCommentMutation();
+  const handleAddComment = async () => {
+    const reviews = {
+      customerId: userId,
+      rating,
+      comment,
+    };
+    const toastId = toast.loading(null);
+    try {
+      const res = (await addUserComment([
+        reviews,
+        productData?._id,
+      ]).unwrap()) as TResponce;
       toast.success(res?.message, { id: toastId, duration: 2000 });
     } catch (err) {
       const error = err as TError;
@@ -303,16 +330,23 @@ const ProductDetails = () => {
           <div className="w-[40%]">
             <div>
               <Rate
-                allowHalf
-                defaultValue={0}
+                defaultValue={rating}
+                onChange={setRating}
                 style={{ color: "#FFA534" }}
               />
             </div>
 
-            <Textarea className="my-3" placeholder="Type your comment here." />
+            <Textarea
+              onChange={(e) => setComment(e.target.value)}
+              className="my-3"
+              placeholder="Type your comment here."
+            />
 
-            <button className="text-sm font-medium px-4 py-1.5 rounded-lg cursor-pointer bg-[#31473A] text-white active:scale-95 transition transform duration-300">
-              Submit
+            <button
+              onClick={handleAddComment}
+              className="text-sm font-medium w-20 py-1.5 rounded-lg cursor-pointer bg-[#31473A] text-white active:scale-95 transition transform duration-300"
+            >
+              {cmntLoading ? <Spinner className="size-5" /> : "Submit"}
             </button>
           </div>
         </div>
