@@ -7,6 +7,13 @@ export type TQueryParams = {
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    addProduct: builder.mutation({
+      query: (productData) => ({
+        url: '/products/add-product',
+        method: 'POST',
+        body: productData
+      })
+    }),
     getAllProduct: builder.query({
       query: ([args, audiance]) => {
         const params = new URLSearchParams();
@@ -43,4 +50,4 @@ const productApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllProductQuery, useGetSingleProductQuery, useGetSimillerProductQuery } = productApi;
+export const { useAddProductMutation, useGetAllProductQuery, useGetSingleProductQuery, useGetSimillerProductQuery } = productApi;
