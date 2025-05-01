@@ -42,9 +42,9 @@ const ProductDetails = () => {
   // Manage ratings, comment, color, product size, quantity or main image state
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
-  const [color, setColor] = useState("green");
+  const [productColor, setProductColor] = useState(productData?.colors[0]);
   const [productSize, setProductSize] = useState(productData?.sizes[0]);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [mainImg, setMainImg] = useState<string | undefined>(undefined);
 
   // Get all similer data
@@ -118,6 +118,25 @@ const ProductDetails = () => {
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
+  };
+
+  // add product on cart
+  const handleProductAddToCart = async () => {
+    if(productColor && productSize){
+
+      // const productInfo = {
+      //   userId,
+      //   items: [
+      //     {
+      //       productId: productData?._id,
+      //       color: productColor,
+      //       size: productSize,
+      //       quantity
+      //     },
+      //   ],
+      // };
+      
     }
   };
 
@@ -220,30 +239,13 @@ const ProductDetails = () => {
                 </h1>
 
                 <div className="flex gap-2">
-                  <div
-                    onClick={() => setColor("red")}
-                    className={`${
-                      color === "red" ? "border-black" : "border-transparent"
-                    } w-fit p-0.5 rounded-full border-2 cursor-pointer`}
-                  >
-                    <div className="bg-red-800 size-6 lg:size-8 rounded-full"></div>
-                  </div>
-                  <div
-                    onClick={() => setColor("green")}
-                    className={`${
-                      color === "green" ? "border-black" : "border-transparent"
-                    } w-fit p-0.5 rounded-full border-2 cursor-pointer`}
-                  >
-                    <div className="bg-green-800 size-6 lg:size-8 rounded-full"></div>
-                  </div>
-                  <div
-                    onClick={() => setColor("blue")}
-                    className={`${
-                      color === "blue" ? "border-black" : "border-transparent"
-                    } w-fit p-0.5 rounded-full border-2 cursor-pointer`}
-                  >
-                    <div className="bg-blue-800 size-6 lg:size-8 rounded-full"></div>
-                  </div>
+                  {
+                    productData?.colors.map((color: string) => (
+                      <div onClick={() => setProductColor(color)} className={`size-8 p-0.5 rounded-full cursor-pointer ${(productColor === color) && "border-2"}`}>
+                        <div style={{backgroundColor: `${color}`}} className="w-full h-full rounded-full"></div>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
 
@@ -256,7 +258,7 @@ const ProductDetails = () => {
                 <div className="flex gap-3 text-xs font-medium">
                   {productData?.sizes.map((size: string, idx: number) => (
                     <div
-                    key={idx}
+                      key={idx}
                       onClick={() => setProductSize(size)}
                       className="border border-gray-500 rounded overflow-hidden cursor-pointer"
                     >
@@ -301,7 +303,10 @@ const ProductDetails = () => {
 
               {/* Cart or buy button */}
               <div className="flex gap-3 font-medium my-5 2xl:my-10">
-                <button className="bg-[#31473A] hover:bg-[#1d2c23] border border-[#31473A] w-full flex justify-center items-center gap-2 rounded text-white text-sm 2xl:text-base py-2 xl:py-2.5 2xl:py-3">
+                <button
+                  onClick={handleProductAddToCart}
+                  className="bg-[#31473A] hover:bg-[#1d2c23] border border-[#31473A] w-full flex justify-center items-center gap-2 rounded text-white text-sm 2xl:text-base py-2 xl:py-2.5 2xl:py-3 cursor-pointer active:scale-95 transition transform duration-300"
+                >
                   <IoBagHandleOutline className="text-xl 2xl:text-2xl" /> Add to
                   Cart
                 </button>

@@ -8,17 +8,14 @@ import ProductCard from "@/components/reusable/ProductCard";
 import PaginationWrapper from "@/components/reusable/PaginationWrapper";
 import { useState } from "react";
 import { useGetAllProductQuery } from "@/redux/features/product/productApi";
-import { TProductData } from "@/types";
+import { TProductData, TSearch } from "@/types";
 
 const title = {
   title1: "Get 25% Cash back",
   title2: "On $150",
 };
 
-type TSearch = {
-  field: string;
-  value: string;
-};
+
 
 const NewCollection = () => {
 

@@ -31,7 +31,7 @@ export type TProductData = {
   discount: number;
   quantity: number;
   inStock: boolean;
-  color: string[];
+  colors: string[];
   sizes: string[];
   images: string[];
   thumbnail: string;
@@ -55,3 +55,9 @@ export type TUserReview = {
   rating: number;
   comment: string;
 }
+
+
+export type TSearch = {
+  field: string;
+  value: string;
+};

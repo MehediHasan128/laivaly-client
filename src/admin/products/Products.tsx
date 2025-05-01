@@ -1,12 +1,17 @@
 import Container from "@/components/reusable/Container";
 import ProductsTable from "./ProductsTable";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import { ChangeEvent, useState } from "react";
+import { FiPlus, FiSearch } from "react-icons/fi";
+import { TSearch } from "@/types";
+import { useGetAllProductQuery } from "@/redux/features/product/productApi";
+import AddProductModal from "./AddProductModal";
 
 const Products = () => {
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);
-  console.log(searchTerm);
+  const [searchTerm, setSearchTerm] = useState<TSearch[]>([]);
+
+  const { data: Products } = useGetAllProductQuery([searchTerm, "all"]);
+  const allProducts = Products?.data;
 
   return (
     <Container>
@@ -18,14 +23,16 @@ const Products = () => {
             All product from Laivaly
           </h1>
           <p className="text-xs md:text-base font-medium text-gray-600">
-            Total 210 product
+            Total {allProducts?.length} product
           </p>
         </div>
 
         {/* srearchbar */}
         <div className="w-[30%] relative">
           <Input
-          onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearchTerm([{ field: "searchTerm", value: e.target.value }])
+            }
             type="text"
             name="searchproduct"
             placeholder="Search product by code"
@@ -35,11 +42,17 @@ const Products = () => {
             <FiSearch />
           </div>
         </div>
+
+        <AddProductModal>
+          <button className="border border-gray-300 px-8 py-3 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition transform duration-500 cursor-pointer">
+            <FiPlus className="text-xl" /> <span>Add Product</span>
+          </button>
+        </AddProductModal>
       </div>
 
       {/* Table container */}
       <div>
-        <ProductsTable />
+        <ProductsTable allProducts={allProducts} />
       </div>
     </Container>
   );
