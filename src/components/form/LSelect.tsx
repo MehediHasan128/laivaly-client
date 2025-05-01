@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Dispatch, SetStateAction } from "react";
 
 type TSelectProps = {
   name: string;
@@ -16,21 +17,25 @@ type TSelectProps = {
     value: string;
     label: string;
   }[];
+  setValue?: Dispatch<SetStateAction<string | null>>;
 };
 
-const LSelect = ({ name, placeholder, className, options }: TSelectProps) => {
+const LSelect = ({ name, placeholder, className, options, setValue }: TSelectProps) => {
   return (
     <>
       <Controller
         name={name}
         render={({ field }) => (
-          <Select {...field} onValueChange={field.onChange}>
-            <SelectTrigger className={className}>
+          <Select {...field} onValueChange={(val) => {
+            field.onChange(val);
+            setValue?.(val)
+          }}>
+            <SelectTrigger className={className} disabled={options?.length === 0}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {options.map((option) => (
+                {options?.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
                   </SelectItem>
