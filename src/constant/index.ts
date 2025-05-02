@@ -1,4 +1,4 @@
-export const group = [
+export const groupOptions = [
     {value: 'clothing', label: 'Clothing'},
     {value: 'accessories', label: 'Accessories'},
     {value: 'footwear', label: 'Footwear'},

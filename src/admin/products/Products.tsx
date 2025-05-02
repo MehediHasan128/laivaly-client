@@ -10,7 +10,7 @@ import AddProductModal from "./AddProductModal";
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState<TSearch[]>([]);
 
-  const { data: Products } = useGetAllProductQuery([searchTerm, "all"]);
+  const { data: Products, refetch } = useGetAllProductQuery([searchTerm, "all"]);
   const allProducts = Products?.data;
 
   return (
@@ -43,7 +43,7 @@ const Products = () => {
           </div>
         </div>
 
-        <AddProductModal>
+        <AddProductModal refetch={refetch}>
           <div className="border border-gray-300 px-8 py-3 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition transform duration-500 cursor-pointer">
             <FiPlus className="text-xl" /> <span>Add Product</span>
           </div>
