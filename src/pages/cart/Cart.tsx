@@ -5,11 +5,32 @@ import Container from "@/components/reusable/Container";
 import { FieldValues } from "react-hook-form";
 import CartPricingDrawer from "./CartPricingDrawer";
 import CartCardForMoile from "@/components/reusable/CartCardForMoile";
+import { useGetAllProductFromCartQuery } from "@/redux/features/cart/cartApi";
+import { useAppSelector } from "@/redux/hook";
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { TCartProduct } from "@/types";
 
 const Cart = () => {
   const handleApplyCouponCode = (data: FieldValues) => {
     console.log(data);
   };
+
+  // Get user id
+  const user = useAppSelector(currentUser);
+  const userId = user?.userId;
+
+  // Cart product
+  const { data: cartData } = useGetAllProductFromCartQuery(userId);
+  const cartProducts = cartData?.data[0]?.items;
+
+
+  // Calculate product costing
+  const totalPrice = cartProducts?.reduce((total: number, item: TCartProduct) => total + Number(item?.productId?.price) * Number(item.quantity), 0);
+  const totalWeight = cartProducts?.reduce((total: number, item: TCartProduct) => total + Number((item.productId.weight).replace("kg", "")) * Number(item.quantity), 0);
+  const calculateTax = Number(((totalPrice + Number(totalWeight*5))*0.15).toFixed(2));
+  const finalPrice = Number((totalPrice + (totalWeight*5) + calculateTax ).toFixed(2))
+
+  
 
   return (
     <div className="min-h-screen pb-32">
@@ -20,11 +41,11 @@ const Cart = () => {
 
             {/* Card container */}
             <div className="mt-5 md:mt-10 hidden md:block">
-              <CartCard />
-              <CartCard />
-              <CartCard />
-              <CartCard />
+              {
+                cartProducts?.map((product: TCartProduct) => <CartCard product={product} />)
+              }
             </div>
+
             <div className="mt-5 md:mt-10 block md:hidden">
               <CartCardForMoile />
               <CartCardForMoile />
@@ -59,28 +80,32 @@ const Cart = () => {
 
               <div className="text-base 2xl:text-lg">
                 <div className="space-y-4">
-
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600">
                       Sub Total:
                     </span>
-                    <span className="text-base 2xl:text-xl font-semibold">$0.00</span>
+                    <span className="text-base 2xl:text-xl font-semibold">
+                      ${totalPrice? totalPrice : '0.00'}
+                    </span>
                   </div>
 
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600">
                       Estimated Shipping & Handling:
                     </span>
-                    <span className="text-base 2xl:text-xl font-semibold">$0.00</span>
+                    <span className="text-base 2xl:text-xl font-semibold">
+                      ${totalWeight ? (totalWeight*5).toFixed(2) : '0.00'}
+                    </span>
                   </div>
 
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-gray-600">
                       Estimated Tax:
                     </span>
-                    <span className="text-base 2xl:text-xl font-semibold">$0.00</span>
+                    <span className="text-base 2xl:text-xl font-semibold">
+                      ${calculateTax? calculateTax : '0.00'}
+                    </span>
                   </div>
-
                 </div>
 
                 <div className="border-b border-gray-300 my-5"></div>
@@ -90,7 +115,7 @@ const Cart = () => {
                     <span className="font-medium text-gray-600 text-xl">
                       Total:
                     </span>
-                    <span className="text-2xl font-medium">$0.00</span>
+                    <span className="text-2xl font-medium">${finalPrice? finalPrice : '0.00'}</span>
                   </div>
                 </div>
               </div>

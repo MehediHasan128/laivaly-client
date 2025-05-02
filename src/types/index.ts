@@ -61,3 +61,11 @@ export type TSearch = {
   field: string;
   value: string;
 };
+
+
+export type TCartProduct = {
+  productId: TProductData;
+  color: string;
+  size: string;
+  quantity: number
+}

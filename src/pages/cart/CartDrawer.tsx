@@ -15,15 +15,9 @@ import { ReactNode } from "react";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
+import { TCartProduct } from "@/types";
 
-type TCartProduct = {
-  productId: {
-    thumbnail: string;
-    price: number;
-    weight: string
-  };
-  quantity: number;
-};
+
 
 const CartDrawer = ({ child }: { child: ReactNode }) => {
   // Get user id

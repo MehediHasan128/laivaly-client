@@ -1,57 +1,56 @@
-import { FiMinus, FiPlus } from "react-icons/fi";
-import product from "../../assets/images/product/product4.jpg";
-import { RxCross2 } from "react-icons/rx";
-import { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "../ui/table";
 import { Checkbox } from "../ui/checkbox";
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { useState } from "react";
+import { MdOutlineDelete } from "react-icons/md";
+import { TCartProduct } from "@/types";
 
-const CartCard = () => {
-  const [quantity, setQuantity] = useState(1);
+const CartCard = ({product}: {product: TCartProduct}) => {
+
+  const [quantity, setQuantity] = useState(1)
 
   return (
-    <div className="border-b border-gray-300 py-3 flex justify-between items-center select-none">
-      {/* Product Image */}
-      <div className="w-20 xl:w-24 2xl:w-42 flex items-center gap-0.5 md:gap-1.5 lg:gap-2.5">
-        <Checkbox id="remember" />
-        <img src={product} alt="" />
-      </div>
-
-      {/* Product Title */}
-      <div>
-        <h1 className="text-base 2xl:text-xl font-semibold">
-          Royal Perfume 25ml
-        </h1>
-        <p className="text-sm 2xl:text-lg font-medium text-gray-600">Perfume</p>
-      </div>
-
-      {/* Product quantity */}
-      <div className="flex items-center md:gap-1.5 lg:gap-3">
-        <span
-          onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-          className="bg-gray-200 font-semibold md:p-0.5 lg:p-1 rounded active:scale-95 transition transform duration-100 cursor-pointer text-sm lg:text-base"
-        >
-          <FiMinus />
-        </span>
-        <span className="w-16 text-center text-base lg:text-xl font-semibold">
-          {quantity}
-        </span>
-        <span
-          onClick={() => setQuantity(quantity + 1)}
-          className="bg-gray-200 font-semibold md:p-0.5 lg:p-1 rounded active:scale-95 transition transform duration-100 cursor-pointer text-sm lg:text-base"
-        >
-          <FiPlus />
-        </span>
-      </div>
-
-      {/* Product price */}
-      <div>
-        <h1 className="text-lg xl:text-xl 2xl:text-2xl font-bold">$25.00</h1>
-      </div>
-
-      {/* Remove product */}
-      <div className="text-lg lg:text-2xl bg-gray-200 p-2 rounded-full active:scale-95 transition transform duration-100 cursor-pointer">
-        <RxCross2 />
-      </div>
-    </div>
+    <>
+      <Table className="font-medium">
+        <TableBody>
+          <TableRow>
+            <TableCell className="text-center w-[20%]">
+              <div className="flex items-center gap-2.5 w-[40%]">
+                <Checkbox id="terms" />
+                <img className="rounded-md" src={product?.productId.thumbnail} alt="" />
+              </div>
+            </TableCell>
+            <TableCell className="text-center w-[20%]">
+              <div className="text-start font-medium">
+                <h1 className="text-base">{product?.productId.title}</h1>
+                <p className="text-gray-600">{product?.productId.SKU}</p>
+                <p className="text-gray-600">{product?.productId.category}</p>
+              </div>
+            </TableCell>
+            <TableCell className="text-center w-[20%]">
+              <div className="flex justify-center items-center">
+                <button disabled={quantity === 0} onClick={() => setQuantity(quantity-1)} className="bg-gray-300 w-fit p-1 rounded hover:bg-gray-400 active:scale-90 transition transform duration-400 cursor-pointer"><FaMinus /></button>
+                <span className="w-20 text-xl font-semibold">{product?.quantity}</span>
+                <button onClick={() => setQuantity(quantity+1)} className="bg-gray-300 w-fit p-1 rounded hover:bg-gray-400 active:scale-90 transition transform duration-400 cursor-pointer"><FaPlus /></button>
+              </div>
+            </TableCell>
+            <TableCell className="text-center w-[20%]">
+              <h1 className="text-xl font-bold">${(product?.productId.price)*(product?.quantity)}</h1>
+            </TableCell>
+            <TableCell className="text-center w-[20%]">
+              <div className="w-fit mx-auto bg-gray-200 p-2 text-2xl rounded-full text-red-600 active:scale-90 transition transform duration-500 cursor-pointer">
+              <MdOutlineDelete />
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </>
   );
 };
 
