@@ -9,6 +9,7 @@ type TInputProps = {
   icon: boolean;
   className?: string;
   setValue?: Dispatch<SetStateAction<string | null>>;
+  isArray?: boolean;
 };
 
 const LInput = ({
@@ -18,6 +19,7 @@ const LInput = ({
   icon,
   className,
   setValue,
+  isArray,
 }: TInputProps) => {
   return (
     <>
@@ -27,8 +29,17 @@ const LInput = ({
           <Input
             {...field}
             onChange={(e) => {
-              field.onChange(e);
-              setValue?.(e.target.value);
+              if (!isArray) {
+                field.onChange(e);
+                setValue?.(e.target.value);
+              } else {
+                const rawValue = e.target.value;
+                const processedValue = rawValue
+                  .split(",")
+                  .map((item) => item.trim());
+                field.onChange(processedValue);
+                setValue?.(rawValue);
+              }
             }}
             type={type}
             name={name}

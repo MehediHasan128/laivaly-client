@@ -44,9 +44,9 @@ const Products = () => {
         </div>
 
         <AddProductModal>
-          <button className="border border-gray-300 px-8 py-3 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition transform duration-500 cursor-pointer">
+          <div className="border border-gray-300 px-8 py-3 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition transform duration-500 cursor-pointer">
             <FiPlus className="text-xl" /> <span>Add Product</span>
-          </button>
+          </div>
         </AddProductModal>
       </div>
 

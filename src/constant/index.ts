@@ -135,3 +135,9 @@ export const ProductGroupCategoryMap = {
       'oxford shoes'
     ]
   };
+
+  export const targetAudienceOptions = [
+    {value: 'men', label: 'Men'},
+    {value: 'women', label: 'Women'},
+    {value: 'children', label: 'Children'},
+]

@@ -65,7 +65,7 @@ const AddImages = ({
 
       <div>
         {previewUrls.length > 0 ? (
-          <div className="grid grid-cols-4 w-[30%] gap-2">
+          <div className="grid grid-cols-4 w-[50%] gap-2">
             {previewUrls.map((url, idx) => (
               <div key={idx} className="rounded-lg overflow-hidden relative">
                 <img src={url} alt={`Preview ${idx}`} />
