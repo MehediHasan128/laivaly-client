@@ -30,6 +30,7 @@ import {
   useGetAllUserReviewQuery,
 } from "@/redux/features/reviews/reviewApi";
 import Spinner from "@/components/ui/spinner";
+import { useAddProductIntoCartMutation } from "@/redux/features/cart/cartApi";
 
 const ProductDetails = () => {
   // get product id use params
@@ -122,20 +123,32 @@ const ProductDetails = () => {
   };
 
   // add product on cart
+  const [addProductIntoCart] = useAddProductIntoCartMutation();
+
   const handleProductAddToCart = async () => {
+    const toastId = toast.loading(null);
+
     if(productColor && productSize){
 
-      // const productInfo = {
-      //   userId,
-      //   items: [
-      //     {
-      //       productId: productData?._id,
-      //       color: productColor,
-      //       size: productSize,
-      //       quantity
-      //     },
-      //   ],
-      // };
+      const productInfo = {
+        userId,
+        items: [
+          {
+            productId: productData?._id,
+            color: productColor,
+            size: productSize,
+            quantity
+          },
+        ],
+      };
+
+      try{
+        const res = await addProductIntoCart(productInfo).unwrap() as TResponce;
+        toast.success(res?.message, { id: toastId, duration: 2000 });
+      }catch(err){
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+      }
       
     }
   };

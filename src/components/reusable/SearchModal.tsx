@@ -3,7 +3,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
@@ -23,7 +22,7 @@ type TSearch = {
 const SearchModal = ({ child }: { child: ReactNode }) => {
   const [searchText, setSearchText] = useState<TSearch[]>([]);
 
-  const { data: products } = useGetAllProductQuery([searchText, 'all']);
+  const { data: products } = useGetAllProductQuery([searchText, "all"]);
   const productData = products?.data;
 
   return (
@@ -57,12 +56,12 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
           </div>
         </DrawerHeader>
 
-        <DrawerFooter
+        <div
           className={`${
             searchText[0]?.value.length > 0 ? "block" : "hidden"
-          } max-h-[80vh] mt-5 2xl:mt-10`}
+          } max-h-[80vh] mt-5 2xl:mt-10 overflow-hidden px-5`}
         >
-          <ScrollArea className="w-full h-full">
+          <ScrollArea className="w-full h-[80vh]">
             <div className="grid grid-cols-2 2xl:grid-cols-5">
               {productData?.map((product: any) => (
                 <SearchProductCard
@@ -74,7 +73,7 @@ const SearchModal = ({ child }: { child: ReactNode }) => {
               ))}
             </div>
           </ScrollArea>
-        </DrawerFooter>
+        </div>
       </DrawerContent>
     </Drawer>
   );

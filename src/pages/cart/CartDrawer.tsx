@@ -20,6 +20,7 @@ type TCartProduct = {
   productId: {
     thumbnail: string;
     price: number;
+    weight: string
   };
   quantity: number;
 };
@@ -32,6 +33,11 @@ const CartDrawer = ({ child }: { child: ReactNode }) => {
   // Get all product from cart
   const { data: cartData } = useGetAllProductFromCartQuery(userId);
   const cartProducts = cartData?.data[0]?.items;
+  
+  const totalPrice = cartProducts?.reduce((total: number, item: TCartProduct) => total + Number(item?.productId?.price) * Number(item.quantity), 0);
+  const totalWeight = cartProducts?.reduce((total: number, item: TCartProduct) => total + Number((item.productId.weight).replace("kg", "")) * Number(item.quantity), 0);
+  const calculateTax = Number(((totalPrice + Number(totalWeight*5))*0.15).toFixed(2));
+  const finalPrice = Number((totalPrice + (totalWeight*5) + calculateTax ).toFixed(2))
 
   return (
     <Drawer direction="right">
@@ -112,17 +118,17 @@ const CartDrawer = ({ child }: { child: ReactNode }) => {
           <div className="space-y-1.5 md:space-y-2.5 xl:space-y-1.5 2xl:space-y-3 text-base md:text-lg xl:text-base font-medium">
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Sub Total:</span>{" "}
-              <span>$0.00</span>
+              <span>${totalPrice? (totalPrice).toFixed(2) : '0.00'}</span>
             </div>
 
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Estimated Shipping:</span>{" "}
-              <span>$0.00</span>
+              <span className="text-gray-600">Estimated Shipping ($5 kg):</span>{" "}
+              <span>${totalWeight ? (totalWeight*5).toFixed(2) : '0.00'}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Estimated Tax(15%):</span>{" "}
-              <span>$0.00</span>
+              <span>${calculateTax? calculateTax : '0.00'}</span>
             </div>
           </div>
 
@@ -131,7 +137,7 @@ const CartDrawer = ({ child }: { child: ReactNode }) => {
 
           {/* total */}
           <div className="flex justify-between items-center text-lg md:text-xl font-medium md:font-semibold">
-            <span>Total:</span> <span>$0.00</span>
+            <span>Total:</span> <span>${finalPrice? finalPrice : '0.00'}</span>
           </div>
 
           <DrawerClose
