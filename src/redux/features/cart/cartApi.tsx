@@ -20,7 +20,14 @@ const cartApi = baseApi.injectEndpoints({
         };
       },
     }),
+    updateProductQuantity: builder.mutation({
+      query: (updatedInfo) => ({
+        url: '/carts/update-cart-product',
+        method: 'PATCH',
+        body: updatedInfo
+      })
+    })
   }),
 });
 
-export const { useAddProductIntoCartMutation, useGetAllProductFromCartQuery } = cartApi;
+export const { useAddProductIntoCartMutation, useGetAllProductFromCartQuery, useUpdateProductQuantityMutation } = cartApi;

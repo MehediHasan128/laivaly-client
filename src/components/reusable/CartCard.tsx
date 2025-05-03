@@ -8,15 +8,24 @@ import { Checkbox } from "../ui/checkbox";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { MdOutlineDelete } from "react-icons/md";
 import { TCartProduct } from "@/types";
+import { useUpdateProductQuantityMutation } from "@/redux/features/cart/cartApi";
 
-const CartCard = ({product}: {product: TCartProduct}) => {
+const CartCard = ({product, refetch}: {product: TCartProduct; refetch: () => void}) => {
 
   const handleRemoveProductFromCart = (id: string) => {
     console.log(id);
   };
 
+  const [updateProductQuantity] = useUpdateProductQuantityMutation();
   const handleProductIncreseOrDecrese = (id: string, method: string) => {
-    console.log(id, method);
+    const updatedInfo = {
+      _id: id,
+      color: product?.color,
+      size: product?.size,
+      method
+    };
+    updateProductQuantity(updatedInfo);
+    refetch();
   }
 
   return (

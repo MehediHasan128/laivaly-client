@@ -20,7 +20,7 @@ const Cart = () => {
   const userId = user?.userId;
 
   // Cart product
-  const { data: cartData } = useGetAllProductFromCartQuery(userId);
+  const { data: cartData, refetch } = useGetAllProductFromCartQuery(userId);
   const cartProducts = cartData?.data[0]?.items;
 
 
@@ -42,7 +42,7 @@ const Cart = () => {
             {/* Card container */}
             <div className="mt-5 md:mt-10 hidden md:block">
               {
-                cartProducts?.map((product: TCartProduct) => <CartCard key={product?._id} product={product} />)
+                cartProducts?.map((product: TCartProduct) => <CartCard key={product?._id} product={product} refetch={refetch} />)
               }
             </div>
 
