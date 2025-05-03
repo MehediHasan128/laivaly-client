@@ -6,22 +6,27 @@ import {
 } from "../ui/table";
 import { Checkbox } from "../ui/checkbox";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 import { TCartProduct } from "@/types";
 
 const CartCard = ({product}: {product: TCartProduct}) => {
 
-  const [quantity, setQuantity] = useState(1)
+  const handleRemoveProductFromCart = (id: string) => {
+    console.log(id);
+  };
+
+  const handleProductIncreseOrDecrese = (id: string, method: string) => {
+    console.log(id, method);
+  }
 
   return (
     <>
       <Table className="font-medium">
-        <TableBody>
+        <TableBody className="border-b border-gray-200">
           <TableRow>
             <TableCell className="text-center w-[20%]">
               <div className="flex items-center gap-2.5 w-[40%]">
-                <Checkbox id="terms" />
+                <Checkbox id="item" className="cursor-pointer" />
                 <img className="rounded-md" src={product?.productId.thumbnail} alt="" />
               </div>
             </TableCell>
@@ -34,18 +39,18 @@ const CartCard = ({product}: {product: TCartProduct}) => {
             </TableCell>
             <TableCell className="text-center w-[20%]">
               <div className="flex justify-center items-center">
-                <button disabled={quantity === 0} onClick={() => setQuantity(quantity-1)} className="bg-gray-300 w-fit p-1 rounded hover:bg-gray-400 active:scale-90 transition transform duration-400 cursor-pointer"><FaMinus /></button>
+                <button disabled={product?.quantity === 0} onClick={() => handleProductIncreseOrDecrese(product?._id, 'remove')} className="bg-gray-300 w-fit p-1 rounded hover:bg-gray-400 active:scale-90 transition transform duration-400 cursor-pointer"><FaMinus /></button>
                 <span className="w-20 text-xl font-semibold">{product?.quantity}</span>
-                <button onClick={() => setQuantity(quantity+1)} className="bg-gray-300 w-fit p-1 rounded hover:bg-gray-400 active:scale-90 transition transform duration-400 cursor-pointer"><FaPlus /></button>
+                <button onClick={() => handleProductIncreseOrDecrese(product?._id, 'add')} className="bg-gray-300 w-fit p-1 rounded hover:bg-gray-400 active:scale-90 transition transform duration-400 cursor-pointer"><FaPlus /></button>
               </div>
             </TableCell>
             <TableCell className="text-center w-[20%]">
               <h1 className="text-xl font-bold">${(product?.productId.price)*(product?.quantity)}</h1>
             </TableCell>
             <TableCell className="text-center w-[20%]">
-              <div className="w-fit mx-auto bg-gray-200 p-2 text-2xl rounded-full text-red-600 active:scale-90 transition transform duration-500 cursor-pointer">
+              <button onClick={() => handleRemoveProductFromCart(product?._id)} className="w-fit mx-auto bg-gray-200 p-2 text-2xl rounded-full text-red-600 active:scale-90 transition transform duration-500 cursor-pointer">
               <MdOutlineDelete />
-              </div>
+              </button>
             </TableCell>
           </TableRow>
         </TableBody>
@@ -55,5 +60,3 @@ const CartCard = ({product}: {product: TCartProduct}) => {
 };
 
 export default CartCard;
-
-// F8407189r**

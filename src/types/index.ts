@@ -67,5 +67,6 @@ export type TCartProduct = {
   productId: TProductData;
   color: string;
   size: string;
-  quantity: number
+  quantity: number;
+  _id: string
 }

@@ -42,7 +42,7 @@ const Cart = () => {
             {/* Card container */}
             <div className="mt-5 md:mt-10 hidden md:block">
               {
-                cartProducts?.map((product: TCartProduct) => <CartCard product={product} />)
+                cartProducts?.map((product: TCartProduct) => <CartCard key={product?._id} product={product} />)
               }
             </div>
 
