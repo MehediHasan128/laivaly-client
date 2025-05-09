@@ -25,7 +25,9 @@ const CartCard = ({product, refetch}: {product: TCartProduct; refetch: () => voi
       method
     };
     updateProductQuantity(updatedInfo);
+    console.log(5);
     refetch();
+    console.log(6);
   }
 
   return (
@@ -54,7 +56,7 @@ const CartCard = ({product, refetch}: {product: TCartProduct; refetch: () => voi
               </div>
             </TableCell>
             <TableCell className="text-center w-[20%]">
-              <h1 className="text-xl font-bold">${(product?.productId.price)*(product?.quantity)}</h1>
+              <h1 className="text-xl font-bold">${((product?.productId.price)*(product?.quantity)).toFixed(2)}</h1>
             </TableCell>
             <TableCell className="text-center w-[20%]">
               <button onClick={() => handleRemoveProductFromCart(product?._id)} className="w-fit mx-auto bg-gray-200 p-2 text-2xl rounded-full text-red-600 active:scale-90 transition transform duration-500 cursor-pointer">

@@ -85,7 +85,7 @@ const Cart = () => {
                       Sub Total:
                     </span>
                     <span className="text-base 2xl:text-xl font-semibold">
-                      ${totalPrice? totalPrice : '0.00'}
+                      ${totalPrice? (totalPrice).toFixed(2) : '0.00'}
                     </span>
                   </div>
 
@@ -103,7 +103,7 @@ const Cart = () => {
                       Estimated Tax:
                     </span>
                     <span className="text-base 2xl:text-xl font-semibold">
-                      ${calculateTax? calculateTax : '0.00'}
+                      ${calculateTax? (calculateTax).toFixed(2) : '0.00'}
                     </span>
                   </div>
                 </div>
