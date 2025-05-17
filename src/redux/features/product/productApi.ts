@@ -15,7 +15,7 @@ const productApi = baseApi.injectEndpoints({
       })
     }),
     getAllProduct: builder.query({
-      query: ([args, audiance]) => {
+      query: ([args]) => {
         const params = new URLSearchParams();
         if (params) {
           args.forEach((item: TQueryParams) => {
@@ -24,7 +24,7 @@ const productApi = baseApi.injectEndpoints({
         }
 
         return {
-          url: `/products/${audiance}`,
+          url: `/products`,
           method: "GET",
           params: params,
         };

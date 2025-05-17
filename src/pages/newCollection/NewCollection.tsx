@@ -20,8 +20,11 @@ const title = {
 const NewCollection = () => {
 
   const [searchText, setSearchText] = useState<TSearch[]>([]);
+  const [priceRange, setPriceRange] = useState<string | null>(null);
+
+  console.log(priceRange);
   
-    const { data: products } = useGetAllProductQuery([searchText, 'all']);
+    const { data: products } = useGetAllProductQuery([searchText]);
     const productData = products?.data;
 
   return (
@@ -29,7 +32,7 @@ const NewCollection = () => {
       <Container>
         <div>
 
-          <div className="mb-8">
+          <div>
             <CollectionBanner
               bannerImage={banner}
               title={title}
@@ -39,11 +42,11 @@ const NewCollection = () => {
             />
           </div>
 
-          <div className="hidden lg:flex">
-            <CollectionFilter />
+          <div className="hidden lg:flex my-10">
+            <CollectionFilter setPriceRange={setPriceRange} />
           </div>
 
-          <div className="my-5 lg:my-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 md:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 md:gap-5">
             {
               productData?.map((product: TProductData) => <ProductCard key={product?._id} data={product}/>)
             }

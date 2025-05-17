@@ -9,8 +9,21 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import { MdOutlineDelete } from "react-icons/md";
 import { TCartProduct } from "@/types";
 import { useUpdateProductQuantityMutation } from "@/redux/features/cart/cartApi";
+import { Dispatch, SetStateAction } from "react";
 
-const CartCard = ({product, refetch}: {product: TCartProduct; refetch: () => void}) => {
+const CartCard = ({product, refetch, productSeleted, setSelectedProductId}: {product: TCartProduct; refetch: () => void; setSelectedProductId: Dispatch<SetStateAction<string | null>>; productSeleted: Dispatch<SetStateAction<TCartProduct[]>>}) => {
+
+  const setProduct = (checked: boolean, productData: TCartProduct, cartId: string) => {
+
+    if(checked){
+      productSeleted((prev) => [...prev, productData])
+    };
+
+    if(!checked){
+      setSelectedProductId(cartId);
+    }
+    
+  }
 
   const handleRemoveProductFromCart = (id: string) => {
     console.log(id);
@@ -25,9 +38,7 @@ const CartCard = ({product, refetch}: {product: TCartProduct; refetch: () => voi
       method
     };
     updateProductQuantity(updatedInfo);
-    console.log(5);
     refetch();
-    console.log(6);
   }
 
   return (
@@ -37,7 +48,7 @@ const CartCard = ({product, refetch}: {product: TCartProduct; refetch: () => voi
           <TableRow>
             <TableCell className="text-center w-[20%]">
               <div className="flex items-center gap-2.5 w-[40%]">
-                <Checkbox id="item" className="cursor-pointer" />
+                <Checkbox onCheckedChange={(checked) => setProduct(checked as boolean, product, product._id)} id="item" className="cursor-pointer" />
                 <img className="rounded-md" src={product?.productId.thumbnail} alt="" />
               </div>
             </TableCell>

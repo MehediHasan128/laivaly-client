@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
 import CartCard from "@/components/reusable/CartCard";
@@ -9,15 +10,25 @@ import { useGetAllProductFromCartQuery } from "@/redux/features/cart/cartApi";
 import { useAppSelector } from "@/redux/hook";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { TCartProduct } from "@/types";
+import { useState } from "react";
 
 const Cart = () => {
+  const [products, setProducts] = useState<TCartProduct[]>([]);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+
+  const selectedProducts = products.filter(item => item._id !== selectedProductId);
+
   const handleApplyCouponCode = (data: FieldValues) => {
     console.log(data);
   };
 
+  console.log(selectedProducts);
+
+
   // Get user id
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
+
 
   // Cart product
   const { data: cartData, refetch } = useGetAllProductFromCartQuery(userId);
@@ -25,8 +36,8 @@ const Cart = () => {
 
 
   // Calculate product costing
-  const totalPrice = cartProducts?.reduce((total: number, item: TCartProduct) => total + Number(item?.productId?.price) * Number(item.quantity), 0);
-  const totalWeight = cartProducts?.reduce((total: number, item: TCartProduct) => total + Number((item.productId.weight).replace("kg", "")) * Number(item.quantity), 0);
+  const totalPrice = selectedProducts?.reduce((total: number, item: TCartProduct) => total + Number(item?.productId?.price) * Number(item.quantity), 0);
+  const totalWeight = selectedProducts?.reduce((total: number, item: TCartProduct) => total + Number((item.productId.weight).replace("kg", "")) * Number(item.quantity), 0);
   const calculateTax = Number(((totalPrice + Number(totalWeight*5))*0.15).toFixed(2));
   const finalPrice = Number((totalPrice + (totalWeight*5) + calculateTax ).toFixed(2))
 
@@ -42,7 +53,7 @@ const Cart = () => {
             {/* Card container */}
             <div className="mt-5 md:mt-10 hidden md:block">
               {
-                cartProducts?.map((product: TCartProduct) => <CartCard key={product?._id} product={product} refetch={refetch} />)
+                cartProducts?.map((product: TCartProduct) => <CartCard key={product?._id} product={product} refetch={refetch} productSeleted={setProducts} setSelectedProductId={setSelectedProductId} />)
               }
             </div>
 

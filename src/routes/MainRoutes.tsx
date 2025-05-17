@@ -10,6 +10,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { adminRoutes } from "./AdminRoutes";
 import { userRoutes } from "./UserRoutes";
 import UserInformationForm from "@/pages/authentication/signUp/UserInformationForm";
+import Mens from "@/pages/mens/mens";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/newIn",
         element: <NewCollection />,
+      },
+      {
+        path: "/mens",
+        element: <Mens />,
       },
       {
         path: "/productDetails/:productId",

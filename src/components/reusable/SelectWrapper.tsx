@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 type TSelectProps = {
@@ -6,12 +7,14 @@ type TSelectProps = {
     value: string;
     label: string;
   }[];
+  setValue?: Dispatch<SetStateAction<string | null>>;
+  className?: string;
 };
 
-const SelectWrapper = ({ selectTitle, options }: TSelectProps) => {
+const SelectWrapper = ({ selectTitle, options, setValue, className }: TSelectProps) => {
   return (
-    <Select>
-      <SelectTrigger className="bg-transparent w-32">
+    <Select onValueChange={(val => setValue?.(val))}>
+      <SelectTrigger className={className}>
         <SelectValue placeholder={selectTitle} />
       </SelectTrigger>
       <SelectContent>
