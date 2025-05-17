@@ -7,7 +7,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import logo from "../../assets/images/logo/logo.png";
-import product from "../../assets/images/product/product1.jpg";
 import {
   Table,
   TableBody,
@@ -20,29 +19,9 @@ import { HiOutlineDownload } from "react-icons/hi";
 import html2canvas from "html2canvas-pro";
 import jsPDF from "jspdf";
 import { useRef } from "react";
+import { TOrder } from "@/types";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-];
-
-const ProductBillPage = ({ btn }: { btn: string }) => {
+const ProductBillPage = ({ btn, data }: { btn: string; data: TOrder }) => {
   const pdfRef = useRef<HTMLInputElement>(null);
 
   const downloadBillPDF = () => {
@@ -81,7 +60,7 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
         <button className="text-blue-700 cursor-pointer">{btn}</button>
       </DialogTrigger>
 
-      <DialogContent className="p-0 xl:max-w-[60%] 2xl:max-w-[40%]">
+      <DialogContent className="p-0 xl:max-w-[60%] 2xl:max-w-[50%]">
         <div ref={pdfRef}>
           <DialogHeader className="xl:py-2 2xl:py-4 px-4">
             <DialogTitle className="flex justify-between items-center">
@@ -100,13 +79,17 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
           <div className="border-t border-gray-300"></div>
 
           <div className="px-5 xl:my-2 2xl:my-4">
-            <img className="xl:w-20 2xl:w-24 rounded-lg" src={product} alt="" />
+            <img
+              className="xl:w-20 2xl:w-24 rounded-lg"
+              src={data.userId.profileImage}
+              alt=""
+            />
             <div className="flex justify-between xl:mt-1.5 2xl:mt-3">
               <div>
                 <h1 className="font-medium">Invoice from Laivaly</h1>
                 <p className="text-sm font-medium text-gray-600">
                   <span className="font-bold">Order ID: </span>
-                  #507f191e810c19729de860ea
+                  {data._id}
                 </p>
               </div>
               <div>
@@ -129,10 +112,14 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
             </div>
             <div className="font-medium">
               <p className="font-bold text-gray-600">Bill to:</p>
-              <h1 className="text-xl">Mehedi Hasan</h1>
-              <p className="text-sm text-gray-600">#507f191e810c19729de860ea</p>
+              <h1 className="text-xl">
+                {data.userId.userName.firstName} {data.userId.userName.lastName}
+              </h1>
+              <p className="text-sm text-gray-600">{data.userId._id}</p>
               <h2>
-                House: 10, Road: 2/B, Sector: 4, <br /> Uttara Dhaka-1230
+                {data.shippingAddress.street} {data.shippingAddress.city},{" "}
+                <br /> {data.shippingAddress.state}-{data.shippingAddress.zip}{" "}
+                {data.shippingAddress.country}
               </h2>
             </div>
           </div>
@@ -141,11 +128,12 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
 
           <div className="px-5 2xl:my-4">
             <Table className="font-medium">
-
               <TableHeader className="bg-gray-300">
                 <TableRow className="border-gray-400">
                   <TableHead>Items</TableHead>
                   <TableHead className="text-center">Product Code</TableHead>
+                  <TableHead className="text-center">Color Code</TableHead>
+                  <TableHead className="text-center">Size</TableHead>
                   <TableHead className="text-center">Quantity</TableHead>
                   <TableHead className="text-center">Price</TableHead>
                   <TableHead className="text-end">Total Price</TableHead>
@@ -153,31 +141,43 @@ const ProductBillPage = ({ btn }: { btn: string }) => {
               </TableHeader>
 
               <TableBody>
-                {invoices.map((invoice) => (
-                  <TableRow key={invoice.invoice} className="border-gray-200">
+                {data.products.map((product, index) => (
+                  <TableRow key={index} className="border-gray-200">
                     <TableCell>
-                      <p>Royal Perfume 25ml</p>
+                      <p>{product.productId.title}</p>
                     </TableCell>
 
                     <TableCell className="text-center">
-                      <p>TSH-BLK-M-001</p>
+                      <p>{product.productId.SKU}</p>
                     </TableCell>
 
                     <TableCell className="text-center">
-                      <p>2</p>
+                      <p>{product.color}</p>
                     </TableCell>
 
                     <TableCell className="text-center">
-                      <p>$10.00</p>
+                      <p>{product.size}</p>
+                    </TableCell>
+
+                    <TableCell className="text-center">
+                      <p>{product.quantity}</p>
+                    </TableCell>
+
+                    <TableCell className="text-center">
+                      <p>${product.productId.price}</p>
                     </TableCell>
 
                     <TableCell className="text-end">
-                      <p>$10.00</p>
+                      <p>
+                        $
+                        {(product.productId.price * product.quantity).toFixed(
+                          2
+                        )}
+                      </p>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
-
             </Table>
           </div>
 

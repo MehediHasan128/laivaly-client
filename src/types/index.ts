@@ -70,3 +70,34 @@ export type TCartProduct = {
   quantity: number;
   _id: string
 }
+
+
+export type TOrder = {
+  _id: string;
+  userId: {
+    _id: string;
+    userName: {
+      firstName: string;
+      lastName: string
+    };
+    profileImage: string;
+  };
+  products: {
+    productId: TProductData;
+    quantity: number;
+    color: string;
+    size: string;
+  }[];
+  shippingAddress: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+  };
+  paymentMethod: string;
+  orderDate: Date;
+  totalAmount: number;
+  paymentStatus: string;
+  status: string;
+};

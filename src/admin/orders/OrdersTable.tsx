@@ -9,65 +9,14 @@ import {
 } from "@/components/ui/table";
 import { HiDotsVertical } from "react-icons/hi";
 import ProductBillPage from "./ProductBillPage";
-
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
+import { useGetAllOrdersFromDBQuery } from "@/redux/features/orders/orderApi";
+import { TOrder } from "@/types";
 
 const OrdersTable = () => {
+  const { data: orderData } = useGetAllOrdersFromDBQuery(undefined);
+  const orders = orderData?.data;
+  console.log(orders);
+
   return (
     <Table className="font-medium">
       <TableCaption>A list of all users.</TableCaption>
@@ -88,18 +37,22 @@ const OrdersTable = () => {
       </TableHeader>
 
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice} className="border-gray-200">
+        {orders?.map((invoice: TOrder) => (
+          <TableRow key={invoice._id} className="border-gray-200">
             <TableCell>
-              <p>#507f191e810c19729de860ea</p>
+              <p>{invoice._id}</p>
             </TableCell>
 
             <TableCell className="text-center">
-              <p>Mehedi Hasan</p>
+              <p>{invoice.userId.userName.firstName} {invoice.userId.userName.lastName}</p>
             </TableCell>
 
             <TableCell className="text-center">
-              <p>TSH-BLK-M-001</p>
+              {
+                invoice.products.map((product) => (
+                  <p>{product.productId.SKU}</p>
+                ))
+              }
             </TableCell>
 
             <TableCell className="text-center">
@@ -107,23 +60,23 @@ const OrdersTable = () => {
             </TableCell>
 
             <TableCell className="text-center">
-              <p>$ 25.00</p>
+              <p>${invoice.totalAmount}</p>
             </TableCell>
 
             <TableCell className="text-center">
-              <p>Paypal</p>
+              <p>{invoice.paymentMethod}</p>
             </TableCell>
 
             <TableCell className="text-center">
-              <p>Paid</p>
+              <p>{invoice.paymentStatus}</p>
             </TableCell>
 
             <TableCell className="text-center">
-              <p>Pending</p>
+              <p>{invoice.status}</p>
             </TableCell>
 
             <TableCell className="text-center">
-              <ProductBillPage btn="Details" />
+              <ProductBillPage data={invoice} btn="Details" />
             </TableCell>
 
             <TableCell className="">
