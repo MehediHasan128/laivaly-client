@@ -10,7 +10,9 @@ import { createBrowserRouter } from "react-router-dom";
 import { adminRoutes } from "./AdminRoutes";
 import { userRoutes } from "./UserRoutes";
 import UserInformationForm from "@/pages/authentication/signUp/UserInformationForm";
-import Mens from "@/pages/mens/mens";
+
+import Womens from "@/pages/womens/Womens";
+import Mens from "@/pages/mens/Mens";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/mens",
         element: <Mens />,
+      },
+      {
+        path: "/womens",
+        element: <Womens />,
       },
       {
         path: "/productDetails/:productId",
