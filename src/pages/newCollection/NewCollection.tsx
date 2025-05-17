@@ -21,8 +21,6 @@ const NewCollection = () => {
 
   const [searchText, setSearchText] = useState<TSearch[]>([]);
   const [priceRange, setPriceRange] = useState<string | null>(null);
-
-  console.log(priceRange);
   
     const { data: products } = useGetAllProductQuery([searchText]);
     const productData = products?.data;

@@ -40,7 +40,7 @@ const Womens = () => {
   const productData = products?.data;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen py-5 md:py-7 lg:py-8 bg-gray-50">
       <Container>
         <div>
           <div>
