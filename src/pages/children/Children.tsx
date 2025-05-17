@@ -14,9 +14,9 @@ const title = {
   title2: "On $150",
 };
 
-const Womens = () => {
+const Children = () => {
   const [filter, setFilter] = useState([
-    { field: "targetAudience", value: "women" },
+    { field: "targetAudience", value: "children" },
   ]);
 
   const [priceSort, setPriceSort] = useState<string | null>(null);
@@ -25,7 +25,7 @@ const Womens = () => {
     if (!priceSort) return;
 
     setFilter((prevFilter) => {
-      const fixedField = { field: "targetAudience", value: "women" };
+      const fixedField = { field: "targetAudience", value: "children" };
       const sortField = { field: "sort", value: priceSort };
 
       const otherFilters = prevFilter.filter(
@@ -72,4 +72,4 @@ const Womens = () => {
   );
 };
 
-export default Womens;
+export default Children;

@@ -13,6 +13,7 @@ import UserInformationForm from "@/pages/authentication/signUp/UserInformationFo
 
 import Womens from "@/pages/womens/Womens";
 import Mens from "@/pages/mens/Mens";
+import Children from "@/pages/children/Children";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/womens",
         element: <Womens />,
+      },
+      {
+        path: "/children",
+        element: <Children />,
       },
       {
         path: "/productDetails/:productId",
