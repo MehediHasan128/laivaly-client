@@ -24,7 +24,6 @@ const OrdersTable = () => {
         <TableRow className="border-gray-400">
           <TableHead>Order ID</TableHead>
           <TableHead className="text-center">Customer Name</TableHead>
-          <TableHead className="text-center">Product Code</TableHead>
           <TableHead className="text-center">Date</TableHead>
           <TableHead className="text-center">Total Price</TableHead>
           <TableHead className="text-center">Payment Method</TableHead>
@@ -44,15 +43,7 @@ const OrdersTable = () => {
 
             <TableCell className="text-center">
               <p>{invoice.userId.userName.firstName} {invoice.userId.userName.lastName}</p>
-            </TableCell>
-
-            <TableCell className="text-center">
-              {
-                invoice.products.map((product) => (
-                  <p>{product.productId.SKU}</p>
-                ))
-              }
-            </TableCell>
+            </TableCell>         
 
             <TableCell className="text-center">
               <p>{`${(new Date(invoice.orderDate)).getUTCDate()} ${(new Date(invoice.orderDate)).toLocaleString('en-US', { month: 'long' })}, ${(new Date(invoice.orderDate)).getUTCFullYear()}`}</p>

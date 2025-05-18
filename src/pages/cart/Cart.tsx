@@ -12,10 +12,8 @@ import { currentUser } from "@/redux/features/auth/authSlice";
 import { TCartProduct } from "@/types";
 import { useState } from "react";
 import { useCreateStripeCheckoutSessionMutation } from "@/redux/features/orders/orderApi";
-import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const navigate = useNavigate()
   const [products, setProducts] = useState<TCartProduct[]>([]);
   const [selectedProductId, setSelectedProductId] = useState<string | null>(
     null
@@ -59,7 +57,6 @@ const Cart = () => {
   // Handle create stripe checkout session
   const [createStripeCheckoutSession] =
     useCreateStripeCheckoutSessionMutation();
-
   const handleCreateStripeCheckoutSession = async () => {
     const selectedProducts = products?.map((item) => ({
       productId:
