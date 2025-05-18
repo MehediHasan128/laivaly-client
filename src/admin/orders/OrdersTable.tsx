@@ -15,7 +15,6 @@ import { TOrder } from "@/types";
 const OrdersTable = () => {
   const { data: orderData } = useGetAllOrdersFromDBQuery(undefined);
   const orders = orderData?.data;
-  console.log(orders);
 
   return (
     <Table className="font-medium">
@@ -56,7 +55,7 @@ const OrdersTable = () => {
             </TableCell>
 
             <TableCell className="text-center">
-              <p>20 July, 2025</p>
+              <p>{`${(new Date(invoice.orderDate)).getUTCDate()} ${(new Date(invoice.orderDate)).toLocaleString('en-US', { month: 'long' })}, ${(new Date(invoice.orderDate)).getUTCFullYear()}`}</p>
             </TableCell>
 
             <TableCell className="text-center">

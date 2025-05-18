@@ -54,6 +54,13 @@ const ProductBillPage = ({ btn, data }: { btn: string; data: TOrder }) => {
     });
   };
 
+  const date = new Date(data?.orderDate);
+  const day = date.getUTCDate();
+  const month = date.toLocaleString('en-US', { month: 'long' });
+  const year = date.getUTCFullYear();
+
+  const formatedDate = `${day} ${month}, ${year}`
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -94,7 +101,7 @@ const ProductBillPage = ({ btn, data }: { btn: string; data: TOrder }) => {
               </div>
               <div>
                 <h1 className="font-medium text-gray-600">
-                  Issue Date: <span className="text-black">25 July, 2025</span>
+                  Issue Date: <span className="text-black">{formatedDate}</span>
                 </h1>
               </div>
             </div>

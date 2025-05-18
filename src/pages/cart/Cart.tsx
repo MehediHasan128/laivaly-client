@@ -11,37 +11,90 @@ import { useAppSelector } from "@/redux/hook";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { TCartProduct } from "@/types";
 import { useState } from "react";
+import { useCreateStripeCheckoutSessionMutation } from "@/redux/features/orders/orderApi";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate()
   const [products, setProducts] = useState<TCartProduct[]>([]);
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null
+  );
 
-  const selectedProducts = products.filter(item => item._id !== selectedProductId);
+  const selectedProducts = products.filter(
+    (item) => item._id !== selectedProductId
+  );
 
   const handleApplyCouponCode = (data: FieldValues) => {
     console.log(data);
   };
 
-  console.log(selectedProducts);
-
-
   // Get user id
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
-
 
   // Cart product
   const { data: cartData, refetch } = useGetAllProductFromCartQuery(userId);
   const cartProducts = cartData?.data[0]?.items;
 
-
   // Calculate product costing
-  const totalPrice = selectedProducts?.reduce((total: number, item: TCartProduct) => total + Number(item?.productId?.price) * Number(item.quantity), 0);
-  const totalWeight = selectedProducts?.reduce((total: number, item: TCartProduct) => total + Number((item.productId.weight).replace("kg", "")) * Number(item.quantity), 0);
-  const calculateTax = Number(((totalPrice + Number(totalWeight*5))*0.15).toFixed(2));
-  const finalPrice = Number((totalPrice + (totalWeight*5) + calculateTax ).toFixed(2))
+  const totalPrice = selectedProducts?.reduce(
+    (total: number, item: TCartProduct) =>
+      total + Number(item?.productId?.price) * Number(item.quantity),
+    0
+  );
+  const totalWeight = selectedProducts?.reduce(
+    (total: number, item: TCartProduct) =>
+      total +
+      Number(item.productId.weight.replace("kg", "")) * Number(item.quantity),
+    0
+  );
+  const calculateTax = Number(
+    ((totalPrice + Number(totalWeight * 5)) * 0.15).toFixed(2)
+  );
+  const finalPrice = Number(
+    (totalPrice + totalWeight * 5 + calculateTax).toFixed(2)
+  );
 
-  
+  // Handle create stripe checkout session
+  const [createStripeCheckoutSession] =
+    useCreateStripeCheckoutSessionMutation();
+
+  const handleCreateStripeCheckoutSession = async () => {
+    const selectedProducts = products?.map((item) => ({
+      productId:
+        typeof item.productId === "object" && item.productId._id
+          ? item.productId._id
+          : item.productId,
+      quantity: item.quantity,
+      color: item.color,
+      size: item.size,
+    }));
+
+    const orderData = {
+      userId,
+      products: selectedProducts,
+      shippingAddress: {
+        street: "123 Main Street",
+        city: "Dhaka",
+        state: "Dhaka",
+        zip: "1207",
+        country: "Bangladesh",
+      },
+      paymentMethod: "Stripe",
+      orderDate: new Date(),
+      paymentStatus: "unpaid",
+      status: "pending",
+      totalAmount: finalPrice,
+    };
+    try{
+      const res = await createStripeCheckoutSession(orderData);
+      const link = res?.data.data;
+      window.location.href = link;
+    }catch(err){
+      console.log(err);
+    }
+  };
 
   return (
     <div className="min-h-screen pb-32">
@@ -52,9 +105,15 @@ const Cart = () => {
 
             {/* Card container */}
             <div className="mt-5 md:mt-10 hidden md:block">
-              {
-                cartProducts?.map((product: TCartProduct) => <CartCard key={product?._id} product={product} refetch={refetch} productSeleted={setProducts} setSelectedProductId={setSelectedProductId} />)
-              }
+              {cartProducts?.map((product: TCartProduct) => (
+                <CartCard
+                  key={product?._id}
+                  product={product}
+                  refetch={refetch}
+                  productSeleted={setProducts}
+                  setSelectedProductId={setSelectedProductId}
+                />
+              ))}
             </div>
 
             <div className="mt-5 md:mt-10 block md:hidden">
@@ -96,7 +155,7 @@ const Cart = () => {
                       Sub Total:
                     </span>
                     <span className="text-base 2xl:text-xl font-semibold">
-                      ${totalPrice? (totalPrice).toFixed(2) : '0.00'}
+                      ${totalPrice ? totalPrice.toFixed(2) : "0.00"}
                     </span>
                   </div>
 
@@ -105,7 +164,7 @@ const Cart = () => {
                       Estimated Shipping & Handling:
                     </span>
                     <span className="text-base 2xl:text-xl font-semibold">
-                      ${totalWeight ? (totalWeight*5).toFixed(2) : '0.00'}
+                      ${totalWeight ? (totalWeight * 5).toFixed(2) : "0.00"}
                     </span>
                   </div>
 
@@ -114,7 +173,7 @@ const Cart = () => {
                       Estimated Tax:
                     </span>
                     <span className="text-base 2xl:text-xl font-semibold">
-                      ${calculateTax? (calculateTax).toFixed(2) : '0.00'}
+                      ${calculateTax ? calculateTax.toFixed(2) : "0.00"}
                     </span>
                   </div>
                 </div>
@@ -126,18 +185,28 @@ const Cart = () => {
                     <span className="font-medium text-gray-600 text-xl">
                       Total:
                     </span>
-                    <span className="text-2xl font-medium">${finalPrice? finalPrice : '0.00'}</span>
+                    <span className="text-2xl font-medium">
+                      ${finalPrice ? finalPrice : "0.00"}
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div className="mt-10 space-y-3.5">
+                <div className="flex gap-5">
+                  <button className="border border-[#03399e] w-full py-2 2xl:py-3 rounded-lg font-extrabold cursor-pointer italic">
+                    <span className="text-[#03399e]">Pay</span>
+                    <span className="text-[#009cde]">Pal</span>
+                  </button>
+                  <button
+                    onClick={handleCreateStripeCheckoutSession}
+                    className="border border-[#03399e] w-full py-2 2xl:py-3 rounded-lg font-extrabold cursor-pointer italic"
+                  >
+                    <span className="text-[#03399e]">Stripe</span>
+                  </button>
+                </div>
                 <button className="border border-[#31473A] bg-[#31473A] w-full py-2 2xl:py-3 rounded-lg font-medium text-white cursor-pointer hover:bg-[#1e3327] duration-700">
                   Check Out
-                </button>
-                <button className="border border-[#03399e] w-full py-2 2xl:py-3 rounded-lg font-extrabold cursor-pointer italic">
-                  <span className="text-[#03399e]">Pay</span>
-                  <span className="text-[#009cde]">Pal</span>
                 </button>
               </div>
             </div>
