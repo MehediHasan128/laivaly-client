@@ -10,6 +10,8 @@ type TInputProps = {
   className?: string;
   setValue?: Dispatch<SetStateAction<string | null>>;
   isArray?: boolean;
+  defaultValue?: string;
+  disabled?: boolean
 };
 
 const LInput = ({
@@ -20,6 +22,8 @@ const LInput = ({
   className,
   setValue,
   isArray,
+  defaultValue,
+  disabled
 }: TInputProps) => {
   return (
     <>
@@ -46,6 +50,8 @@ const LInput = ({
             placeholder={placeholder}
             icon={icon}
             className={className}
+            defaultValue={defaultValue}
+            disabled={disabled}
           />
         )}
       />
