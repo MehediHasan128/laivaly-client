@@ -20,7 +20,18 @@ const orderApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getUserOrdersFromDB: builder.query({
+      query: (userId) => ({
+        url: `/orders/user/${userId}`,
+        method: "GET",
+      }),
+      transformResponse: (res) => {
+        return {
+          data: res?.data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllOrdersFromDBQuery, useCreateStripeCheckoutSessionMutation } = orderApi;
+export const { useGetAllOrdersFromDBQuery, useCreateStripeCheckoutSessionMutation, useGetUserOrdersFromDBQuery } = orderApi;
