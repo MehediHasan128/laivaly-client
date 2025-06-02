@@ -12,6 +12,7 @@ import LSelect from "@/components/form/LSelect";
 import { Checkbox } from "@/components/ui/checkbox";
 import { BiEdit } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
 
 const MyAccount = () => {
   // Get user Id
@@ -41,7 +42,11 @@ const MyAccount = () => {
         />
         <div className="absolute top-[60%] left-[40%]">
           <Avatar className="rounded-full border-[12px] border-gray-50 size-60">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage
+              src={buyerData?.profileImage}
+              className="object-cover"
+              alt="@shadcn"
+            />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
@@ -146,6 +151,15 @@ const MyAccount = () => {
                     onClick={() => setEditOthers(false)}
                   />
                 </div>
+
+                <div className="space-x-3">
+                  <button className="bg-[#31473A] border border-[#31473A] text-white font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">
+                    Update Profile
+                  </button>
+                  <button className="border border-[#31473A] font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">
+                    Change password
+                  </button>
+                </div>
               </div>
             </LForm>
           </div>
@@ -177,6 +191,12 @@ const MyAccount = () => {
                   </div>
                 </div>
               </div>
+
+              <button className="border border-dashed border-blue-600 p-5 h-32 w-[70%] rounded-xl flex justify-center items-center cursor-pointer active:scale-95 duration-1000">
+                <div className="text-3xl bg-blue-100 p-3 rounded-full">
+                  <IoMdAdd />
+                </div>
+              </button>
             </div>
           </div>
         </div>
