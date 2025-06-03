@@ -9,10 +9,8 @@ import LInput from "@/components/form/LInput";
 import { useState } from "react";
 import { FiEdit3 } from "react-icons/fi";
 import LSelect from "@/components/form/LSelect";
-import { Checkbox } from "@/components/ui/checkbox";
-import { BiEdit } from "react-icons/bi";
-import { MdOutlineDeleteOutline } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
+import { LuMapPinned } from "react-icons/lu";
+import AddressModal from "./AddressModal";
 
 const MyAccount = () => {
   // Get user Id
@@ -22,7 +20,6 @@ const MyAccount = () => {
   const { data } = useGetBuyerInfoFromDbQuery(userId);
 
   const buyerData = data?.data;
-  console.log(buyerData);
 
   const updateUserInformation = async () => {
     console.log(5);
@@ -169,34 +166,72 @@ const MyAccount = () => {
           <div className="flex-1">
             <h1 className="mb-10 text-lg font-bold">Shipping Address</h1>
 
-            <div className="space-y-5">
-              <div className="border border-gray-200 p-5 w-[70%] rounded-xl">
-                <h2 className="font-semibold mb-3 flex justify-between">
-                  <span>Address - 1</span>{" "}
-                  <span className="flex items-center gap-2.5">
-                    <Checkbox className="cursor-pointer" />
-                  </span>
-                </h2>
-                <div className="flex justify-between">
-                  <div>
-                    <h1 className="text-lg font-semibold">House-15, Road-10</h1>
-                    <p className="font-semibold text-gray-600">
-                      Sector-4, Dhaka - 1230, Bangladesh
-                    </p>
-                  </div>
+            <AddressModal title="Add New Address">
+              <div className="border border-dashed border-blue-300 rounded-md p-5 w-[60%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
+                <h1 className="font-medium text-blue-300">
+                  <span className="text-2xl">+</span> Add address
+                </h1>
+              </div>
+            </AddressModal>
 
-                  <div className="space-y-3">
-                    <BiEdit className="text-xl cursor-pointer" />
-                    <MdOutlineDeleteOutline className="text-xl cursor-pointer" />
+            <div className="space-y-3">
+              <div className="border border-gray-300 rounded-md p-5 w-[60%]">
+                <div className="flex gap-5">
+                  <LuMapPinned className="text-3xl" />
+                  <div className="flex-1">
+                    <div className="flex gap-3 items-center">
+                      <h1 className="font-bold">Mehedi Hasan</h1>
+                      <p className="text-sm font-medium text-gray-500">
+                        01302557956
+                      </p>
+                    </div>
+                    <p className="text-sm my-3 font-medium w-[70%] text-gray-700">
+                      Mollertek Water Pump, Dhaka - 1230, Dhaka-North,
+                      Bnagladesh
+                    </p>
+
+                    <div className="border w-fit px-2 py-0.5 rounded-md text-xs font-bold">
+                      <p>Home</p>
+                    </div>
+                  </div>
+                  <div>
+                    <AddressModal title="Edit My Address">
+                      <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
+                        Edit
+                      </h1>
+                    </AddressModal>
                   </div>
                 </div>
               </div>
 
-              <button className="border border-dashed border-blue-600 p-5 h-32 w-[70%] rounded-xl flex justify-center items-center cursor-pointer active:scale-95 duration-1000">
-                <div className="text-3xl bg-blue-100 p-3 rounded-full">
-                  <IoMdAdd />
+              <div className="border border-gray-300 rounded-md p-5 w-[60%]">
+                <div className="flex gap-5">
+                  <LuMapPinned className="text-3xl" />
+                  <div className="flex-1">
+                    <div className="flex gap-3 items-center">
+                      <h1 className="font-bold">Mehedi Hasan</h1>
+                      <p className="text-sm font-medium text-gray-500">
+                        01302557956
+                      </p>
+                    </div>
+                    <p className="text-sm my-3 font-medium w-[70%] text-gray-700">
+                      Mollertek Water Pump, Dhaka - 1230, Dhaka-North,
+                      Bnagladesh
+                    </p>
+
+                    <div className="border w-fit px-2 py-0.5 rounded-md text-xs font-bold">
+                      <p>Home</p>
+                    </div>
+                  </div>
+                  <div>
+                    <AddressModal title="Edit My Address">
+                      <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
+                        Edit
+                      </h1>
+                    </AddressModal>
+                  </div>
                 </div>
-              </button>
+              </div>
             </div>
           </div>
         </div>
