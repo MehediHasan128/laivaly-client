@@ -166,7 +166,7 @@ const MyAccount = () => {
           <div className="flex-1">
             <h1 className="mb-10 text-lg font-bold">Shipping Address</h1>
 
-            <AddressModal title="Add New Address">
+            <AddressModal method="add" title="Add New Address">
               <div className="border border-dashed border-blue-300 rounded-md p-5 w-[60%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
                 <h1 className="font-medium text-blue-300">
                   <span className="text-2xl">+</span> Add address
@@ -195,7 +195,7 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <div>
-                    <AddressModal title="Edit My Address">
+                    <AddressModal method="edit" title="Edit My Address">
                       <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
                         Edit
                       </h1>
@@ -224,7 +224,7 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <div>
-                    <AddressModal title="Edit My Address">
+                    <AddressModal method="edit" title="Edit My Address">
                       <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
                         Edit
                       </h1>

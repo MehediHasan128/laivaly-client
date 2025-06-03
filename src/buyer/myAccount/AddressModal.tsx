@@ -10,13 +10,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ReactNode } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
+import { IoTrashBinOutline } from "react-icons/io5";
 
 const AddressModal = ({
+  method,
   children,
   title,
 }: {
+  method: string;
   children: ReactNode;
   title: string;
 }) => {
@@ -39,7 +43,23 @@ const AddressModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="mt-5">
+        <div>
+          <div className="my-5">
+            <Label className="mb-2">Address Category</Label>
+            <RadioGroup className="flex" defaultValue="Home">
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="Home" id="r1" />
+                <Label htmlFor="r1">Home</Label>
+              </div>
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="Office" id="r2" />
+                <Label htmlFor="r2">Office</Label>
+              </div>
+            </RadioGroup>
+
+            <div className="border mt-5 border-gray-200"></div>
+          </div>
+
           <LForm onSubmit={handleAddNewAddress}>
             <div className="space-y-3">
               <div className="space-y-1.5">
@@ -111,6 +131,20 @@ const AddressModal = ({
                     icon={false}
                   />
                 </div>
+              </div>
+
+              <div className="mt-10 space-y-3">
+                {method === "edit" && (
+                  <button className="border border-[#31473A] w-full py-2 rounded-md font-medium cursor-pointer flex justify-center items-center gap-2.5">
+                    <span>
+                      <IoTrashBinOutline className="text-lg" />
+                    </span>
+                    <span>Delete</span>
+                  </button>
+                )}
+                <button className="border border-[#31473A] w-full py-2 rounded-md font-medium bg-[#31473A] text-white cursor-pointer">
+                  Save
+                </button>
               </div>
             </div>
           </LForm>
