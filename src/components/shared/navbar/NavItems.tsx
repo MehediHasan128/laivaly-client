@@ -30,7 +30,7 @@ const NavItems = ({ child }: { child: ReactNode }) => {
     <Drawer>
       <DrawerOverlay />
 
-      <DrawerTrigger className="text-3xl md:text-4xl rounded-full cursor-pointer hover:scale-110 duration-500">
+      <DrawerTrigger className="text-3xl md:text-4xl rounded-full cursor-pointer">
         {child}
       </DrawerTrigger>
 

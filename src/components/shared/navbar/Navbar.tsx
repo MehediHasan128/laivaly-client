@@ -21,7 +21,7 @@ const Navbar = () => {
     <div className="bg-[#EDF4F2] sticky top-0 z-10">
       <div className="flex justify-between items-center py-5 w-[90%] mx-auto">
         {/* Nav Item */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center hover:rotate-360 duration-1000">
           <NavItems child={<IoMenu />} />
         </div>
 

@@ -220,7 +220,7 @@ const MyAccount = () => {
                     </p>
 
                     <div className="border w-fit px-2 py-0.5 rounded-md text-xs font-bold">
-                      <p>Home</p>
+                      <p>Office</p>
                     </div>
                   </div>
                   <div>

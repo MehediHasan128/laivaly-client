@@ -1,5 +1,6 @@
 import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
+import LRadio from "@/components/form/LRadio";
 import {
   Dialog,
   DialogClose,
@@ -10,8 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ReactNode } from "react";
+import { FieldValues } from "react-hook-form";
 import { FaChevronLeft } from "react-icons/fa6";
 import { IoTrashBinOutline } from "react-icons/io5";
 
@@ -24,9 +25,21 @@ const AddressModal = ({
   children: ReactNode;
   title: string;
 }) => {
-  const handleAddNewAddress = async () => {
-    console.log(5);
+
+  const handleAddNewAddress = async (data: FieldValues) => {
+    console.log(data);
   };
+
+  const radioItems = [
+  {
+    id: "01",
+    lable: "Home",
+  },
+  {
+    id: "02",
+    lable: "Office",
+  },
+];
 
   return (
     <Dialog>
@@ -44,29 +57,22 @@ const AddressModal = ({
         </DialogHeader>
 
         <div>
-          <div className="my-5">
-            <Label className="mb-2">Address Category</Label>
-            <RadioGroup className="flex" defaultValue="Home">
-              <div className="flex items-center gap-3">
-                <RadioGroupItem value="Home" id="r1" />
-                <Label htmlFor="r1">Home</Label>
-              </div>
-              <div className="flex items-center gap-3">
-                <RadioGroupItem value="Office" id="r2" />
-                <Label htmlFor="r2">Office</Label>
-              </div>
-            </RadioGroup>
-
-            <div className="border mt-5 border-gray-200"></div>
-          </div>
-
           <LForm onSubmit={handleAddNewAddress}>
+            <div className="my-5">
+              <Label className="mb-2">Address Category</Label>
+              <div>
+                <LRadio name="shippingAddress.addressCategory" radioOptions={radioItems} />
+              </div>
+
+              <div className="border mt-5 border-gray-200"></div>
+            </div>
+
             <div className="space-y-3">
               <div className="space-y-1.5">
                 <Label>Recipient's Name</Label>
                 <LInput
                   type="text"
-                  name=""
+                  name="shippingAddress.recipientsName"
                   placeholder="Enter Recipient's Name"
                   icon={false}
                   className=""
@@ -76,7 +82,7 @@ const AddressModal = ({
                 <Label>Phone Number</Label>
                 <LInput
                   type="text"
-                  name=""
+                  name="shippingAddress.phoneNumber"
                   placeholder="Enter phone number"
                   icon={false}
                   className=""
@@ -86,7 +92,7 @@ const AddressModal = ({
                 <Label>Address</Label>
                 <LInput
                   type="text"
-                  name=""
+                  name="shippingAddress.address"
                   placeholder="House no./building/street/area"
                   icon={false}
                   className=""
@@ -97,7 +103,7 @@ const AddressModal = ({
                   <Label>City</Label>
                   <LInput
                     type="text"
-                    name=""
+                    name="shippingAddress.city"
                     placeholder="Please select your city"
                     icon={false}
                   />
@@ -106,7 +112,7 @@ const AddressModal = ({
                   <Label>Postal Code</Label>
                   <LInput
                     type="text"
-                    name=""
+                    name="shippingAddress.postalCode"
                     placeholder="Enter postal code"
                     icon={false}
                   />
@@ -117,7 +123,7 @@ const AddressModal = ({
                   <Label>State</Label>
                   <LInput
                     type="text"
-                    name=""
+                    name="shippingAddress.state"
                     placeholder="Please select your state"
                     icon={false}
                   />
@@ -126,7 +132,7 @@ const AddressModal = ({
                   <Label>Country</Label>
                   <LInput
                     type="text"
-                    name=""
+                    name="shippingAddress.country"
                     placeholder="Please select your country"
                     icon={false}
                   />
@@ -142,7 +148,10 @@ const AddressModal = ({
                     <span>Delete</span>
                   </button>
                 )}
-                <button className="border border-[#31473A] w-full py-2 rounded-md font-medium bg-[#31473A] text-white cursor-pointer">
+                <button
+                  type="submit"
+                  className="border border-[#31473A] w-full py-2 rounded-md font-medium bg-[#31473A] text-white cursor-pointer"
+                >
                   Save
                 </button>
               </div>
