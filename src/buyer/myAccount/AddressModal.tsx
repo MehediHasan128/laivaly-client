@@ -11,41 +11,64 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { TShippingAddress } from "@/types";
-import { ReactNode } from "react";
+import Spinner from "@/components/ui/spinner";
+import { currentUser } from "@/redux/features/auth/authSlice";
+import { useAddShippingAddressMutation } from "@/redux/features/buyer/buyerApi";
+import { useAppSelector } from "@/redux/hook";
+import { TError, TResponce, TShippingAddress } from "@/types";
+import { ReactNode, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { FaChevronLeft } from "react-icons/fa6";
 import { IoTrashBinOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 const AddressModal = ({
   data,
   method,
   children,
   title,
+  refetch,
 }: {
-  data?: TShippingAddress
+  data?: TShippingAddress;
   method: string;
   children: ReactNode;
   title: string;
+  refetch: () => void;
 }) => {
+  const [openModal, setOpenModal] = useState(false);
+
+  // Get userid
+  const user = useAppSelector(currentUser);
+  const userId = user?.userId;
+
+  const [addShippingAddress, { isLoading }] = useAddShippingAddressMutation();
 
   const handleAddNewAddress = async (data: FieldValues) => {
-    console.log(data);
+    const toastId = toast.loading(null);
+    try {
+      const res = await addShippingAddress([userId, data]) as TResponce;
+      setOpenModal(false);
+      refetch();
+      toast.success(res?.message, { id: toastId, duration: 2000 });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
   };
 
   const radioItems = [
-  {
-    id: "01",
-    lable: "Home",
-  },
-  {
-    id: "02",
-    lable: "Office",
-  },
-];
+    {
+      id: "01",
+      lable: "Home",
+    },
+    {
+      id: "02",
+      lable: "Office",
+    },
+  ];
 
   return (
-    <Dialog>
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
       <DialogTrigger className="h-fit w-full" asChild>
         <button>{children}</button>
       </DialogTrigger>
@@ -64,7 +87,11 @@ const AddressModal = ({
             <div className="my-5">
               <Label className="mb-2">Address Category</Label>
               <div>
-                <LRadio name="shippingAddress.addressCategory" radioOptions={radioItems} defaultValue={data?.addressCategory} />
+                <LRadio
+                  name="addressCategory"
+                  radioOptions={radioItems}
+                  defaultValue={data?.addressCategory}
+                />
               </div>
 
               <div className="border mt-5 border-gray-200"></div>
@@ -75,7 +102,7 @@ const AddressModal = ({
                 <Label>Recipient's Name</Label>
                 <LInput
                   type="text"
-                  name="shippingAddress.recipientsName"
+                  name="recipientsName"
                   placeholder="Enter Recipient's Name"
                   icon={false}
                   defaultValue={data?.recipientsName}
@@ -85,7 +112,7 @@ const AddressModal = ({
                 <Label>Phone Number</Label>
                 <LInput
                   type="text"
-                  name="shippingAddress.phoneNumber"
+                  name="phoneNumber"
                   placeholder="Enter phone number"
                   icon={false}
                   defaultValue={data?.phoneNumber}
@@ -95,7 +122,7 @@ const AddressModal = ({
                 <Label>Address</Label>
                 <LInput
                   type="text"
-                  name="shippingAddress.address"
+                  name="address"
                   placeholder="House no./building/street/area"
                   icon={false}
                   defaultValue={data?.address}
@@ -106,7 +133,7 @@ const AddressModal = ({
                   <Label>City</Label>
                   <LInput
                     type="text"
-                    name="shippingAddress.city"
+                    name="city"
                     placeholder="Please select your city"
                     icon={false}
                     defaultValue={data?.city}
@@ -116,7 +143,7 @@ const AddressModal = ({
                   <Label>Postal Code</Label>
                   <LInput
                     type="text"
-                    name="shippingAddress.postalCode"
+                    name="postalCode"
                     placeholder="Enter postal code"
                     icon={false}
                     defaultValue={data?.postalCode}
@@ -128,7 +155,7 @@ const AddressModal = ({
                   <Label>State</Label>
                   <LInput
                     type="text"
-                    name="shippingAddress.state"
+                    name="state"
                     placeholder="Please select your state"
                     icon={false}
                     defaultValue={data?.state}
@@ -138,7 +165,7 @@ const AddressModal = ({
                   <Label>Country</Label>
                   <LInput
                     type="text"
-                    name="shippingAddress.country"
+                    name="country"
                     placeholder="Please select your country"
                     icon={false}
                     defaultValue={data?.country}
@@ -159,7 +186,7 @@ const AddressModal = ({
                   type="submit"
                   className="border border-[#31473A] w-full py-2 rounded-md font-medium bg-[#31473A] text-white cursor-pointer"
                 >
-                  Save
+                  {isLoading ? <Spinner /> : "Save"}
                 </button>
               </div>
             </div>

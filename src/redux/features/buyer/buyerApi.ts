@@ -12,8 +12,15 @@ const buyerApi = baseApi.injectEndpoints({
           data: res?.data,
         };
       },
+    }),
+    addShippingAddress: builder.mutation({
+      query: ([userId, shippingAddress]) => ({
+        url: `/buyers/add-shipping-address/${userId}`,
+        method: 'PATCH',
+        body: shippingAddress
+      })
     })
   }),
 });
 
-export const { useGetBuyerInfoFromDbQuery } = buyerApi;
+export const { useGetBuyerInfoFromDbQuery, useAddShippingAddressMutation } = buyerApi;

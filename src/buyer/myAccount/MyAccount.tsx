@@ -18,10 +18,9 @@ const MyAccount = () => {
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
 
-  const { data } = useGetBuyerInfoFromDbQuery(userId);
+  const { data, refetch } = useGetBuyerInfoFromDbQuery(userId);
 
   const buyerData = data?.data;
-  console.log(buyerData);
 
   const updateUserInformation = async () => {
     console.log(5);
@@ -169,7 +168,7 @@ const MyAccount = () => {
             <h1 className="mb-10 text-lg font-bold">Shipping Address</h1>
 
             {buyerData?.shippingAddress?.length < 2 && (
-              <AddressModal method="add" title="Add New Address">
+              <AddressModal method="add" title="Add New Address" refetch={refetch}>
                 <div className="border border-dashed border-blue-300 rounded-md p-5 w-[60%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
                   <h1 className="font-medium text-blue-300">
                     <span className="text-2xl">+</span> Add address
@@ -203,7 +202,7 @@ const MyAccount = () => {
                       </div>
                     </div>
                     <div>
-                      <AddressModal method="edit" title="Edit My Address" data={address}>
+                      <AddressModal method="edit" title="Edit My Address" data={address} refetch={refetch}>
                         <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
                           Edit
                         </h1>
