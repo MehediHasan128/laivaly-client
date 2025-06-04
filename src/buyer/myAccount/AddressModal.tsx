@@ -11,16 +11,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { TShippingAddress } from "@/types";
 import { ReactNode } from "react";
 import { FieldValues } from "react-hook-form";
 import { FaChevronLeft } from "react-icons/fa6";
 import { IoTrashBinOutline } from "react-icons/io5";
 
 const AddressModal = ({
+  data,
   method,
   children,
   title,
 }: {
+  data?: TShippingAddress
   method: string;
   children: ReactNode;
   title: string;
@@ -61,7 +64,7 @@ const AddressModal = ({
             <div className="my-5">
               <Label className="mb-2">Address Category</Label>
               <div>
-                <LRadio name="shippingAddress.addressCategory" radioOptions={radioItems} />
+                <LRadio name="shippingAddress.addressCategory" radioOptions={radioItems} defaultValue={data?.addressCategory} />
               </div>
 
               <div className="border mt-5 border-gray-200"></div>
@@ -75,7 +78,7 @@ const AddressModal = ({
                   name="shippingAddress.recipientsName"
                   placeholder="Enter Recipient's Name"
                   icon={false}
-                  className=""
+                  defaultValue={data?.recipientsName}
                 />
               </div>
               <div className="space-y-1.5">
@@ -85,7 +88,7 @@ const AddressModal = ({
                   name="shippingAddress.phoneNumber"
                   placeholder="Enter phone number"
                   icon={false}
-                  className=""
+                  defaultValue={data?.phoneNumber}
                 />
               </div>
               <div className="space-y-1.5">
@@ -95,7 +98,7 @@ const AddressModal = ({
                   name="shippingAddress.address"
                   placeholder="House no./building/street/area"
                   icon={false}
-                  className=""
+                  defaultValue={data?.address}
                 />
               </div>
               <div className="flex gap-3">
@@ -106,6 +109,7 @@ const AddressModal = ({
                     name="shippingAddress.city"
                     placeholder="Please select your city"
                     icon={false}
+                    defaultValue={data?.city}
                   />
                 </div>
                 <div className="space-y-1.5 w-full">
@@ -115,6 +119,7 @@ const AddressModal = ({
                     name="shippingAddress.postalCode"
                     placeholder="Enter postal code"
                     icon={false}
+                    defaultValue={data?.postalCode}
                   />
                 </div>
               </div>
@@ -126,6 +131,7 @@ const AddressModal = ({
                     name="shippingAddress.state"
                     placeholder="Please select your state"
                     icon={false}
+                    defaultValue={data?.state}
                   />
                 </div>
                 <div className="space-y-1.5 w-full">
@@ -135,6 +141,7 @@ const AddressModal = ({
                     name="shippingAddress.country"
                     placeholder="Please select your country"
                     icon={false}
+                    defaultValue={data?.country}
                   />
                 </div>
               </div>

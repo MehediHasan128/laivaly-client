@@ -8,15 +8,16 @@ type TInputProps = {
     id: string;
     lable: string;
   }[];
+  defaultValue?: string
 };
 
-const LRadio = ({ name, radioOptions }: TInputProps) => {
+const LRadio = ({ name, radioOptions, defaultValue }: TInputProps) => {
   return (
     <>
       <Controller
         name={name}
         render={({ field }) => (
-          <RadioGroup {...field} name={name} className="flex">
+          <RadioGroup {...field} name={name} className="flex" defaultValue={defaultValue}>
             {radioOptions.map((option) => (
               <div key={option.id} className="flex items-center gap-3">
                 <RadioGroupItem value={option.lable} id={option.id} />

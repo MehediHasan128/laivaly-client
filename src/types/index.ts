@@ -18,7 +18,6 @@ export type TResponce = {
   data: any;
 };
 
-
 export type TProductData = {
   _id: string;
   title: string;
@@ -41,8 +40,7 @@ export type TProductData = {
   createdAt: string; // or Date if you will parse it
   updatedAt: string; // or Date if you will parse it
   __v: number;
-}
-
+};
 
 export type TUserReview = {
   customerId: {
@@ -51,26 +49,23 @@ export type TUserReview = {
       lastName: string;
     };
     profileImage: string;
-  },
+  };
   rating: number;
   comment: string;
-}
-
+};
 
 export type TSearch = {
   field: string;
   value: string;
 };
 
-
 export type TCartProduct = {
   productId: TProductData;
   color: string;
   size: string;
   quantity: number;
-  _id: string
-}
-
+  _id: string;
+};
 
 export type TOrder = {
   _id: string;
@@ -78,7 +73,7 @@ export type TOrder = {
     _id: string;
     userName: {
       firstName: string;
-      lastName: string
+      lastName: string;
     };
     profileImage: string;
   };
@@ -100,4 +95,16 @@ export type TOrder = {
   totalAmount: number;
   paymentStatus: string;
   status: string;
+};
+
+export type TShippingAddress = {
+  _id: string;
+  addressCategory: string;
+  recipientsName: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  state: string;
+  country: string;
 };

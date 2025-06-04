@@ -11,6 +11,7 @@ import { FiEdit3 } from "react-icons/fi";
 import LSelect from "@/components/form/LSelect";
 import { LuMapPinned } from "react-icons/lu";
 import AddressModal from "./AddressModal";
+import { TShippingAddress } from "@/types";
 
 const MyAccount = () => {
   // Get user Id
@@ -20,6 +21,7 @@ const MyAccount = () => {
   const { data } = useGetBuyerInfoFromDbQuery(userId);
 
   const buyerData = data?.data;
+  console.log(buyerData);
 
   const updateUserInformation = async () => {
     console.log(5);
@@ -166,72 +168,50 @@ const MyAccount = () => {
           <div className="flex-1">
             <h1 className="mb-10 text-lg font-bold">Shipping Address</h1>
 
-            <AddressModal method="add" title="Add New Address">
-              <div className="border border-dashed border-blue-300 rounded-md p-5 w-[60%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
-                <h1 className="font-medium text-blue-300">
-                  <span className="text-2xl">+</span> Add address
-                </h1>
-              </div>
-            </AddressModal>
+            {buyerData?.shippingAddress?.length < 2 && (
+              <AddressModal method="add" title="Add New Address">
+                <div className="border border-dashed border-blue-300 rounded-md p-5 w-[60%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
+                  <h1 className="font-medium text-blue-300">
+                    <span className="text-2xl">+</span> Add address
+                  </h1>
+                </div>
+              </AddressModal>
+            )}
 
             <div className="space-y-3">
-              <div className="border border-gray-300 rounded-md p-5 w-[60%]">
-                <div className="flex gap-5">
-                  <LuMapPinned className="text-3xl" />
-                  <div className="flex-1">
-                    <div className="flex gap-3 items-center">
-                      <h1 className="font-bold">Mehedi Hasan</h1>
-                      <p className="text-sm font-medium text-gray-500">
-                        01302557956
+              {buyerData?.shippingAddress?.map((address: TShippingAddress) => (
+                <div
+                  key={address._id}
+                  className="border border-gray-300 rounded-md p-5 w-[60%]"
+                >
+                  <div className="flex gap-5">
+                    <LuMapPinned className="text-3xl" />
+                    <div className="flex-1">
+                      <div className="flex gap-3 items-center">
+                        <h1 className="font-bold">{address.recipientsName}</h1>
+                        <p className="text-sm font-medium text-gray-500">
+                          {address.phoneNumber}
+                        </p>
+                      </div>
+                      <p className="text-sm my-3 font-medium w-[70%] text-gray-700">
+                        {address.address}, {address.city} - {address.postalCode}
+                        , {address.state},{address.country}
                       </p>
-                    </div>
-                    <p className="text-sm my-3 font-medium w-[70%] text-gray-700">
-                      Mollertek Water Pump, Dhaka - 1230, Dhaka-North,
-                      Bnagladesh
-                    </p>
 
-                    <div className="border w-fit px-2 py-0.5 rounded-md text-xs font-bold">
-                      <p>Home</p>
+                      <div className="border w-fit px-2 py-0.5 rounded-md text-xs font-bold">
+                        <p>{address.addressCategory}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <AddressModal method="edit" title="Edit My Address">
-                      <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
-                        Edit
-                      </h1>
-                    </AddressModal>
+                    <div>
+                      <AddressModal method="edit" title="Edit My Address" data={address}>
+                        <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
+                          Edit
+                        </h1>
+                      </AddressModal>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="border border-gray-300 rounded-md p-5 w-[60%]">
-                <div className="flex gap-5">
-                  <LuMapPinned className="text-3xl" />
-                  <div className="flex-1">
-                    <div className="flex gap-3 items-center">
-                      <h1 className="font-bold">Mehedi Hasan</h1>
-                      <p className="text-sm font-medium text-gray-500">
-                        01302557956
-                      </p>
-                    </div>
-                    <p className="text-sm my-3 font-medium w-[70%] text-gray-700">
-                      Mollertek Water Pump, Dhaka - 1230, Dhaka-North,
-                      Bnagladesh
-                    </p>
-
-                    <div className="border w-fit px-2 py-0.5 rounded-md text-xs font-bold">
-                      <p>Office</p>
-                    </div>
-                  </div>
-                  <div>
-                    <AddressModal method="edit" title="Edit My Address">
-                      <h1 className="font-medium text-sm text-blue-700 cursor-pointer active:scale-95 duration-700">
-                        Edit
-                      </h1>
-                    </AddressModal>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
