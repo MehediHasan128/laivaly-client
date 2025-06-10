@@ -3,8 +3,12 @@ import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
 import LSelect from "@/components/form/LSelect";
 import { Label } from "@/components/ui/label";
+import Spinner from "@/components/ui/spinner";
 import { useAddBuyerInfoMutation } from "@/redux/features/buyer/buyerApi";
+import { TError } from "@/types";
 import { FieldValues } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const genderOption = [
   {
@@ -18,17 +22,27 @@ const genderOption = [
 ];
 
 const UserInformationForm = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
 
-  const [addBuyerInfo, {isLoading}] = useAddBuyerInfoMutation();
+  const [addBuyerInfo, { isLoading }] = useAddBuyerInfoMutation();
 
-  const handleSubmitUserInformation = (data: FieldValues) => {
-    const userInformation = {
+  const handleSubmitUserInformation = async(data: FieldValues) => {
+    const userInfo = {
       gender: data?.gender,
       dateOfBirth: data?.dateOfBirth,
       phoneNumber: data?.phoneNumber,
     };
 
-    console.log(userInformation);
+    const toastId = toast.loading(null);
+    try {
+      const res = await addBuyerInfo([userId, userInfo]).unwrap();
+      toast.success(res?.message, { id: toastId, duration: 2000 });
+      navigate('/');
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
   };
 
   return (
@@ -80,7 +94,9 @@ const UserInformationForm = () => {
                 <button
                   className="w-full py-3 mt-3 rounded-lg text-sm font-medium border border-[#31473A] bg-[#31473A] text-white cursor-pointer active:scale-95 duration-1000"
                   type="submit"
-                >Submit</button>
+                >
+                  {isLoading ? <Spinner /> : 'Submit'}
+                </button>
               </div>
             </div>
           </LForm>

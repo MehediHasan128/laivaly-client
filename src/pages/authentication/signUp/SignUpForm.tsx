@@ -48,7 +48,7 @@ const SignUpForm = () => {
         const res = (await createUser(userInfo).unwrap()) as TResponce;
         if (res.statusCode === 200) {
           toast.success(res?.message, { id: toastId, duration: 2000 });
-          navigate(`/signUp/user/information/${res?.data._id}`);
+          navigate(`/signUp/user/information/${res?.data.userId}`);
         }
       } catch (err) {
         const error = err as TError;

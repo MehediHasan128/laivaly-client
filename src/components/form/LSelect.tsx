@@ -18,10 +18,11 @@ type TSelectProps = {
     label: string;
   }[];
   setValue?: Dispatch<SetStateAction<string | null>>;
-  disabled?: boolean
+  disabled?: boolean;
+  defaultValue?: string
 };
 
-const LSelect = ({ name, placeholder, className, options, setValue, disabled }: TSelectProps) => {
+const LSelect = ({ name, placeholder, className, options, setValue, disabled, defaultValue }: TSelectProps) => {
   return (
     <>
       <Controller
@@ -30,7 +31,7 @@ const LSelect = ({ name, placeholder, className, options, setValue, disabled }: 
           <Select {...field} onValueChange={(val) => {
             field.onChange(val);
             setValue?.(val)
-          }}>
+          }} defaultValue={defaultValue}>
             <SelectTrigger className={className} disabled={options?.length === 0 || disabled}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>

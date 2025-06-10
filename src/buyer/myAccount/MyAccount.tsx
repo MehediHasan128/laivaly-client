@@ -12,6 +12,9 @@ import LSelect from "@/components/form/LSelect";
 import { LuMapPinned } from "react-icons/lu";
 import AddressModal from "./AddressModal";
 import { TShippingAddress } from "@/types";
+import male from "../../assets/images/others/male.jpg";
+import female from "../../assets/images/others/female.jpg";
+import LDatePicker from "@/components/form/LDatePicker";
 
 const MyAccount = () => {
   // Get user Id
@@ -21,6 +24,7 @@ const MyAccount = () => {
   const { data, refetch } = useGetBuyerInfoFromDbQuery(userId);
 
   const buyerData = data?.data;
+  console.log(buyerData);
 
   const updateUserInformation = async () => {
     console.log(5);
@@ -28,7 +32,7 @@ const MyAccount = () => {
 
   const [editName, setEditName] = useState(true);
   const [editEmail, setEditEmail] = useState(true);
-  const [editOthers, setEditOthers] = useState(true);
+  const [editOthers, setEditOthers] = useState(false);
 
   return (
     <div>
@@ -41,7 +45,13 @@ const MyAccount = () => {
         <div className="absolute top-[60%] left-[40%]">
           <Avatar className="rounded-full border-[12px] border-gray-50 size-60">
             <AvatarImage
-              src={buyerData?.profileImage}
+              src={
+                buyerData?.profileImage !== null
+                  ? buyerData?.profileImage
+                  : buyerData?.gender === "male"
+                  ? male
+                  : female
+              }
               className="object-cover"
               alt="@shadcn"
             />
@@ -52,7 +62,7 @@ const MyAccount = () => {
 
       <div className="mt-[140px]">
         <div className="mt-5 flex gap-24">
-          <div>
+          <div className="flex-1">
             <h1 className="mb-10 text-lg font-bold">Personal Information</h1>
             <LForm onSubmit={updateUserInformation}>
               <div className="space-y-5">
@@ -107,41 +117,38 @@ const MyAccount = () => {
                 </div>
 
                 <div className="flex gap-5">
-                  <div className="space-y-2 flex-1">
-                    <Label>Date of birth:</Label>
-                    <LInput
-                      type="date"
-                      name="userName.firstName"
-                      icon={false}
-                      placeholder="Enter date of birth"
-                      disabled={editOthers}
-                    />
-                  </div>
+                  <div className="w-full flex gap-3">
+                    <div className="space-y-2 w-full">
+                      <Label>Date of birth:</Label>
+                      <LDatePicker name="" className="py-[22px]" />
+                    </div>
 
-                  <div className="space-y-2 flex-1">
-                    <Label>Gender:</Label>
-                    <LSelect
-                      name="gender"
-                      placeholder="Select gender"
-                      className="border w-full flex justify-between"
-                      options={[
-                        { value: "male", label: "Male" },
-                        { value: "female", label: "Female" },
-                      ]}
-                      disabled={editOthers}
-                    />
-                  </div>
+                    <div className="space-y-2  w-full">
+                      <Label>Gender:</Label>
+                      <LSelect
+                        name="gender"
+                        placeholder="Select gender"
+                        className="flex justify-between w-full"
+                        options={[
+                          { value: "male", label: "Male" },
+                          { value: "female", label: "Female" },
+                        ]}
+                        disabled={editOthers}
+                        defaultValue={buyerData?.gender}
+                      />
+                    </div>
 
-                  <div className="space-y-2 flex-1">
-                    <Label>Phone number:</Label>
-                    <LInput
-                      type="text"
-                      name="phoneNumber"
-                      icon={false}
-                      placeholder="Phone number"
-                      defaultValue={buyerData?.phoneNumber}
-                      disabled={editOthers}
-                    />
+                    <div className="space-y-2  w-full">
+                      <Label>Phone number:</Label>
+                      <LInput
+                        type="text"
+                        name="phoneNumber"
+                        icon={false}
+                        placeholder="Phone number"
+                        defaultValue={buyerData?.phoneNumber}
+                        disabled={editOthers}
+                      />
+                    </div>
                   </div>
 
                   <FiEdit3
@@ -173,7 +180,7 @@ const MyAccount = () => {
                 title="Add New Address"
                 refetch={refetch}
               >
-                <div className="border border-dashed border-blue-300 rounded-md p-5 w-[60%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
+                <div className="border border-dashed border-blue-300 rounded-md p-10 w-[80%] mb-3 flex justify-center items-center cursor-pointer active:scale-95 duration-700">
                   <h1 className="font-medium text-blue-300">
                     <span className="text-2xl">+</span> Add address
                   </h1>
@@ -186,7 +193,7 @@ const MyAccount = () => {
                 (address: TShippingAddress, idx: number) => (
                   <div
                     key={address._id}
-                    className="border border-gray-300 rounded-md p-5 w-[60%]"
+                    className="border border-gray-300 rounded-md p-5 w-[80%]"
                   >
                     <div className="flex gap-5">
                       <LuMapPinned className="text-3xl" />
