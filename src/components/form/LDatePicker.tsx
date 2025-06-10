@@ -8,10 +8,12 @@ import { cn } from "@/lib/utils";
 
 type TDatePickerProps = {
   name: string;
-  className?: string
+  className?: string;
+  defaultValue?: Date | undefined;
+  disabled?: boolean;
 };
 
-const LDatePicker = ({ name, className }: TDatePickerProps) => {
+const LDatePicker = ({ name, className, defaultValue, disabled }: TDatePickerProps) => {
   return (
     <>
       <Controller
@@ -21,6 +23,7 @@ const LDatePicker = ({ name, className }: TDatePickerProps) => {
             <PopoverTrigger
               className={className}
               asChild
+              disabled={disabled}
             >
               <Button
                 variant={"outline"}
@@ -32,7 +35,7 @@ const LDatePicker = ({ name, className }: TDatePickerProps) => {
                 {field.value ? (
                   format(field.value, "PPP")
                 ) : (
-                  <span>Pick your date of birth</span>
+                  defaultValue ? <><span>{format(defaultValue, "PPP")}</span></> : <><span>Pick your date of birth</span></>
                 )}
                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
               </Button>

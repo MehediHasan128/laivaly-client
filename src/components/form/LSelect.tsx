@@ -27,6 +27,7 @@ const LSelect = ({ name, placeholder, className, options, setValue, disabled, de
     <>
       <Controller
         name={name}
+        defaultValue={defaultValue}
         render={({ field }) => (
           <Select {...field} onValueChange={(val) => {
             field.onChange(val);

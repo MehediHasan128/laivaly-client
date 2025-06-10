@@ -15,6 +15,7 @@ import { TShippingAddress } from "@/types";
 import male from "../../assets/images/others/male.jpg";
 import female from "../../assets/images/others/female.jpg";
 import LDatePicker from "@/components/form/LDatePicker";
+import { FieldValues } from "react-hook-form";
 
 const MyAccount = () => {
   // Get user Id
@@ -24,15 +25,14 @@ const MyAccount = () => {
   const { data, refetch } = useGetBuyerInfoFromDbQuery(userId);
 
   const buyerData = data?.data;
-  console.log(buyerData);
 
-  const updateUserInformation = async () => {
-    console.log(5);
+  const updateUserInformation = async (data: FieldValues) => {
+    console.log(data);
   };
 
   const [editName, setEditName] = useState(true);
   const [editEmail, setEditEmail] = useState(true);
-  const [editOthers, setEditOthers] = useState(false);
+  const [editOthers, setEditOthers] = useState(true);
 
   return (
     <div>
@@ -120,7 +120,12 @@ const MyAccount = () => {
                   <div className="w-full flex gap-3">
                     <div className="space-y-2 w-full">
                       <Label>Date of birth:</Label>
-                      <LDatePicker name="" className="py-[22px]" />
+                      <LDatePicker
+                        name="dateOfBith"
+                        className="py-[22px]"
+                        defaultValue={buyerData?.dateOfBirth}
+                        disabled={editOthers}
+                      />
                     </div>
 
                     <div className="space-y-2  w-full">
@@ -158,7 +163,7 @@ const MyAccount = () => {
                 </div>
 
                 <div className="space-x-3">
-                  <button className="bg-[#31473A] border border-[#31473A] text-white font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">
+                  <button type="submit" className="bg-[#31473A] border border-[#31473A] text-white font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">
                     Update Profile
                   </button>
                   <button className="border border-[#31473A] font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">
