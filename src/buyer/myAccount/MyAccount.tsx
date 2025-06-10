@@ -34,7 +34,7 @@ const MyAccount = () => {
     <div>
       <div className="relative">
         <img
-          className="h-80 w-full object-cover rounded-3xl"
+          className="h-72 w-full object-cover rounded-3xl"
           src={background}
           alt=""
         />
@@ -162,7 +162,7 @@ const MyAccount = () => {
             </LForm>
           </div>
 
-          <div className="border border-gray-200 h-80 w-fit"></div>
+          <div className="border border-gray-200 w-fit"></div>
 
           <div className="flex-1">
             <h1 className="mb-10 text-lg font-bold">Shipping Address</h1>

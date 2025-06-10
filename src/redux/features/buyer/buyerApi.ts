@@ -5,7 +5,7 @@ const buyerApi = baseApi.injectEndpoints({
     getBuyerInfoFromDb: builder.query({
       query: (userId) => ({
         url: `/buyers/${userId}`,
-        method: 'GET'
+        method: "GET",
       }),
       transformResponse: (res) => {
         return {
@@ -16,11 +16,29 @@ const buyerApi = baseApi.injectEndpoints({
     addShippingAddress: builder.mutation({
       query: ([userId, shippingAddress]) => ({
         url: `/buyers/add-shipping-address/${userId}`,
-        method: 'PATCH',
-        body: shippingAddress
-      })
-    })
+        method: "PATCH",
+        body: shippingAddress,
+      }),
+    }),
+    updateShippingAddress: builder.mutation({
+      query: ([userId, addressId, updatedhippingAddress]) => ({
+        url: `/buyers/update-shipping-address/${userId}?addressId=${addressId}`,
+        method: "PATCH",
+        body: updatedhippingAddress,
+      }),
+    }),
+    deleteShippingAddress: builder.mutation({
+      query: ([userId, addressId]) => ({
+        url: `/buyers/delete-shipping-address/${userId}?addressId=${addressId}`,
+        method: "DELETE"
+      }),
+    }),
   }),
 });
 
-export const { useGetBuyerInfoFromDbQuery, useAddShippingAddressMutation } = buyerApi;
+export const {
+  useGetBuyerInfoFromDbQuery,
+  useAddShippingAddressMutation,
+  useUpdateShippingAddressMutation,
+  useDeleteShippingAddressMutation
+} = buyerApi;

@@ -13,7 +13,11 @@ import {
 import { Label } from "@/components/ui/label";
 import Spinner from "@/components/ui/spinner";
 import { currentUser } from "@/redux/features/auth/authSlice";
-import { useAddShippingAddressMutation } from "@/redux/features/buyer/buyerApi";
+import {
+  useAddShippingAddressMutation,
+  useDeleteShippingAddressMutation,
+  useUpdateShippingAddressMutation,
+} from "@/redux/features/buyer/buyerApi";
 import { useAppSelector } from "@/redux/hook";
 import { TError, TResponce, TShippingAddress } from "@/types";
 import { ReactNode, useState } from "react";
@@ -42,14 +46,50 @@ const AddressModal = ({
   const userId = user?.userId;
 
   const [addShippingAddress, { isLoading }] = useAddShippingAddressMutation();
+  const [deleteShippingAddress, { isLoading: deleting }] =
+    useDeleteShippingAddressMutation();
+  const [updateShippingAddress] = useUpdateShippingAddressMutation();
 
   const handleAddNewAddress = async (data: FieldValues) => {
     const toastId = toast.loading(null);
     try {
-      const res = await addShippingAddress([userId, data]) as TResponce;
+      const res = (await addShippingAddress([userId, data])) as TResponce;
       setOpenModal(false);
       refetch();
-      toast.success(res?.message, { id: toastId, duration: 2000 });
+      toast.success(res?.data?.message, { id: toastId, duration: 3000 });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
+  };
+
+  const handleEditShippingAddress = async (
+    userId: string,
+    shippingId: string,
+    data: FieldValues
+  ) => {
+    const toastId = toast.loading(null);
+    try {
+      const res = await updateShippingAddress([userId, shippingId, data]);
+      setOpenModal(false);
+      refetch();
+      toast.success(res?.data?.message, { id: toastId, duration: 3000 });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+    }
+  };
+
+  const handleDeleteShippingAddress = async (
+    userId: string,
+    shippingId: string
+  ) => {
+    const toastId = toast.loading(null);
+    try {
+      const res = await deleteShippingAddress([userId, shippingId]);
+      setOpenModal(false);
+      refetch();
+      toast.success(res?.data?.message, { id: toastId, duration: 3000 });
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
@@ -83,7 +123,15 @@ const AddressModal = ({
         </DialogHeader>
 
         <div>
-          <LForm onSubmit={handleAddNewAddress}>
+          <LForm
+            onSubmit={(formData) => {
+              if (method === "edit" && data?._id) {
+                handleEditShippingAddress(userId as string, data._id, formData);
+              } else {
+                handleAddNewAddress(formData);
+              }
+            }}
+          >
             <div className="my-5">
               <Label className="mb-2">Address Category</Label>
               <div>
@@ -175,12 +223,26 @@ const AddressModal = ({
 
               <div className="mt-10 space-y-3">
                 {method === "edit" && (
-                  <button className="border border-[#31473A] w-full py-2 rounded-md font-medium cursor-pointer flex justify-center items-center gap-2.5">
-                    <span>
-                      <IoTrashBinOutline className="text-lg" />
-                    </span>
-                    <span>Delete</span>
-                  </button>
+                  <div
+                    onClick={() =>
+                      handleDeleteShippingAddress(
+                        userId as string,
+                        data?._id as string
+                      )
+                    }
+                    className="border border-[#31473A] w-full py-2 rounded-md font-medium cursor-pointer flex justify-center items-center gap-2.5"
+                  >
+                    {deleting ? (
+                      <Spinner />
+                    ) : (
+                      <>
+                        <span>
+                          <IoTrashBinOutline className="text-lg" />
+                        </span>
+                        <span>Delete</span>
+                      </>
+                    )}
+                  </div>
                 )}
                 <button
                   type="submit"
