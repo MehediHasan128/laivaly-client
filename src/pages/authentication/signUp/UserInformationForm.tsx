@@ -3,6 +3,7 @@ import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
 import LSelect from "@/components/form/LSelect";
 import { Label } from "@/components/ui/label";
+import { useAddBuyerInfoMutation } from "@/redux/features/buyer/buyerApi";
 import { FieldValues } from "react-hook-form";
 
 const genderOption = [
@@ -17,12 +18,14 @@ const genderOption = [
 ];
 
 const UserInformationForm = () => {
+
+  const [addBuyerInfo, {isLoading}] = useAddBuyerInfoMutation();
+
   const handleSubmitUserInformation = (data: FieldValues) => {
     const userInformation = {
       gender: data?.gender,
       dateOfBirth: data?.dateOfBirth,
       phoneNumber: data?.phoneNumber,
-      shippingAddress: [data?.shippingAddress]
     };
 
     console.log(userInformation);
@@ -44,100 +47,41 @@ const UserInformationForm = () => {
 
         <div className="mt-10">
           <LForm onSubmit={handleSubmitUserInformation}>
-            <div className="space-y-2">
-              <div className="flex justify-between gap-3">
-                <div className="space-y-2 w-full">
+            <div className="space-y-4">
+              <div className="flex gap-5">
+                <div className="w-full">
                   <Label>Gender</Label>
                   <LSelect
                     name="gender"
                     placeholder="Select gender"
                     options={genderOption}
-                    className="border w-full flex justify-between border-gray-300 py-5"
+                    className="flex justify-between w-full mt-2"
                   />
                 </div>
-                <div className="space-y-2 w-full">
-                  <Label>Date of Birth</Label>
-                  <LDatePicker name="dateOfBirth" />
+                <div className="w-full">
+                  <Label>Date of birth</Label>
+                  <LDatePicker
+                    name="dateOfBirth"
+                    className="flex justify-between w-full mt-2 py-[22px]"
+                  />
                 </div>
               </div>
-
               <div>
-                <div className="space-y-2 w-full">
-                  <Label>Phone Number</Label>
-                  <LInput
-                    type="text"
-                    name="phoneNumber"
-                    placeholder="Enter you phone number"
-                    icon={false}
-                  />
-                </div>
+                <Label>Phone Number</Label>
+                <LInput
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Enter your phone number"
+                  icon={false}
+                  className="mt-2"
+                />
               </div>
-
-              <div className="w-full flex items-center my-5">
-                <div className="border-t w-full border-gray-300"></div>
-                <span className="text-sm text-gray-600 font-medium bg-white w-[55%] flex justify-center">
-                  Shipping Address
-                </span>
-                <div className="border-t w-full border-gray-300"></div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2 w-full">
-                  <Label>Street</Label>
-                  <LInput
-                    type="text"
-                    name="shippingAddress.street"
-                    placeholder="Enter you phone number"
-                    icon={false}
-                  />
-                </div>
-                <div className="space-y-2 w-full">
-                  <Label>City</Label>
-                  <LInput
-                    type="text"
-                    name="shippingAddress.city"
-                    placeholder="Enter you phone number"
-                    icon={false}
-                  />
-                </div>
-                <div className="space-y-2 w-full">
-                  <Label>State</Label>
-                  <LInput
-                    type="text"
-                    name="shippingAddress.state"
-                    placeholder="Enter you phone number"
-                    icon={false}
-                  />
-                </div>
-                <div className="space-y-2 w-full">
-                  <Label>Postal Code</Label>
-                  <LInput
-                    type="text"
-                    name="shippingAddress.postalCode"
-                    placeholder="Enter you phone number"
-                    icon={false}
-                  />
-                </div>
-              </div>
-
               <div>
-                <div className="space-y-2 w-full">
-                  <Label>Country</Label>
-                  <LInput
-                    type="text"
-                    name="shippingAddress.country"
-                    placeholder="Enter your country name"
-                    icon={false}
-                  />
-                </div>
+                <button
+                  className="w-full py-3 mt-3 rounded-lg text-sm font-medium border border-[#31473A] bg-[#31473A] text-white cursor-pointer active:scale-95 duration-1000"
+                  type="submit"
+                >Submit</button>
               </div>
-
-              <button
-                className="px-5 py-2 mt-5 rounded-lg text-sm font-medium bg-[#31473A] text-white cursor-pointer"
-                type="submit"
-              >
-                Submit
-              </button>
             </div>
           </LForm>
         </div>

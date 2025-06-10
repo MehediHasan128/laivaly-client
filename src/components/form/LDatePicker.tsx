@@ -8,19 +8,17 @@ import { cn } from "@/lib/utils";
 
 type TDatePickerProps = {
   name: string;
+  className?: string;
 };
 
-const LDatePicker = ({ name }: TDatePickerProps) => {
+const LDatePicker = ({ name, className }: TDatePickerProps) => {
   return (
     <>
       <Controller
         name={name}
         render={({ field }) => (
           <Popover>
-            <PopoverTrigger
-              className="py-5 border-gray-300 font-medium"
-              asChild
-            >
+            <PopoverTrigger className={className} asChild>
               <Button
                 variant={"outline"}
                 className={cn(
@@ -31,7 +29,7 @@ const LDatePicker = ({ name }: TDatePickerProps) => {
                 {field.value ? (
                   format(field.value, "PPP")
                 ) : (
-                  <span>Pick a date</span>
+                  <span>Pick your birth date</span>
                 )}
                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
               </Button>

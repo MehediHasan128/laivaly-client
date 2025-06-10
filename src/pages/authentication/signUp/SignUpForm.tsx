@@ -2,12 +2,16 @@ import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import Spinner from "@/components/ui/spinner";
+import { useCreateUserMutation } from "@/redux/features/Users/userApi";
+import { TError, TResponce } from "@/types";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { GoLock, GoMail } from "react-icons/go";
 import { IoCheckmarkDoneSharp, IoLogoApple } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const SignUpForm = () => {
   const [showPass, setShowPass] = useState(false);
@@ -15,26 +19,42 @@ const SignUpForm = () => {
   const [loading, setLoading] = useState(false);
   const [pass, setPass] = useState<string | null>(null);
   const [confirmPass, setConfirmPass] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const passLength = (pass?.length ?? 0) >= 8;
   const passCapitalLetter = /[A-Z]/.test(pass as string);
   const passSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(pass as string);
   const passNumber = /[0-9]/.test(pass as string);
 
-  const handleSignUpUser = (data: FieldValues) => {
-    
-    if((pass === confirmPass) && passLength && passCapitalLetter && passSpecialChar && passNumber){
-      
-      const formData = {
+  const [createUser, { isLoading }] = useCreateUserMutation();
+
+  const handleSignUpUser = async (data: FieldValues) => {
+    if (
+      pass === confirmPass &&
+      passLength &&
+      passCapitalLetter &&
+      passSpecialChar &&
+      passNumber
+    ) {
+      const userInfo = {
         userName: data?.userName,
         userEmail: data?.userEmail,
-        password: data?.password
+        password: data?.password,
       };
 
-      console.log(formData);
+      const toastId = toast.loading(null);
 
+      try {
+        const res = (await createUser(userInfo).unwrap()) as TResponce;
+        if (res.statusCode === 200) {
+          toast.success(res?.message, { id: toastId, duration: 2000 });
+          navigate(`/signUp/user/information/${res?.data._id}`);
+        }
+      } catch (err) {
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId, duration: 3000 });
+      }
     }
-
   };
 
   return (
@@ -119,8 +139,7 @@ const SignUpForm = () => {
               </span>
               <span
                 className={`flex items-center gap-1 ${
-                  passSpecialChar &&
-                  "text-green-600"
+                  passSpecialChar && "text-green-600"
                 }`}
               >
                 <IoCheckmarkDoneSharp className="text-sm" />
@@ -187,7 +206,7 @@ const SignUpForm = () => {
             type="submit"
             className="py-2.5 border border-[#31473A] rounded-lg w-full font-semibold bg-[#31473A] text-white cursor-pointer"
           >
-            {loading ? <Spinner /> : "Sign Up"}
+            {isLoading ? <Spinner /> : "Sign Up"}
           </button>
         </div>
       </LForm>

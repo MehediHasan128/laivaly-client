@@ -2,6 +2,13 @@ import { baseApi } from "@/redux/api/baseApi";
 
 const buyerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    addBuyerInfo: builder.mutation({
+      query: ([userId, info]) => ({
+        url: `/buyers/add-buyer-info/${userId}`,
+        method: 'PATCH',
+        body: info
+      })
+    }),
     getBuyerInfoFromDb: builder.query({
       query: (userId) => ({
         url: `/buyers/${userId}`,
@@ -37,6 +44,7 @@ const buyerApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useAddBuyerInfoMutation,
   useGetBuyerInfoFromDbQuery,
   useAddShippingAddressMutation,
   useUpdateShippingAddressMutation,
