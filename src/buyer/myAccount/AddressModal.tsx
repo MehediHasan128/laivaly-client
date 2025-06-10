@@ -48,7 +48,7 @@ const AddressModal = ({
   const [addShippingAddress, { isLoading }] = useAddShippingAddressMutation();
   const [deleteShippingAddress, { isLoading: deleting }] =
     useDeleteShippingAddressMutation();
-  const [updateShippingAddress] = useUpdateShippingAddressMutation();
+  const [updateShippingAddress, {isLoading: updating}] = useUpdateShippingAddressMutation();
 
   const handleAddNewAddress = async (data: FieldValues) => {
     const toastId = toast.loading(null);
@@ -248,7 +248,7 @@ const AddressModal = ({
                   type="submit"
                   className="border border-[#31473A] w-full py-2 rounded-md font-medium bg-[#31473A] text-white cursor-pointer"
                 >
-                  {isLoading ? <Spinner /> : "Save"}
+                  {(isLoading || updating) ? <Spinner /> : "Save"}
                 </button>
               </div>
             </div>
