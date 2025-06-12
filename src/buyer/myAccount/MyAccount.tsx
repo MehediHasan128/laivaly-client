@@ -16,6 +16,8 @@ import male from "../../assets/images/others/male.jpg";
 import female from "../../assets/images/others/female.jpg";
 import LDatePicker from "@/components/form/LDatePicker";
 import { FieldValues } from "react-hook-form";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import UploadProfilePictureModal from "./UploadProfilePictureModal";
 
 const MyAccount = () => {
   // Get user Id
@@ -43,20 +45,25 @@ const MyAccount = () => {
           alt=""
         />
         <div className="absolute top-[60%] left-[40%]">
-          <Avatar className="rounded-full border-[12px] border-gray-50 size-60">
-            <AvatarImage
-              src={
-                buyerData?.profileImage !== null
-                  ? buyerData?.profileImage
-                  : buyerData?.gender === "male"
-                  ? male
-                  : female
-              }
-              className="object-cover"
-              alt="@shadcn"
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <div className="relative">
+            <Avatar className="rounded-full border-[12px] border-gray-50 size-60">
+              <AvatarImage
+                src={
+                  buyerData?.profileImage !== null
+                    ? buyerData?.profileImage
+                    : buyerData?.gender === "male"
+                    ? male
+                    : female
+                }
+                className="object-cover"
+                alt="@shadcn"
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <UploadProfilePictureModal refetch={refetch}>
+              <MdOutlineModeEditOutline />
+            </UploadProfilePictureModal>
+          </div>
         </div>
       </div>
 
@@ -163,7 +170,10 @@ const MyAccount = () => {
                 </div>
 
                 <div className="space-x-3">
-                  <button type="submit" className="bg-[#31473A] border border-[#31473A] text-white font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">
+                  <button
+                    type="submit"
+                    className="bg-[#31473A] border border-[#31473A] text-white font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer"
+                  >
                     Update Profile
                   </button>
                   <button className="border border-[#31473A] font-medium px-8 py-2.5 rounded-md active:scale-95 duration-700 cursor-pointer">

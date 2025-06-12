@@ -98,7 +98,6 @@ const AddProductModal = ({ children, refetch }: { children: ReactNode; refetch: 
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId, duration: 3000 });
-      console.log(error);
     }
   };
 

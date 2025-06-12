@@ -40,13 +40,21 @@ const buyerApi = baseApi.injectEndpoints({
         method: "DELETE"
       }),
     }),
+    addBuyerprofile: builder.mutation({
+      query: ([image, userId]) => ({
+        url: `/buyers/update-buyer-profile/${userId}`,
+        method: 'PATCH',
+        body: image
+      })
+    })
   }),
 });
 
 export const {
   useAddBuyerInfoMutation,
   useGetBuyerInfoFromDbQuery,
+  useAddBuyerprofileMutation,
   useAddShippingAddressMutation,
   useUpdateShippingAddressMutation,
-  useDeleteShippingAddressMutation
+  useDeleteShippingAddressMutation,
 } = buyerApi;
