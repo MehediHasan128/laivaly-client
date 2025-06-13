@@ -85,7 +85,7 @@ const Navbar = () => {
           <div className={`${user ? "block" : "hidden"}`}>
             <ProfileMenu>
               <Avatar className="hidden md:block md:size-12 rounded-full">
-                <AvatarImage src={user?.profileImage} />
+                <AvatarImage className="object-cover" src={user?.profileImage} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </ProfileMenu>

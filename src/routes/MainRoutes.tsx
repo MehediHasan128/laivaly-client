@@ -14,6 +14,7 @@ import UserInformationForm from "@/pages/authentication/signUp/UserInformationFo
 import Womens from "@/pages/womens/Womens";
 import Mens from "@/pages/mens/Mens";
 import Children from "@/pages/children/Children";
+import CheckOutPage from "@/pages/cart/CheckOutPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/cart/checkout",
+        element: <CheckOutPage />,
       },
       {
         path: "/signUp",

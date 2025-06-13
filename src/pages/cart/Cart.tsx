@@ -12,6 +12,7 @@ import { currentUser } from "@/redux/features/auth/authSlice";
 import { TCartProduct } from "@/types";
 import { useState } from "react";
 import { useCreateStripeCheckoutSessionMutation } from "@/redux/features/orders/orderApi";
+import { NavLink } from "react-router-dom";
 
 const Cart = () => {
   const [products, setProducts] = useState<TCartProduct[]>([]);
@@ -84,11 +85,11 @@ const Cart = () => {
       status: "pending",
       totalAmount: finalPrice,
     };
-    try{
+    try {
       const res = await createStripeCheckoutSession(orderData);
       const link = res?.data.data;
       window.location.href = link;
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
@@ -202,9 +203,11 @@ const Cart = () => {
                     <span className="text-[#03399e]">Stripe</span>
                   </button>
                 </div>
-                <button className="border border-[#31473A] bg-[#31473A] w-full py-2 2xl:py-3 rounded-lg font-medium text-white cursor-pointer hover:bg-[#1e3327] duration-700">
-                  Check Out
-                </button>
+                <NavLink
+                  to="/cart/checkout"
+                >
+                  <div className="border border-[#31473A] bg-[#31473A] py-2 2xl:py-3 rounded-lg font-medium text-white text-center cursor-pointer hover:bg-[#1e3327] duration-700">Check Out</div>
+                </NavLink>
               </div>
             </div>
           </div>
