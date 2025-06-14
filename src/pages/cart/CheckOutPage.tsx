@@ -2,13 +2,15 @@ import AddressModal from "@/buyer/myAccount/AddressModal";
 import LForm from "@/components/form/LForm";
 import LInput from "@/components/form/LInput";
 import Container from "@/components/reusable/Container";
+import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { useGetBuyerInfoFromDbQuery } from "@/redux/features/buyer/buyerApi";
 import { useGetAllProductFromCartQuery } from "@/redux/features/cart/cartApi";
+import { useCreateStripeCheckoutSessionMutation } from "@/redux/features/orders/orderApi";
 import { useAppSelector } from "@/redux/hook";
 import { TCartProduct, TShippingAddress } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
 import { FaCcStripe, FaPaypal } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
@@ -20,35 +22,83 @@ const CheckOutPage = () => {
   const { data, refetch } = useGetBuyerInfoFromDbQuery(userId);
   const buyerData = data?.data;
 
-  const [selectedAddressId, setSelectedAddressId] = useState(
-    buyerData?.shippingAddress[0]?._id
-  );
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('')
+  const [selectedAddressId, setSelectedAddressId] = useState<
+    string | undefined
+  >(undefined);
+
+  useEffect(() => {
+    if (buyerData?.shippingAddress?.length) {
+      setSelectedAddressId(buyerData?.shippingAddress[0]._id);
+    }
+  }, [buyerData]);
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState<string>("");
   const { data: cartData } = useGetAllProductFromCartQuery(userId);
   const cartProducts = cartData?.data[0]?.items;
 
   // Calculate product costing
-    const totalPrice = cartProducts?.reduce(
-      (total: number, item: TCartProduct) =>
-        total + Number(item?.productId?.price) * Number(item.quantity),
-      0
-    );
-    const totalWeight = cartProducts?.reduce(
-      (total: number, item: TCartProduct) =>
-        total +
-        Number(item.productId.weight.replace("kg", "")) * Number(item.quantity),
-      0
-    );
-    const calculateTax = Number(
-      ((totalPrice + Number(totalWeight * 5)) * 0.15).toFixed(2)
-    );
-    const finalPrice = Number(
-      (totalPrice + totalWeight * 5 + calculateTax).toFixed(2)
-    );
-
-  console.log(selectedPaymentMethod);
+  const totalPrice = cartProducts?.reduce(
+    (total: number, item: TCartProduct) =>
+      total + Number(item?.productId?.price) * Number(item.quantity),
+    0
+  );
+  const totalWeight = cartProducts?.reduce(
+    (total: number, item: TCartProduct) =>
+      total +
+      Number(item.productId.weight.replace("kg", "")) * Number(item.quantity),
+    0
+  );
+  const calculateTax = Number(
+    ((totalPrice + Number(totalWeight * 5)) * 0.15).toFixed(2)
+  );
+  const finalPrice = Number(
+    (totalPrice + totalWeight * 5 + calculateTax).toFixed(2)
+  );
 
   const handleApplyCouponCode = () => {};
+
+  const [createStripeCheckoutSession] =
+    useCreateStripeCheckoutSessionMutation();
+
+  const handlePlacedOrder = async (method: string) => {
+    if (method === "PayPal") {
+      console.log("This is paypal method");
+    } else if (method === "Stripe") {
+      const selectedProducts = cartProducts?.map((item: TCartProduct) => ({
+        productId:
+          typeof item.productId === "object" && item.productId._id
+            ? item.productId._id
+            : item.productId,
+        quantity: item.quantity,
+        color: item.color,
+        size: item.size,
+      }));
+
+      const orderData = {
+        userId,
+        products: selectedProducts,
+        shippingAddress: selectedAddressId,
+        paymentMethod: method,
+        orderDate: new Date(),
+        paymentStatus: "unpaid",
+        status: "pending",
+        totalAmount: finalPrice,
+      };
+
+      try {
+        const res = await createStripeCheckoutSession(orderData);
+        const link = res?.data.data;
+        window.location.href = link;
+      } catch (err) {
+        console.log(err);
+      }
+    } else if (method === "Card") {
+      console.log("This is card method");
+    } else {
+      console.log("This is COD method");
+    }
+  };
 
   return (
     <Container>
@@ -70,7 +120,7 @@ const CheckOutPage = () => {
             )}
 
             <RadioGroup
-              defaultValue={buyerData?.shippingAddress[0]?._id}
+              value={selectedAddressId}
               onValueChange={(value) => {
                 setSelectedAddressId(value);
               }}
@@ -98,11 +148,13 @@ const CheckOutPage = () => {
                       {address.city}, {address.country}
                     </p>
                   </div>
-                  <RadioGroupItem
-                    value={address._id}
-                    id={address._id}
-                    className="absolute top-5 right-5"
-                  />
+                  <Label htmlFor={address._id} className="rounded-md absolute top-0 right-0 w-full h-full cursor-pointer">
+                    <RadioGroupItem
+                      value={address._id}
+                      id={address._id}
+                      className="absolute top-5 right-5"
+                    />
+                  </Label>
                 </div>
               ))}
             </RadioGroup>
@@ -111,26 +163,44 @@ const CheckOutPage = () => {
           <div>
             <h1 className="font-medium">Select Payment Method</h1>
 
-            <RadioGroup onValueChange={(value) => setSelectedPaymentMethod(value)} className="mt-5 w-[100%] grid grid-cols-2">
-              <div className={`relative border ${(selectedPaymentMethod === 'paypal') && 'border-blue-700 bg-blue-50'} rounded p-4 flex items-center gap-3`}>
+            <RadioGroup
+              onValueChange={(value) => setSelectedPaymentMethod(value)}
+              className="mt-5 w-[100%] grid grid-cols-2"
+            >
+              <div
+                className={`relative border ${
+                  selectedPaymentMethod === "PayPal" &&
+                  "border-blue-700 bg-blue-50"
+                } rounded p-4 flex items-center gap-3`}
+              >
                 <FaPaypal className="text-3xl text-[#253b80]" />
                 <h1 className="text-md font-medium">Pay with PayPal</h1>
                 <RadioGroupItem
-                  value="paypal"
-                  id="paypal"
+                  value="PayPal"
+                  id="PayPal"
                   className="absolute right-6"
                 />
               </div>
-              <div className={`relative border ${(selectedPaymentMethod === 'stripe') && 'border-blue-700 bg-blue-50'} rounded p-4 flex items-center gap-3`}>
+              <div
+                className={`relative border ${
+                  selectedPaymentMethod === "Stripe" &&
+                  "border-blue-700 bg-blue-50"
+                } rounded p-4 flex items-center gap-3`}
+              >
                 <FaCcStripe className="text-3xl text-[#0A2540]" />
                 <h1 className="text-md font-medium">Pay with Stripe</h1>
                 <RadioGroupItem
-                  value="stripe"
-                  id="stripe"
+                  value="Stripe"
+                  id="Stripe"
                   className="absolute right-6"
                 />
               </div>
-              <div className={`relative border ${(selectedPaymentMethod === 'COD') && 'border-blue-700 bg-blue-50'} rounded p-4 flex items-center gap-3`}>
+              <div
+                className={`relative border ${
+                  selectedPaymentMethod === "COD" &&
+                  "border-blue-700 bg-blue-50"
+                } rounded p-4 flex items-center gap-3`}
+              >
                 <GiTakeMyMoney className="text-3xl text-[#0A2540]" />
                 <h1 className="text-md font-medium">Cash On Delivery</h1>
                 <RadioGroupItem
@@ -139,12 +209,17 @@ const CheckOutPage = () => {
                   className="absolute right-6"
                 />
               </div>
-              <div className={`relative border ${(selectedPaymentMethod === 'card') && 'border-blue-700 bg-blue-50'} rounded p-4 flex items-center gap-3`}>
+              <div
+                className={`relative border ${
+                  selectedPaymentMethod === "Card" &&
+                  "border-blue-700 bg-blue-50"
+                } rounded p-4 flex items-center gap-3`}
+              >
                 <BsCreditCard className="text-3xl text-[#0A2540]" />
                 <h1 className="text-md font-medium">Pay with Cards</h1>
                 <RadioGroupItem
-                  value="card"
-                  id="card"
+                  value="Card"
+                  id="Card"
                   className="absolute right-6"
                 />
               </div>
@@ -208,53 +283,54 @@ const CheckOutPage = () => {
             </div>
 
             <div className="text-base 2xl:text-lg">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-gray-600">
-                      Sub Total:
-                    </span>
-                    <span className="text-base 2xl:text-xl font-semibold">
-                      ${totalPrice ? totalPrice.toFixed(2) : "0.00"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-gray-600">
-                      Estimated Shipping & Handling:
-                    </span>
-                    <span className="text-base 2xl:text-xl font-semibold">
-                      ${totalWeight ? (totalWeight * 5).toFixed(2) : "0.00"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-gray-600">
-                      Estimated Tax:
-                    </span>
-                    <span className="text-base 2xl:text-xl font-semibold">
-                      ${calculateTax ? calculateTax.toFixed(2) : "0.00"}
-                    </span>
-                  </div>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="font-medium text-gray-600">Sub Total:</span>
+                  <span className="text-base 2xl:text-xl font-semibold">
+                    ${totalPrice ? totalPrice.toFixed(2) : "0.00"}
+                  </span>
                 </div>
 
-                <div className="border-b border-gray-300 my-5"></div>
+                <div className="flex justify-between items-center">
+                  <span className="font-medium text-gray-600">
+                    Estimated Shipping & Handling:
+                  </span>
+                  <span className="text-base 2xl:text-xl font-semibold">
+                    ${totalWeight ? (totalWeight * 5).toFixed(2) : "0.00"}
+                  </span>
+                </div>
 
-                <div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-gray-600 text-xl">
-                      Total:
-                    </span>
-                    <span className="text-2xl font-medium">
-                      ${finalPrice ? finalPrice : "0.00"}
-                    </span>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="font-medium text-gray-600">
+                    Estimated Tax:
+                  </span>
+                  <span className="text-base 2xl:text-xl font-semibold">
+                    ${calculateTax ? calculateTax.toFixed(2) : "0.00"}
+                  </span>
                 </div>
               </div>
+
+              <div className="border-b border-gray-300 my-5"></div>
+
+              <div>
+                <div className="flex justify-between items-center">
+                  <span className="font-medium text-gray-600 text-xl">
+                    Total:
+                  </span>
+                  <span className="text-2xl font-medium">
+                    ${finalPrice ? finalPrice : "0.00"}
+                  </span>
+                </div>
+              </div>
+            </div>
 
             <div className="mt-10 space-y-3.5">
-              <div className="border border-[#31473A] bg-[#31473A] py-2 2xl:py-3 rounded-lg font-medium text-white text-center cursor-pointer hover:bg-[#1e3327] duration-700">
+              <button
+                onClick={() => handlePlacedOrder(selectedPaymentMethod)}
+                className="border border-[#31473A] bg-[#31473A] py-2 2xl:py-3 rounded-lg font-medium text-white text-center cursor-pointer hover:bg-[#1e3327] duration-700 w-full"
+              >
                 Buy Now
-              </div>
+              </button>
             </div>
           </div>
         </div>

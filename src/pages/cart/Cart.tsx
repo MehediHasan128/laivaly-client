@@ -58,6 +58,7 @@ const Cart = () => {
   // Handle create stripe checkout session
   const [createStripeCheckoutSession] =
     useCreateStripeCheckoutSessionMutation();
+
   const handleCreateStripeCheckoutSession = async () => {
     const selectedProducts = products?.map((item) => ({
       productId:
@@ -203,10 +204,10 @@ const Cart = () => {
                     <span className="text-[#03399e]">Stripe</span>
                   </button>
                 </div>
-                <NavLink
-                  to="/cart/checkout"
-                >
-                  <div className="border border-[#31473A] bg-[#31473A] py-2 2xl:py-3 rounded-lg font-medium text-white text-center cursor-pointer hover:bg-[#1e3327] duration-700">Check Out</div>
+                <NavLink to="/cart/checkout">
+                  <div className="border border-[#31473A] bg-[#31473A] py-2 2xl:py-3 rounded-lg font-medium text-white text-center cursor-pointer hover:bg-[#1e3327] duration-700">
+                    Check Out
+                  </div>
                 </NavLink>
               </div>
             </div>
