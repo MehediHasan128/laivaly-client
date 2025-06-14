@@ -85,8 +85,8 @@ const MyOrders = () => {
 
                   <TableCell className="text-center">
                     <div className="text-gray-600">
-                        <p>{order.shippingAddress.street}, {order.shippingAddress.city}</p>
-                        <p>{order.shippingAddress.state} - {order.shippingAddress.zip}, {order.shippingAddress.country}</p>
+                        <p>{order.shippingAddress.address}</p>
+                        <p>{order.shippingAddress.city}-{order.shippingAddress.postalCode}, {order.shippingAddress.state}</p>
                     </div>
                   </TableCell>
 

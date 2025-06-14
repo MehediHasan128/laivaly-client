@@ -67,6 +67,18 @@ export type TCartProduct = {
   _id: string;
 };
 
+export type TShippingAddress = {
+  _id: string;
+  addressCategory: string;
+  recipientsName: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  state: string;
+  country: string;
+};
+
 export type TOrder = {
   _id: string;
   userId: {
@@ -83,28 +95,10 @@ export type TOrder = {
     color: string;
     size: string;
   }[];
-  shippingAddress: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    country: string;
-  };
+  shippingAddress: TShippingAddress;
   paymentMethod: string;
   orderDate: Date;
   totalAmount: number;
   paymentStatus: string;
   status: string;
-};
-
-export type TShippingAddress = {
-  _id: string;
-  addressCategory: string;
-  recipientsName: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  state: string;
-  country: string;
 };

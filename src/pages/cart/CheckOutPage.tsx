@@ -7,15 +7,21 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { currentUser } from "@/redux/features/auth/authSlice";
 import { useGetBuyerInfoFromDbQuery } from "@/redux/features/buyer/buyerApi";
 import { useGetAllProductFromCartQuery } from "@/redux/features/cart/cartApi";
-import { useCreateStripeCheckoutSessionMutation } from "@/redux/features/orders/orderApi";
+import {
+  useCreateStripeCheckoutSessionMutation,
+  useOrderCashOnDeliveryMutation,
+} from "@/redux/features/orders/orderApi";
 import { useAppSelector } from "@/redux/hook";
-import { TCartProduct, TShippingAddress } from "@/types";
+import { TCartProduct, TError, TResponce, TShippingAddress } from "@/types";
 import { useEffect, useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
 import { FaCcStripe, FaPaypal } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const CheckOutPage = () => {
+  const navigate = useNavigate();
   const user = useAppSelector(currentUser);
   const userId = user?.userId;
 
@@ -60,32 +66,32 @@ const CheckOutPage = () => {
 
   const [createStripeCheckoutSession] =
     useCreateStripeCheckoutSessionMutation();
+  const [orderCashOnDelivery] = useOrderCashOnDeliveryMutation();
 
   const handlePlacedOrder = async (method: string) => {
+    const selectedProducts = cartProducts?.map((item: TCartProduct) => ({
+      productId:
+        typeof item.productId === "object" && item.productId._id
+          ? item.productId._id
+          : item.productId,
+      quantity: item.quantity,
+      color: item.color,
+      size: item.size,
+    }));
+    const orderData = {
+      userId,
+      products: selectedProducts,
+      shippingAddress: selectedAddressId,
+      paymentMethod: method,
+      orderDate: new Date(),
+      paymentStatus: "unpaid",
+      status: "pending",
+      totalAmount: finalPrice,
+    };
+
     if (method === "PayPal") {
       console.log("This is paypal method");
     } else if (method === "Stripe") {
-      const selectedProducts = cartProducts?.map((item: TCartProduct) => ({
-        productId:
-          typeof item.productId === "object" && item.productId._id
-            ? item.productId._id
-            : item.productId,
-        quantity: item.quantity,
-        color: item.color,
-        size: item.size,
-      }));
-
-      const orderData = {
-        userId,
-        products: selectedProducts,
-        shippingAddress: selectedAddressId,
-        paymentMethod: method,
-        orderDate: new Date(),
-        paymentStatus: "unpaid",
-        status: "pending",
-        totalAmount: finalPrice,
-      };
-
       try {
         const res = await createStripeCheckoutSession(orderData);
         const link = res?.data.data;
@@ -96,7 +102,16 @@ const CheckOutPage = () => {
     } else if (method === "Card") {
       console.log("This is card method");
     } else {
-      console.log("This is COD method");
+      try {
+        const res = (await orderCashOnDelivery(
+          orderData
+        ).unwrap()) as TResponce;
+        toast.success(res.message);
+        navigate('/profile/my-orders')
+      } catch (err) {
+        const error = err as TError;
+        toast.error(error?.data?.message);
+      }
     }
   };
 
@@ -131,7 +146,7 @@ const CheckOutPage = () => {
                   className={`relative border w-[50%] p-5 rounded-md ${
                     address._id === selectedAddressId &&
                     "border-blue-500 bg-blue-50"
-                  } font-medium cursor-pointer mt-3 bg-white`}
+                  } font-medium cursor-pointer mt-3`}
                 >
                   <div className="border w-fit rounded px-2 text-sm font-medium bg-blue-100">
                     {address.addressCategory}
@@ -148,7 +163,10 @@ const CheckOutPage = () => {
                       {address.city}, {address.country}
                     </p>
                   </div>
-                  <Label htmlFor={address._id} className="rounded-md absolute top-0 right-0 w-full h-full cursor-pointer">
+                  <Label
+                    htmlFor={address._id}
+                    className="rounded-md absolute top-0 right-0 w-full h-full cursor-pointer"
+                  >
                     <RadioGroupItem
                       value={address._id}
                       id={address._id}

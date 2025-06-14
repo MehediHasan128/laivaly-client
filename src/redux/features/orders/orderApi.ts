@@ -9,6 +9,13 @@ const orderApi = baseApi.injectEndpoints({
         body: productData
       })
     }),
+    orderCashOnDelivery: builder.mutation({
+      query: (productData) => ({
+        url: '/orders/cash-on-delivery',
+        method: 'POST',
+        body: productData
+      })
+    }),
     getAllOrdersFromDB: builder.query({
       query: () => ({
         url: "/orders",
@@ -34,4 +41,4 @@ const orderApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllOrdersFromDBQuery, useCreateStripeCheckoutSessionMutation, useGetUserOrdersFromDBQuery } = orderApi;
+export const { useGetAllOrdersFromDBQuery, useCreateStripeCheckoutSessionMutation, useGetUserOrdersFromDBQuery, useOrderCashOnDeliveryMutation } = orderApi;
