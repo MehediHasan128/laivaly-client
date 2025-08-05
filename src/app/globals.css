@@ -108,4 +108,7 @@
   .navbar {
     @apply flex justify-between items-center px-32 py-4 bg-secondary
   }
+  .item-flex {
+    @apply flex justify-center items-center
+  }
 }
