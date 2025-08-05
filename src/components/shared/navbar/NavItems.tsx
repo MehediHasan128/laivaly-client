@@ -17,7 +17,7 @@ const NavItems = () => {
       {navItems.map((item, index) => (
         <div
           key={item.label}
-          className={`flex justify-between items-center text-xl cursor-pointer group transition-colors duration-300 ${hoveredIndex === null || hoveredIndex === index ? "text-black" : "text-gray-500"}`}
+          className={`flex justify-between items-center text-xl font-medium cursor-pointer group transition-colors duration-300 ${hoveredIndex === null || hoveredIndex === index ? "text-black" : "text-gray-500"}`}
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
         >

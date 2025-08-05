@@ -31,7 +31,7 @@ const Sidenab = ({
           <DialogTitle></DialogTitle>
         </DrawerHeader>
         <div className="mt-28">
-          <div className="w-[60%] mx-auto">
+          <div className="w-[75%] xl:w-[60%] mx-auto">
             <div className="flex flex-col gap-6">
               <NavItems />
             </div>
