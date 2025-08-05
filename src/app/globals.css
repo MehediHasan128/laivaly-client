@@ -106,7 +106,7 @@
     @apply bg-background text-foreground;
   }
   .navbar {
-    @apply flex justify-between items-center px-20 py-4 bg-secondary
+    @apply flex justify-between items-center px-20 py-4
   }
   .item-flex {
     @apply flex justify-center items-center

@@ -3,7 +3,7 @@
 import { Search, ShoppingCart, UserRound } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import NavItems from "./NavItems";
+import Sidenab from "./Sidenab";
 
 const Navbar = () => {
   const [openSidebarMenu, setOpenSidebarMenu] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       {/* Sidebar */}
-      <NavItems openSidebarMenu={openSidebarMenu} setOpenSidebarMenu={setOpenSidebarMenu}>
+      <Sidenab openSidebarMenu={openSidebarMenu} setOpenSidebarMenu={setOpenSidebarMenu}>
         <div className="item-flex cursor-pointer z-100" onClick={() => setOpenSidebarMenu(!openSidebarMenu)}>
           {/* Menubar */}
           <div
@@ -42,7 +42,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </NavItems>
+      </Sidenab>
 
       {/* Website logo */}
       <div>
