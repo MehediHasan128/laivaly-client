@@ -7,34 +7,33 @@ import NavItems from "./NavItems";
 
 const Navbar = () => {
   const [openSidebarMenu, setOpenSidebarMenu] = useState(false);
-
+  console.log(openSidebarMenu);
   return (
     <div className="navbar">
       {/* Sidebar */}
-      <NavItems>
-        <div className="item-flex gap-1">
+      <NavItems openSidebarMenu={openSidebarMenu} setOpenSidebarMenu={setOpenSidebarMenu}>
+        <div className="item-flex cursor-pointer z-100" onClick={() => setOpenSidebarMenu(!openSidebarMenu)}>
           {/* Menubar */}
           <div
-            className="flex flex-col gap-2 cursor-pointer p-2"
-            onClick={() => setOpenSidebarMenu(!openSidebarMenu)}
+            className="flex flex-col gap-1.5 p-2"
           >
             <div
-              className={`w-8 bg-black h-0.5 rounded-full duration-300 ${
+              className={`w-7 bg-black h-0.5 rounded-full duration-300 ${
                 openSidebarMenu &&
-                "transition-transform duration-300 origin-center rotate-45 translate-y-1.5"
+                "transition-transform duration-500 origin-center rotate-45 translate-y-1"
               }`}
             />
             <div
-              className={`w-8 bg-black h-0.5 rounded-full duration-300 ${
+              className={`w-7 bg-black h-0.5 rounded-full duration-300 ${
                 openSidebarMenu &&
-                "transition-transform duration-300 origin-center -rotate-45 -translate-y-1.5"
+                "transition-transform duration-500 origin-center -rotate-45 -translate-y-1"
               }`}
             />
           </div>
           {/* Menu & Close text */}
           <div className="font-light h-5 w-12 item-flex overflow-hidden relative">
             <div
-              className={`transition-transform duration-300 ${
+              className={`transition-transform duration-500 ${
                 openSidebarMenu ? "-translate-y-3" : "translate-y-3"
               }`}
             >
@@ -56,15 +55,15 @@ const Navbar = () => {
       </div>
 
       {/* profile, search and cart icon */}
-      <div className="item-flex gap-8">
+      <div className="item-flex gap-5">
         <div className="cursor-pointer">
-          <Search />
+          <Search width={20} />
         </div>
         <div className="cursor-pointer">
-          <ShoppingCart />
+          <ShoppingCart width={20} />
         </div>
         <div className="cursor-pointer">
-          <UserRound />
+          <UserRound width={20} />
         </div>
       </div>
     </div>
