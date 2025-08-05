@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Sidenab from "./Sidenab";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const [openSidebarMenu, setOpenSidebarMenu] = useState(false);
@@ -22,23 +23,22 @@ const Navbar = () => {
             onClick={() => setOpenSidebarMenu(!openSidebarMenu)}
           >
             {/* Menubar */}
-            <div className="flex flex-col gap-1 md:gap-1.5 p-2">
+            <div className="flex flex-col gap-1 p-2">
               <div
                 className={`w-6 md:w-7 bg-black h-0.5 rounded-full duration-300 ${
                   openSidebarMenu &&
-                  "transition-transform duration-500 origin-center rotate-45 translate-y-[3px] md:translate-y-1"
+                  "transition-transform duration-500 origin-center rotate-45 translate-y-[3px]"
                 }`}
               />
               <div
                 className={`w-6 md:w-7 bg-black h-0.5 rounded-full duration-300 ${
                   openSidebarMenu &&
-                  "transition-transform duration-500 origin-center -rotate-45 -translate-y-[3px] md:-translate-y-1"
+                  "transition-transform duration-500 origin-center -rotate-45 -translate-y-[3px]"
                 }`}
               />
               <div
                 className={`w-6 md:w-7 bg-black h-0.5 rounded-full duration-300 ${
-                  openSidebarMenu &&
-                  "hidden"
+                  openSidebarMenu && "hidden"
                 }`}
               />
             </div>
@@ -55,12 +55,14 @@ const Navbar = () => {
             </div>
           </div>
         </Sidenab>
-        <div className="hidden md:flex item-flex gap-2 cursor-pointer font-light">
-          <div className="cursor-pointer">
-            <Search width={20} />
+        <SearchBar>
+          <div className="hidden md:flex item-flex gap-2 cursor-pointer font-light">
+            <div className="cursor-pointer">
+              <Search width={20} />
+            </div>
+            <p>Search</p>
           </div>
-          <p>Search</p>
-        </div>
+        </SearchBar>
       </div>
 
       {/* Website logo */}
@@ -70,7 +72,7 @@ const Navbar = () => {
           width={50}
           height={50}
           alt="laivaly-logo"
-          className="w-10 md:w-auto"
+          className="w-10 md:w-14"
         />
       </Link>
 

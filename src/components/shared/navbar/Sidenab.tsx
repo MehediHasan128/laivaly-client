@@ -4,9 +4,9 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import React, { ReactNode } from "react";
 import NavItems from "./NavItems";
 
@@ -28,7 +28,7 @@ const Sidenab = ({
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DialogTitle></DialogTitle>
+          <DrawerTitle></DrawerTitle>
         </DrawerHeader>
         <div className="mt-28">
           <div className="w-[75%] xl:w-[60%] mx-auto">
