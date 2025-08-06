@@ -11,7 +11,7 @@ const Navbar = () => {
   const [openSidebarMenu, setOpenSidebarMenu] = useState(false);
 
   return (
-    <main className="fixed w-full z-100">
+    <main className="sticky top-0">
       <div className="navbar">
         {/* Sidebar */}
         <div className="flex items-center gap-5">
@@ -20,9 +20,7 @@ const Navbar = () => {
             setOpenSidebarMenu={setOpenSidebarMenu}
           >
             <div
-              className={`item-flex cursor-pointer ${
-                openSidebarMenu && "z-100"
-              }`}
+              className={`item-flex cursor-pointer`}
               onClick={() => setOpenSidebarMenu(!openSidebarMenu)}
             >
               {/* Menubar */}
@@ -59,7 +57,7 @@ const Navbar = () => {
             </div>
           </Sidenab>
           <SearchBar>
-            <div className="hidden md:flex item-flex gap-2 cursor-pointer font-light">
+            <div className="hidden xl:flex item-flex gap-2 cursor-pointer font-light">
               <div className="cursor-pointer">
                 <Search width={20} />
               </div>
@@ -75,7 +73,7 @@ const Navbar = () => {
             width={50}
             height={50}
             alt="laivaly-logo"
-            className="w-10 md:w-14"
+            className="w-10 md:w-16 xl:w-12"
           />
         </Link>
 

@@ -32,9 +32,9 @@ const Sidenab = ({
         </DrawerHeader>
         <div className="mt-28">
           <div className="w-[75%] xl:w-[60%] mx-auto">
-            <div className="flex flex-col gap-6">
+            <nav className="flex flex-col space-y-2">
               <NavItems />
-            </div>
+            </nav>
           </div>
         </div>
       </DrawerContent>

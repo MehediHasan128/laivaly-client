@@ -9,13 +9,15 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Search, X } from "lucide-react";
-import { Oswald } from "next/font/google";
+import { Smooch_Sans } from "next/font/google";
 import { ReactNode, useState } from "react";
 
-const logoStyle = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
+const smoochsans = Smooch_Sans({
+  subsets: ["latin"],
+  variable: "--font-smoochsans",
+});
 
 const SearchBar = ({ children }: { children: ReactNode }) => {
-
   const [searchText, setSearchText] = useState<string | null>(null);
   console.log(searchText);
 
@@ -24,7 +26,9 @@ const SearchBar = ({ children }: { children: ReactNode }) => {
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle className={`${logoStyle.className} text-4xl font-bold`}>Laivaly</DrawerTitle>
+          <DrawerTitle className={`${smoochsans.className} text-5xl font-bold`}>
+            Laivaly
+          </DrawerTitle>
           <div className="w-[70%] xl:w-[50%] 2xl:w-[40%] mx-auto mt-1 mb-10 relative">
             <input
               type="text"
@@ -38,10 +42,8 @@ const SearchBar = ({ children }: { children: ReactNode }) => {
           </div>
         </DrawerHeader>
 
-            {/* Search Product Card */}
-            <div className="mb-4 overflow-auto scrollbar-hide">
-                
-            </div>
+        {/* Search Product Card */}
+        <div className="mb-4 overflow-auto scrollbar-hide"></div>
 
         <DrawerClose className="absolute top-0 right-0 p-3 cursor-pointer">
           <X />
