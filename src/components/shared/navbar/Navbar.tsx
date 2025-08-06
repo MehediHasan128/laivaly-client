@@ -83,9 +83,11 @@ const Navbar = () => {
             <Heart width={20} />
           </div>
         </Link>
-        <div className="cursor-pointer">
-          <ShoppingCart width={20} />
-        </div>
+        <Link href="/cart">
+          <div className="cursor-pointer">
+            <ShoppingCart width={20} />
+          </div>
+        </Link>
         <div className="cursor-pointer">
           <UserRound width={20} />
         </div>
