@@ -73,7 +73,7 @@ const Navbar = () => {
             width={50}
             height={50}
             alt="laivaly-logo"
-            className="w-10 md:w-16 xl:w-12"
+            className="w-10 md:w-12 2xl:w-16"
           />
         </Link>
 
