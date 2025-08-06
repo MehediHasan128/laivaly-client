@@ -78,9 +78,11 @@ const Navbar = () => {
 
       {/* profile, search and cart icon */}
       <div className="item-flex gap-5">
-        <div className="cursor-pointer hidden md:block">
-          <Heart width={20} />
-        </div>
+        <Link href="/wishlist">
+          <div className="cursor-pointer hidden md:block">
+            <Heart width={20} />
+          </div>
+        </Link>
         <div className="cursor-pointer">
           <ShoppingCart width={20} />
         </div>

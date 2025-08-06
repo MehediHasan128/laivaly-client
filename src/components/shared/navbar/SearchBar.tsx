@@ -10,11 +10,15 @@ import {
 } from "@/components/ui/drawer";
 import { Search, X } from "lucide-react";
 import { Oswald } from "next/font/google";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 const logoStyle = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
 
 const SearchBar = ({ children }: { children: ReactNode }) => {
+
+  const [searchText, setSearchText] = useState<string | null>(null);
+  console.log(searchText);
+
   return (
     <Drawer direction="top">
       <DrawerTrigger asChild>{children}</DrawerTrigger>
@@ -26,6 +30,7 @@ const SearchBar = ({ children }: { children: ReactNode }) => {
               type="text"
               placeholder="Search for Pre Order"
               className="search-input"
+              onChange={(e) => setSearchText(e.target.value)}
             />
             <div className="cursor-pointer absolute top-0 right-0 px-5 h-full item-flex">
               <Search width={20} />
