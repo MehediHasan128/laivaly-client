@@ -15,7 +15,7 @@ const NavItems = () => {
   return (
     <>
       {navItems.map((item, index) => (
-        <div
+        <nav
           key={item.label}
           className={`flex justify-between items-center text-xl font-medium cursor-pointer group transition-colors duration-300 ${hoveredIndex === null || hoveredIndex === index ? "text-black" : "text-gray-500"}`}
           onMouseEnter={() => setHoveredIndex(index)}
@@ -26,7 +26,7 @@ const NavItems = () => {
             <div className="h-[1px] bg-black w-full transition-transform duration-700 -translate-x-64 group-hover:translate-x-0" />
           </span>
           <ChevronRight className="opacity-0 group-hover:opacity-100 duration-500" />
-        </div>
+        </nav>
       ))}
     </>
   );
