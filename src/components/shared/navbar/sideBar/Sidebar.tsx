@@ -10,6 +10,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import NavItems from "./NavItems";
 
 interface TSideDrawerProps {
   children: ReactNode;
@@ -25,14 +26,18 @@ const Sidebar = ({ children, openMenu, setOpenMenu }: TSideDrawerProps) => {
 
       {/* Main drawer content */}
       <DrawerContent>
-
         {/* Drawer close button */}
         <DrawerTitle />
-        <DrawerClose asChild className="w-[50%] h-20 cursor-pointer">
+        <DrawerClose asChild className="w-[50%] h-[90px] cursor-pointer">
           <button></button>
         </DrawerClose>
 
-        <div></div>
+        {/* Main nav bar */}
+        <div className="p-10">
+          <nav className="font-medium text-xl">
+            <NavItems />
+          </nav>
+        </div>
       </DrawerContent>
     </Drawer>
   );

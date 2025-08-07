@@ -5,6 +5,7 @@ import { Handbag, Heart, Search, UserRound } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Sidebar from "./sideBar/Sidebar";
+import Searchbar from "./searchBar/Searchbar";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const Navbar = () => {
           {/* Menubar */}
           <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu}>
             <div
-              className="cursor-pointer flex-item-center p-1 z-100"
+              className={`cursor-pointer flex-item-center p-1 ${openMenu && "z-100"}`}
               onClick={() => setOpenMenu(!openMenu)}
             >
               <div className="space-y-1">
@@ -51,12 +52,14 @@ const Navbar = () => {
           </Sidebar>
 
           {/* Search button */}
-          <div className="cursor-pointer flex-item-center p-1">
-            <Search />
-            <div className="h-5 flex items-center overflow-hidden">
-              <h1>Search</h1>
+          <Searchbar>
+            <div className="cursor-pointer flex-item-center hidden lg:flex p-1">
+              <Search />
+              <div className="h-5 flex items-center overflow-hidden">
+                <h1>Search</h1>
+              </div>
             </div>
-          </div>
+          </Searchbar>
         </div>
 
         {/* Menu bar and search button */}
@@ -64,13 +67,13 @@ const Navbar = () => {
           <img
             src="/images/logo/logo.png"
             alt="laivaly-logo"
-            className="w-14"
+            className="w-10 2xl:w-14"
           />
         </Link>
 
         {/* Menu bar and search button */}
-        <div className="flex-item-center gap-8">
-          <Link href={"/wishlist"}>
+        <div className="flex-item-center gap-5 2xl:gap-8">
+          <Link href={"/wishlist"} className="hidden md:block">
             <Heart />
           </Link>
           <Handbag />
