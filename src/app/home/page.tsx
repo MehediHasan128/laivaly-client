@@ -1,4 +1,5 @@
 import Banner from "@/components/home/Banner";
+import FeaturedCategories from "@/components/home/FeaturedCategories";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ const HomePage = () => {
     return (
         <main>
             <Banner />
+            <FeaturedCategories />
         </main>
     );
 };
