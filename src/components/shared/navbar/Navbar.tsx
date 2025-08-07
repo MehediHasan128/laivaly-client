@@ -4,6 +4,7 @@
 import { Handbag, Heart, Search, UserRound } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import Sidebar from "./sideBar/Sidebar";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -13,40 +14,41 @@ const Navbar = () => {
       <div className="navbar">
         {/* Menu bar and search button */}
         <div className="flex-item-center">
-
           {/* Menubar */}
-          <div
-            className="cursor-pointer flex-item-center p-1"
-            onClick={() => setOpenMenu(!openMenu)}
-          >
-            <div className="space-y-1">
-              <div
-                className={`h-0.5 rounded-full bg-black w-8 transition-transform duration-500 ${
-                  openMenu && "origin-center rotate-45 translate-y-[3px]"
-                }`}
-              />
-              <div
-                className={`h-0.5 rounded-full bg-black w-8 transition-transform duration-500 ${
-                  openMenu && "origin-center -rotate-45 -translate-y-[3px]"
-                }`}
-              />
-              <div
-                className={`h-0.5 rounded-full bg-black w-8 ${
-                  openMenu && "hidden"
-                }`}
-              />
-            </div>
-            <div className="h-5 flex items-center overflow-hidden">
-              <div
-                className={`transition-transform duration-500 ${
-                  openMenu ? "-translate-y-3" : "translate-y-3"
-                }`}
-              >
-                <h1>Menu</h1>
-                <h1>Close</h1>
+          <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu}>
+            <div
+              className="cursor-pointer flex-item-center p-1 z-100"
+              onClick={() => setOpenMenu(!openMenu)}
+            >
+              <div className="space-y-1">
+                <div
+                  className={`h-0.5 rounded-full bg-black w-8 transition-transform duration-500 ${
+                    openMenu && "origin-center rotate-45 translate-y-[3px]"
+                  }`}
+                />
+                <div
+                  className={`h-0.5 rounded-full bg-black w-8 transition-transform duration-500 ${
+                    openMenu && "origin-center -rotate-45 -translate-y-[3px]"
+                  }`}
+                />
+                <div
+                  className={`h-0.5 rounded-full bg-black w-8 ${
+                    openMenu && "hidden"
+                  }`}
+                />
+              </div>
+              <div className="h-5 flex items-center overflow-hidden">
+                <div
+                  className={`transition-transform duration-500 ${
+                    openMenu ? "-translate-y-3" : "translate-y-3"
+                  }`}
+                >
+                  <h1>Menu</h1>
+                  <h1>Close</h1>
+                </div>
               </div>
             </div>
-          </div>
+          </Sidebar>
 
           {/* Search button */}
           <div className="cursor-pointer flex-item-center p-1">
@@ -55,7 +57,6 @@ const Navbar = () => {
               <h1>Search</h1>
             </div>
           </div>
-
         </div>
 
         {/* Menu bar and search button */}
@@ -70,7 +71,7 @@ const Navbar = () => {
         {/* Menu bar and search button */}
         <div className="flex-item-center gap-8">
           <Link href={"/wishlist"}>
-                <Heart />
+            <Heart />
           </Link>
           <Handbag />
           <UserRound />

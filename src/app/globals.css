@@ -96,7 +96,7 @@ html {
     @apply bg-background text-foreground;
   }
   .navbar {
-    @apply flex justify-between items-center border-b px-10 py-3
+    @apply flex justify-between items-center border-b bg-white px-10 py-3
   }
   .flex-item-center {
     @apply flex items-center gap-2
