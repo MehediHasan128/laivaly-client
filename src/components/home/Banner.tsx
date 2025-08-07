@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
 import { Great_Vibes, Smooch_Sans } from "next/font/google";
-import React from "react";
-import Button from "../reusable/Button";
+import React, { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
+import Searchbar from "../shared/navbar/searchBar/Searchbar";
 
 const smoochsans = Smooch_Sans({
   subsets: ["latin"],
@@ -16,6 +18,8 @@ const grateVibes = Great_Vibes({
 });
 
 const Banner = () => {
+  const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
+
   return (
     <main>
       {/* Text and Image constent */}
@@ -31,8 +35,12 @@ const Banner = () => {
                 >
                   <span>Unleash Fashion</span> <br />
                   <span className="flex items-start gap-5 lg:absolute md:left-[10%] xl:left-[8%] 2xl:left-[10%]">
-                    <span className="text-4xl md:text-6xl lg:text-4xl xl:text-6xl">With</span>
-                    <span className="text-9xl md:text-[240px] lg:text-[130px] xl:text-[180px] 2xl:text-[240px]">Laivaly</span>
+                    <span className="text-4xl md:text-6xl lg:text-4xl xl:text-6xl">
+                      With
+                    </span>
+                    <span className="text-9xl md:text-[240px] lg:text-[130px] xl:text-[180px] 2xl:text-[240px]">
+                      Laivaly
+                    </span>
                   </span>
                 </h1>
               </div>
@@ -63,11 +71,32 @@ const Banner = () => {
           </div>
 
           {/* Image Content */}
-          <div className="bg-gray-100 rounded-t-2xl lg:w-[60%]">
+          <div className="lg:w-[60%]">
+
+            {/* Small device search input */}
+            <Searchbar
+              searchBarOpen={searchBarOpen}
+              setSearchBarOpen={setSearchBarOpen}
+            >
+              <div className="lg:hidden mb-2 relative">
+                <input
+                  type="text"
+                  placeholder="Search for Pre Order"
+                  className="border rounded-full outline-none focus:border-black w-full p-3 text-sm"
+                />
+                <span className="absolute top-0 right-0 flex items-center h-full px-5 size-16">
+                  <Search />
+                </span>
+              </div>
+            </Searchbar>
+
             {/* Banner image */}
-            <div className="overflow-hidden mx-auto lg:w-[90%] xl:w-[80%] mt-10">
-              <img src="/images/banner/banner.png" alt="" />
+            <div className="overflow-hidden bg-gray-100 rounded-t-2xl">
+              <div className="mx-auto lg:w-[90%] xl:w-[80%] mt-10">
+                <img src="/images/banner/banner.png" alt="" />
+              </div>
             </div>
+            
           </div>
         </div>
       </div>
@@ -75,14 +104,19 @@ const Banner = () => {
       {/* Laivaly brand banner */}
       <div className="w-full bg-black text-white px-5 py-3 mt-5 lg:mt-0">
         <div className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 overflow-hidden">
-          {
-            Array.from({length: 20}).map((_, index) => (
-              <div key={index} className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 md:text-2xl lg:text-xl xl:text-3xl font-bold">
-                <h1 className={`${grateVibes.className} text-xl md:text-3xl lg:text-xl xl:text-3xl`}>L</h1>
-                <p className={`${smoochsans.className}`}>Laivaly</p>
-              </div>
-            ))
-          }
+          {Array.from({ length: 20 }).map((_, index) => (
+            <div
+              key={index}
+              className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 md:text-2xl lg:text-xl xl:text-3xl font-bold"
+            >
+              <h1
+                className={`${grateVibes.className} text-xl md:text-3xl lg:text-xl xl:text-3xl`}
+              >
+                L
+              </h1>
+              <p className={`${smoochsans.className}`}>Laivaly</p>
+            </div>
+          ))}
         </div>
       </div>
     </main>
