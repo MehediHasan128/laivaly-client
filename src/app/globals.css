@@ -96,13 +96,10 @@ html {
     @apply bg-background text-foreground;
   }
   .navbar {
-    @apply flex justify-between items-center px-5 md:px-10 xl:px-20 py-4 border-b bg-white
+    @apply flex justify-between items-center border-b px-10 py-3
   }
-  .item-flex {
-    @apply flex justify-center items-center
-  }
-  .search-input {
-    @apply bg-accent px-8 py-3 rounded-full w-full outline-none border focus:border-black
+  .flex-item-center {
+    @apply flex items-center gap-2
   }
   .gray-text {
     @apply text-gray-600 font-medium text-sm md:text-base

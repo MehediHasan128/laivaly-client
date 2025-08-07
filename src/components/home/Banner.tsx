@@ -51,8 +51,8 @@ const Banner = () => {
                       <ArrowRight size={16} />
                     </div>
                   </button>
-                  <button className="text-xs md:text-base lg:text-sm  cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1 md:py-1.5 lg:py-1">
-                    Shop Now
+                  <button className="text-xs bg-accent md:text-base lg:text-sm  cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1 md:py-1.5 lg:py-1">
+                    Explore Collection
                     <div className="bg-black w-fit rounded-full text-white p-1.5 md:p-2.5 lg:p-1.5 xl:p-2.5">
                       <ArrowRight size={16} />
                     </div>
@@ -73,13 +73,13 @@ const Banner = () => {
       </div>
 
       {/* Laivaly brand banner */}
-      <div className="w-full bg-black text-white mt-5 lg:mt-0">
-        <div className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 overflow-hidden px-5 py-3">
+      <div className="w-full bg-black text-white px-5 py-3 mt-5 lg:mt-0">
+        <div className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 overflow-hidden">
           {
             Array.from({length: 20}).map((_, index) => (
-              <div key={index} className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 md:text-2xl lg:text-xl xl:text-2xl">
+              <div key={index} className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 md:text-2xl lg:text-xl xl:text-3xl font-bold">
                 <h1 className={`${grateVibes.className} text-xl md:text-3xl lg:text-xl xl:text-3xl`}>L</h1>
-                <p>Laivaly</p>
+                <p className={`${smoochsans.className}`}>Laivaly</p>
               </div>
             ))
           }
