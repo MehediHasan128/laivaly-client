@@ -25,7 +25,7 @@ const Banner = () => {
       {/* Text and Image constent */}
       <div className="px-2 lg:px-5 pt-2 lg:pt-5">
         {/* Main div */}
-        <div className="flex flex-col-reverse lg:flex-row gap-5">
+        <div className="flex flex-col-reverse lg:flex-row">
           {/* Text Content */}
           <div className="flex justify-center items-center lg:w-[40%]">
             <div>
@@ -72,7 +72,6 @@ const Banner = () => {
 
           {/* Image Content */}
           <div className="lg:w-[60%]">
-
             {/* Small device search input */}
             <Searchbar
               searchBarOpen={searchBarOpen}
@@ -80,11 +79,12 @@ const Banner = () => {
             >
               <div className="lg:hidden mb-2 relative">
                 <input
+                  disabled
                   type="text"
                   placeholder="Search for Pre Order"
                   className="border rounded-full outline-none focus:border-black w-full p-3 text-sm"
                 />
-                <span className="absolute top-0 right-0 flex items-center h-full px-5 size-16">
+                <span className="absolute top-0 right-0 rounded-full w-full flex justify-end items-center h-full px-5 size-16">
                   <Search />
                 </span>
               </div>
@@ -96,7 +96,6 @@ const Banner = () => {
                 <img src="/images/banner/banner.png" alt="" />
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -117,6 +116,22 @@ const Banner = () => {
               <p className={`${smoochsans.className}`}>Laivaly</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Video banner */}
+      <div>
+        <div className="2xl:h-[800px] overflow-hidden relative">
+          <video src="/videos/banner.mp4" loop autoPlay muted playsInline />
+          <div className="absolute top-0 w-full h-full text-white bg-gradient-to-t from-[#000000] to-[#0000]">
+            <div className="flex flex-col justify-end items-center gap-0.5 2xl:gap-5 h-full p-2 2xl:p-10">
+              <p className="text-[8px] 2xl:text-sm">Men, Women</p>
+              <h1 className="2xl:text-4xl font-light">Fall Winter - 2025</h1>
+              <p className="underline cursor-pointer text-[10px] 2xl:text-base">
+                Discover All Collection
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
