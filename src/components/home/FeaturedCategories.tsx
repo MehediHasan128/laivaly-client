@@ -1,61 +1,94 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const images = [
-  { index: 0, url: "/images/categories/male.jpg", name: "maleImage" },
-  { index: 1, url: "/images/categories/female.jpg", name: "femaleImage" },
-  { index: 2, url: "/images/categories/children.jpg", name: "childrenImage" },
+  {
+    index: 0,
+    url: "/images/categories/male.jpg",
+    name: "maleImage",
+    sectionTitle: "Men’s Collection",
+    description:
+      "Stylish and timeless apparel crafted for modern men seeking elegance, comfort, and confidence daily.",
+    path: "/",
+  },
+  {
+    index: 1,
+    url: "/images/categories/female.jpg",
+    name: "femaleImage",
+    sectionTitle: "Women’s Collection",
+    description:
+      "Elegant, versatile fashion for women, blending comfort, beauty, and style for every special occasion.",
+    path: "/",
+  },
+  {
+    index: 2,
+    url: "/images/categories/children.jpg",
+    name: "childrenImage",
+    sectionTitle: "Kid’s Collection",
+    description:
+      "Fun and colorful outfits designed for kids, ensuring comfort, durability, and joy in every adventure.",
+    path: "/",
+  },
 ];
 
 const FeaturedCategories = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
-  console.log(hoverIndex);
-
   return (
     <section className="overflow-hidden mb-96">
-      <div className="flex flex-col xl:flex-row overflow-hidden">
+      <div className="flex flex-col md:flex-row overflow-hidden">
         {images.slice(0, 1).map((image) => (
           <div
             key={image.index}
             onMouseEnter={() => setHoverIndex(image.index)}
             onMouseLeave={() => setHoverIndex(null)}
-            className="xl:w-[50%] xl:h-[1200px] relative overflow-hidden cursor-pointer"
+            className="md:w-[50%] xl:h-[1200px] relative overflow-hidden cursor-pointer"
           >
-            <img src={image.url} alt={image.name} />
+            <img
+              src={image.url}
+              alt={image.name}
+              className="h-full w-full object-cover"
+            />
 
             <div
               className={`absolute top-0 text-white w-full h-full flex justify-center items-end duration-500 ${
-                hoverIndex === image.index ? "bg-black/60" : "bg-transparent"
+                hoverIndex === image.index
+                  ? "bg-black/70"
+                  : "bg-black/50 lg:bg-transparent"
               }`}
             >
               <div
-                className={`transition-transform duration-1000 ${
+                className={`transition-transform duration-1000 text-center space-y-3 lg:space-y-5 w-[90%] xl:w-[70%] 2xl:w-[50%] py-10 ${
                   hoverIndex === image.index
                     ? "-translate-y-0"
-                    : "translate-y-[1000px]"
-                } -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2`}
+                    : "-translate-y-0 lg:translate-y-[1000px]"
+                }`}
               >
-                <h1>Hello everyone</h1>
-                <h1>Hello everyone</h1>
-                <h1>Hello everyone</h1>
-                <h1>Hello everyone</h1>
-                <h1>Hello everyone</h1>
-                <h1>Hello everyone</h1>
+                <h1 className="text-2xl lg:text-4xl font-medium">
+                  {image.sectionTitle}
+                </h1>
+                <p className="text-[11px] lg:text-xs">{image.description}</p>
+                <Link href={image.path}>
+                  <div className="border w-fit mx-auto bg-white text-black font-medium rounded-full cursor-pointer text-xs xl:text-sm flex justify-center items-center gap-1 px-5 py-2 lg:py-2.5 active:scale-95 duration-500">
+                    Shop Now <ArrowRight size={18} />
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
         ))}
 
-        <div className="xl:w-[50%] xl:h-[1200px] overflow-hidden">
+        <div className="md:w-[50%] xl:h-[1200px] overflow-hidden">
           {images.slice(1).map((image) => (
             <div
               key={image.index}
               onMouseEnter={() => setHoverIndex(image.index)}
               onMouseLeave={() => setHoverIndex(null)}
-              className="xl:h-[50%] relative overflow-hidden cursor-pointer"
+              className="md:h-[50%] relative overflow-hidden cursor-pointer"
             >
               <img
                 src={image.url}
@@ -64,22 +97,27 @@ const FeaturedCategories = () => {
               />
               <div
                 className={`absolute top-0 text-white w-full h-full flex justify-center items-end duration-500 ${
-                  hoverIndex === image.index ? "bg-black/60" : "bg-transparent"
+                  hoverIndex === image.index
+                    ? "bg-black/70"
+                    : "bg-black/50 lg:bg-transparent"
                 }`}
               >
                 <div
-                  className={`transition-transform duration-1000 ${
+                  className={`transition-transform duration-1000 text-center space-y-3 lg:space-y-5 w-[90%] xl:w-[70%] 2xl:w-[50%] py-10 ${
                     hoverIndex === image.index
                       ? "-translate-y-0"
-                      : "translate-y-[1000px]"
-                  } -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2`}
+                      : "-translate-y-0 lg:translate-y-[1000px]"
+                  }`}
                 >
-                  <h1>Hello everyone</h1>
-                  <h1>Hello everyone</h1>
-                  <h1>Hello everyone</h1>
-                  <h1>Hello everyone</h1>
-                  <h1>Hello everyone</h1>
-                  <h1>Hello everyone</h1>
+                  <h1 className="text-2xl lg:text-4xl font-medium">
+                    {image.sectionTitle}
+                  </h1>
+                  <p className="text-[11px] lg:text-xs">{image.description}</p>
+                  <Link href={image.path}>
+                    <div className="border w-fit mx-auto bg-white text-black font-medium rounded-full cursor-pointer text-xs xl:text-sm flex justify-center items-center gap-1 px-5 py-2 lg:py-2.5 active:scale-95 duration-500">
+                      Shop Now <ArrowRight size={18} />
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>

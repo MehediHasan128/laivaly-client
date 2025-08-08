@@ -121,8 +121,8 @@ const Banner = () => {
 
       {/* Video banner */}
       <div>
-        <div className="2xl:h-[800px] overflow-hidden relative">
-          <video src="/videos/banner.mp4" loop autoPlay muted playsInline />
+        <div className="2xl:h-[900px] overflow-hidden relative">
+          <video src="/videos/banner.mp4" loop autoPlay muted playsInline className="w-full h-full object-cover" />
           <div className="absolute top-0 w-full h-full text-white bg-gradient-to-t from-[#000000] to-[#0000]">
             <div className="flex flex-col justify-end items-center gap-0.5 2xl:gap-5 h-full p-2 2xl:p-10">
               <p className="text-[8px] 2xl:text-sm">Men, Women</p>
