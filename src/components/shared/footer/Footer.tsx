@@ -53,7 +53,7 @@ const allLinks = [quickLinks, customerServicesLinks, aboutLinks, legalLinks]
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="mt-10">
       <div className="border-t lg:hidden">
         <Container>
           <div className="px-5">
@@ -102,7 +102,7 @@ const Footer = () => {
 
       <div className="border-t py-10">
         <div className="text-center space-y-4">
-          <div className="relative size-24 mx-auto">
+          <div className="relative size-16 md:size-20 lg:size-24 mx-auto">
             <Image
               src="/images/logo/logo.png"
               alt="logo"
@@ -111,7 +111,7 @@ const Footer = () => {
               className="object-center"
             />
           </div>
-          <h1 className="text-lg font-medium">
+          <h1 className="md:text-lg font-medium">
             Laivaly — Modern, high-quality fashion for Men, Women & Kids.
           </h1>
           <p className="font-bold">Follow Us On</p>

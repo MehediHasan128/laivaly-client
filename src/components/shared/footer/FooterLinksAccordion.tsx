@@ -42,6 +42,30 @@ const FooterLinksAccordion = ({
           </AccordionContent>
         </AccordionItem>
       ))}
+      <AccordionItem value="newsLetter">
+        <AccordionTrigger className="text-md font-semibold">
+          <h1>Newsletter Signup</h1>
+        </AccordionTrigger>
+        <AccordionContent className="flex flex-col gap-4 text-balance">
+          <div>
+            <p className="my-2">
+              Subscribe for exclusive offers and new arrivals
+            </p>
+            <div>
+              {/* Email Input */}
+              <input
+                type="email"
+                placeholder="Drop your email, get the trends"
+                className="border w-full outline-none focus:border-black p-3 rounded-md mb-2"
+              />
+              {/* Subscribe button */}
+              <button className="border rounded-md bg-black text-white cursor-pointer active:scale-95 duration-500 px-5 py-2">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
     </Accordion>
   );
 };
