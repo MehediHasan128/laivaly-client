@@ -4,6 +4,8 @@ import { useState } from "react";
 import Container from "../reusable/Container";
 import Headline from "../reusable/Headline";
 import { smoochsans } from "../styles/font";
+import Image from "next/image";
+import NewArrivalCard from "../reusable/NewArrivalCard";
 
 const buttons = [
   { value: "all", label: "All" },
@@ -34,8 +36,8 @@ const NewArrival = () => {
             />
           </div>
 
-          {/* buttons */}
-          <div className="my-10 md:my-20 grid grid-cols-4 md:grid-cols-8 text-center gap-3 md:w-[70%]">
+          {/* buttons */} 
+          <div className="my-10 lg:my-20 grid grid-cols-4 md:grid-cols-8 text-center gap-3 lg:w-[90%] xl:w-[60%]">
             {buttons.map((btn, index) => (
               <div
                 onClick={() => setProductCategory(btn.value)}
@@ -59,13 +61,12 @@ const NewArrival = () => {
 
 
           {/* New arribal card */}
-          <div>
-            
-            {/* Card-1 */}
-            <div>
-
-            </div>
-
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4">
+            <NewArrivalCard />
+            <NewArrivalCard />
+            <NewArrivalCard />
+            <NewArrivalCard />
+            <NewArrivalCard />
           </div>
         </div>
       </Container>
