@@ -97,7 +97,7 @@ const FeaturedCategories = () => {
                 alt={image.name}
                 quality={100}
                 fill
-                className="object-cover"
+                className={`object-cover ${image.index === 1 && "object-top"}`}
               />
               <div
                 className={`absolute top-0 text-white w-full h-full flex justify-center items-end duration-500 ${
