@@ -125,15 +125,15 @@ const NewArrival = () => {
           </div>
 
           {/* New arribal card */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4">
             {
               products.map((product) => <NewArrivalCard key={product?._id} product={product} />)
             }
           </div>
 
           {/* See more product button */}
-          <div className="text-center mt-10">
-            <button className="border rounded-md cursor-pointer hover:bg-black hover:text-white duration-500 px-5 py-3 font-medium">
+          <div className="text-center mt-5 md:mt-10">
+            <button className="border rounded-md cursor-pointer hover:bg-black hover:text-white duration-500 text-xs md:text-base px-5 py-2 md:py-3 font-medium">
               See More Products
             </button>
           </div>

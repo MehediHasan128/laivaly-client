@@ -14,7 +14,7 @@ const NewArrivalCard = ({ product }: { product: TProduct }) => {
     <div className="rounded-lg overflow-hidden">
       {/* Product Image */}
       <div
-        className="h-42 xl:h-72 2xl:h-80 cursor-pointer"
+        className="h-48 md:h-56 lg:h-72 2xl:h-80 cursor-pointer"
         onMouseEnter={() => setProductThumbnail(product?.images[1])}
         onMouseLeave={() => setProductThumbnail(product?.thumbnail)}
       >
@@ -25,9 +25,9 @@ const NewArrivalCard = ({ product }: { product: TProduct }) => {
             fill
             className="object-cover rounded-lg"
           />
-          <div className="absolute top-0 w-full flex justify-between md:justify-end p-2.5 md:p-4 md:gap-5">
-            <Handbag className="size-4 md:size-5" />
-            <Heart className="size-4 md:size-5" />
+          <div className="absolute top-0 w-full flex justify-between p-2.5 md:p-4 md:gap-5">
+            <Handbag className="size-5" />
+            <Heart className="size-5" />
           </div>
         </div>
       </div>
