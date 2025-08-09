@@ -1,21 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Great_Vibes, Smooch_Sans } from "next/font/google";
 import React, { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
 import Searchbar from "../shared/navbar/searchBar/Searchbar";
+import { grateVibes, smoochsans } from "../styles/font";
 
-export const smoochsans = Smooch_Sans({
-  subsets: ["latin"],
-  variable: "--font-smoochsans",
-});
 
-const grateVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-grateVibes",
-});
 
 const Banner = () => {
   const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
