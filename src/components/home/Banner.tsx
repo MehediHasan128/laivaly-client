@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
 import Searchbar from "../shared/navbar/searchBar/Searchbar";
 
-const smoochsans = Smooch_Sans({
+export const smoochsans = Smooch_Sans({
   subsets: ["latin"],
   variable: "--font-smoochsans",
 });
