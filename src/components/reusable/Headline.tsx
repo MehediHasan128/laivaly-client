@@ -9,7 +9,7 @@ const Headline = ({title, description}: {title: string, description?: string}) =
         >
           {title}
         </h1>
-        <p className="lg:w-[70%] xl:w-[50%] 2xl:w-[35%] text-[10px] md:text-sm gray-text lg:text-end font-bold md:font-normal">
+        <p className="lg:w-[70%] xl:w-[50%] 2xl:w-[35%] gray-text lg:text-end font-semibold">
           {description}
         </p>
       </span>

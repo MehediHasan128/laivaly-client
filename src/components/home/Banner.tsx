@@ -16,7 +16,7 @@ const Banner = () => {
       {/* Text and Image constent */}
       <div className="px-2 lg:px-5 pt-2 lg:pt-5">
         {/* Main div */}
-        <div className="flex flex-col-reverse lg:flex-row">
+        <div className="flex flex-col-reverse lg:flex-row lg:gap-10 2xl:gap-0">
           {/* Text Content */}
           <div className="flex justify-center items-center lg:w-[40%]">
             <div>
@@ -36,7 +36,7 @@ const Banner = () => {
                 </h1>
               </div>
               <div className="xl:px-10 mt-5 lg:mt-36 xl:mt-48 2xl:mt-64">
-                <p className="gray-text text-justify w-[95%] lg:w-[100%] 2xl:w-[80%] lg:text-sm xl:text-base mb-5 md:mb-10 lg:mb-8 xl:mb-7 2xl:mb-10">
+                <p className="gray-text font-semibold text-justify w-[95%] lg:w-[100%] 2xl:w-[80%] mb-5 md:mb-10 lg:mb-8 xl:mb-7 2xl:mb-10">
                   Step into elegance with our latest fashion collections,
                   crafted to empower your everyday look. From casual wear to
                   statement pieces, Laivaly brings you trend-forward designs
@@ -44,13 +44,13 @@ const Banner = () => {
                   Laivaly.
                 </p>
                 <div className="flex gap-3 md:gap-5">
-                  <button className="bg-black text-white text-xs md:text-base lg:text-sm  cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1 md:py-1.5 lg:py-1">
+                  <button className="bg-black text-white cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1.5 lg:py-1 font-medium">
                     Shop Now
                     <div className="bg-white w-fit rounded-full text-black p-1.5 md:p-2.5 lg:p-1.5 xl:p-2.5">
                       <ArrowRight size={16} />
                     </div>
                   </button>
-                  <button className="text-xs bg-accent md:text-base lg:text-sm  cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1 md:py-1.5 lg:py-1">
+                  <button className="bg-accent cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1.5 lg:py-1 font-medium">
                     Explore Collection
                     <div className="bg-black w-fit rounded-full text-white p-1.5 md:p-2.5 lg:p-1.5 xl:p-2.5">
                       <ArrowRight size={16} />
@@ -115,10 +115,10 @@ const Banner = () => {
         <div className="2xl:h-[900px] overflow-hidden relative">
           <video src="/videos/banner.mp4" loop autoPlay muted playsInline className="w-full h-full object-cover" />
           <div className="absolute top-0 w-full h-full text-white bg-gradient-to-t from-[#000000] to-[#0000]">
-            <div className="flex flex-col justify-end items-center gap-0.5 2xl:gap-5 h-full p-2 2xl:p-10">
-              <p className="text-[8px] 2xl:text-sm">Men, Women</p>
-              <h1 className="2xl:text-4xl font-light">Fall Winter - 2025</h1>
-              <p className="underline cursor-pointer text-[10px] 2xl:text-base">
+            <div className="flex flex-col justify-end items-center gap-0.5 md:gap-2.5 xl:gap-5 h-full p-5 2xl:p-10">
+              <p className="text-xs md:text-base">Men, Women</p>
+              <h1 className="text-xl md:text-2xl xl:text-4xl">Fall Winter - 2025</h1>
+              <p className="underline cursor-pointer text-xs md:text-sm xl:text-base">
                 Discover All Collection
               </p>
             </div>

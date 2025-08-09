@@ -59,23 +59,23 @@ const FeaturedCategories = () => {
             <div
               className={`absolute top-0 text-white w-full h-full flex justify-center items-end duration-500 ${
                 hoverIndex === image.index
-                  ? "bg-black/30 lg:bg-black/70"
-                  : "bg-black/30 lg:bg-transparent"
+                  ? "bg-black/50 lg:bg-black/70"
+                  : "bg-black/50 lg:bg-transparent"
               }`}
             >
               <div
-                className={`transition-transform duration-1000 text-center space-y-2 lg:space-y-5 w-[90%] xl:w-[70%] 2xl:w-[50%] py-5 lg:py-10 ${
+                className={`transition-transform duration-1000 text-center space-y-2 lg:space-y-3 xl:space-y-4 w-[90%] xl:w-[70%] 2xl:w-[50%] py-5 lg:py-10 ${
                   hoverIndex === image.index
                     ? "-translate-y-0"
                     : "-translate-y-0 lg:translate-y-[1000px]"
                 }`}
               >
-                <h1 className="text-xl lg:text-4xl font-medium">
+                <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold">
                   {image.sectionTitle}
                 </h1>
-                <p className="text-[11px] lg:text-xs">{image.description}</p>
+                <p className="text-sm lg:text-base">{image.description}</p>
                 <Link href={image.path}>
-                  <div className="border w-fit mx-auto bg-white text-black font-medium rounded-full cursor-pointer text-xs xl:text-sm flex justify-center items-center gap-1 px-5 py-1.5 lg:py-2.5 active:scale-95 duration-500">
+                  <div className="border w-fit mx-auto bg-white text-black font-medium rounded-full cursor-pointer flex justify-center items-center gap-1 active:scale-95 duration-500 px-5 py-1.5 lg:py-2.5 text-sm lg:text-base">
                     Shop Now <ArrowRight size={18} />
                   </div>
                 </Link>
@@ -102,23 +102,23 @@ const FeaturedCategories = () => {
               <div
                 className={`absolute top-0 text-white w-full h-full flex justify-center items-end duration-500 ${
                   hoverIndex === image.index
-                    ? "bg-black/30 lg:bg-black/70"
-                    : "bg-black/30 lg:bg-transparent"
+                    ? "bg-black/50 lg:bg-black/70"
+                    : "bg-black/50 lg:bg-transparent"
                 }`}
               >
                 <div
-                  className={`transition-transform duration-1000 text-center space-y-2 lg:space-y-5 w-[90%] xl:w-[70%] 2xl:w-[50%] py-5 lg:py-10 ${
+                  className={`transition-transform duration-1000 text-center space-y-2 lg:space-y-3 xl:space-y-4 w-[90%] xl:w-[70%] 2xl:w-[50%] py-5 lg:py-10 ${
                     hoverIndex === image.index
                       ? "-translate-y-0"
                       : "-translate-y-0 lg:translate-y-[1000px]"
                   }`}
                 >
-                  <h1 className="text-xl lg:text-4xl font-medium">
+                  <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold">
                     {image.sectionTitle}
                   </h1>
-                  <p className="text-[11px] lg:text-xs">{image.description}</p>
+                  <p className="text-sm lg:text-base">{image.description}</p>
                   <Link href={image.path}>
-                    <div className="border w-fit mx-auto bg-white text-black font-medium rounded-full cursor-pointer text-xs xl:text-sm flex justify-center items-center gap-1 px-5 py-1.5 lg:py-2.5 active:scale-95 duration-500">
+                    <div className="border w-fit mx-auto bg-white text-black font-medium rounded-full cursor-pointer flex justify-center items-center gap-1 active:scale-95 duration-500 px-5 py-1.5 lg:py-2.5 text-sm lg:text-base">
                       Shop Now <ArrowRight size={18} />
                     </div>
                   </Link>

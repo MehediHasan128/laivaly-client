@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Dosis } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/navbar/Navbar";
+import Footer from "@/components/shared/footer/Footer";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const dosis = Dosis({ subsets: ["latin"], variable: "--font-dosis" });
 
 export const metadata: Metadata = {
   title: "Laivaly",
@@ -27,9 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${dosis.className} antialiased`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
