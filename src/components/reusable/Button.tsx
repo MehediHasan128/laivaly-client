@@ -1,14 +1,18 @@
 import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
 interface TButtonProps {
     buttonTitle: string;
+    buttonIcon?: ReactNode;
     className?: string;
 }
 
-const Button = ({buttonTitle, className}: TButtonProps) => {
+const Button = ({buttonTitle, buttonIcon, className}: TButtonProps) => {
     return (
-        <button className={cn("cursor-pointer border border-black px-5 md:px-8 py-2 md:py-2.5 rounded-full font-medium bg-black text-secondary hover:border-black hover:bg-white hover:text-black duration-700 text-sm md:text-base", className)}>
-            {buttonTitle}
+        <button className={cn("border cursor-pointer rounded-md font-medium active:scale-95 duration-700 text-sm md:text-base px-3 md:px-5 py-1.5 md:py-3", className)}>
+            <div className="flex items-center gap-1.5">
+                {buttonTitle} <span>{buttonIcon}</span>
+            </div>
         </button>
     );
 };

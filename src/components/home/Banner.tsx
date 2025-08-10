@@ -114,7 +114,7 @@ const Banner = () => {
       <div>
         <div className="2xl:h-[900px] overflow-hidden relative">
           <video src="/videos/banner.mp4" loop autoPlay muted playsInline className="w-full h-full object-cover" />
-          <div className="absolute top-0 w-full h-full text-white bg-gradient-to-t from-[#000000] to-[#0000]">
+          <div className="absolute top-0 w-full h-full text-white bg-gradient-to-t from-[#000000cf] to-[#0000]">
             <div className="flex flex-col justify-end items-center gap-0.5 md:gap-2.5 xl:gap-5 h-full p-5 2xl:p-10">
               <p className="text-xs md:text-base">Men, Women</p>
               <h1 className="text-xl md:text-2xl xl:text-4xl">Fall Winter - 2025</h1>

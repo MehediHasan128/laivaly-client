@@ -1,6 +1,7 @@
 import Banner from "@/components/home/Banner";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
 import NewArrival from "@/components/home/NewArrival";
+import SesonalCollection from "@/components/home/SesonalCollection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ const HomePage = () => {
             <Banner />
             <FeaturedCategories />
             <NewArrival />
+            <SesonalCollection />
         </main>
     );
 };

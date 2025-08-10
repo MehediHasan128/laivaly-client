@@ -34,7 +34,11 @@ const NewArrivalCard = ({ product }: { product: TProduct }) => {
 
       {/* Product Info */}
       <div className="p-2 font-semibold flex justify-between items-start text-xs md:text-sm lg:text-xs xl:text-base">
-        <h1>{product?.title}</h1>
+        {product?.title.length === 20 ? (
+          <h1>{product?.title}</h1>
+        ) : (
+          <h1>{product?.title.slice(0, 21)}<span className="bg-gradient-to-r from-[#000000ac] to-transparent bg-clip-text text-transparent">{product?.title.slice(21, 30)}</span></h1>
+        )}
         <h1>${product?.price}</h1>
       </div>
     </div>
