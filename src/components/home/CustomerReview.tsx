@@ -3,27 +3,25 @@ import CustomerReviewCard from "../reusable/CustomerReviewCard";
 
 const CustomerReview = () => {
   return (
-    <section className="my-20">
+    <section className=" my-10 md:my-20">
       <Container>
-        <div className="flex items-center">
-          <div className="w-[50%] space-y-5">
-            <h1 className="text-7xl font-extrabold leading-20">
+        <div className="flex flex-col xl:flex-row items-center gap-10 xl:gap-0">
+          <div className="xl:w-[45%] 2xl:w-[50%] space-y-5">
+            <h1 className="text-5xl xl:text-7xl font-extrabold xl:leading-20">
               What Our
-              <br /> Customer Says
+              <br className="hidden xl:block" /> Customer Says
             </h1>
-            <p className="w-[85%] text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Distinctio cupiditate non, maxime quia consequatur rerum maiores
-              molestiae repudiandae ab dolorum ipsam nihil consequuntur nulla
-              earum quae illum repellendus eos quis perferendis laudantium! Eius
-              dolore, non, alias laudantium corrupti ipsum totam soluta dolorum
-              numquam a ullam, minus esse. Nobis, iure repellat!
+            <p className="md:w-[85%] text-justify font-medium">
+              See what our customers are saying about their favorite purchases.
+              From cozy winter layers to timeless statement pieces, they’ve felt
+              the style and comfort firsthand. Join the community that chooses
+              us for quality, elegance, and a touch of seasonal charm.
             </p>
           </div>
 
-          <div className="w-[50%] flex flex-col gap-5">
-            <div className="flex justify-end">
-              <div className="w-[90%] scale-90">
+          <div className="xl:w-[55%] 2xl:w-[50%] flex flex-col gap-3 md:gap-5">
+            <div className="flex md:justify-end">
+              <div className="md:w-[90%] md:scale-90">
                 <CustomerReviewCard
                   imageURL="/images/users/2.jpg"
                   name="Mohammad Mahfuz"
@@ -33,7 +31,7 @@ Will definitely shop here again!"
                 />
               </div>
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <CustomerReviewCard
                 imageURL="/images/users/1.jpg"
                 name="Sumaiya Akter"
@@ -43,8 +41,8 @@ Highly recommend this brand to everyone."
 active
               />
             </div>
-            <div className="flex justify-end">
-              <div className="w-[90%] scale-90">
+            <div className="flex md:justify-end">
+              <div className="md:w-[90%] md:scale-90">
                 <CustomerReviewCard
                   imageURL="/images/users/3.jpg"
                   name="Maya Rahman"

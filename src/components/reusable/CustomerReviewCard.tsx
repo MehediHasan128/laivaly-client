@@ -16,12 +16,12 @@ const CustomerReviewCard = ({
 }: TCustomerReviewCardProps) => {
   return (
     <div
-      className={`border-l-8 ${
+      className={`border-l-4 lg:border-l-8 ${
         active ? "border-black" : "border-gray-300"
-      } bg-accent rounded-md px-10 py-8`}
+      } bg-accent p-5 md:px-10 md:py-8`}
     >
-      <div className="flex gap-10">
-        <div className="relative size-32 rounded-full overflow-hidden">
+      <div className="flex flex-row items-center gap-5 lg:gap-10">
+        <div className="relative size-20 lg:size-28 2xl:size-32 mx-auto rounded-full overflow-hidden">
           <Image
             src={imageURL}
             alt={name}
@@ -31,14 +31,14 @@ const CustomerReviewCard = ({
           />
         </div>
 
-        <div className="flex-1 space-y-2">
-          <span className="text-2xl font-bold flex gap-2">
+        <div className="flex-1 space-y-1 md:space-y-2">
+          <span className="text-base md:text-2xl font-bold flex gap-2">
             <h1>{name}</h1>
-            <span className="text-3xl">
+            <span className="text-xl md:text-3xl">
               <RiDoubleQuotesR />
             </span>
           </span>
-          <p className="font-medium text-justify">{comment}</p>
+          <p className="font-medium text-justify text-sm md:text-base">{comment}</p>
         </div>
       </div>
     </div>
