@@ -1,4 +1,5 @@
 import Banner from "@/components/home/Banner";
+import CustomerReview from "@/components/home/CustomerReview";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
 import NewArrival from "@/components/home/NewArrival";
 import SesonalCollection from "@/components/home/SesonalCollection";
@@ -16,6 +17,7 @@ const HomePage = () => {
             <FeaturedCategories />
             <NewArrival />
             <SesonalCollection />
+            <CustomerReview />
         </main>
     );
 };

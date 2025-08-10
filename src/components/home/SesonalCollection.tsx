@@ -68,7 +68,7 @@ const SesonalCollection = () => {
     <section>
       <div
         style={{ backgroundImage: `url('/images/categories/9.jpg')` }}
-        className="h-[800px] bg-cover bg-center md:bg-fixed bg-scroll"
+        className="h-[600px] md:h-[900px] bg-cover bg-center md:bg-fixed bg-scroll"
       />
       <Container>
         {/* Headline */}
