@@ -1,4 +1,5 @@
-import { smoochsans } from "../styles/font";
+import { smoochsans } from "@/styles/font";
+
 
 const Headline = ({title, description}: {title: string, description?: string}) => {
   return (

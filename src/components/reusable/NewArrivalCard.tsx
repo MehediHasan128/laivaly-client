@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { TProduct } from "../types/types";
 import { useState } from "react";
 import { Handbag, Heart } from "lucide-react";
+import { TProduct } from "@/types/types";
 
 const NewArrivalCard = ({ product }: { product: TProduct }) => {
   const [productThumbnail, setProductThumbnail] = useState<string>(

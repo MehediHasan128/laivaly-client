@@ -3,11 +3,10 @@
 import { useState } from "react";
 import Container from "../reusable/Container";
 import Headline from "../reusable/Headline";
-import { smoochsans } from "../styles/font";
 import NewArrivalCard from "../reusable/NewArrivalCard";
-import { TProduct } from "../types/types";
 import Button from "../reusable/Button";
-import { ArrowRight } from "lucide-react";
+import { TProduct } from "@/types/types";
+import { smoochsans } from "@/styles/font";
 
 const buttons = [
   { value: "all", label: "All" },

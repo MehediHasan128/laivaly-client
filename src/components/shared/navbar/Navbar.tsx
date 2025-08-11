@@ -18,7 +18,9 @@ const Navbar = () => {
           {/* Menubar */}
           <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu}>
             <div
-              className={`cursor-pointer flex-item-center p-1 ${openMenu && "z-100"}`}
+              className={`cursor-pointer flex-item-center p-1 ${
+                openMenu && "z-100"
+              }`}
               onClick={() => setOpenMenu(!openMenu)}
             >
               <div className="space-y-1">
@@ -77,7 +79,9 @@ const Navbar = () => {
             <Heart />
           </Link>
           <Handbag />
-          <UserRound />
+          <Link href="/login">
+            <UserRound />
+          </Link>
         </div>
       </div>
     </header>

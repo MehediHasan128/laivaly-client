@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Container from "../reusable/Container";
 import Headline from "../reusable/Headline";
-import { smoochsans } from "../styles/font";
-import { TProduct } from "../types/types";
 import NewArrivalCard from "../reusable/NewArrivalCard";
 import Button from "../reusable/Button";
+import { TProduct } from "@/types/types";
+import { smoochsans } from "@/styles/font";
 
 const buttons = [
   { value: "all", label: "All" },

@@ -1,5 +1,4 @@
 import Container from "@/components/reusable/Container";
-import Link from "next/link";
 import FooterLinks from "./FooterLinks";
 import Image from "next/image";
 import {
