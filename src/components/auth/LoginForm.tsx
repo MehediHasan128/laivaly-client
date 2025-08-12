@@ -67,7 +67,7 @@ const LoginForm = () => {
           {/* Signup link */}
           <h1>
             Don’t have an account?{" "}
-            <Link href="/" className="font-semibold underline cursor-pointer">
+            <Link href="/signup" className="font-semibold underline cursor-pointer">
               Sign up for free.
             </Link>
           </h1>

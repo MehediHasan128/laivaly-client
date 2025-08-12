@@ -9,7 +9,18 @@ import { FcGoogle } from "react-icons/fc";
 export const metadata: Metadata = {
   title: "My Account",
   description:
-    "Discover the latest in fashion at Laivaly – your go-to destination for stylish, high-quality clothing for men, women, and kids. Enjoy fast delivery, secure checkout, and unbeatable prices.",
+    "Sign in to your Laivaly account to track orders, manage your profile, and enjoy a seamless shopping experience.",
+  keywords: [
+    "Laivaly login",
+    "account login",
+    "fashion store login",
+    "track orders",
+    "manage profile",
+  ],
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const LoginPage = () => {
@@ -35,8 +46,8 @@ const LoginPage = () => {
           </div>
 
           {/* Form Section */}
-          <div className="flex justify-center items-center h-screen">
-            <div className="text-center mt-5 md:mt-10">
+          <div className="flex justify-center items-center h-screen mt-5 md:mt-10">
+            <div className="text-center">
               <h1 className="uppercase text-4xl md:text-6xl lg:text-5xl xl:text-6xl font-light">
                 my laivaly account
               </h1>
@@ -86,8 +97,18 @@ const LoginPage = () => {
           />
 
           <div className="absolute top-0 size-full bg-gradient-to-t from-[#000000c3] to-transparent">
-            <div className={`${smoochsans.className} h-full flex items-end p-10`}>
-              <h1 className="text-white font-bold text-5xl xl:text-6xl"><span>Shop with confidence </span> <br /> <span className="text-7xl xl:text-9xl"><span className="text-8xl xl:text-[150px] font-extrabold">100%</span> purchase protection.</span></h1>
+            <div
+              className={`${smoochsans.className} h-full flex items-end p-10`}
+            >
+              <h1 className="text-white font-bold text-5xl xl:text-6xl">
+                <span>Shop with confidence </span> <br />{" "}
+                <span className="text-7xl xl:text-9xl">
+                  <span className="text-8xl xl:text-[150px] font-extrabold">
+                    100%
+                  </span>{" "}
+                  purchase protection.
+                </span>
+              </h1>
             </div>
           </div>
         </div>
