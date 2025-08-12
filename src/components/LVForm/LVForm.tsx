@@ -11,7 +11,7 @@ const LVForm = ({ children, onSubmit }: TLVFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit}>{children}</form>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
     </FormProvider>
   );
 };

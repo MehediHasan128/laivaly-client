@@ -12,11 +12,6 @@ export const metadata: Metadata = {
     "Discover the latest in fashion at Laivaly – your go-to destination for stylish, high-quality clothing for men, women, and kids. Enjoy fast delivery, secure checkout, and unbeatable prices.",
 };
 
-const handleCustomerLogin = async(formData: FormData) => {
-  "use server"
-  console.log(formData);
-}
-
 const LoginPage = () => {
   return (
     <main className="h-screen flex">
@@ -72,7 +67,7 @@ const LoginPage = () => {
                 </h1>
 
                 <div className="mx-auto w-72 md:w-96 mt-10">
-                  <LoginForm formActions={handleCustomerLogin} />
+                  <LoginForm />
                 </div>
               </div>
             </div>
