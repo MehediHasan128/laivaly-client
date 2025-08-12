@@ -1,10 +1,8 @@
 import LoginForm from "@/components/auth/LoginForm";
 import HorizontalDivider from "@/components/reusable/HorizontalDivider";
 import { smoochsans } from "@/styles/font";
-import { ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { FaApple } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 
@@ -13,6 +11,11 @@ export const metadata: Metadata = {
   description:
     "Discover the latest in fashion at Laivaly – your go-to destination for stylish, high-quality clothing for men, women, and kids. Enjoy fast delivery, secure checkout, and unbeatable prices.",
 };
+
+const handleCustomerLogin = async(formData: FormData) => {
+  "use server"
+  console.log(formData);
+}
 
 const LoginPage = () => {
   return (
@@ -69,7 +72,7 @@ const LoginPage = () => {
                 </h1>
 
                 <div className="mx-auto w-72 md:w-96 mt-10">
-                  <LoginForm />
+                  <LoginForm formActions={handleCustomerLogin} />
                 </div>
               </div>
             </div>

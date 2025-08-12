@@ -4,13 +4,11 @@ import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-const LoginForm = () => {
+const LoginForm = ({formActions}: {formActions: (formData: FormData) => void}) => {
   const [showPass, setShowPass] = useState(false);
 
-  console.log(showPass);
-
   return (
-    <form action="" className="space-y-3">
+    <form action={formActions} className="space-y-3">
       {/* email input */}
       <div>
         <input
@@ -45,14 +43,26 @@ const LoginForm = () => {
           </div>
         )}
 
-        <h1 className="absolute right-0 font-medium p-0.5 hover:underline cursor-pointer">Forget Password</h1>
+        <h1 className="absolute right-0 font-medium p-0.5 hover:underline cursor-pointer">
+          Forget Password
+        </h1>
       </div>
       {/* Submit button */}
       <div>
-        <button type="submit" className="border uppercase w-full bg-black text-white font-medium rounded active:scale-95 duration-500 cursor-pointer mt-5 lg:mt-10 py-3">login</button>
+        <button
+          type="submit"
+          className="border uppercase w-full bg-black text-white font-medium rounded active:scale-95 duration-500 cursor-pointer mt-5 lg:mt-10 py-3"
+        >
+          login
+        </button>
       </div>
 
-      <h1>Don’t have an account? <Link href="/" className="font-semibold underline cursor-pointer">Sign up for free.</Link></h1>
+      <h1>
+        Don’t have an account?{" "}
+        <Link href="/" className="font-semibold underline cursor-pointer">
+          Sign up for free.
+        </Link>
+      </h1>
     </form>
   );
 };
