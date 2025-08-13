@@ -51,19 +51,21 @@ const SignupPage = () => {
         {/* Form Container */}
         <div className="h-screen flex flex-col">
           {/* Heading */}
-          <div className="flex justify-center items-center gap-3 p-5">
-            <div className="relative size-10">
-              <Image
-                src="/images/logo/logo.png"
-                alt="logo"
-                quality={100}
-                fill
-              />
+          <Link href="/">
+            <div className="flex justify-center items-center gap-3 p-5">
+              <div className="relative size-10">
+                <Image
+                  src="/images/logo/logo.png"
+                  alt="logo"
+                  quality={100}
+                  fill
+                />
+              </div>
+              <h1 className={`${smoochsans.className} font-bold text-4xl`}>
+                Laivaly
+              </h1>
             </div>
-            <h1 className={`${smoochsans.className} font-bold text-4xl`}>
-              Laivaly
-            </h1>
-          </div>
+          </Link>
 
           {/* Form */}
           <div className="flex-1 flex justify-center items-center text-center pb-10 lg:pb-0">
