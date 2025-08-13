@@ -1,8 +1,9 @@
 import Container from "@/components/reusable/Container";
 import ProductCard from "@/components/reusable/ProductCard";
+import { rearrangeProducts } from "@/utils";
 import Image from "next/image";
 
-type Product = {
+export interface TProduct {
   id: number;
   url: string;
   title: string;
@@ -10,28 +11,32 @@ type Product = {
   isLarge: boolean;
 };
 
-const products = [
+const allProducts = [
     {id: 1, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 2, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 3, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 4, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 5, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
-    {id: 6, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 5, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 6, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
     {id: 7, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 8, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 9, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 10, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 11, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 12, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 13, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 13, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
     {id: 14, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 15, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 16, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 17, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 18, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
-    {id: 19, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 20, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
+    {id: 18, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 19, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
+    {id: 20, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
 ];
+
+
+const products = rearrangeProducts(allProducts);
+
 
 const MenPage = () => {
   return (
@@ -51,7 +56,7 @@ const MenPage = () => {
       </div>
 
       <Container>
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-[minmax(0,1fr)] grid-flow-dense border-l border-t">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-flow-dense border-l border-t">
         {
             products?.map((product) => (
                 <div key={product.id} className={`${product.isLarge ? "col-span-2" : ""} cursor-pointer overflow-hidden w-full border-b border-r`}>

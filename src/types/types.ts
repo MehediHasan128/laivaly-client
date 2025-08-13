@@ -13,14 +13,3 @@ export interface TCardProductProps {
   price: number;
   isLarge: boolean;
 }
-
-export interface GridItem {
-  id: number;
-  url: string;
-  title: string;
-  price: number;
-  isLarge: boolean;
-  row: number;
-  colStart: number;
-  colSpan: number;
-}
