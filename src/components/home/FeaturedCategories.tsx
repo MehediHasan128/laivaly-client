@@ -1,9 +1,7 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import Button from "../reusable/Button";
 
 const images = [
@@ -70,8 +68,6 @@ const FeaturedCategories = () => {
           {images.slice(1).map((image) => (
             <div
               key={image.index}
-              onMouseEnter={() => setHoverIndex(image.index)}
-              onMouseLeave={() => setHoverIndex(null)}
               className="h-[50%] relative overflow-hidden cursor-pointer"
             >
               <Image

@@ -1,11 +1,12 @@
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const navItems = [
-  { label: "New Collection", path: "/new-collection" },
-  { label: "Men", path: "/men" },
-  { label: "Women", path: "/women" },
-  { label: "Children", path: "/children" },
+  { label: "New Collection", path: "/products/new-collection" },
+  { label: "Men", path: "/products/men" },
+  { label: "Women", path: "/products/women" },
+  { label: "Kid's", path: "/products/kids" },
 ];
 
 const NavItems = () => {
@@ -14,24 +15,29 @@ const NavItems = () => {
   return (
     <>
       {navItems.map((item, index) => (
-        <div
-          key={index}
-          className="cursor-pointer flex items-center justify-between py-3 group"
-          onMouseEnter={() => setHoverIndex(index)}
-          onMouseLeave={() => setHoverIndex(null)}
-        >
+        <Link key={index} href={item?.path}>
           <div
-            className={`w-fit overflow-hidden duration-700 ${
-              hoverIndex === null || hoverIndex === index
-                ? "text-black"
-                : "text-gray-500"
-            }`}
+            className="cursor-pointer flex items-center justify-between py-3 group"
+            onMouseEnter={() => setHoverIndex(index)}
+            onMouseLeave={() => setHoverIndex(null)}
           >
-            <h1>{item.label}</h1>
-            <div className="h-[2px] bg-black w-full transition-transform -translate-x-64 group-hover:translate-x-0 duration-1000" />
+            <div
+              className={`w-fit overflow-hidden duration-700 ${
+                hoverIndex === null || hoverIndex === index
+                  ? "text-black"
+                  : "text-gray-500"
+              }`}
+            >
+              <h1>{item.label}</h1>
+              <div className="h-[2px] bg-black w-full transition-transform -translate-x-64 group-hover:translate-x-0 duration-1000" />
+            </div>
+            <ChevronRight
+              className={`opacity-0 duration-700 ${
+                hoverIndex === index && "opacity-100"
+              }`}
+            />
           </div>
-          <ChevronRight className={`opacity-0 duration-700 ${hoverIndex === index && "opacity-100"}`} />
-        </div>
+        </Link>
       ))}
     </>
   );

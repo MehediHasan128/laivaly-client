@@ -8,8 +8,10 @@ export default function PagesLayout({
 }>) {
   return (
     <main>
-      <Navbar />
-      {children}
+      <div>
+        <Navbar />
+      </div>
+      <div className="min-h-screen">{children}</div>
       <Footer />
     </main>
   );
