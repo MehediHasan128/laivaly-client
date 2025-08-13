@@ -3,35 +3,37 @@ import ProductCard from "@/components/reusable/ProductCard";
 import { rearrangeProducts } from "@/utils";
 import Image from "next/image";
 
-export interface TProduct {
-  id: number;
-  url: string;
-  title: string;
-  price: number;
-  isLarge: boolean;
-};
-
 const allProducts = [
     {id: 1, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 2, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 2, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 3, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 4, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 5, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 5, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 6, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
     {id: 7, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 8, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 9, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 9, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 10, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 11, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 11, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 12, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 13, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
-    {id: 14, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 14, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 15, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 16, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
-    {id: 17, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 17, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 18, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
     {id: 19, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
-    {id: 20, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 20, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 21, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 22, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 23, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 24, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 25, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 26, url: "/images/categories/big.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: true},
+    {id: 27, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 28, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 29, url: "/images/categories/p2.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
+    {id: 30, url: "/images/categories/p1.jpg", title: "Slim Fit Blue Jeans", price: 59.00, isLarge: false},
 ];
 
 

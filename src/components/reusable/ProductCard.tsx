@@ -1,4 +1,4 @@
-import { Handbag, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 
 interface TProductCardProps {
@@ -18,12 +18,12 @@ const ProductCard = ({product}: {product: TProductCardProps}) => {
               alt={product.title}
               quality={100}
               fill
-              className="object-cover object-top w-full h-full"
+              className="object-cover object-top w-full h-full hover:scale-110 duration-500"
             />
             <div className={`absolute top-0 right-0 ${product.isLarge ? "text-white" : "text-gray-500"} p-3`}>
               <Heart className="size-5" />
             </div>
-          <div className={`absolute bottom-0 w-full p-5 xl:border-t translate-y-24 bg-accent group-hover:translate-y-0 duration-500`}>
+          <div className={`xl:absolute bottom-0 w-full p-5 xl:border-t xl:translate-y-24 bg-accent group-hover:translate-y-0 duration-500`}>
             <span className="flex justify-between items-center font-medium">
                 <h1>{product.title}</h1>
                 <h1>${product.price}</h1>
