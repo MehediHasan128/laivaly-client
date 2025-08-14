@@ -12,7 +12,7 @@ interface TProductCardProps {
 const ProductCard = ({product}: {product: TProductCardProps}) => {
     return (
         <div className="group">
-          <div className={`relative h-[200px] md:h-[400px] 2xl:h-[600px]`}>
+          <div className={`relative h-[200px] md:h-[400px] 2xl:h-[500px]`}>
             <Image
               src={product.url}
               alt={product.title}
