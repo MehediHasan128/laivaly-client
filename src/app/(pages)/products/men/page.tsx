@@ -225,6 +225,34 @@ const allProducts = [
   },
 ];
 
+const filtersData = [
+  {
+    title: "Category",
+    options: [
+      {value: "black t-shirt", label: "Black T-Shirt"},
+      {value: "white t-shirt", label: "White T-Shirt"},
+    ]
+  },
+  {
+    title: "Price",
+    options: [
+      {value: "10.00 - 20.00", label: "$10.00 - $20.00"},
+      {value: "20.00 - 30.00", label: "$20.00 - $30.00"},
+    ]
+  },
+  {
+    title: "Size",
+    options: [
+      {value: "xs", label: "XS"},
+      {value: "s", label: "S"},
+      {value: "m", label: "M"},
+      {value: "l", label: "L"},
+      {value: "xl", label: "XL"},
+      {value: "xxl", label: "XXL"},
+    ]
+  }
+]
+
 export const metadata: Metadata = {
   title: "Men's Fashion",
   description:
@@ -250,7 +278,7 @@ const MenPage = () => {
         sectionSubtitle="Explore premium men’s fashion for every occasion."
       />
 
-      <ProductFilters />
+      <ProductFilters filters={filtersData} />
 
       <ProductGrid products={products} />
     </main>

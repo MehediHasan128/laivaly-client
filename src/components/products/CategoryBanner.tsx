@@ -9,7 +9,7 @@ interface TCategoryBannerProps {
 
 const CategoryBanner = ({bannerImage, imageAlt, sectionTitle, sectionSubtitle}: TCategoryBannerProps) => {
   return (
-    <div className="relative h-[250px] md:h-[500px] lg:h-[600px] 2xl:h-[800px] w-full">
+    <div className="relative h-[250px] md:h-[500px] lg:h-[600px] 2xl:h-[700px] w-full">
       <Image
         src={bannerImage}
         alt={imageAlt}
