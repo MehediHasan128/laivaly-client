@@ -1,20 +1,13 @@
+import { TProduct } from "@/types/types";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 
-interface TProductCardProps {
-    id: number; 
-    url: string;
-    title: string;
-    price: number;
-    isLarge: boolean;
-}
-
-const ProductCard = ({product}: {product: TProductCardProps}) => {
+const ProductCard = ({product}: {product: Pick<TProduct, "_id" | "title" | "price" | "thumbnail" | "isLarge">}) => {
     return (
         <div className="group">
           <div className={`relative h-[200px] md:h-[400px] 2xl:h-[500px]`}>
             <Image
-              src={product.url}
+              src={product.thumbnail}
               alt={product.title}
               quality={100}
               fill

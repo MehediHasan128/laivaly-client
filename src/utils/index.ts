@@ -1,7 +1,7 @@
-import { TCardProductProps } from "@/types/types";
+import { TProduct } from "@/types/types";
 
-export const rearrangeProducts = (productItems: TCardProductProps[]) => {
-  const products: TCardProductProps[] = [];
+export const rearrangeProducts = (productItems: Pick<TProduct, "_id" | "title" | "price" | "thumbnail" | "isLarge">[]) => {
+  const products: Pick<TProduct, "_id" | "title" | "price" | "thumbnail" | "isLarge">[] = [];
   let remaining = [...productItems];
   let placeLargeFirst = true;
 
@@ -23,8 +23,8 @@ export const rearrangeProducts = (productItems: TCardProductProps[]) => {
       }
 
       placeLargeFirst = !placeLargeFirst;
-      const takenIds = new Set([largeItem.id, ...smallItems.map((s) => s.id)]);
-      remaining = remaining.filter((item) => !takenIds.has(item.id));
+      const takenIds = new Set([largeItem._id, ...smallItems.map((s) => s._id)]);
+      remaining = remaining.filter((item) => !takenIds.has(item._id));
     }
   }
 
