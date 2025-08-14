@@ -16,7 +16,7 @@ const buttons = [
   { value: "thermal-layers", label: "Thermal Layers" },
 ];
 
-export const products: TProduct[] = [
+export const products: Pick<TProduct, "_id" | "title" | "thumbnail" | "images" | "price">[] = [
   {
     _id: "1",
     title: "Classic White T-Shirt",

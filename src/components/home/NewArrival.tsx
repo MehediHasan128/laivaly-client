@@ -5,8 +5,8 @@ import Container from "../reusable/Container";
 import Headline from "../reusable/Headline";
 import NewArrivalCard from "../reusable/NewArrivalCard";
 import Button from "../reusable/Button";
-import { TProduct } from "@/types/types";
 import { smoochsans } from "@/styles/font";
+import { TProduct } from "@/types/types";
 
 const buttons = [
   { value: "all", label: "All" },
@@ -19,7 +19,7 @@ const buttons = [
   { value: "shoes", label: "Shoes" },
 ];
 
-export const products: TProduct[] = [
+export const products: Pick<TProduct, "_id" | "title" | "thumbnail" | "images" | "price">[] = [
   {
     _id: "1",
     title: "Classic White T-Shirt",

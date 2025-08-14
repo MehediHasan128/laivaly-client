@@ -5,7 +5,11 @@ import { useState } from "react";
 import { Handbag, Heart } from "lucide-react";
 import { TProduct } from "@/types/types";
 
-const NewArrivalCard = ({ product }: { product: TProduct }) => {
+const NewArrivalCard = ({
+  product,
+}: {
+  product: Pick<TProduct, "_id" | "title" | "thumbnail" | "images" | "price">;
+}) => {
   const [productThumbnail, setProductThumbnail] = useState<string>(
     product?.thumbnail
   );
@@ -37,7 +41,12 @@ const NewArrivalCard = ({ product }: { product: TProduct }) => {
         {product?.title.length === 20 ? (
           <h1>{product?.title}</h1>
         ) : (
-          <h1>{product?.title.slice(0, 21)}<span className="bg-gradient-to-r from-[#000000ac] to-transparent bg-clip-text text-transparent">{product?.title.slice(21, 30)}</span></h1>
+          <h1>
+            {product?.title.slice(0, 21)}
+            <span className="bg-gradient-to-r from-[#000000ac] to-transparent bg-clip-text text-transparent">
+              {product?.title.slice(21, 30)}
+            </span>
+          </h1>
         )}
         <h1>${product?.price}</h1>
       </div>

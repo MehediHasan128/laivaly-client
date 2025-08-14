@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import SidebarFilters from "./SidebarFilters";
 
 interface TProductFiltersProps {
   title: string;
@@ -63,13 +64,15 @@ const ProductFilters = ({ filters }: { filters: TProductFiltersProps[] }) => {
       </div>
 
       {/* Filter for mobile devices */}
-      <div className="flex justify-between items-center font-semibold text-gray-600">
+      <div className="flex justify-between items-center md:hidden font-semibold text-gray-600">
         <h1 className="whitespace-nowrap">1404 items</h1>
 
-        <div className="flex items-center gap-2">
-          <h1>Filters</h1>
-          <SlidersHorizontal className="size-5" />
-        </div>
+        <SidebarFilters filters={filters}>
+          <div className="flex items-center gap-2">
+            <h1>Filters</h1>
+            <SlidersHorizontal className="size-5" />
+          </div>
+        </SidebarFilters>
       </div>
     </div>
   );
