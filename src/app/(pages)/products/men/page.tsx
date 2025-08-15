@@ -280,7 +280,7 @@ const MenPage = () => {
 
       <ProductFilters filters={filtersData} />
 
-      <ProductGrid products={products} />
+      <ProductGrid products={products} category="men" />
     </main>
   );
 };

@@ -49,8 +49,8 @@ const SidebarFilters = ({ children, filters }: TSidebarFilters) => {
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                   {filter?.options?.map((option, index) => (
                     <div key={index} className="flex items-center gap-1.5 font-semibold">
-                      <Checkbox />
-                      <h1>{option.label}</h1>
+                      <Checkbox id={option.value} />
+                      <label htmlFor={option.value}>{option.label}</label>
                     </div>
                   ))}
                 </AccordionContent>
