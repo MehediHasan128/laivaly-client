@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Dosis } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const dosis = Dosis({ subsets: ["latin"], variable: "--font-dosis" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dosis.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }
