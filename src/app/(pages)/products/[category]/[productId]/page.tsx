@@ -3,8 +3,10 @@ import ProductDescription from "@/components/productDetail/ProductDescription";
 import ProductImages from "@/components/productDetail/ProductImages";
 import Button from "@/components/reusable/Button";
 import Container from "@/components/reusable/Container";
+import Ratings from "@/components/reusable/Ratings";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CalculateAvgRatingAndPercentages } from "@/utils";
-import { Heart } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import { IoStar } from "react-icons/io5";
 
 const images = [
@@ -25,7 +27,8 @@ const ratingData = [
   { rating: 1, totalRating: 50 },
 ];
 
-const { avarageRating, ratingPercentages } = CalculateAvgRatingAndPercentages(ratingData);
+const { avarageRating, ratingPercentages } =
+  CalculateAvgRatingAndPercentages(ratingData);
 
 const ProductDetailsPage = () => {
   return (
@@ -77,13 +80,13 @@ const ProductDetailsPage = () => {
 
       <section className="mt-10">
         <Container>
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-5 md:gap-10">
             {/* Rating */}
-            <div className="md:w-[60%] lg:w-[50%]">
-              <div className="flex items-center md:items-start gap-5 lg:gap-10 xl:gap-20">
+            <div className="lg:w-[50%]">
+              <div className="flex items-center md:items-start gap-5 lg:gap-10 2xl:gap-20">
                 {/* Rating Avg */}
                 <div>
-                  <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl">
+                  <h1 className="text-5xl md:text-9xl lg:text-8xl xl:text-9xl">
                     {avarageRating}
                     <sub className="2xl:text-2xl gray-text">/5</sub>
                   </h1>
@@ -91,13 +94,16 @@ const ProductDetailsPage = () => {
                 </div>
 
                 {/* Rating Percent */}
-                <div className="w-full xl:w-[60%] space-y-0.5 md:space-y-2">
+                <div className="w-full 2xl:w-[60%] space-y-0.5 md:space-y-2">
                   {ratingPercentages.map((percent, index) => (
                     <div key={index} className="flex items-center gap-2.5">
-                      <IoStar className="text-[#FFB400] text-xl md:text-2xl" />
+                      <IoStar className="text-[#d89e16] text-xl md:text-2xl" />
                       <h1 className="font-semibold">{percent.rating}</h1>
                       <div className="h-[6px] md:h-2 w-full bg-gray-300 rounded-full">
-                        <div className={`rounded-full bg-black h-full`} style={{width: percent.percent}} />
+                        <div
+                          className={`rounded-full bg-black h-full`}
+                          style={{ width: percent.percent }}
+                        />
                       </div>
                     </div>
                   ))}
@@ -106,7 +112,30 @@ const ProductDetailsPage = () => {
             </div>
 
             {/* Review */}
-            <div className="md:w-[40%] lg:w-[50%]"></div>
+            <div className="lg:w-[50%]">
+              <div className="relative border rounded-xl 2xl:w-[80%] p-5 space-y-2 xl:space-y-3">
+                <h1 className="font-bold">Sumaiya Akter</h1>
+
+                <div>
+                  <Ratings value={4} readonly />
+                </div>
+
+                <p className="text-xs xl:text-sm gray-text">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Maxime dolorem ipsam tempore odit laudantium repellat
+                  similique nostrum neque quas? Harum natus consequatur incidunt
+                  distinctio accusamus ex sint ipsam obcaecati laboriosam?
+                </p>
+                <Avatar className="size-10 xl:size-12">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+
+                <div className="border w-fit rounded-full p-2 bg-accent active:scale-95 duration-700 cursor-pointer absolute -right-5 top-1/2 -translate-y-1/2">
+                  <ArrowRight />
+                </div>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
