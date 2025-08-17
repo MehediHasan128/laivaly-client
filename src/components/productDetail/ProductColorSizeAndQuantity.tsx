@@ -26,7 +26,7 @@ const ProductColorSizeAndQuantity = ({
             <div
               key={index}
               onClick={() => setProductColor(color)}
-              className={`size-8 md:size-10 rounded-full overflow-hidden border-2 cursor-pointer ${
+              className={`size-10 rounded-full overflow-hidden border-2 cursor-pointer ${
                 productColor === color ? "border-black" : "border-transparent"
               } p-0.5`}
             >
@@ -51,7 +51,7 @@ const ProductColorSizeAndQuantity = ({
                 productSize === size
                   ? "bg-black text-white"
                   : "bg-accent text-black"
-              } rounded-full font-medium w-16 md:w-20 lg:w-16 xl:w-20 text-center text-sm xl:text-base py-1 md:py-1.5 cursor-pointer`}
+              } rounded-full font-medium w-16 md:w-20 lg:w-16 xl:w-20 text-center text-sm xl:text-base py-1.5 cursor-pointer`}
             >
               {size}
             </div>

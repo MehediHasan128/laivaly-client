@@ -6,3 +6,8 @@ export interface TProduct {
   images: string[];
   isLarge: boolean;
 }
+
+export interface TRatingData {
+  rating: number;
+  totalRating: number;
+}

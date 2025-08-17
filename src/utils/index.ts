@@ -1,7 +1,15 @@
-import { TProduct } from "@/types/types";
+import { TProduct, TRatingData } from "@/types/types";
 
-export const rearrangeProducts = (productItems: Pick<TProduct, "_id" | "title" | "price" | "thumbnail" | "isLarge">[]) => {
-  const products: Pick<TProduct, "_id" | "title" | "price" | "thumbnail" | "isLarge">[] = [];
+export const rearrangeProducts = (
+  productItems: Pick<
+    TProduct,
+    "_id" | "title" | "price" | "thumbnail" | "isLarge"
+  >[]
+) => {
+  const products: Pick<
+    TProduct,
+    "_id" | "title" | "price" | "thumbnail" | "isLarge"
+  >[] = [];
   let remaining = [...productItems];
   let placeLargeFirst = true;
 
@@ -23,10 +31,35 @@ export const rearrangeProducts = (productItems: Pick<TProduct, "_id" | "title" |
       }
 
       placeLargeFirst = !placeLargeFirst;
-      const takenIds = new Set([largeItem._id, ...smallItems.map((s) => s._id)]);
+      const takenIds = new Set([
+        largeItem._id,
+        ...smallItems.map((s) => s._id),
+      ]);
       remaining = remaining.filter((item) => !takenIds.has(item._id));
     }
   }
 
   return products;
+};
+
+export const CalculateAvgRatingAndPercentages = (ratingData: TRatingData[]) => {
+  let totalScore = 0;
+  let totalCount = 0;
+
+  for (const item of ratingData) {
+    totalScore += item.rating * item.totalRating;
+    totalCount += item.totalRating;
+  }
+
+  const avarageRating = (totalScore / totalCount).toFixed(1);
+
+  const ratingPercentages = ratingData?.map((item: TRatingData) => ({
+    rating: item.rating,
+    percent: Math.round((Number(item.totalRating) / totalCount) * 100) + "%",
+  }));
+
+  return {
+    avarageRating,
+    ratingPercentages,
+  };
 };
