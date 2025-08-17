@@ -8,7 +8,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
     const [thumbnail, setThaumbnail] = useState<string>("/images/products/10.jpg");
 
   return (
-    <div className="flex flex-col lg:flex-row-reverse gap-1.5 h-[80vh] md:h-[90vh] lg:h-[80vh] xl:h-[80vh] lg:w-[55%] xl:w-[50vw]">
+    <div className="flex flex-col lg:flex-row-reverse gap-1.5 h-[80vh] md:h-[90vh] lg:h-[80vh] xl:h-[100vh] lg:w-[55%] xl:w-[50vw]">
       {/* Thumbnail Images */}
       <div className="relative h-[85%] md:h-[80%] lg:h-full lg:w-[80%]">
         <Image

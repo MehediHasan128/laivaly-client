@@ -1,6 +1,7 @@
 import ProductColorSizeAndQuantity from "@/components/productDetail/ProductColorSizeAndQuantity";
 import ProductDescription from "@/components/productDetail/ProductDescription";
 import ProductImages from "@/components/productDetail/ProductImages";
+import ProductReviewDrawer from "@/components/productDetail/ProductReviewDrawer";
 import Button from "@/components/reusable/Button";
 import Container from "@/components/reusable/Container";
 import Ratings from "@/components/reusable/Ratings";
@@ -38,7 +39,7 @@ const ProductDetailsPage = () => {
         <ProductImages images={images} />
 
         {/* Product Info */}
-        <div className="h-[10%] lg:h-full p-3 md:p-5 lg:w-[45%] xl:w-[50vw] space-y-3 xl:space-y-5">
+        <div className="h-[10%] lg:h-full p-3 md:p-5 xl:px-24 2xl:px-42 xl:py-16 2xl:py-20 lg:w-[45%] xl:w-[50vw] space-y-3 xl:space-y-5">
           <div className="space-y-2 md:space-y-3 xl:space-y-5">
             <div className="border rounded-full w-fit gray-text px-5 py-0.5">
               Coat
@@ -63,16 +64,16 @@ const ProductDetailsPage = () => {
           <div className="mt-10 flex gap-3">
             <Button
               buttonTitle="Buy It Now"
-              className="border w-full flex justify-center bg-black text-white rounded-full"
+              className="border w-full flex justify-center bg-black text-white rounded"
             />
             <Button
               buttonTitle="Add To Cart"
-              className="border w-full flex justify-center rounded-full"
+              className="border w-full flex justify-center rounded hover:border-black"
             />
             <Button
               buttonTitle=""
               buttonIcon={<Heart className="size-5" />}
-              className="rounded-full"
+              className="rounded-full hover:border-black"
             />
           </div>
         </div>
@@ -97,7 +98,7 @@ const ProductDetailsPage = () => {
                 <div className="w-full 2xl:w-[60%] space-y-0.5 md:space-y-2">
                   {ratingPercentages.map((percent, index) => (
                     <div key={index} className="flex items-center gap-2.5">
-                      <IoStar className="text-[#d89e16] text-xl md:text-2xl" />
+                      <IoStar className="text-[#FFB400] text-xl md:text-2xl" />
                       <h1 className="font-semibold">{percent.rating}</h1>
                       <div className="h-[6px] md:h-2 w-full bg-gray-300 rounded-full">
                         <div
@@ -112,15 +113,15 @@ const ProductDetailsPage = () => {
             </div>
 
             {/* Review */}
-            <div className="lg:w-[50%]">
-              <div className="relative border rounded-xl 2xl:w-[80%] p-5 space-y-2 xl:space-y-3">
+            <div className="w-[95%] md:w-[100%] lg:w-[50%]">
+              <div className="relative border rounded-xl 2xl:w-[80%] p-3 md:p-5 space-y-2 xl:space-y-3">
                 <h1 className="font-bold">Sumaiya Akter</h1>
 
                 <div>
                   <Ratings value={4} readonly />
                 </div>
 
-                <p className="text-xs xl:text-sm gray-text">
+                <p className="text-xs xl:text-sm gray-text text-justify pr-5">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime dolorem ipsam tempore odit laudantium repellat
                   similique nostrum neque quas? Harum natus consequatur incidunt
@@ -131,9 +132,11 @@ const ProductDetailsPage = () => {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
 
-                <div className="border w-fit rounded-full p-2 bg-accent active:scale-95 duration-700 cursor-pointer absolute -right-5 top-1/2 -translate-y-1/2">
-                  <ArrowRight />
-                </div>
+                <ProductReviewDrawer>
+                  <div className="border w-fit rounded-full p-2 bg-accent active:scale-95 duration-700 cursor-pointer absolute -right-5 top-1/2 -translate-y-1/2">
+                    <ArrowRight />
+                  </div>
+                </ProductReviewDrawer>
               </div>
             </div>
           </div>
