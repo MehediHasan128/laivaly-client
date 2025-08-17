@@ -7,6 +7,7 @@ interface TratingProps {
   value: number;
   transition?: "none" | "zoom" | "colors" | "opacity" | "position";
   readonly?: boolean;
+  size?:number;
 };
 
 const myStyles = {
@@ -14,16 +15,17 @@ const myStyles = {
   itemStrokeWidth: 1,
   activeFillColor: '#FFB400',
   activeStrokeColor: '#d89816',
-  inactiveFillColor: '#fce2a7',
+  inactiveFillColor: '#f2f2f2',
   inactiveStrokeColor: '#d89816'
 }
 
-const Ratings = ({ value, transition, readonly }: TratingProps) => {
+const Ratings = ({ value, transition, readonly, size = 100 }: TratingProps) => {
+
   const [rating, setRating] = useState(3.6);
 
   return (
     <ReactRating
-      style={{ maxWidth: 100 }}
+      style={{ maxWidth: size }}
       value={value}
       onChange={setRating}
       halfFillMode="svg"

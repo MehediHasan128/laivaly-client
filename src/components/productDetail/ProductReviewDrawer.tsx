@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 import Button from "../reusable/Button";
 import Ratings from "../reusable/Ratings";
 import ProductReview from "./ProductReview";
+import WriteProductReviewDialog from "./WriteProductReviewDialog";
 
 const isComment = true;
 
@@ -49,7 +50,7 @@ const ProductReviewDrawer = ({ children }: { children: ReactNode }) => {
         </DrawerHeader>
 
         <div className="px-4 overflow-scroll scrollbar-hide">
-          <div className="border-y sticky top-0 bg-white z-10">
+          <div className="border-y">
             <div className="lg:w-[90%] mx-auto py-10 2xl:py-16">
               <div className="space-y-5">
                 <h1
@@ -70,10 +71,11 @@ const ProductReviewDrawer = ({ children }: { children: ReactNode }) => {
                   <div className={`${!isComment && "hidden"}`}>
                     <Ratings value={5} readonly />
                   </div>
-                  <Button
-                    buttonTitle="Write a Review"
-                    className="w-full flex justify-center rounded hover:bg-black hover:text-white duration-500"
-                  />
+                  <WriteProductReviewDialog>
+                    <div className="w-full border border-black cursor-pointer flex justify-center rounded bg-black text-white lg:bg-white lg:text-black lg:hover:bg-black lg:hover:text-white duration-500 font-medium py-3 md:py-4">
+                      Write a Review
+                    </div>
+                  </WriteProductReviewDialog>
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 import ProductColorSizeAndQuantity from "@/components/productDetail/ProductColorSizeAndQuantity";
 import ProductDescriptionDrawer from "@/components/productDetail/ProductDescriptionDrawer";
-import ProductDescription from "@/components/productDetail/ProductDescriptionDrawer";
 import ProductImages from "@/components/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/productDetail/ProductReviewDrawer";
 import ProductGrid from "@/components/products/ProductGrid";
