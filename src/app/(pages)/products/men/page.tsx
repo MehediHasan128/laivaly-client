@@ -1,14 +1,6 @@
 import CategoryBanner from "@/components/products/CategoryBanner";
 import ProductFilters from "@/components/products/ProductFilters";
 import ProductGrid from "@/components/products/ProductGrid";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { rearrangeProducts } from "@/utils";
 import { Metadata } from "next";
 

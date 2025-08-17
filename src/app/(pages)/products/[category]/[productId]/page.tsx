@@ -1,7 +1,9 @@
 import ProductColorSizeAndQuantity from "@/components/productDetail/ProductColorSizeAndQuantity";
-import ProductDescription from "@/components/productDetail/ProductDescription";
+import ProductDescriptionDrawer from "@/components/productDetail/ProductDescriptionDrawer";
+import ProductDescription from "@/components/productDetail/ProductDescriptionDrawer";
 import ProductImages from "@/components/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/productDetail/ProductReviewDrawer";
+import ProductGrid from "@/components/products/ProductGrid";
 import Button from "@/components/reusable/Button";
 import Container from "@/components/reusable/Container";
 import Ratings from "@/components/reusable/Ratings";
@@ -9,6 +11,37 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CalculateAvgRatingAndPercentages } from "@/utils";
 import { ArrowRight, Heart } from "lucide-react";
 import { IoStar } from "react-icons/io5";
+
+const allProducts = [
+  {
+    _id: "1",
+    thumbnail: "/images/categories/p1.jpg",
+    title: "Slim Fit Blue Jeans",
+    price: 59.0,
+    isLarge: false,
+  },
+  {
+    _id: "2",
+    thumbnail: "/images/categories/p2.jpg",
+    title: "Slim Fit Blue Jeans",
+    price: 59.0,
+    isLarge: false,
+  },
+  {
+    _id: "3",
+    thumbnail: "/images/categories/p1.jpg",
+    title: "Slim Fit Blue Jeans",
+    price: 59.0,
+    isLarge: false,
+  },
+  {
+    _id: "4",
+    thumbnail: "/images/categories/p1.jpg",
+    title: "Slim Fit Blue Jeans",
+    price: 59.0,
+    isLarge: false,
+  },
+];
 
 const images = [
   "/images/products/10.jpg",
@@ -57,7 +90,19 @@ const ProductDetailsPage = () => {
           </div>
 
           {/* Product Description */}
-          <ProductDescription />
+          <div className="space-y-3">
+            <h1 className="font-semibold text-lg">Description:</h1>
+            <p className="gray-text text-justify text-xs xl:text-sm">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Laboriosam velit delectus quasi maiores? Repellat voluptatem
+              consequuntur perspiciatis! Deserunt, voluptatum. Perspiciatis,
+              aspernatur suscipit? Nihil praesentium sint nisi in, veritatis
+              quibusdam eum id et reiciendis esse cumque voluptate voluptatem...{" "}
+              <ProductDescriptionDrawer>
+                <span className="text-blue-700 font-semibold cursor-pointer">See More</span>
+              </ProductDescriptionDrawer>
+            </p>
+          </div>
 
           <ProductColorSizeAndQuantity colors={colors} sizes={sizes} />
 
@@ -79,7 +124,7 @@ const ProductDetailsPage = () => {
         </div>
       </section>
 
-      <section className="mt-10">
+      <section className="my-10">
         <Container>
           <div className="flex flex-col lg:flex-row lg:items-center gap-5 md:gap-10">
             {/* Rating */}
@@ -124,8 +169,7 @@ const ProductDetailsPage = () => {
                 <p className="text-xs xl:text-sm gray-text text-justify pr-5">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime dolorem ipsam tempore odit laudantium repellat
-                  similique nostrum neque quas? Harum natus consequatur incidunt
-                  distinctio accusamus ex sint ipsam obcaecati laboriosam?
+                  similique nostrum neque quas?
                 </p>
                 <Avatar className="size-10 xl:size-12">
                   <AvatarImage src="https://github.com/shadcn.png" />
@@ -133,7 +177,7 @@ const ProductDetailsPage = () => {
                 </Avatar>
 
                 <ProductReviewDrawer>
-                  <div className="border w-fit rounded-full p-2 bg-accent active:scale-95 duration-700 cursor-pointer absolute -right-5 top-1/2 -translate-y-1/2">
+                  <div className="border w-fit bg-black text-white rounded-full p-2 active:scale-95 duration-700 cursor-pointer absolute -right-5 top-1/2 -translate-y-1/2">
                     <ArrowRight />
                   </div>
                 </ProductReviewDrawer>
@@ -141,6 +185,16 @@ const ProductDetailsPage = () => {
             </div>
           </div>
         </Container>
+      </section>
+
+      <section className="mb-10">
+        <h1 className="text-center text-xl md:text-3xl font-semibold">
+          You might also like
+        </h1>
+
+        <div>
+          <ProductGrid products={allProducts} category="men" />
+        </div>
       </section>
     </main>
   );

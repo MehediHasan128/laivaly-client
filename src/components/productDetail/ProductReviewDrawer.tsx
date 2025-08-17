@@ -5,8 +5,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -14,8 +12,6 @@ import {
 import { X } from "lucide-react";
 import Button from "../reusable/Button";
 import Ratings from "../reusable/Ratings";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { SlDislike, SlLike } from "react-icons/sl";
 import ProductReview from "./ProductReview";
 
 const isComment = true;
