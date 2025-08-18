@@ -32,7 +32,6 @@ const SignupForm = () => {
               type="text"
               name="userName.firstName"
               placeholder="First Name"
-              className="px-5 py-3"
             />
           </div>
           <div className="w-full">
@@ -40,7 +39,6 @@ const SignupForm = () => {
               type="text"
               name="userName.lastName"
               placeholder="Last Name"
-              className="px-5 py-3"
             />
           </div>
         </div>
@@ -51,7 +49,6 @@ const SignupForm = () => {
             type="email"
             name="userEmail"
             placeholder="Enter your email *"
-            className="px-5 py-3"
           />
         </div>
 
@@ -63,7 +60,6 @@ const SignupForm = () => {
               name="password"
               placeholder="Enter your password"
               setInputValue={setGivenPassword}
-              className="px-5 py-3"
             />
           </div>
           <div className="w-full">
@@ -71,7 +67,6 @@ const SignupForm = () => {
               type="text"
               name="confirmPassword"
               placeholder="Confirm your password"
-              className="px-5 py-3"
             />
           </div>
         </div>

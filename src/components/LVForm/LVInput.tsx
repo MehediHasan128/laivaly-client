@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
+import { Input } from "../ui/input";
 
 interface TLVInputProps {
   type: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   setInputValue?: Dispatch<SetStateAction<string | null>>;
 }
@@ -16,7 +17,7 @@ const LVInput = ({ type, name, placeholder, className, setInputValue }: TLVInput
       <Controller
         name={name}
         render={({ field }) => (
-          <input
+          <Input
             {...field}
             onChange={(e) => setInputValue?.(e.target.value)}
             type={type}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { FieldValues } from "react-hook-form";
+import { Label } from "../ui/label";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
@@ -24,7 +25,6 @@ const LoginForm = () => {
               type="email"
               name="email"
               placeholder="Enter your Laivaly email"
-              className="px-5 py-3"
             />
           </div>
           {/* Password Input */}
@@ -33,7 +33,6 @@ const LoginForm = () => {
               type={showPass? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              className="px-5 py-3"
             />
             {showPass ? (
               <div
@@ -51,9 +50,8 @@ const LoginForm = () => {
               </div>
             )}
 
-            <h1 className="absolute right-0 font-medium p-0.5 hover:underline cursor-pointer">
-              Forget Password
-            </h1>
+            <Label className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer">Forget Password</Label>
+
           </div>
           {/* Submit button */}
           <div>
@@ -64,13 +62,6 @@ const LoginForm = () => {
               login
             </button>
           </div>
-          {/* Signup link */}
-          <h1>
-            Don’t have an account?{" "}
-            <Link href="/signup" className="font-semibold underline cursor-pointer">
-              Sign up for free.
-            </Link>
-          </h1>
         </div>
       </LVForm>
     </>

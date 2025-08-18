@@ -1,5 +1,4 @@
 import Button from "@/components/reusable/Button";
-import Container from "@/components/reusable/Container";
 import { Metadata } from "next";
 import React from "react";
 
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const WishlistPage = () => {
-  const user = false;
+  const user = true;
 
   return (
     <div>

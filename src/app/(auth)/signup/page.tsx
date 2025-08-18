@@ -1,5 +1,6 @@
 import SignupForm from "@/components/auth/SignupForm";
 import HorizontalDivider from "@/components/reusable/HorizontalDivider";
+import { Label } from "@/components/ui/label";
 import { smoochsans } from "@/styles/font";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -70,23 +71,19 @@ const SignupPage = () => {
           {/* Form */}
           <div className="flex-1 flex justify-center items-center text-center pb-10 lg:pb-0">
             <div>
-              <h1 className="uppercase text-4xl md:text-6xl lg:text-5xl xl:text-6xl font-light">
+              <h1 className="uppercase text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-light">
                 create an account
               </h1>
 
-              {/* Dignup form */}
-              <div className="mt-10 w-80 md:w-auto">
+              {/* Signup form */}
+              <div className="mt-10">
                 <SignupForm />
 
-                <h1 className="mt-3">
-                  Already have an account?{" "}
-                  <Link
-                    href="/login"
-                    className="font-semibold underline cursor-pointer"
-                  >
-                    Login.
-                  </Link>
-                </h1>
+                <div className="mt-3 flex justify-center">
+                  <Label className="font-semibold">
+                    Already have an account? <Link href="/login" className="underline text-blue-600">Login.</Link>
+                  </Label>
+                </div>
               </div>
 
               {/* Horizontal divider */}
@@ -95,15 +92,15 @@ const SignupPage = () => {
               </div>
 
               {/* Login in with google and apple id button */}
-              <div className="mt-5 md:mt-10 space-y-3">
+              <div className="mt-5 md:mt-10 space-y-3 text-sm">
                 {/* Google button */}
-                <button className="flex justify-center items-center gap-3 font-semibold cursor-pointer rounded border border-black mx-auto py-3 w-full hover:bg-black hover:text-white duration-700 md:text-lg">
-                  <FcGoogle className="text-2xl md:text-3xl" />
+                <button className="flex justify-center items-center gap-3 font-semibold cursor-pointer rounded border border-black mx-auto py-3 w-full hover:bg-black hover:text-white duration-700">
+                  <FcGoogle className="text-xl md:text-3xl" />
                   <span>Continue with Google</span>
                 </button>
                 {/* Apple button */}
-                <button className="flex justify-center items-center gap-3 font-semibold cursor-pointer rounded border border-black mx-auto py-3 w-full hover:bg-black hover:text-white duration-700 md:text-lg">
-                  <FaApple className="text-2xl md:text-3xl" />
+                <button className="flex justify-center items-center gap-3 font-semibold cursor-pointer rounded border border-black mx-auto py-3 w-full hover:bg-black hover:text-white duration-700">
+                  <FaApple className="text-xl md:text-3xl" />
                   <span>Continue with Apple</span>
                 </button>
               </div>
