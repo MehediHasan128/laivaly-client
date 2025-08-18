@@ -65,6 +65,10 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
                 <Label className="text-sm md:text-base">Photo</Label>
                 <LVInput type="file" name="image" />
               </div>
+
+              <div>
+                <button className="bg-black text-white rounded cursor-pointer w-full md:w-[30%] py-3">Submit</button>
+              </div>
             </div>
           </LVForm>
 
