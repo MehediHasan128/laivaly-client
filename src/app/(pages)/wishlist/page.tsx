@@ -1,5 +1,10 @@
 import Button from "@/components/reusable/Button";
+import WishlistProductCard from "@/components/reusable/WishlistProductCard";
+import { Label } from "@/components/ui/label";
+import { smoochsans } from "@/styles/font";
 import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -22,11 +27,34 @@ const WishlistPage = () => {
             Create your personal wishlist, track your favorites, and shop with
             ease. Don’t let your style get away.
           </p>
-          <div>
-            <Button buttonTitle="SignIn" />
+          <div className="flex justify-center">
+            <Link href="/login">
+              <Button
+                buttonTitle="SignIn"
+                className="bg-black text-white rounded flex justify-center"
+              />
+            </Link>
           </div>
         </div>
       )}
+
+      <div className="my-10">
+        <div className="px-5 space-y-3 md:space-y-5">
+          <h1
+            className={`${smoochsans.className} text-8xl md:text-9xl uppercase font-extrabold`}
+          >
+            favourites
+          </h1>
+          <p className="text-lg font-semibold">2 Items</p>
+        </div>
+
+        <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-5">
+            <WishlistProductCard />
+            <WishlistProductCard />
+            <WishlistProductCard />
+            <WishlistProductCard />
+        </div>
+      </div>
     </div>
   );
 };

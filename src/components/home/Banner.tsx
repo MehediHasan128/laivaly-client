@@ -6,8 +6,6 @@ import { ArrowRight, Search } from "lucide-react";
 import Searchbar from "../shared/navbar/searchBar/Searchbar";
 import { grateVibes, smoochsans } from "@/styles/font";
 
-
-
 const Banner = () => {
   const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
 
@@ -44,15 +42,19 @@ const Banner = () => {
                   Laivaly.
                 </p>
                 <div className="flex gap-3 md:gap-5">
-                  <button className="bg-black text-white cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1.5 lg:py-1 font-medium">
-                    Shop Now
-                    <div className="bg-white w-fit rounded-full text-black p-1.5 md:p-2.5 lg:p-1.5 xl:p-2.5">
+                  <button className="border flex justify-between items-center rounded-full bg-black text-white cursor-pointer p-1">
+                    <h1 className="px-5 text-xs md:text-sm lg:text-xs xl:text-sm font-medium">
+                      Shop Now
+                    </h1>
+                    <div className="bg-white p-2.5 md:p-3 rounded-full text-black">
                       <ArrowRight size={16} />
                     </div>
                   </button>
-                  <button className="bg-accent cursor-pointer border border-black rounded-full flex items-center gap-5 lg:gap-3 xl:gap-5 pl-5 pr-1 py-1.5 lg:py-1 font-medium">
-                    Explore Collection
-                    <div className="bg-black w-fit rounded-full text-white p-1.5 md:p-2.5 lg:p-1.5 xl:p-2.5">
+                  <button className="border border-black flex justify-between items-center rounded-full cursor-pointer p-1">
+                    <h1 className="px-5 text-xs md:text-sm lg:text-xs xl:text-sm font-medium">
+                      Explore Collection
+                    </h1>
+                    <div className="bg-black p-2.5 md:p-3 rounded-full text-white">
                       <ArrowRight size={16} />
                     </div>
                   </button>
@@ -113,11 +115,20 @@ const Banner = () => {
       {/* Video banner */}
       <div>
         <div className="2xl:h-[900px] overflow-hidden relative">
-          <video src="/videos/banner.mp4" loop autoPlay muted playsInline className="w-full h-full object-cover" />
+          <video
+            src="/videos/banner.mp4"
+            loop
+            autoPlay
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
           <div className="absolute top-0 w-full h-full text-white bg-gradient-to-t from-[#000000cf] to-[#0000]">
             <div className="flex flex-col justify-end items-center gap-0.5 md:gap-2.5 xl:gap-5 h-full p-5 2xl:p-10">
               <p className="text-xs md:text-base">Men, Women</p>
-              <h1 className="text-xl md:text-2xl xl:text-4xl">Fall Winter - 2025</h1>
+              <h1 className="text-xl md:text-2xl xl:text-4xl">
+                Fall Winter - 2025
+              </h1>
               <p className="underline cursor-pointer text-xs md:text-sm xl:text-base">
                 Discover All Collection
               </p>
