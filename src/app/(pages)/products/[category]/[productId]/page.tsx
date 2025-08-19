@@ -8,7 +8,7 @@ import Container from "@/components/reusable/Container";
 import Ratings from "@/components/reusable/Ratings";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CalculateAvgRatingAndPercentages } from "@/utils";
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, ChevronRight, Heart } from "lucide-react";
 import Image from "next/image";
 import { IoStar } from "react-icons/io5";
 
@@ -53,30 +53,18 @@ const images = [
 const colors = ["#FF7F50", "#1E3A8A", "#8B4513", "#000000"];
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
-const ratingData = [
-  { rating: 5, totalRating: 800 },
-  { rating: 4, totalRating: 300 },
-  { rating: 3, totalRating: 120 },
-  { rating: 2, totalRating: 80 },
-  { rating: 1, totalRating: 50 },
-];
-
-const { avarageRating, ratingPercentages } =
-  CalculateAvgRatingAndPercentages(ratingData);
-
 //  sm:flex flex-col lg:flex-row
 
 const ProductDetailsPage = () => {
   return (
     <main>
-
       <section className="flex flex-col lg:flex-row">
         <div className="lg:w-[50vw]">
           <ProductImages images={images} />
         </div>
 
         <div className="lg:w-[50vw] px-3 py-5 md:px-20 md:py-10 lg:px-42 lg:py-16 relative">
-          <div className="sticky top-20 space-y-3 xl:space-y-5">
+          <div className="sticky top-10 space-y-3 xl:space-y-5">
             <div className="space-y-2 md:space-y-3 xl:space-y-5">
               <div className="border rounded-full w-fit gray-text px-5 py-0.5">
                 Coat
@@ -123,6 +111,25 @@ const ProductDetailsPage = () => {
                 buttonIcon={<Heart className="size-5" />}
                 className="rounded-full hover:border-black"
               />
+            </div>
+
+            <div className="mt-12">
+              <div className="w-full border-b mb-5" />
+              <ProductReviewDrawer>
+                <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
+                  <h1>Reviews</h1>
+                  <span className="flex gap-2 items-center">
+                    <h1>4.3/5</h1>
+                    <ChevronRight />
+                  </span>
+                </div>
+              </ProductReviewDrawer>
+              <div className="w-full border-b my-5" />
+              <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
+                <h1>Shipping & Return</h1>
+                <ChevronRight />
+              </div>
+              <div className="w-full border-b mt-5" />
             </div>
           </div>
         </div>
