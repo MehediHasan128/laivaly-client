@@ -17,7 +17,7 @@ const ProductColorSizeAndQuantity = ({
   const [quantity, setQuantity] = useState<number>(0);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 xl:space-y-5">
       {/* Color button */}
       <div className="space-y-2">
         <h1 className="font-semibold text-sm md:text-base">Select Color</h1>

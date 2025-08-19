@@ -74,13 +74,21 @@ const Navbar = () => {
         </Link>
 
         {/* Menu bar and search button */}
-        <div className="flex-item-center gap-5 2xl:gap-8">
-          <Link href={"/wishlist"} className="hidden md:block">
-            <Heart />
+        <div className="flex-item-center gap-5">
+          <Link href={"/wishlist"} className="relative">
+            <Heart className="size-5 md:size-6" />
+            <div className="absolute text-xs md:text-sm font-semibold left-1/2 -translate-x-1/2">
+              <p>1</p>
+            </div>
           </Link>
-          <Handbag />
+          <Link href="/" className="relative">
+            <Handbag className="size-5 md:size-6" />
+            <div className="absolute text-xs md:text-sm font-semibold left-1/2 -translate-x-1/2">
+              <p>2</p>
+            </div>
+          </Link>
           <Link href="/login">
-            <UserRound />
+            <UserRound className="size-5 md:size-6" />
           </Link>
         </div>
       </div>

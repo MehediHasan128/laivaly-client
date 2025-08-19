@@ -1,40 +1,73 @@
-"use client"
+"use client";
 
 import Image from "next/image";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import { useState } from "react";
 
 const ProductImages = ({ images }: { images: string[] }) => {
+  const [imgIndex, setImageIndex] = useState<number>(0);
 
-    const [thumbnail, setThaumbnail] = useState<string>("/images/products/10.jpg");
+  console.log(imgIndex);
 
   return (
-    <div className="flex flex-col lg:flex-row-reverse gap-1.5 h-[80vh] md:h-[90vh] lg:h-[80vh] xl:h-[100vh] lg:w-[55%] xl:w-[50vw]">
-      {/* Thumbnail Images */}
-      <div className="relative h-[85%] md:h-[80%] lg:h-full lg:w-[80%]">
-        <Image
-          src={thumbnail}
-          alt="img"
-          quality={100}
-          fill
-          className="object-cover"
-        />
+    <>
+      <div className="hidden lg:block">
+        {images.map((image, index) => (
+          <div key={index} className="relative w-full h-[150vh]">
+            <Image
+              src={image}
+              alt="product"
+              quality={100}
+              fill
+              className="object-cover"
+            />
+          </div>
+        ))}
       </div>
-      <div className="h-[15%] md:h-[20%] lg:h-full lg:w-[20%]">
-        <div className="flex flex-row lg:flex-col gap-1.5 size-full">
-          {images?.map((img, index) => (
-            <div key={index} onClick={() => setThaumbnail(img)} className={`relative size-full cursor-pointer border-2 ${thumbnail === img ? "border-black" : "border-transparent"}`}>
-              <Image
-                src={img}
-                alt="img"
-                quality={100}
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
+
+      <div className="block lg:hidden">
+        <Carousel
+          setApi={(api) => {
+            if (!api) return;
+            api.on("select", () => {
+              setImageIndex(api.selectedScrollSnap());
+            });
+          }}
+        >
+          <CarouselContent>
+            {images.map((image, index) => (
+              <CarouselItem key={index}>
+                <div key={index} className="relative w-full h-[70vh] md:h-screen">
+                  <Image
+                    src={image}
+                    alt="product"
+                    quality={100}
+                    fill
+                    className="object-cover md:object-center"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        <div>
+          <div className="relative w-full flex">
+            {/* background bars */}
+            {images.map((_, index) => (
+              <div key={index} className="h-1 w-full bg-gray-200" />
+            ))}
+
+            <div
+              className="absolute top-0 left-0 h-1 bg-black transition-all duration-500"
+              style={{
+                width: `${100 / images.length}%`,
+                transform: `translateX(${imgIndex * 100}%)`,
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
