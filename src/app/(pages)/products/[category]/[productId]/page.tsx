@@ -98,10 +98,7 @@ const ProductDetailsPage = () => {
               <p className="gray-text text-justify text-xs xl:text-sm">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Laboriosam velit delectus quasi maiores? Repellat voluptatem
-                consequuntur perspiciatis! Deserunt, voluptatum. Perspiciatis,
-                aspernatur suscipit? Nihil praesentium sint nisi in, veritatis
-                quibusdam eum id et reiciendis esse cumque voluptate
-                voluptatem...{" "}
+                consequuntur perspiciatis{" "}
                 <ProductDescriptionDrawer>
                   <span className="text-blue-700 font-semibold cursor-pointer">
                     See More
