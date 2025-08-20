@@ -135,7 +135,7 @@ const ProductDetailsPage = () => {
         </div>
       </section>
 
-      <section className="mt-42">
+      <section className="mt-20 xl:mt-42">
         <h1 className="text-center text-xl md:text-3xl font-semibold">
           You might also like
         </h1>
