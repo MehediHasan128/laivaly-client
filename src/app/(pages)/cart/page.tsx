@@ -1,8 +1,15 @@
 import PromoCodeForm from "@/components/cart/PromoCodeForm";
 import Button from "@/components/reusable/Button";
+import CartProductCard from "@/components/reusable/CartProductCard";
 import Container from "@/components/reusable/Container";
 import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import HorizontalDivider from "@/components/reusable/HorizontalDivider";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   Carousel,
   CarouselContent,
@@ -12,14 +19,52 @@ import {
 } from "@/components/ui/carousel";
 import { smoochsans } from "@/styles/font";
 import { MessageCircleWarning } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+export const metadata = {
+  title: "Your Shopping Cart",
+  description:
+    "Review and manage the items in your Laivaly shopping cart. Update quantities, remove products, and proceed to secure checkout with Stripe, PayPal, or Cash on Delivery.",
+  keywords: [
+    "Laivaly cart",
+    "Laivaly shopping cart",
+    "Laivaly checkout",
+    "fashion cart",
+    "Laivaly order",
+    "Laivaly payment",
+  ],
+};
+
+const cartProducts = [
+  {
+    id: "01",
+    productThumbnai: "/images/products/26.jpg",
+    title: "Premium Breathable Linen Button-Down Shirt",
+    productSKU: "LVP-R85W20",
+    price: 49.99,
+    color: "Red",
+    size: "M",
+    discount: 50,
+    quantity: 1
+  },
+  {
+    id: "02",
+    productThumbnai: "/images/products/25.jpg",
+    title: "Premium Breathable Linen Button-Down Shirt",
+    productSKU: "LVP-58GR23",
+    price: 26.50,
+    color: "Blue",
+    size: "S",
+    discount: 10,
+    quantity: 2
+  },
+]
 
 const haveProduct = true;
 
 const CartPage = () => {
-
-
   return (
     <>
       {!haveProduct && (
@@ -83,11 +128,18 @@ const CartPage = () => {
                 Items in bag are not reserved and may sell out. Order now.
               </p>
             </div>
-            <div className="flex">
-              <div className="w-[65%] border"></div>
-              <div className="w-[35%] border-black px-10">
-                <div>
-                  <div className="border-y px-5">
+
+            <div className="flex flex-col xl:flex-row gap-10 xl:gap-0">
+              <div className="xl:w-[65%] border-t">
+                {
+                  cartProducts.map((product) => <CartProductCard key={product.id} product={product} />)
+                }
+              </div>
+
+              {/* Cart Summary */}
+              <div className="xl:w-[35%] relative">
+                <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
+                  <div className="border-y">
                     <Accordion
                       type="single"
                       collapsible
@@ -95,12 +147,67 @@ const CartPage = () => {
                       defaultValue=""
                     >
                       <AccordionItem value="couponCode">
-                        <AccordionTrigger className="font-semibold hover:no-underline cursor-pointer">Have A Promo Code?</AccordionTrigger>
+                        <AccordionTrigger className="font-semibold hover:no-underline cursor-pointer">
+                          Have A Promo Code?
+                        </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                           <PromoCodeForm />
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
+                  </div>
+                  <div className="space-y-5">
+                    <div className="flex justify-between font-semibold">
+                      <h1 className="text-xl">Order Summary</h1>
+                      <p>5 items</p>
+                    </div>
+                    <div className="space-y-2 text-sm gray-text font-medium">
+                      <div className="flex justify-between">
+                        <h1>Subtotal</h1>
+                        <p>$150.00</p>
+                      </div>
+                      <div className="flex justify-between">
+                        <h1>Shipping</h1>
+                        <p>$15.00</p>
+                      </div>
+                      <div className="flex justify-between">
+                        <h1>Tax</h1>
+                        <p>$20.50</p>
+                      </div>
+                    </div>
+                    <div className="w-full border-t border-black" />
+                    <div className="flex justify-between text-sm font-semibold">
+                      <h1>Estimated Total</h1>
+                      <p>$150.00</p>
+                    </div>
+                  </div>
+                  <button className="border w-full cursor-pointer bg-black text-white font-medium rounded active:scale-95 duration-500 py-3">
+                    Start Checkout
+                  </button>
+                  <HorizontalDivider
+                    title="or check out with"
+                    className="text-gray-600 text-xs"
+                  />
+
+                  <div className="flex gap-5">
+                    <button className="border w-full flex justify-center cursor-pointer rounded hover:border-black duration-500">
+                      <div className="relative w-16 h-14">
+                        <Image
+                          src="/images/icon/stripe.ico"
+                          alt="stripe"
+                          fill
+                        />
+                      </div>
+                    </button>
+                    <button className="border w-full flex justify-center cursor-pointer rounded hover:border-black duration-500">
+                      <div className="relative w-16 h-14">
+                        <Image
+                          src="/images/icon/paypal.ico"
+                          alt="stripe"
+                          fill
+                        />
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
