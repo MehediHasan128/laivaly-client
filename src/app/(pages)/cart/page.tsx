@@ -18,6 +18,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { smoochsans } from "@/styles/font";
+import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { MessageCircleWarning } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,24 +48,27 @@ const cartProducts = [
     color: "Red",
     size: "M",
     discount: 50,
-    quantity: 1
+    quantity: 1,
   },
   {
     id: "02",
     productThumbnai: "/images/products/25.jpg",
     title: "Premium Breathable Linen Button-Down Shirt",
     productSKU: "LVP-58GR23",
-    price: 26.50,
+    price: 26.5,
     color: "Blue",
     size: "S",
     discount: 10,
-    quantity: 2
+    quantity: 2,
   },
-]
+];
 
 const haveProduct = true;
 
 const CartPage = () => {
+  const { subTotal, shippingCharge, tax, estimatedTotal } =
+    CalculateProductTotalPriceShippingAndTax(cartProducts);
+
   return (
     <>
       {!haveProduct && (
@@ -113,15 +117,18 @@ const CartPage = () => {
         <Container>
           <div className="w-[90%] mx-auto space-y-10">
             <div className="space-y-2">
+              <p className="flex items-center gap-1 text-sm font-semibold gray-text">
+                Free shipping on orders of $100+
+              </p>
               <h1
                 className={`${smoochsans.className} text-5xl uppercase font-bold`}
               >
                 shopping bag{" "}
                 <span className="text-lg lowercase gray-text font-bold">
-                  (1 item)
+                  ({cartProducts.length} item)
                 </span>
               </h1>
-              <p className="flex items-center gap-1 text-sm font-semibold gray-text">
+              <p className="flex items-center gap-1 text-xs md:text-sm font-semibold gray-text">
                 <span>
                   <MessageCircleWarning className="size-4" />
                 </span>
@@ -131,9 +138,9 @@ const CartPage = () => {
 
             <div className="flex flex-col xl:flex-row gap-10 xl:gap-0">
               <div className="xl:w-[65%] border-t">
-                {
-                  cartProducts.map((product) => <CartProductCard key={product.id} product={product} />)
-                }
+                {cartProducts.map((product) => (
+                  <CartProductCard key={product.id} product={product} />
+                ))}
               </div>
 
               {/* Cart Summary */}
@@ -159,26 +166,26 @@ const CartPage = () => {
                   <div className="space-y-5">
                     <div className="flex justify-between font-semibold">
                       <h1 className="text-xl">Order Summary</h1>
-                      <p>5 items</p>
+                      <p>{cartProducts.length} items</p>
                     </div>
                     <div className="space-y-2 text-sm gray-text font-medium">
                       <div className="flex justify-between">
                         <h1>Subtotal</h1>
-                        <p>$150.00</p>
+                        <p>${subTotal}</p>
                       </div>
                       <div className="flex justify-between">
                         <h1>Shipping</h1>
-                        <p>$15.00</p>
+                        <p>{shippingCharge === 0 ? <span className="text-red-700">Free</span> : "$"+shippingCharge}</p>
                       </div>
                       <div className="flex justify-between">
                         <h1>Tax</h1>
-                        <p>$20.50</p>
+                        <p>${tax}</p>
                       </div>
                     </div>
                     <div className="w-full border-t border-black" />
                     <div className="flex justify-between text-sm font-semibold">
                       <h1>Estimated Total</h1>
-                      <p>$150.00</p>
+                      <p>${estimatedTotal}</p>
                     </div>
                   </div>
                   <button className="border w-full cursor-pointer bg-black text-white font-medium rounded active:scale-95 duration-500 py-3">

@@ -6,24 +6,12 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { TCartProduct } from "@/types/types";
 
-interface TCartProductCard {
-  id: string;
-  productThumbnai: string;
-  title: string;
-  productSKU: string;
-  price: number;
-  color: string;
-  size: string;
-  discount?: number;
-  quantity: number;
-}
-
-const CartProductCard = ({ product }: { product: TCartProductCard }) => {
+const CartProductCard = ({ product }: { product: TCartProduct; }) => {
   return (
     <div className="border-b py-5 flex flex-col lg:flex-row justify-between gap-5">
       {/* Image and product Info */}

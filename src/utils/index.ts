@@ -1,4 +1,4 @@
-import { TProduct, TRatingData } from "@/types/types";
+import { TCartProduct, TProduct, TRatingData } from "@/types/types";
 
 export const rearrangeProducts = (
   productItems: Pick<
@@ -63,3 +63,31 @@ export const CalculateAvgRatingAndPercentages = (ratingData: TRatingData[]) => {
     ratingPercentages,
   };
 };
+
+export const CalculateProductTotalPriceShippingAndTax = (products: TCartProduct[]) => {
+  
+  let subTotal = 0;
+  let shippingCharge = 9.95;
+
+
+  for(const product of products){
+    const productTotalPrice = Number((product.price * product.quantity).toFixed(2));
+    subTotal += productTotalPrice;
+  };
+
+  subTotal = Number(subTotal.toFixed(2));
+  if(subTotal > 100){
+    shippingCharge = 0
+  }
+  const tax = Number((subTotal * 0.1).toFixed(2));
+  const estimatedTotal = (subTotal + shippingCharge + tax).toFixed(2)
+
+
+  return {
+    subTotal,
+    shippingCharge,
+    tax,
+    estimatedTotal
+  }
+
+}
