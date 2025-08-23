@@ -146,6 +146,8 @@ const CartPage = () => {
               {/* Cart Summary */}
               <div className="xl:w-[35%] relative">
                 <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
+
+                  {/* Promo Code */}
                   <div className="border-y">
                     <Accordion
                       type="single"
@@ -163,6 +165,8 @@ const CartPage = () => {
                       </AccordionItem>
                     </Accordion>
                   </div>
+
+                  {/* Order Summary */}
                   <div className="space-y-5">
                     <div className="flex justify-between font-semibold">
                       <h1 className="text-xl">Order Summary</h1>
@@ -175,7 +179,13 @@ const CartPage = () => {
                       </div>
                       <div className="flex justify-between">
                         <h1>Shipping</h1>
-                        <p>{shippingCharge === 0 ? <span className="text-red-700">Free</span> : "$"+shippingCharge}</p>
+                        <p>
+                          {shippingCharge === 0 ? (
+                            <span className="text-red-700">Free</span>
+                          ) : (
+                            "$" + shippingCharge
+                          )}
+                        </p>
                       </div>
                       <div className="flex justify-between">
                         <h1>Tax</h1>
@@ -188,9 +198,16 @@ const CartPage = () => {
                       <p>${estimatedTotal}</p>
                     </div>
                   </div>
-                  <button className="border w-full cursor-pointer bg-black text-white font-medium rounded active:scale-95 duration-500 py-3">
-                    Start Checkout
-                  </button>
+
+                  {/* Checkout link */}
+                  <div>
+                    <Link href="/checkout">
+                      <button className="border w-full cursor-pointer bg-black text-white font-medium rounded active:scale-95 duration-500 py-3">
+                        Start Checkout
+                      </button>
+                    </Link>
+                  </div>
+
                   <HorizontalDivider
                     title="or check out with"
                     className="text-gray-600 text-xs"
