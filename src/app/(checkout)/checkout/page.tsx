@@ -4,6 +4,19 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { NotebookPen, Plus } from "lucide-react";
+import Link from "next/link";
+
+export const metadata = {
+  title: "Checkout",
+  description: "Complete your purchase on Laivaly. Review your cart, add shipping details, and move to secure payment.",
+  keywords: [
+    "Laivaly checkout",
+    "secure checkout",
+    "online shopping",
+    "fashion checkout",
+    "Laivaly order"
+  ]
+};
 
 const shippingAddress = true;
 
@@ -62,9 +75,9 @@ const shippingMethods = [
 const CheckOutPage = () => {
   return (
     <main className="p-3 xl:p-16">
-      <div className="flex flex-col lg:flex-row xl:w-[80%] lg:gap-10 mx-auto">
+      <div className="flex flex-col-reverse lg:flex-row xl:w-[90%] 2xl:w-[80%] gap-10 mx-auto">
         {/* address section */}
-        <div className="lg:w-[60%] space-y-3 lg:space-y-8">
+        <div className="lg:w-[60%] xl:w-[50%] 2xl:w-[60%] space-y-3 lg:space-y-8">
           <div className="space-y-0.5">
             <h1 className="text-lg md:text-2xl font-medium">Hi Mehedi Hasan</h1>
             <p className="text-xs md:text-sm font-semibold text-gray-700">
@@ -167,9 +180,14 @@ const CheckOutPage = () => {
               </div>
             )}
           </div>
+
+          <div className="w-full mt-10">
+            <Link href="/checkout/payment"><button className="bg-black border rounded text-white w-full py-5 cursor-pointer active:scale-95 duration-500 hover:underline">Continue To Payment</button></Link>
+          </div>
         </div>
+        
         {/* Order Summary */}
-        <div className="lg:w-[40%] hidden lg:block">
+        <div className="lg:w-[40%] xl:w-[50%] 2xl:w-[40%]">
           <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
             <CartSummary
               totalItems={cartProducts.length}

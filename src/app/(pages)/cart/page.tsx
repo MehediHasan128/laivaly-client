@@ -172,7 +172,7 @@ const CartPage = () => {
                     <button className="border w-full flex justify-center cursor-pointer rounded hover:border-black duration-500">
                       <div className="relative w-16 h-14">
                         <Image
-                          src="/images/icon/stripe.ico"
+                          src="/images/icon/stripe.png"
                           alt="stripe"
                           fill
                         />
@@ -181,7 +181,7 @@ const CartPage = () => {
                     <button className="border w-full flex justify-center cursor-pointer rounded hover:border-black duration-500">
                       <div className="relative w-16 h-14">
                         <Image
-                          src="/images/icon/paypal.ico"
+                          src="/images/icon/klarna.png"
                           alt="stripe"
                           fill
                         />

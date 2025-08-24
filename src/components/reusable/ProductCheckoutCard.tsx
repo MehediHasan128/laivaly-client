@@ -15,7 +15,7 @@ interface TProductCheckoutCard {
 const ProductCheckoutCard = ({checkoutProduct}: {checkoutProduct: TProductCheckoutCard}) => {
     return (
         <div className="flex gap-2">
-            <div className="relative h-[150px] w-[30%]">
+            <div className="relative h-[150px] w-[40%] md:w-[15%] lg:w-[40%] xl:w-[30%]">
                 <Image src={checkoutProduct?.productThumbnai} alt={checkoutProduct?.title} fill quality={100}  />
             </div>
             <div className="text-sm font-medium space-y-1">

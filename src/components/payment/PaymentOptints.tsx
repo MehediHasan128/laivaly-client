@@ -1,0 +1,119 @@
+"use client";
+
+import React, { useState } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
+import Image from "next/image";
+
+const paymentMethods = [
+  {
+    paymentIcon: "/images/icon/stripe.png",
+    method: "Stripe",
+    value: "stripe",
+    content: (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          {[
+            "/images/icon/visa.ico",
+            "/images/icon/masterCard.ico",
+            "/images/icon/americamExpress.ico",
+            "/images/icon/jcb.ico",
+            "/images/icon/discover.ico",
+          ].map((icon, index) => (
+            <div key={index} className="relative size-10">
+              <Image src={icon} alt="icon" fill quality={100} />
+            </div>
+          ))}
+        </div>
+        <div className="text-xs font-semibold space-y-1 text-gray-600">
+          <h1>Stripe accepts all major debit & credit cards.</h1>
+          <h1>We do not charge any additional fees for payments made through Stripe</h1>
+        </div>
+        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6">
+          <div className="relative size-12 md:size-14">
+            <Image
+              src="/images/icon/stripe.png"
+              alt="stripe"
+              fill
+              quality={100}
+            />
+          </div>
+        </button>
+      </div>
+    ),
+  },
+  {
+    paymentIcon: "/images/icon/klarna.png",
+    method: "klarna",
+    value: "klarna",
+    content: (
+      <div className="space-y-3">
+        <div className="text-xs font-semibold space-y-1 text-gray-600">
+          <h1>Split your purchase into 3 or 4 interest-free payments.</h1>
+          <h1>Pay later within 30 days after delivery.</h1>
+        </div>
+        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6">
+          <div className="relative size-12 md:size-14">
+            <Image
+              src="/images/icon/klarna.png"
+              alt="stripe"
+              fill
+              quality={100}
+            />
+          </div>
+        </button>
+      </div>
+    ),
+  },
+];
+
+const PaymentOptints = () => {
+  const [paymentMethod, setPaymentMethod] = useState("stripe");
+
+  return (
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full"
+      defaultValue={paymentMethod}
+      value={paymentMethod}
+      onValueChange={setPaymentMethod}
+    >
+      {paymentMethods.map((m, index) => (
+        <div key={index} className="border-b py-3">
+          <AccordionItem value={m.value}>
+            <AccordionTrigger className="hover:no-underline cursor-pointer flex items-center">
+              <div className="flex items-center gap-3">
+                <div className="border border-black size-4 rounded-full p-0.5">
+                  <div
+                    className={`${
+                      paymentMethod === m.value ? "bg-black" : "bg-transparent"
+                    } size-full rounded-full`}
+                  />
+                </div>
+                <div className="relative size-14">
+                  <Image
+                    src={m.paymentIcon}
+                    alt={m.method}
+                    fill
+                    quality={100}
+                  />
+                </div>
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent className="flex flex-col gap-4 text-balance">
+              <div>{m.content}</div>
+            </AccordionContent>
+          </AccordionItem>
+        </div>
+      ))}
+    </Accordion>
+  );
+};
+
+export default PaymentOptints;
