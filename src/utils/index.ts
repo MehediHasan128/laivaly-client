@@ -80,7 +80,7 @@ export const CalculateProductTotalPriceShippingAndTax = (products: TCartProduct[
     shippingCharge = 0
   }
   const tax = Number((subTotal * 0.1).toFixed(2));
-  const estimatedTotal = (subTotal + shippingCharge + tax).toFixed(2)
+  const estimatedTotal = Number((subTotal + shippingCharge + tax).toFixed(2))
 
 
   return {
