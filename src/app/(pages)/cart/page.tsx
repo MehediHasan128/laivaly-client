@@ -1,5 +1,4 @@
 import CartSummary from "@/components/cart/CartSummary";
-import PromoCodeForm from "@/components/cart/PromoCodeForm";
 import Button from "@/components/reusable/Button";
 import CartProductCard from "@/components/reusable/CartProductCard";
 import Container from "@/components/reusable/Container";
@@ -146,7 +145,51 @@ const CartPage = () => {
 
               {/* Cart Summary */}
               <div className="xl:w-[35%] relative">
-                <CartSummary totalItems={cartProducts.length} subTotal={subTotal} shippingCharge={shippingCharge} tax={tax} estimatedTotal={estimatedTotal} />
+                <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
+                  <CartSummary
+                    totalItems={cartProducts.length}
+                    subTotal={subTotal}
+                    shippingCharge={shippingCharge}
+                    tax={tax}
+                    estimatedTotal={estimatedTotal}
+                  />
+
+                  {/* Checkout link */}
+                  <div>
+                    <Link href="/checkout">
+                      <button className="border w-full cursor-pointer bg-black text-white font-medium rounded active:scale-95 duration-500 py-3">
+                        Start Checkout
+                      </button>
+                    </Link>
+                  </div>
+
+                  <HorizontalDivider
+                    title="or check out with"
+                    className="text-gray-600 text-xs"
+                  />
+
+                  <div className="flex gap-5">
+                    <button className="border w-full flex justify-center cursor-pointer rounded hover:border-black duration-500">
+                      <div className="relative w-16 h-14">
+                        <Image
+                          src="/images/icon/stripe.ico"
+                          alt="stripe"
+                          fill
+                        />
+                      </div>
+                    </button>
+                    <button className="border w-full flex justify-center cursor-pointer rounded hover:border-black duration-500">
+                      <div className="relative w-16 h-14">
+                        <Image
+                          src="/images/icon/paypal.ico"
+                          alt="stripe"
+                          fill
+                        />
+                      </div>
+                    </button>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>

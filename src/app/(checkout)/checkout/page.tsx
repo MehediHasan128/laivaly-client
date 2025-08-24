@@ -1,14 +1,45 @@
+import CartSummary from "@/components/cart/CartSummary";
+import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { NotebookPen, Plus } from "lucide-react";
 
 const shippingAddress = true;
+
+const cartProducts = [
+  {
+    id: "01",
+    productThumbnai: "/images/products/26.jpg",
+    title: "Premium Breathable Linen Button-Down Shirt",
+    productSKU: "LVP-R85W20",
+    price: 49.99,
+    color: "Red",
+    size: "M",
+    discount: 50,
+    quantity: 1,
+  },
+  {
+    id: "02",
+    productThumbnai: "/images/products/25.jpg",
+    title: "Premium Breathable Linen Button-Down Shirt",
+    productSKU: "LVP-58GR23",
+    price: 26.5,
+    color: "Blue",
+    size: "S",
+    discount: 10,
+    quantity: 2,
+  },
+];
+
+const { subTotal, shippingCharge, tax, estimatedTotal } =
+  CalculateProductTotalPriceShippingAndTax(cartProducts);
 
 const shippingMethods = [
   {
     method: "Standard",
     value: "standard",
-    charge: "9.95",
+    charge: shippingCharge === 0 ? "Free" : "9.95",
     estimatedTime: "3-6",
     date: "03/09/2025",
   },
@@ -40,10 +71,12 @@ const CheckOutPage = () => {
               bayzidahmed467@gmail.com
             </p>
           </div>
+
           <div className="space-y-3 md:space-y-7 py-3 md:py-5">
             <h1 className="md:text-xl font-medium">Shipping To,</h1>
             <div className="border-t" />
           </div>
+
           <div>
             {!shippingAddress && (
               <button className="border rounded flex items-center justify-center w-full py-3 md:py-4 cursor-pointer duration-500 gap-3 font-semibold text-sm md:text-base bg-black text-white">
@@ -96,8 +129,21 @@ const CheckOutPage = () => {
                             htmlFor={method.value}
                             className="text-base font-medium cursor-pointer"
                           >
-                            <span className="text-gray-600">
-                              ${method.charge}
+                            <span
+                              className={`${
+                                method.value === "standard"
+                                  ? shippingCharge === 0
+                                    ? "text-red-700"
+                                    : "text-gray-600"
+                                  : "text-gray-600"
+                              }`}
+                            >
+                              {method.value === "standard"
+                                ? shippingCharge === 0
+                                  ? ""
+                                  : "$"
+                                : "$"}
+                              {method.charge}
                             </span>{" "}
                             {method.method}
                           </Label>
@@ -124,7 +170,25 @@ const CheckOutPage = () => {
         </div>
         {/* Order Summary */}
         <div className="lg:w-[40%] hidden lg:block">
-          <h1>This is order summary</h1>
+          <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
+            <CartSummary
+              totalItems={cartProducts.length}
+              subTotal={subTotal}
+              shippingCharge={shippingCharge}
+              tax={tax}
+              estimatedTotal={estimatedTotal}
+            />
+
+            <div className="mt-5">
+              <h1 className="text-sm font-medium">In your Shopping Bag</h1>
+
+              <div className="flex flex-col gap-3 mt-5">
+                {
+                  cartProducts.map((product) => <ProductCheckoutCard key={product.id} checkoutProduct={product} />)
+                }
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
