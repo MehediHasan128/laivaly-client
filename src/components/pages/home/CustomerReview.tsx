@@ -11,7 +11,7 @@ const CustomerReview = () => {
               What Our
               <br className="hidden xl:block" /> Customer Says
             </h1>
-            <p className="md:w-[85%] text-justify font-medium">
+            <p className="md:w-[85%] text-gray-700 text-justify font-medium">
               See what our customers are saying about their favorite purchases.
               From cozy winter layers to timeless statement pieces, they’ve felt
               the style and comfort firsthand. Join the community that chooses

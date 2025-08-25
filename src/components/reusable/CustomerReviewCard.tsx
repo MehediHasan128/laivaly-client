@@ -32,13 +32,13 @@ const CustomerReviewCard = ({
         </div>
 
         <div className="flex-1 space-y-1 md:space-y-2">
-          <span className="text-base md:text-2xl font-bold flex gap-2">
+          <span className="text-sm md:text-xl font-bold flex gap-2">
             <h1>{name}</h1>
             <span className="text-xl md:text-3xl">
               <RiDoubleQuotesR />
             </span>
           </span>
-          <p className="font-medium text-justify text-sm md:text-base">{comment}</p>
+          <p className="font-medium text-gray-700 text-justify text-xs md:text-sm">{comment}</p>
         </div>
       </div>
     </div>
