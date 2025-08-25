@@ -1,8 +1,8 @@
 "use client";
 
 import { TProduct } from "@/types/types";
-import Container from "../reusable/Container";
-import ProductCard from "../reusable/ProductCard";
+import Container from "../../reusable/Container";
+import ProductCard from "../../reusable/ProductCard";
 import { useState } from "react";
 import Link from "next/link";
 

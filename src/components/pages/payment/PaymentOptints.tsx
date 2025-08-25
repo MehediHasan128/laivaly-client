@@ -6,7 +6,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../ui/accordion";
+} from "../../ui/accordion";
 import Image from "next/image";
 
 const paymentMethods = [
@@ -31,9 +31,12 @@ const paymentMethods = [
         </div>
         <div className="text-xs font-semibold space-y-1 text-gray-600">
           <h1>Stripe accepts all major debit & credit cards.</h1>
-          <h1>We do not charge any additional fees for payments made through Stripe</h1>
+          <h1>
+            We do not charge any additional fees for payments made through
+            Stripe
+          </h1>
         </div>
-        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6">
+        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6 active:scale-95">
           <div className="relative size-12 md:size-14">
             <Image
               src="/images/icon/stripe.png"
@@ -56,7 +59,7 @@ const paymentMethods = [
           <h1>Split your purchase into 3 or 4 interest-free payments.</h1>
           <h1>Pay later within 30 days after delivery.</h1>
         </div>
-        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6">
+        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6 active:scale-95">
           <div className="relative size-12 md:size-14">
             <Image
               src="/images/icon/klarna.png"
@@ -65,6 +68,21 @@ const paymentMethods = [
               quality={100}
             />
           </div>
+        </button>
+      </div>
+    ),
+  },
+  {
+    method: "Cash On Delivery",
+    value: "cod",
+    content: (
+      <div className="space-y-3">
+        <div className="text-xs font-semibold space-y-1 text-gray-600">
+          <h1>Pay with cash when your order is delivered to your doorstep.</h1>
+          <h1>No advance payment required.</h1>
+        </div>
+        <button className="border w-full rounded flex justify-center cursor-pointer bg-black text-white mt-6 py-5 font-semibold active:scale-95 duration-500">
+          <h1>Place Order</h1>
         </button>
       </div>
     ),
@@ -95,14 +113,18 @@ const PaymentOptints = () => {
                     } size-full rounded-full`}
                   />
                 </div>
-                <div className="relative size-14">
-                  <Image
-                    src={m.paymentIcon}
-                    alt={m.method}
-                    fill
-                    quality={100}
-                  />
-                </div>
+                {m.paymentIcon ? (
+                  <div className="relative size-14">
+                    <Image
+                      src={m.paymentIcon}
+                      alt={m.method}
+                      fill
+                      quality={100}
+                    />
+                  </div>
+                ) : (
+                  <h1 className="text-lg font-semibold">{m.method}</h1>
+                )}
               </div>
             </AccordionTrigger>
 

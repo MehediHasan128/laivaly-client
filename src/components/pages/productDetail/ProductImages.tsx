@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { useState } from "react";
 
 const ProductImages = ({ images }: { images: string[] }) => {
@@ -37,7 +37,10 @@ const ProductImages = ({ images }: { images: string[] }) => {
           <CarouselContent>
             {images.map((image, index) => (
               <CarouselItem key={index}>
-                <div key={index} className="relative w-full h-[70vh] md:h-screen">
+                <div
+                  key={index}
+                  className="relative w-full h-[70vh] md:h-screen"
+                >
                   <Image
                     src={image}
                     alt="product"

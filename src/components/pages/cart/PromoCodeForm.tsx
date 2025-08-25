@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import LVForm from "../LVForm/LVForm";
-import LVInput from "../LVForm/LVInput";
+import LVForm from "../../LVForm/LVForm";
+import LVInput from "../../LVForm/LVInput";
 
 const PromoCodeForm = () => {
   const handleSubmitForm = async () => {};
@@ -18,7 +18,9 @@ const PromoCodeForm = () => {
             className="text-sm"
           />
         </div>
-        <button className="border rounded bg-black text-white font-semibold cursor-pointer active:scale-95 duration-500 px-8">Apply</button>
+        <button className="border rounded bg-black text-white font-semibold cursor-pointer active:scale-95 duration-500 px-8">
+          Apply
+        </button>
       </div>
     </LVForm>
   );

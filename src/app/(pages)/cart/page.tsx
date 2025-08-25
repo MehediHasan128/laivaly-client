@@ -1,4 +1,4 @@
-import CartSummary from "@/components/cart/CartSummary";
+import CartSummary from "@/components/pages/cart/CartSummary";
 import Button from "@/components/reusable/Button";
 import CartProductCard from "@/components/reusable/CartProductCard";
 import Container from "@/components/reusable/Container";
@@ -188,7 +188,6 @@ const CartPage = () => {
                       </div>
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>

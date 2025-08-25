@@ -1,6 +1,6 @@
-import CategoryBanner from "@/components/products/CategoryBanner";
-import ProductFilters from "@/components/products/ProductFilters";
-import ProductGrid from "@/components/products/ProductGrid";
+import CategoryBanner from "@/components/pages/products/CategoryBanner";
+import ProductFilters from "@/components/pages/products/ProductFilters";
+import ProductGrid from "@/components/pages/products/ProductGrid";
 import { rearrangeProducts } from "@/utils";
 import { Metadata } from "next";
 
@@ -221,29 +221,29 @@ const filtersData = [
   {
     title: "Category",
     options: [
-      {value: "black t-shirt", label: "Black T-Shirt"},
-      {value: "white t-shirt", label: "White T-Shirt"},
-    ]
+      { value: "black t-shirt", label: "Black T-Shirt" },
+      { value: "white t-shirt", label: "White T-Shirt" },
+    ],
   },
   {
     title: "Price",
     options: [
-      {value: "10.00 - 20.00", label: "$10.00 - $20.00"},
-      {value: "20.00 - 30.00", label: "$20.00 - $30.00"},
-    ]
+      { value: "10.00 - 20.00", label: "$10.00 - $20.00" },
+      { value: "20.00 - 30.00", label: "$20.00 - $30.00" },
+    ],
   },
   {
     title: "Size",
     options: [
-      {value: "xs", label: "XS"},
-      {value: "s", label: "S"},
-      {value: "m", label: "M"},
-      {value: "l", label: "L"},
-      {value: "xl", label: "XL"},
-      {value: "xxl", label: "XXL"},
-    ]
-  }
-]
+      { value: "xs", label: "XS" },
+      { value: "s", label: "S" },
+      { value: "m", label: "M" },
+      { value: "l", label: "L" },
+      { value: "xl", label: "XL" },
+      { value: "xxl", label: "XXL" },
+    ],
+  },
+];
 
 export const metadata: Metadata = {
   title: "Men's Fashion",

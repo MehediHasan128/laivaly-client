@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "../ui/drawer";
+} from "../../ui/drawer";
 import { X } from "lucide-react";
 
 const ProductDescriptionDrawer = ({ children }: { children: ReactNode }) => {
@@ -76,28 +76,37 @@ const ProductDescriptionDrawer = ({ children }: { children: ReactNode }) => {
 
           <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-2.5">
             <h1 className="text-base font-semibold">Fit</h1>
-            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores deserunt reiciendis, rem tempora aut odit?</p>
+            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              deserunt reiciendis, rem tempora aut odit?
+            </p>
           </div>
 
           <div className="w-full border-b" />
 
           <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-2.5">
             <h1 className="text-base font-semibold">Composition</h1>
-            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">98% organic cotton, 2% elastane.</p>
+            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">
+              98% organic cotton, 2% elastane.
+            </p>
           </div>
 
           <div className="w-full border-b" />
 
           <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-2.5">
             <h1 className="text-base font-semibold">Care</h1>
-            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">Machine washable.</p>
+            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">
+              Machine washable.
+            </p>
           </div>
 
           <div className="w-full border-b" />
 
           <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-2.5">
             <h1 className="text-base font-semibold">Style</h1>
-            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">56R2We-LVP</p>
+            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">
+              56R2We-LVP
+            </p>
           </div>
         </div>
       </DrawerContent>

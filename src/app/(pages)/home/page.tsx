@@ -1,8 +1,8 @@
-import Banner from "@/components/home/Banner";
-import CustomerReview from "@/components/home/CustomerReview";
-import FeaturedCategories from "@/components/home/FeaturedCategories";
-import NewArrival from "@/components/home/NewArrival";
-import SesonalCollection from "@/components/home/SesonalCollection";
+import Banner from "@/components/pages/home/Banner";
+import CustomerReview from "@/components/pages/home/CustomerReview";
+import FeaturedCategories from "@/components/pages/home/FeaturedCategories";
+import NewArrival from "@/components/pages/home/NewArrival";
+import SesonalCollection from "@/components/pages/home/SesonalCollection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

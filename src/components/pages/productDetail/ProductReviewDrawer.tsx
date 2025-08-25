@@ -8,9 +8,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "../ui/drawer";
+} from "../../ui/drawer";
 import { X } from "lucide-react";
-import Ratings from "../reusable/Ratings";
+import Ratings from "../../reusable/Ratings";
 import ProductReview from "./ProductReview";
 import WriteProductReviewDialog from "./WriteProductReviewDialog";
 import { CalculateAvgRatingAndPercentages } from "@/utils";
@@ -93,7 +93,10 @@ const ProductReviewDrawer = ({ children }: { children: ReactNode }) => {
                         <IoStarSharp className="text-xl" />
                         <h1 className="w-8 text-center">{percent.rating}</h1>
                         <div className="h-1 w-full bg-accent">
-                          <div className="h-full bg-black rounded-full" style={{ width: percent.percent }} />
+                          <div
+                            className="h-full bg-black rounded-full"
+                            style={{ width: percent.percent }}
+                          />
                         </div>
                       </div>
                     ))}

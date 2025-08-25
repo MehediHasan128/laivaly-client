@@ -1,5 +1,5 @@
-import Container from "../reusable/Container";
-import CustomerReviewCard from "../reusable/CustomerReviewCard";
+import Container from "../../reusable/Container";
+import CustomerReviewCard from "../../reusable/CustomerReviewCard";
 
 const CustomerReview = () => {
   return (
@@ -38,7 +38,7 @@ Will definitely shop here again!"
                 comment="Perfect fit and premium fabric quality.
 The sweater kept me cozy during my entire trip.
 Highly recommend this brand to everyone."
-active
+                active
               />
             </div>
             <div className="flex md:justify-end">

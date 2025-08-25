@@ -1,5 +1,5 @@
-import CartSummary from "@/components/cart/CartSummary";
-import PaymentOptints from "@/components/payment/PaymentOptints";
+import CartSummary from "@/components/pages/cart/CartSummary";
+import PaymentOptints from "@/components/pages/payment/PaymentOptints";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import React from "react";

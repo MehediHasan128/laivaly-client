@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Container from "../reusable/Container";
-import Headline from "../reusable/Headline";
-import NewArrivalCard from "../reusable/NewArrivalCard";
-import Button from "../reusable/Button";
+import Container from "../../reusable/Container";
+import Headline from "../../reusable/Headline";
+import NewArrivalCard from "../../reusable/NewArrivalCard";
+import Button from "../../reusable/Button";
 import { smoochsans } from "@/styles/font";
 import { TProduct } from "@/types/types";
 
@@ -19,7 +19,10 @@ const buttons = [
   { value: "shoes", label: "Shoes" },
 ];
 
-export const products: Pick<TProduct, "_id" | "title" | "thumbnail" | "images" | "price">[] = [
+export const products: Pick<
+  TProduct,
+  "_id" | "title" | "thumbnail" | "images" | "price"
+>[] = [
   {
     _id: "1",
     title: "Classic White T-Shirt",

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../reusable/Button";
+import Button from "../../reusable/Button";
 
 const images = [
   {
@@ -29,7 +29,6 @@ const images = [
 ];
 
 const FeaturedCategories = () => {
-
   return (
     <section className="overflow-hidden">
       <div className="flex flex-col md:flex-row overflow-hidden">
@@ -50,9 +49,7 @@ const FeaturedCategories = () => {
               <div
                 className={`transition-transform duration-700 text-center space-y-2 lg:space-y-3 xl:space-y-4 w-[90%] xl:w-[70%] 2xl:w-[50%] py-5 lg:py-10`}
               >
-                <h1 className="text-2xl font-bold">
-                  {image.sectionTitle}
-                </h1>
+                <h1 className="text-2xl font-bold">{image.sectionTitle}</h1>
                 <Link href={image.path}>
                   <Button
                     buttonTitle="Shop Now"
@@ -81,9 +78,7 @@ const FeaturedCategories = () => {
                 <div
                   className={`transition-transform duration-700 text-center space-y-2 lg:space-y-3 xl:space-y-4 w-[90%] xl:w-[70%] 2xl:w-[50%] py-5 lg:py-10`}
                 >
-                  <h1 className="text-2xl font-bold">
-                    {image.sectionTitle}
-                  </h1>
+                  <h1 className="text-2xl font-bold">{image.sectionTitle}</h1>
                   <Link href={image.path}>
                     <Button
                       buttonTitle="Shop Now"

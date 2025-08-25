@@ -1,16 +1,27 @@
 import React from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
 import PromoCodeForm from "./PromoCodeForm";
 
 interface TCartSummayProps {
-    totalItems: number;
-    subTotal: number;
-    shippingCharge: number;
-    tax: number;
-    estimatedTotal: number;
+  totalItems: number;
+  subTotal: number;
+  shippingCharge: number;
+  tax: number;
+  estimatedTotal: number;
 }
 
-const CartSummary = ({totalItems, subTotal, shippingCharge, tax, estimatedTotal}: TCartSummayProps) => {
+const CartSummary = ({
+  totalItems,
+  subTotal,
+  shippingCharge,
+  tax,
+  estimatedTotal,
+}: TCartSummayProps) => {
   return (
     <>
       {/* Promo Code */}

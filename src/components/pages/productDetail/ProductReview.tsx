@@ -1,6 +1,6 @@
 import { SlDislike, SlLike } from "react-icons/sl";
-import Ratings from "../reusable/Ratings";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Ratings from "../../reusable/Ratings";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
 const ProductReview = () => {
   return (

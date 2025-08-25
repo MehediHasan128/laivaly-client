@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Container from "../reusable/Container";
-import Headline from "../reusable/Headline";
-import NewArrivalCard from "../reusable/NewArrivalCard";
-import Button from "../reusable/Button";
+import Container from "../../reusable/Container";
+import Headline from "../../reusable/Headline";
+import NewArrivalCard from "../../reusable/NewArrivalCard";
+import Button from "../../reusable/Button";
 import { TProduct } from "@/types/types";
 import { smoochsans } from "@/styles/font";
 
@@ -16,7 +16,10 @@ const buttons = [
   { value: "thermal-layers", label: "Thermal Layers" },
 ];
 
-export const products: Pick<TProduct, "_id" | "title" | "thumbnail" | "images" | "price">[] = [
+export const products: Pick<
+  TProduct,
+  "_id" | "title" | "thumbnail" | "images" | "price"
+>[] = [
   {
     _id: "1",
     title: "Classic White T-Shirt",
@@ -112,12 +115,12 @@ const SesonalCollection = () => {
         </div>
 
         {/* See more product button */}
-          <div className="text-center mt-5 md:mt-10">
-            <Button
-              buttonTitle="Explore Collection"
-              className="bg-black text-white hover:bg-accent hover:text-black"
-            />
-          </div>
+        <div className="text-center mt-5 md:mt-10">
+          <Button
+            buttonTitle="Explore Collection"
+            className="bg-black text-white hover:bg-accent hover:text-black"
+          />
+        </div>
       </Container>
     </section>
   );

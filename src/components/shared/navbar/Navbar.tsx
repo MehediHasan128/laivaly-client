@@ -6,6 +6,9 @@ import Link from "next/link";
 import { useState } from "react";
 import Sidebar from "./sideBar/Sidebar";
 import Searchbar from "./searchBar/Searchbar";
+import CustomerProfileMenuDropdown from "@/components/customer/CustomerProfileMenuDropdown";
+
+const user = true;
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -87,9 +90,13 @@ const Navbar = () => {
               <p>2</p>
             </div>
           </Link>
-          <Link href="/login">
-            <UserRound className="size-5 md:size-6" />
-          </Link>
+          {user ? (
+            <CustomerProfileMenuDropdown />
+          ) : (
+            <Link href="/login">
+              <UserRound className="size-5 md:size-6" />
+            </Link>
+          )}
         </div>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import CartSummary from "@/components/cart/CartSummary";
+import CartSummary from "@/components/pages/cart/CartSummary";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -8,14 +8,15 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Checkout",
-  description: "Complete your purchase on Laivaly. Review your cart, add shipping details, and move to secure payment.",
+  description:
+    "Complete your purchase on Laivaly. Review your cart, add shipping details, and move to secure payment.",
   keywords: [
     "Laivaly checkout",
     "secure checkout",
     "online shopping",
     "fashion checkout",
-    "Laivaly order"
-  ]
+    "Laivaly order",
+  ],
 };
 
 const shippingAddress = true;
@@ -182,10 +183,14 @@ const CheckOutPage = () => {
           </div>
 
           <div className="w-full mt-10">
-            <Link href="/checkout/payment"><button className="bg-black border rounded text-white w-full py-5 cursor-pointer active:scale-95 duration-500 hover:underline">Continue To Payment</button></Link>
+            <Link href="/checkout/payment">
+              <button className="bg-black border rounded text-white w-full py-5 cursor-pointer active:scale-95 duration-500 hover:underline">
+                Continue To Payment
+              </button>
+            </Link>
           </div>
         </div>
-        
+
         {/* Order Summary */}
         <div className="lg:w-[40%] xl:w-[50%] 2xl:w-[40%]">
           <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
@@ -201,9 +206,12 @@ const CheckOutPage = () => {
               <h1 className="text-sm font-medium">In your Shopping Bag</h1>
 
               <div className="flex flex-col gap-3 mt-5">
-                {
-                  cartProducts.map((product) => <ProductCheckoutCard key={product.id} checkoutProduct={product} />)
-                }
+                {cartProducts.map((product) => (
+                  <ProductCheckoutCard
+                    key={product.id}
+                    checkoutProduct={product}
+                  />
+                ))}
               </div>
             </div>
           </div>

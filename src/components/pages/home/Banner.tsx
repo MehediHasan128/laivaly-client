@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
-import Searchbar from "../shared/navbar/searchBar/Searchbar";
+import Searchbar from "../../shared/navbar/searchBar/Searchbar";
 import { grateVibes, smoochsans } from "@/styles/font";
 
 const Banner = () => {

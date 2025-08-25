@@ -8,13 +8,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "../../ui/dialog";
 import Image from "next/image";
-import LVForm from "../LVForm/LVForm";
-import Ratings from "../reusable/Ratings";
-import LVTextArea from "../LVForm/LVTextArea";
-import { Label } from "../ui/label";
-import LVInput from "../LVForm/LVInput";
+import LVForm from "../../LVForm/LVForm";
+import Ratings from "../../reusable/Ratings";
+import LVTextArea from "../../LVForm/LVTextArea";
+import { Label } from "../../ui/label";
+import LVInput from "../../LVForm/LVInput";
 
 const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
   const handleAddReview = async () => {};
@@ -23,7 +23,6 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="md:max-w-2xl lg:max-w-3xl xl:max-w-4xl h-[80vh] md:h-[90vh] overflow-scroll scrollbar-hide">
-
         <DialogHeader>
           <DialogTitle>Please share your experience</DialogTitle>
 
@@ -47,7 +46,6 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
         </DialogHeader>
 
         <div className="my-10">
-
           <LVForm onSubmit={handleAddReview}>
             <div className="space-y-10">
               <div className="space-y-2">
@@ -57,8 +55,15 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
 
               <div className="space-y-1">
                 <Label className="text-sm md:text-base">Review</Label>
-                <LVTextArea name="comment" placeholder="Type your experience" className="min-h-32 md:min-h-42" />
-                <p className="text-xs md:text-sm font-medium">Make your review great: Describe what you liked, what you didn’t like, and other key things shoppers should know</p>
+                <LVTextArea
+                  name="comment"
+                  placeholder="Type your experience"
+                  className="min-h-32 md:min-h-42"
+                />
+                <p className="text-xs md:text-sm font-medium">
+                  Make your review great: Describe what you liked, what you
+                  didn’t like, and other key things shoppers should know
+                </p>
               </div>
 
               <div>
@@ -67,13 +72,13 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
               </div>
 
               <div>
-                <button className="bg-black text-white rounded cursor-pointer w-full md:w-[30%] py-3">Submit</button>
+                <button className="bg-black text-white rounded cursor-pointer w-full md:w-[30%] py-3">
+                  Submit
+                </button>
               </div>
             </div>
           </LVForm>
-
         </div>
-
       </DialogContent>
     </Dialog>
   );
