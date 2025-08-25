@@ -1,5 +1,6 @@
-"use client"
+"use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const sideBar = [
@@ -11,8 +12,7 @@ const sideBar = [
 ];
 
 const CustomerSidebar = () => {
-
-    const pathName = usePathname();
+  const pathName = usePathname();
 
   return (
     <div>
@@ -20,12 +20,15 @@ const CustomerSidebar = () => {
 
       <div className="mt-5 space-y-1">
         {sideBar.map((item, index) => (
-          <div
+          <Link
             key={index}
-            className={`py-2 px-1 rounded ${pathName === item.path && "bg-accent px-5 py-2.5 text-lg"} hover:bg-accent hover:px-5 duration-500 cursor-pointer font-semibold`}
+            href={item.path}
+            className={`block py-2 px-1 rounded ${
+              pathName === item.path && "bg-accent px-5 py-2.5 text-lg"
+            } hover:bg-accent hover:px-5 duration-500 cursor-pointer font-semibold`}
           >
             {item.label}
-          </div>
+          </Link>
         ))}
       </div>
     </div>

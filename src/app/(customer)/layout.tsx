@@ -43,7 +43,25 @@ const CustomerLayout = ({ children }: { children: ReactNode }) => {
               <CustomerSidebar />
             </div>
           </div>
-          <div className="w-[50%]">{children}</div>
+          <div className="w-[50%]">
+            <div>{children}</div>
+            <div className="w-[80%] mt-20 font-medium">
+              <p className="text-sm text-gray-700">
+                Please contact Customer Service if you have questions about your
+                account, or if you are not seeing transactions that should have
+                been posted.
+              </p>
+
+              <div>
+                <h1 className="text-xl font-semibold my-5">Need Help?</h1>
+                <div className="text-gray-700 space-y-5">
+                  <button className="hover:underline duration-500 cursor-pointer block">Shipping And Delivery</button>
+                  <button className="hover:underline duration-500 cursor-pointer block">Return Policy</button>
+                  <button className="hover:underline duration-500 cursor-pointer block">Contact Us</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
       <Footer />
