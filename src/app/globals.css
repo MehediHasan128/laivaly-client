@@ -104,4 +104,7 @@ html {
   .gray-text {
     @apply text-gray-600 font-medium text-sm md:text-base
   }
+  .active-btn {
+    @apply active:scale-95 duration-1000
+  }
 }
