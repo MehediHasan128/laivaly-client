@@ -4,6 +4,7 @@ import { generateDateAndYearOptions } from "@/utils";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { Label } from "../ui/label";
+import LVSelect from "../LVForm/LVSelect";
 
 const startYear = new Date().getFullYear();
 const endYear = startYear - 60;
@@ -28,7 +29,7 @@ const monthOptions = [
   { label: "December", value: "december" },
 ];
 
-const dateOptions = generateDateAndYearOptions(1,31);
+const dateOptions = generateDateAndYearOptions(1, 31);
 const yearOptions = generateDateAndYearOptions(startYear, endYear);
 
 console.log(yearOptions);
@@ -73,30 +74,24 @@ const ProfileUpdateForm = () => {
           <Label>Birthday (Optional)</Label>
           <div className="flex flex-col md:flex-row gap-3">
             <div className="w-full">
-              <LVInput
-                type="select"
-                name="phoneNumber"
-                defaultValue="21"
-                placeholder="Select Date"
+              <LVSelect
+                name="date"
                 options={dateOptions}
+                placeholder="Select Date"
               />
             </div>
             <div className="w-full">
-              <LVInput
-                type="select"
-                name="phoneNumber"
-                defaultValue="August"
-                placeholder="Select Month"
+              <LVSelect
+                name="date"
                 options={monthOptions}
+                placeholder="Select Moth"
               />
             </div>
             <div className="w-full">
-              <LVInput
-                type="select"
-                name="phoneNumber"
-                defaultValue="Men"
-                placeholder="Select Year"
+              <LVSelect
+                name="date"
                 options={yearOptions}
+                placeholder="Select Year"
               />
             </div>
           </div>
@@ -114,7 +109,9 @@ const ProfileUpdateForm = () => {
         </div>
 
         <div>
-          <button className="bg-black text-white rounded w-full py-4 cursor-pointer hover:underline active-btn">Update</button>
+          <button className="bg-black text-white rounded w-full py-4 cursor-pointer hover:underline active-btn">
+            Update
+          </button>
         </div>
       </div>
     </LVForm>

@@ -2,14 +2,6 @@ import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 
 interface TLVInputProps {
   type: string;
@@ -18,7 +10,6 @@ interface TLVInputProps {
   className?: string;
   setInputValue?: Dispatch<SetStateAction<string | null>>;
   defaultValue?: string;
-  options?: { label: string; value: string }[];
 }
 
 const LVInput = ({
@@ -28,49 +19,27 @@ const LVInput = ({
   className,
   setInputValue,
   defaultValue,
-  options,
 }: TLVInputProps) => {
   return (
     <div>
       <Controller
         name={name}
-        render={({ field }) =>
-          type === "select" ? (
-            <Select onValueChange={(val) => {
-              setInputValue?.(val);
-            }}>
-              <SelectTrigger
-                className={cn(
-                  "outline-none border focus:border-black w-full rounded font-medium",
-                  className
-                )}
-              >
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {options?.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          ) : (
-            <Input
-              {...field}
-              onChange={(e) => setInputValue?.(e.target.value)}
-              type={type}
-              placeholder={placeholder}
-              defaultValue={defaultValue}
-              className={cn(
-                "outline-none border focus:border-black w-full rounded font-medium",
-                className
-              )}
-            />
-          )
-        }
+         defaultValue={defaultValue ?? ""}
+        render={({ field }) => (
+          <Input
+            {...field}
+            onChange={(e) => {
+              field.onChange(e);
+              setInputValue?.(e.target.value);
+            }}
+            type={type}
+            placeholder={placeholder}
+            className={cn(
+              "outline-none border focus:border-black w-full rounded font-medium",
+              className
+            )}
+          />
+        )}
       />
     </div>
   );

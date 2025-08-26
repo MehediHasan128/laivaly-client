@@ -1,12 +1,13 @@
 "use client";
 
 import { Eye, EyeClosed } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { FieldValues } from "react-hook-form";
 import { Label } from "../ui/label";
+import { generateDateAndYearOptions } from "@/utils";
+import LVSelect from "../LVForm/LVSelect";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
@@ -14,6 +15,8 @@ const LoginForm = () => {
   const handleCustomerLogin = async (data: FieldValues) => {
     console.log(data);
   };
+
+  const dateOptions = generateDateAndYearOptions(1, 30)
 
   return (
     <>
@@ -23,16 +26,18 @@ const LoginForm = () => {
           <div>
             <LVInput
               type="email"
-              name="email"
+              name="userEmail"
               placeholder="Enter your Laivaly email"
+              className="py-4"
             />
           </div>
           {/* Password Input */}
           <div className="relative">
             <LVInput
-              type={showPass? "text" : "password"}
+              type={showPass ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
+              className="py-4"
             />
             {showPass ? (
               <div
@@ -50,15 +55,16 @@ const LoginForm = () => {
               </div>
             )}
 
-            <Label className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer">Forget Password</Label>
-
+            <Label className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer">
+              Forget Password
+            </Label>
+          </div>
+          <div>
+            <LVSelect name="date" options={dateOptions} placeholder="Select Date" />
           </div>
           {/* Submit button */}
           <div>
-            <button
-              type="submit"
-              className="border uppercase w-full bg-black text-white font-medium rounded active:scale-95 duration-500 cursor-pointer mt-5 lg:mt-10 py-3"
-            >
+            <button type="submit" className="btn mt-10 uppercase">
               login
             </button>
           </div>

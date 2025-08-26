@@ -8,7 +8,7 @@ import Sidebar from "./sideBar/Sidebar";
 import Searchbar from "./searchBar/Searchbar";
 import CustomerProfileMenuDropdown from "@/components/customer/CustomerProfileMenuDropdown";
 
-const user = true;
+const user = false;
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
