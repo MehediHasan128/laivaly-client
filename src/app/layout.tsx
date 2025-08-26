@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import '@smastrom/react-rating/style.css'
+import "@smastrom/react-rating/style.css";
 import "./globals.css";
+import { store } from "@/redux/store";
+import ReduxStoreProvider from "@/redux/ReduxStoreProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -32,8 +34,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://laivaly.vercel.app/"
-  }
+    canonical: "https://laivaly.vercel.app/",
+  },
 };
 
 export const viewport: Viewport = {
@@ -49,9 +51,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <ReduxStoreProvider>{children}</ReduxStoreProvider>
+      </body>
     </html>
   );
 }
-
-// Laivaly@1254
