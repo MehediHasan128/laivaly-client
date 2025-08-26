@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "@smastrom/react-rating/style.css";
 import "./globals.css";
-import { store } from "@/redux/store";
 import ReduxStoreProvider from "@/redux/ReduxStoreProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
