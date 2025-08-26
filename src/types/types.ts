@@ -1,3 +1,17 @@
+// Auth types
+export interface TUser {
+  id: string;
+  userName: {
+    firstName: string;
+    lastName: string;
+  },
+  userEmail: string;
+  userProfileURL: string;
+  userRole: string;
+}
+
+
+
 export interface TProduct {
   _id: string;
   title: string;
