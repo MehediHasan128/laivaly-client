@@ -47,7 +47,7 @@ const LVInput = ({
               >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-              <SelectContent className="h-[300px]">
+              <SelectContent>
                 <SelectGroup>
                   {options?.map((option) => (
                     <SelectItem key={option.value} value={option.value}>

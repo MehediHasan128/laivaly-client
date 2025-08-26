@@ -16,7 +16,7 @@ const CustomerSidebar = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Hi, Mehedi Hasan</h1>
+      <h1 className="text-xl md:text-2xl font-semibold">Hi, Mehedi Hasan</h1>
 
       <div className="mt-5 space-y-1">
         {sideBar.map((item, index) => (
@@ -25,7 +25,7 @@ const CustomerSidebar = () => {
             href={item.path}
             className={`block py-2 px-1 rounded ${
               pathName === item.path && "bg-accent px-5 py-2.5 text-lg"
-            } hover:bg-accent hover:px-5 duration-500 cursor-pointer font-semibold`}
+            } hover:bg-accent hover:px-5 duration-500 cursor-pointer font-semibold text-sm md:text-base`}
           >
             {item.label}
           </Link>

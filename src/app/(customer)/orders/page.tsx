@@ -20,19 +20,19 @@ const OrdersPage = () => {
   return (
     <>
       {!orders && (
-        <div>
-          <h1 className="text-3xl font-medium">Orders</h1>
+        <div className="font-medium">
+          <h1 className="text-2xl md:text-4xl">Orders</h1>
 
-          <div className="my-10 space-y-5 font-medium text-gray-700">
+          <div className="my-5 md:my-10 space-y-2 md:space-y-4 text-sm md:text-base font-medium text-gray-700">
             <p>You don’t have any orders yet</p>
             <p>Start shopping and your orders will appear here.</p>
           </div>
 
           <div>
             <Link href={""}>
-              <div className="bg-black text-center text-white rounded w-full active:scale-95 duration-1000 cursor-pointer py-4">
+              <button className="btn">
                 Start Shopping
-              </div>
+              </button>
             </Link>
           </div>
         </div>
