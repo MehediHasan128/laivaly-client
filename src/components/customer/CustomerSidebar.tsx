@@ -7,7 +7,7 @@ const sideBar = [
   { path: "/account", label: "Overview" },
   { path: "/orders", label: "Orders" },
   { path: "/profile", label: "Personal Information" },
-  { path: "/address", label: "Address" },
+  { path: "/address", label: "Address Book" },
   { path: "/wishlist", label: "Wishlist" },
 ];
 
