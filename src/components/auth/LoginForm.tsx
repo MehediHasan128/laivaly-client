@@ -6,17 +6,36 @@ import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { FieldValues } from "react-hook-form";
 import { Label } from "../ui/label";
-import { generateDateAndYearOptions } from "@/utils";
-import LVSelect from "../LVForm/LVSelect";
+import { useUserLoginMutation } from "@/redux/features/auth/authApi";
+import { TError, TResponce, TUser } from "@/types/types";
+import { toast } from "sonner";
+import Spinner from "../reusable/Spinner";
+import { decodedUserToken } from "@/utils";
+import { useAppDispatch } from "@/redux/hooks";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
 
-  const handleCustomerLogin = async (data: FieldValues) => {
-    console.log(data);
-  };
+  const [userLogin, { isLoading }] = useUserLoginMutation();
 
-  const dateOptions = generateDateAndYearOptions(1, 30)
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleCustomerLogin = async (userCredential: FieldValues) => {
+    const toastId = toast.loading(null);
+    try {
+      const res = (await userLogin(userCredential).unwrap()) as TResponce;
+      const userInfo = decodedUserToken(res.data.accessToken) as TUser;
+      dispatch(setUser({ user: userInfo, token: res.data.accessToken }));
+      toast.success(res?.message, { id: toastId });
+      router.push("/home");
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
+  };
 
   return (
     <>
@@ -59,13 +78,19 @@ const LoginForm = () => {
               Forget Password
             </Label>
           </div>
-          <div>
-            <LVSelect name="date" options={dateOptions} placeholder="Select Date" />
-          </div>
           {/* Submit button */}
           <div>
-            <button type="submit" className="btn mt-10 uppercase">
-              login
+            <button
+              type="submit"
+              className="btn mt-10 uppercase flex justify-center"
+            >
+              {isLoading ? (
+                <>
+                  <Spinner />
+                </>
+              ) : (
+                "login"
+              )}
             </button>
           </div>
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Auth types
 export interface TUser {
   id: string;
@@ -8,7 +9,28 @@ export interface TUser {
   userEmail: string;
   userProfileURL: string;
   userRole: string;
+};
+
+
+// Req & Res type
+export interface TResponce {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: any;
 }
+
+export interface TError {
+  status: number;
+  data: {
+    success: boolean;
+    message: string;
+    errorSource: {
+      path: string;
+      message: string;
+    }[];
+  };
+};
 
 
 

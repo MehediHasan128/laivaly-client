@@ -1,4 +1,3 @@
-import RootLoagingSpinner from "@/components/reusable/RootLoagingSpinner";
 import { smoochsans } from "@/styles/font";
 import Image from "next/image";
 
@@ -15,7 +14,7 @@ const loading = () => {
             Laivaly
           </h1>
           <div className="flex justify-center mt-10">
-            <RootLoagingSpinner />
+            
           </div>
         </div>
       </div>
