@@ -6,7 +6,10 @@ import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { FieldValues } from "react-hook-form";
 import { Label } from "../ui/label";
-import { useUserLoginMutation } from "@/redux/features/auth/authApi";
+import {
+  useForgetUserPasswordMutation,
+  useUserLoginMutation,
+} from "@/redux/features/auth/authApi";
 import { TError, TResponce, TUser } from "@/types/types";
 import { toast } from "sonner";
 import Spinner from "../reusable/Spinner";
@@ -18,11 +21,10 @@ import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
 
+  // User login function
   const [userLogin, { isLoading }] = useUserLoginMutation();
-
   const dispatch = useAppDispatch();
   const router = useRouter();
-
   const handleCustomerLogin = async (userCredential: FieldValues) => {
     const toastId = toast.loading(null);
     try {
@@ -31,6 +33,22 @@ const LoginForm = () => {
       dispatch(setUser({ user: userInfo, token: res.data.accessToken }));
       toast.success(res?.message, { id: toastId });
       router.push("/home");
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
+  };
+
+  // Forget User password
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [forgetUserPassword] = useForgetUserPasswordMutation();
+  const handleForgetUserPassword = async () => {
+    const toastId = toast.loading(null);
+    try {
+      const res = (await forgetUserPassword({userEmail}).unwrap()) as TResponce;
+      if(res.success){
+        toast.success(res?.message, { id: toastId });
+      }
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
@@ -47,6 +65,7 @@ const LoginForm = () => {
               type="email"
               name="userEmail"
               placeholder="Enter your Laivaly email"
+              setInputValue={setUserEmail}
               className="py-4"
             />
           </div>
@@ -74,7 +93,10 @@ const LoginForm = () => {
               </div>
             )}
 
-            <Label className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer">
+            <Label
+              onClick={handleForgetUserPassword}
+              className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer"
+            >
               Forget Password
             </Label>
           </div>

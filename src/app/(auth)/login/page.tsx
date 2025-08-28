@@ -76,7 +76,7 @@ const LoginPage = () => {
               {/* Main form */}
               <div>
                 <h1 className="uppercase font-medium text-sm md:text-base">
-                  continue with your emai and password
+                  continue with your email and password
                 </h1>
 
                 <div className="mt-10">
