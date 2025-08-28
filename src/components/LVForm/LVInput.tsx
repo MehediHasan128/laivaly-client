@@ -10,6 +10,7 @@ interface TLVInputProps {
   className?: string;
   setInputValue?: Dispatch<SetStateAction<string | null>>;
   defaultValue?: string;
+  disabled?: boolean
 }
 
 const LVInput = ({
@@ -19,6 +20,7 @@ const LVInput = ({
   className,
   setInputValue,
   defaultValue,
+  disabled
 }: TLVInputProps) => {
   return (
     <div>
@@ -34,6 +36,7 @@ const LVInput = ({
             }}
             type={type}
             placeholder={placeholder}
+            disabled={disabled}
             className={cn(
               "outline-none border focus:border-black w-full rounded font-medium",
               className
