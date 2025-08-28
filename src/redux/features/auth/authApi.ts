@@ -26,7 +26,14 @@ const authApi = baseApi.injectEndpoints({
                 }
             })
         }),
+        changeUserPassword: builder.mutation({
+            query: (payload) => ({
+                url: '/auth/change-password',
+                method: 'PATCH',
+                body: payload
+            })
+        }),
     })
 });
 
-export const {useUserLoginMutation, useForgetUserPasswordMutation, useResetUserPasswordMutation} = authApi;
+export const {useUserLoginMutation, useForgetUserPasswordMutation, useResetUserPasswordMutation, useChangeUserPasswordMutation} = authApi;
