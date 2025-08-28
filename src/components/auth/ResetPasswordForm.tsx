@@ -7,6 +7,7 @@ import { Label } from "../ui/label";
 import { TUser } from "@/types/types";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { FieldValues } from "react-hook-form";
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
@@ -25,7 +26,9 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 
   const userInfo = decodedUserToken(token) as TUser;
 
-  const handleResetUserPassword = async () => {};
+  const handleResetUserPassword = async (data: FieldValues) => {
+    console.log(data);
+  };
 
   return (
     <LVForm onSubmit={handleResetUserPassword}>
