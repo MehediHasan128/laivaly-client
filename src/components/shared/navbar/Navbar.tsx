@@ -7,10 +7,12 @@ import { useState } from "react";
 import Sidebar from "./sideBar/Sidebar";
 import Searchbar from "./searchBar/Searchbar";
 import CustomerProfileMenuDropdown from "@/components/customer/CustomerProfileMenuDropdown";
-
-const user = false;
+import { useAppSelector } from "@/redux/hooks";
+import { currentUser } from "@/redux/features/auth/authSlice";
 
 const Navbar = () => {
+  const user = useAppSelector(currentUser);
+
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   return (

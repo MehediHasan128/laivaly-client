@@ -10,8 +10,17 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
+import { useAppDispatch } from "@/redux/hooks";
+import { userLogout } from "@/redux/features/auth/authSlice";
 
 const CustomerProfileMenuDropdown = () => {
+
+  const dispatch = useAppDispatch();
+
+  const handleUserLogout = () => {
+    dispatch(userLogout()); 
+  } 
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer" asChild>
@@ -28,7 +37,7 @@ const CustomerProfileMenuDropdown = () => {
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleUserLogout}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
