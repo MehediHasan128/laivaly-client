@@ -1,3 +1,4 @@
+import EditPasswordDrawer from "@/components/customer/EditPasswordDrawer";
 import React from "react";
 
 export const metadata = {
@@ -41,7 +42,10 @@ const CustomerAccountPage = () => {
                 <div className="space-y-3 md:space-y-5">
                   <h1>bayzidahmed467@gmail.com</h1>
                   <h1>
-                    ***** <span className="underline cursor-pointer">Edit</span>
+                    *****{" "}
+                    <EditPasswordDrawer>
+                      <span className="underline cursor-pointer">Edit</span>
+                    </EditPasswordDrawer>
                   </h1>
                 </div>
               </div>
