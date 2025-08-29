@@ -105,6 +105,6 @@ html {
     @apply text-gray-600 font-medium text-sm md:text-base
   }
   .btn {
-    @apply bg-black text-white rounded w-full active:scale-95 duration-1000 cursor-pointer py-4
+    @apply flex justify-center bg-black text-white rounded w-full active:scale-95 duration-1000 cursor-pointer py-4
   }
 }

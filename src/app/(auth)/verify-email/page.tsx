@@ -1,7 +1,5 @@
 import OTPForm from "@/components/auth/OTPForm";
 import LogoWithTitle from "@/components/reusable/LogoWithTitle";
-import { smoochsans } from "@/styles/font";
-import Image from "next/image";
 
 export const metadata = {
   title: "Verify Your Email",
@@ -11,7 +9,14 @@ export const metadata = {
   robots: "index, follow",
 };
 
-const VerifyEmailPage = () => {
+interface VerifyEmailPageProps {
+  searchParams: { userEmail: string; };
+}
+
+const VerifyEmailPage = async({ searchParams }: VerifyEmailPageProps) => {
+
+  const {userEmail} = searchParams;
+
   return (
     <main className="flex justify-center items-center h-screen relative">
       <div className="absolute top-8 left-5 lg:top-16 lg:left-20">
@@ -26,7 +31,7 @@ const VerifyEmailPage = () => {
           </p>
         </div>
         <div>
-          <OTPForm />
+          <OTPForm userEmail={userEmail} />
         </div>
       </div>
     </main>

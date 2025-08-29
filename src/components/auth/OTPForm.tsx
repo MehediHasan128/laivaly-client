@@ -4,10 +4,31 @@ import { FieldValues } from "react-hook-form";
 import LVForm from "../LVForm/LVForm";
 import LVOTP from "../LVForm/LVOTP";
 import Countdown from "../reusable/Countdown";
+import { useVerifyUserEmailMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
+import { TError, TResponce } from "@/types/types";
+import { useRouter } from "next/navigation";
+import Spinner from "../reusable/Spinner";
 
-const OTPForm = () => {
+const OTPForm = ({ userEmail }: { userEmail: string }) => {
+  const [verifyUserEmail, { isLoading }] = useVerifyUserEmailMutation();
+
+  const router = useRouter();
+
   const handleVerifyUserEmail = async (data: FieldValues) => {
-    console.log(data);
+    const toastId = toast.loading(null);
+    if (data?.otp) {
+      try {
+        const res = (await verifyUserEmail([data, userEmail]).unwrap()) as TResponce;
+        toast.success(res?.message, { id: toastId });
+        router.push("/login");
+      } catch (err) {
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId });
+      }
+    }else{
+      toast.warning('You cannot verify your profile without entering the OTP. Please check your email and try again.', { id: toastId });
+    }
   };
 
   return (
@@ -26,7 +47,9 @@ const OTPForm = () => {
           </span>
         </div>
         <div>
-          <button className="btn uppercase hover:underline">verify</button>
+          <button type="submit" className="btn uppercase hover:underline">
+            {isLoading ? <Spinner /> : "verify"}
+          </button>
         </div>
       </div>
     </LVForm>
