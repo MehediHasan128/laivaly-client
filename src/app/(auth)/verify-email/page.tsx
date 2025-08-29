@@ -14,7 +14,7 @@ export const metadata = {
 const VerifyEmailPage = () => {
   return (
     <main className="flex justify-center items-center h-screen relative">
-      <div className="absolute top-16 left-20">
+      <div className="absolute top-8 left-5 lg:top-16 lg:left-20">
         <LogoWithTitle />
       </div>
       <div className="space-y-5 w-[330px] md:w-[425px] mx-auto">

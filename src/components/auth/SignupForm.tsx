@@ -5,6 +5,8 @@ import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { CircleCheck } from "lucide-react";
 import { useState } from "react";
+import { useCreateCustomerAccountMutation } from "@/redux/features/customer/customerApi";
+import { toast } from "sonner";
 
 const SignupForm = () => {
   const [givenPassword, setGivenPassword] = useState<string | null>(null);
@@ -18,8 +20,30 @@ const SignupForm = () => {
   //   Check the password have contain one number
   const passHaveNumber = /[0-9]/.test(givenPassword as string);
 
+  const [createCustomerAccount, {isLoading}] = useCreateCustomerAccountMutation();
+
   const handleCreateCustomerAccount = async (data: FieldValues) => {
-    console.log(data);
+    
+    const toastId = toast.loading(null);
+
+    const {userName, userEmail, password, confirmPassword} = data;
+
+    if(password === confirmPassword && passLength && passHaveCapitalLetter && passHaveSpecialChar && passHaveNumber){
+
+    }else{
+      if(!passLength){
+        toast.warning('Password must be at least 8 characters long', { id: toastId });
+      }else if(!passHaveCapitalLetter){
+        toast.warning('Password must contain at least one uppercase letter', { id: toastId });
+      }else if(!passHaveSpecialChar){
+        toast.warning('Password must contain at least one special character', { id: toastId });
+      }else if(!passHaveNumber){
+        toast.warning('Password must contain at least one number', { id: toastId });
+      }else{
+        toast.warning('Confirm password must be the same as password', { id: toastId });
+      }
+    }
+
   };
 
   return (
