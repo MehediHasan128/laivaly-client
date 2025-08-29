@@ -1,12 +1,13 @@
 import { TCartProduct, TProduct, TRatingData } from "@/types/types";
-import { jwtDecode } from 'jwt-decode';
-
+import { jwtDecode } from "jwt-decode";
 
 // Decoded user token
 export const decodedUserToken = (token: string) => {
   const tokenDecoded = jwtDecode(token);
-  return tokenDecoded
-}
+  return tokenDecoded;
+};
+
+// Create cookie when user logout
 
 
 export const rearrangeProducts = (

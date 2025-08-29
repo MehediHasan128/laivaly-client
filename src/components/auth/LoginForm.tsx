@@ -29,8 +29,9 @@ const LoginForm = () => {
     const toastId = toast.loading(null);
     try {
       const res = (await userLogin(userCredential).unwrap()) as TResponce;
-      const userInfo = decodedUserToken(res.data.accessToken) as TUser;
-      dispatch(setUser({ user: userInfo, token: res.data.accessToken }));
+      const token = res.data.accessToken;
+      const userInfo = decodedUserToken(token) as TUser;
+      dispatch(setUser({ user: userInfo }));
       toast.success(res?.message, { id: toastId });
       router.push("/home");
     } catch (err) {
@@ -45,8 +46,10 @@ const LoginForm = () => {
   const handleForgetUserPassword = async () => {
     const toastId = toast.loading(null);
     try {
-      const res = (await forgetUserPassword({userEmail}).unwrap()) as TResponce;
-      if(res.success){
+      const res = (await forgetUserPassword({
+        userEmail,
+      }).unwrap()) as TResponce;
+      if (res.success) {
         toast.success(res?.message, { id: toastId });
       }
     } catch (err) {
