@@ -1,4 +1,7 @@
 import OTPForm from "@/components/auth/OTPForm";
+import LogoWithTitle from "@/components/reusable/LogoWithTitle";
+import { smoochsans } from "@/styles/font";
+import Image from "next/image";
 
 export const metadata = {
   title: "Verify Your Email",
@@ -10,7 +13,10 @@ export const metadata = {
 
 const VerifyEmailPage = () => {
   return (
-    <main className="flex justify-center items-center h-screen">
+    <main className="flex justify-center items-center h-screen relative">
+      <div className="absolute top-16 left-20">
+        <LogoWithTitle />
+      </div>
       <div className="space-y-5 w-[330px] md:w-[425px] mx-auto">
         <div className="font-semibold space-y-2">
           <h1 className="text-2xl">Verify Your Email</h1>

@@ -3,6 +3,7 @@
 import { FieldValues } from "react-hook-form";
 import LVForm from "../LVForm/LVForm";
 import LVOTP from "../LVForm/LVOTP";
+import Countdown from "../reusable/Countdown";
 
 const OTPForm = () => {
   const handleVerifyUserEmail = async (data: FieldValues) => {
@@ -14,8 +15,8 @@ const OTPForm = () => {
       <div className="space-y-5">
         <LVOTP name="otp" />
         <div className="text-xs font-semibold flex justify-between items-center">
-          <span className="text-gray-700">
-            Remaining tome: <span className="text-black font-bold">00:59</span>
+          <span className="text-gray-700 flex items-center gap-2">
+            Remaining time: <Countdown />
           </span>
           <span className="text-gray-700">
             Didn&apos;t get the code?{" "}
