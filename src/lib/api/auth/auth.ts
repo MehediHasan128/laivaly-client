@@ -7,3 +7,10 @@ export const userLogin = (userCreadential: FieldValues) => {
     options: { method: "POST", body: JSON.stringify(userCreadential) },
   });
 };
+
+export const userLogout = () => {
+  return baseApi({
+    endPoints: "/auth/logout",
+    options: {method: "POST"}
+  })
+}

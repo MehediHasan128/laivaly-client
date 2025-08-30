@@ -13,6 +13,8 @@ import {
 } from "../ui/dropdown-menu";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { toast } from "sonner";
+import { userLogout } from "@/lib/api/auth/auth";
 
 const ProfileMenu = ({
   children,
@@ -22,8 +24,12 @@ const ProfileMenu = ({
   user: TUser;
 }) => {
   
-  const handleUserLogout = () => {
-    console.log(5);
+  const handleUserLogout = async () => {
+    const toastId = toast.loading("Loading");
+
+    await userLogout();
+
+    toast.success("User logout succesfully!", { id: toastId });
   };
 
   return (
