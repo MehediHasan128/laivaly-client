@@ -5,8 +5,6 @@ export const currentUser = async () => {
   const cookieStore = cookies();
   const token = (await cookieStore).get("accessToken")?.value;
 
-  console.log(token);
-
   let user = null;
   if (token) {
     user = decodedUserToken(token as string);

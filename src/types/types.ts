@@ -1,15 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Auth types
+
+interface TUserName {
+  firstName: string;
+  lastName: string;
+}
+
+interface TShippingAddress {
+  addressCategory: string;
+  recipientsName: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  state: string;
+  country: string;
+}
+
 export interface TUser {
   id: string;
-  userName: {
-    firstName: string;
-    lastName: string;
-  },
+  userName: TUserName;
   userEmail: string;
   userProfileURL: string;
   userRole: string;
-};
+}
+
+export interface TCustomerProfile {
+  _id: string;
+  customerId: string;
+  userName: TUserName;
+  userEmail: string;
+  phoneNumber: string;
+  dateOfBirth: string | null;
+  gender: string | null;
+  shippingAddress: TShippingAddress[] | [];
+}
+
+
+
+
+
+
 
 
 // Req & Res type
@@ -30,9 +61,7 @@ export interface TError {
       message: string;
     }[];
   };
-};
-
-
+}
 
 export interface TProduct {
   _id: string;
