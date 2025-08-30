@@ -34,7 +34,7 @@ const Banner = () => {
                 </h1>
               </div>
               <div className="xl:px-10 mt-5 lg:mt-36 xl:mt-48 2xl:mt-64">
-                <p className="gray-text font-semibold text-justify w-[95%] lg:w-[100%] 2xl:w-[80%] mb-5 md:mb-10 lg:mb-8 xl:mb-7 2xl:mb-10">
+                <p className="gray-text font-semibold text-justify w-[95%] lg:w-[100%] 2xl:w-[80%] mb-5 md:mb-10 lg:mb-8 xl:mb-7 2xl:mb-10 text-sm">
                   Step into elegance with our latest fashion collections,
                   crafted to empower your everyday look. From casual wear to
                   statement pieces, Laivaly brings you trend-forward designs

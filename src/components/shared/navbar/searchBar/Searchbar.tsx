@@ -5,14 +5,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { smoochsans } from "@/styles/font";
 import { Search, X } from "lucide-react";
-import { Smooch_Sans } from "next/font/google";
-import { Dispatch, ReactNode, SetStateAction, useEffect, useRef } from "react";
-
-const smoochsans = Smooch_Sans({
-  subsets: ["latin"],
-  variable: "--font-smoochsans",
-});
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 interface TSearchDrawerProps {
   children: ReactNode;
@@ -25,14 +20,6 @@ const Searchbar = ({
   searchBarOpen,
   setSearchBarOpen,
 }: TSearchDrawerProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (searchBarOpen) {
-      inputRef.current?.focus();
-    }
-  }, [searchBarOpen]);
-
   return (
     <Drawer
       direction="top"
@@ -62,7 +49,6 @@ const Searchbar = ({
             <div className="relative mt-3">
               <input
                 type="text"
-                ref={inputRef}
                 placeholder="Search for Pre Order"
                 className="border rounded-full w-full outline-none focus:border-black text-sm md:text-base px-5 py-3"
               />

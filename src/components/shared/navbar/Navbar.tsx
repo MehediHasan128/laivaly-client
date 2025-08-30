@@ -1,103 +1,45 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
-import { Handbag, Heart, Search, UserRound } from "lucide-react";
+import { Handbag, Search, UserRound } from "lucide-react";
+import Image from "next/image";
+import SidebarButton from "./sideBar/SidebarButton";
 import Link from "next/link";
-import { useState } from "react";
-import Sidebar from "./sideBar/Sidebar";
 import Searchbar from "./searchBar/Searchbar";
-import CustomerProfileMenuDropdown from "@/components/customer/CustomerProfileMenuDropdown";
+import ProfileMenu from "@/components/customer/ProfileMenu";
+import { currentUser } from "@/lib/api/currentUser";
+import { TUser } from "@/types/types";
 
-const Navbar = () => {
+const Navbar = async() => {
 
-  const user = false
-
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const user = await currentUser() as TUser;
 
   return (
     <header>
-      <div className="navbar">
-        {/* Menu bar and search button */}
-        <div className="flex-item-center">
-          {/* Menubar */}
-          <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu}>
-            <div
-              className={`cursor-pointer flex-item-center p-1 ${
-                openMenu && "z-100"
-              }`}
-              onClick={() => setOpenMenu(!openMenu)}
-            >
-              <div className="space-y-1">
-                <div
-                  className={`h-0.5 rounded-full bg-black w-8 transition-transform duration-500 ${
-                    openMenu && "origin-center rotate-45 translate-y-[3px]"
-                  }`}
-                />
-                <div
-                  className={`h-0.5 rounded-full bg-black w-8 transition-transform duration-500 ${
-                    openMenu && "origin-center -rotate-45 -translate-y-[3px]"
-                  }`}
-                />
-                <div
-                  className={`h-0.5 rounded-full bg-black w-8 ${
-                    openMenu && "hidden"
-                  }`}
-                />
-              </div>
-              <div className="h-5 flex items-center overflow-hidden">
-                <div
-                  className={`transition-transform duration-500 ${
-                    openMenu ? "-translate-y-3" : "translate-y-3"
-                  }`}
-                >
-                  <h1>Menu</h1>
-                  <h1>Close</h1>
-                </div>
-              </div>
-            </div>
-          </Sidebar>
-
-          {/* Search button */}
+      <div className="flex justify-between items-center px-8 md:px-16 py-5 border-b">
+        <div className="flex items-center gap-5 font-semibold">
+          <SidebarButton />
           <Searchbar>
-            <div className="cursor-pointer flex-item-center hidden lg:flex p-1">
+            <div className="hidden lg:flex items-center gap-1.5 cursor-pointer">
               <Search />
-              <div className="h-5 flex items-center overflow-hidden">
-                <h1>Search</h1>
-              </div>
+              <h1>Search</h1>
             </div>
           </Searchbar>
         </div>
 
-        {/* Menu bar and search button */}
-        <Link href={"/home"}>
-          <img
-            src="/images/logo/logo.png"
-            alt="laivaly-logo"
-            className="w-10 2xl:w-14"
-          />
+        <Link href="/home">
+          <div className="relative size-8 md:size-12">
+            <Image
+              src="/images/logo/logo.png"
+              alt="Laivaly-logo"
+              quality={100}
+              fill
+            />
+          </div>
         </Link>
 
-        {/* Menu bar and search button */}
-        <div className="flex-item-center gap-5">
-          <Link href="/wishlist" className="relative">
-            <Heart className="size-5 md:size-6" />
-            <div className="absolute text-xs md:text-sm font-semibold left-1/2 -translate-x-1/2">
-              <p>1</p>
-            </div>
-          </Link>
-          <Link href="/cart" className="relative">
-            <Handbag className="size-5 md:size-6" />
-            <div className="absolute text-xs md:text-sm font-semibold left-1/2 -translate-x-1/2">
-              <p>2</p>
-            </div>
-          </Link>
-          {user ? (
-            <CustomerProfileMenuDropdown />
-          ) : (
-            <Link href="/login">
-              <UserRound className="size-5 md:size-6" />
-            </Link>
-          )}
+        <div className="flex items-center gap-3 md:gap-5">
+          <Handbag className="cursor-pointer size-5 md:size-6" />
+          <ProfileMenu user={user}>
+            <UserRound className="cursor-pointer size-5 md:size-6" />
+          </ProfileMenu>
         </div>
       </div>
     </header>

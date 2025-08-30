@@ -3,7 +3,6 @@ import { FieldValues } from "react-hook-form";
 import LVForm from "../LVForm/LVForm";
 import { Label } from "../ui/label";
 import LVInput from "../LVForm/LVInput";
-import { useChangeUserPasswordMutation } from "@/redux/features/auth/authApi";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { TError, TResponce } from "@/types/types";
@@ -24,39 +23,8 @@ const EditPasswordForm = ({drawerOpen}: {drawerOpen: Dispatch<SetStateAction<boo
   //   Check the password have contain one number
   const passHaveNumber = /[0-9]/.test(givenPassword as string);
 
-  const [changeUserPassword] = useChangeUserPasswordMutation();
-
   const handleUpdateUserPassword = async (data: FieldValues) => {
-    const toastId = toast.loading(null);
-    const { oldPassword, newPassword, confirmPassword } = data;
-
-    const payload = {
-      oldPassword,
-      newPassword,
-    };
-
-    if (
-      newPassword === confirmPassword &&
-      passLength &&
-      passHaveCapitalLetter &&
-      passHaveSpecialChar &&
-      passHaveNumber
-    ) {
-      try {
-        const res = (await changeUserPassword(payload).unwrap()) as TResponce;
-        if (res.success) {
-          toast.success(res?.message, { id: toastId });
-          drawerOpen(false);
-        }
-      } catch (err) {
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-      }
-    } else {
-      toast.warning("Confirm password must be the same as password", {
-        id: toastId,
-      });
-    }
+    
   };
 
   return (
