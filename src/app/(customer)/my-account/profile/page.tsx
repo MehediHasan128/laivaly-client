@@ -1,19 +1,27 @@
-import ProfileUpdateForm from "@/components/customer/ProfileUpdateForm";
+"use client"
 
-export const metadata = {
-  title: "My Profile",
-  description: "Manage your Laivaly account profile. Update personal details, and account settings for a personalized shopping experience.",
-  keywords: [
-    "Laivaly profile",
-    "my account",
-    "account settings",
-    "edit profile",
-    "Laivaly user account"
-  ]
-};
+import ProfileUpdateForm from "@/components/customer/ProfileUpdateForm";
+import { useGetUserQuery } from "@/redux/features/users/usersApi";
+
+// export const metadata = {
+//   title: "My Profile",
+//   description: "Manage your Laivaly account profile. Update personal details, and account settings for a personalized shopping experience.",
+//   keywords: [
+//     "Laivaly profile",
+//     "my account",
+//     "account settings",
+//     "edit profile",
+//     "Laivaly user account"
+//   ]
+// };
 
 
 const ProfilePage = () => {
+
+const { data: userData } = useGetUserQuery(null);
+
+  console.log(userData)
+
   return (
     <main className="space-y-10 md:space-y-16">
       <div className="font-medium">

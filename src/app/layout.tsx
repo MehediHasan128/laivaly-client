@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "@smastrom/react-rating/style.css";
 import "./globals.css";
-import ReduxStoreProvider from "@/redux/ReduxStoreProvider";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -51,7 +51,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <ReduxStoreProvider>{children}</ReduxStoreProvider>
+        {children}
+        <Toaster
+          richColors
+          position="top-center"
+          swipeDirections={["top"]}
+          duration={3000}
+        />
       </body>
     </html>
   );

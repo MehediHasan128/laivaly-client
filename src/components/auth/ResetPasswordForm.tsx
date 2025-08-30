@@ -4,19 +4,15 @@ import { decodedUserToken } from "@/utils";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { Label } from "../ui/label";
-import { TError, TResponce, TUser } from "@/types/types";
+import { TUser } from "@/types/types";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
-import { useResetUserPasswordMutation } from "@/redux/features/auth/authApi";
-import { useRouter } from "next/navigation";
 import Spinner from "../reusable/Spinner";
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [givenPassword, setGivenPassword] = useState<string | null>(null);
-  const router = useRouter();
 
   //   Check the password is 8 characters long
   const passLength = (givenPassword?.length ?? 0) >= 8;
@@ -29,42 +25,10 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   //   Check the password have contain one number
   const passHaveNumber = /[0-9]/.test(givenPassword as string);
 
-  const [resetUserPassword, { isLoading }] = useResetUserPasswordMutation();
-
   const userInfo = decodedUserToken(token) as TUser;
 
   const handleResetUserPassword = async (data: FieldValues) => {
-    const toastId = toast.loading(null);
-
-    const { userEmail, password, confirmPassword } = data;
-
-    if (
-      password === confirmPassword &&
-      passLength &&
-      passHaveCapitalLetter &&
-      passHaveSpecialChar &&
-      passHaveNumber
-    ) {
-      const payload = { userEmail, password };
-
-      try {
-        const res = (await resetUserPassword([
-          payload,
-          token,
-        ]).unwrap()) as TResponce;
-        if (res.success) {
-          toast.success(res?.message, { id: toastId });
-          router.push("/home");
-        }
-      } catch (err) {
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-      }
-    } else {
-      toast.warning("Confirm password must be the same as password", {
-        id: toastId,
-      });
-    }
+    console.log(data);
   };
 
   return (
@@ -149,7 +113,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
         </div>
         <div>
           <button className="btn mt-5 py-3 hover:underline">
-            {isLoading ? <Spinner /> : "Confirm"}
+            {false ? <Spinner /> : "Confirm"}
           </button>
         </div>
       </div>

@@ -10,18 +10,10 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
-import { useAppDispatch } from "@/redux/hooks";
-import { userLogout } from "@/redux/features/auth/authSlice";
-import { useLogoutUserMutation } from "@/redux/features/auth/authApi";
 
 const CustomerProfileMenuDropdown = () => {
-  const dispatch = useAppDispatch();
-
-  const [logoutUser] = useLogoutUserMutation();
-
   const handleUserLogout = async () => {
-    dispatch(userLogout());
-    await logoutUser(null);
+    console.log(5);
   };
 
   return (

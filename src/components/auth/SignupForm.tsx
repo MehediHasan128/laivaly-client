@@ -5,11 +5,7 @@ import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { useCreateCustomerAccountMutation } from "@/redux/features/customer/customerApi";
-import { toast } from "sonner";
 import Spinner from "../reusable/Spinner";
-import { TError, TResponce } from "@/types/types";
-import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
   const [givenPassword, setGivenPassword] = useState<string | null>(null);
@@ -26,64 +22,8 @@ const SignupForm = () => {
   //   Check the password have contain one number
   const passHaveNumber = /[0-9]/.test(givenPassword as string);
 
-  const [createCustomerAccount, { isLoading }] =
-    useCreateCustomerAccountMutation();
-
-    const router = useRouter();
-
   const handleCreateCustomerAccount = async (data: FieldValues) => {
-    const toastId = toast.loading(null);
-
-    const { userName, userEmail, password, confirmPassword } = data;
-
-    const userData = {
-      password,
-      customer: {
-        userName,
-        userEmail,
-      },
-    };
-
-    if (
-      password === confirmPassword &&
-      passLength &&
-      passHaveCapitalLetter &&
-      passHaveSpecialChar &&
-      passHaveNumber
-    ) {
-      try {
-
-        const res = await createCustomerAccount(userData).unwrap() as TResponce;
-        toast.success(res?.message, { id: toastId });
-        router.push(`/verify-email?userEmail=${userEmail}`);
-
-      } catch (err) {
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-      }
-    } else {
-      if (!passLength) {
-        toast.warning("Password must be at least 8 characters long", {
-          id: toastId,
-        });
-      } else if (!passHaveCapitalLetter) {
-        toast.warning("Password must contain at least one uppercase letter", {
-          id: toastId,
-        });
-      } else if (!passHaveSpecialChar) {
-        toast.warning("Password must contain at least one special character", {
-          id: toastId,
-        });
-      } else if (!passHaveNumber) {
-        toast.warning("Password must contain at least one number", {
-          id: toastId,
-        });
-      } else {
-        toast.warning("Confirm password must be the same as password", {
-          id: toastId,
-        });
-      }
-    }
+    console.log(data);
   };
 
   return (
@@ -187,7 +127,7 @@ const SignupForm = () => {
 
         <div>
           <button className="btn flex justify-center py-3 mt-5 uppercase">
-            {isLoading ? <Spinner /> : "continue"}
+            {false ? <Spinner /> : "continue"}
           </button>
         </div>
       </div>
