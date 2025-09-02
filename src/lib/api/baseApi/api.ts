@@ -1,8 +1,6 @@
-"use server"
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TError } from "@/types/types";
-import { cookies } from "next/headers";
+import { getAccessToken } from "./getToken";
 
 interface FetchOptions extends RequestInit {
   cache?: RequestCache;
@@ -20,13 +18,11 @@ export async function baseApi<T>({
 }: TBaseApiProps): Promise<T> {
   const baseURL = "http://localhost:5000/api/v1";
 
-  
-  const cookiesStore = cookies();
-  const accessToken = (await cookiesStore).get('accessToken')?.value;
+  const token = await getAccessToken();
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    'Authorization': `${accessToken}`,
+    'Authorization': `${token}`,
     ...(options.headers || {}),
   };
 

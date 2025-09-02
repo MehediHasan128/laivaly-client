@@ -5,6 +5,10 @@ import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { Label } from "../ui/label";
 import LVSelect from "../LVForm/LVSelect";
+import { TCustomerProfile, TError, TResponce } from "@/types/types";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import { updateCustomerProfile } from "@/lib/api/customer/customerApi";
 
 const startYear = new Date().getFullYear();
 const endYear = startYear - 60;
@@ -32,11 +36,35 @@ const monthOptions = [
 const dateOptions = generateDateAndYearOptions(1, 31);
 const yearOptions = generateDateAndYearOptions(startYear, endYear);
 
-console.log(yearOptions);
+const ProfileUpdateForm = ({
+  customerData,
+}: {
+  customerData: TCustomerProfile;
+}) => {
 
-const ProfileUpdateForm = () => {
-  const handleUpdateCustomerInformation = async () => {
-    console.log(5);
+  const [defaultDate, defaultMonth, defaultYear]: string[] = customerData!.dateOfBirth!.replace(",", "").split(" ");
+
+  const handleUpdateCustomerInformation = async (data: FieldValues) => {
+    const { userName, phoneNumber, date, month, year, gender } = data;
+
+    const updatedCustomerInfo = {
+      userName,
+      phoneNumber,
+      gender,
+      dateOfBirth: `${date} ${month}, ${year}`,
+    };
+
+    const toastId = toast.loading("Loading");
+    try {
+      const res = (await updateCustomerProfile(
+        updatedCustomerInfo,
+        customerData?.customerId
+      )) as TResponce;
+      toast.success(res?.message, { id: toastId });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
   };
 
   return (
@@ -48,7 +76,7 @@ const ProfileUpdateForm = () => {
             <LVInput
               type="text"
               name="userName.firstName"
-              defaultValue="Mehedi"
+              defaultValue={customerData?.userName.firstName}
             />
           </div>
           <div className="space-y-1.5 w-full">
@@ -56,7 +84,7 @@ const ProfileUpdateForm = () => {
             <LVInput
               type="text"
               name="userName.lastName"
-              defaultValue="Hasan"
+              defaultValue={customerData?.userName.lastName}
             />
           </div>
         </div>
@@ -67,6 +95,7 @@ const ProfileUpdateForm = () => {
             type="text"
             name="phoneNumber"
             placeholder="Enter your phone number"
+            defaultValue={customerData?.phoneNumber}
           />
         </div>
 
@@ -78,20 +107,23 @@ const ProfileUpdateForm = () => {
                 name="date"
                 options={dateOptions}
                 placeholder="Select Date"
+                defaultValue={defaultDate}
               />
             </div>
             <div className="w-full">
               <LVSelect
-                name="date"
+                name="month"
                 options={monthOptions}
                 placeholder="Select Moth"
+                defaultValue={defaultMonth}
               />
             </div>
             <div className="w-full">
               <LVSelect
-                name="date"
+                name="year"
                 options={yearOptions}
                 placeholder="Select Year"
+                defaultValue={defaultYear}
               />
             </div>
           </div>
@@ -99,12 +131,11 @@ const ProfileUpdateForm = () => {
 
         <div className="space-y-1.5 w-full">
           <Label>Gender (Optional)</Label>
-          <LVInput
-            type="select"
-            name="phoneNumber"
-            defaultValue="Men"
+          <LVSelect
+            name="gender"
             placeholder="Select Gender"
             options={genderOptions}
+            defaultValue={customerData?.gender}
           />
         </div>
 

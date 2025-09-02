@@ -15,7 +15,7 @@ interface TLVSelectProps {
   placeholder?: string;
   className?: string;
   setInputValue?: Dispatch<SetStateAction<string | null>>;
-  defaultValue?: string;
+  defaultValue?: string | null;
   options: { label: string; value: string }[];
 }
 

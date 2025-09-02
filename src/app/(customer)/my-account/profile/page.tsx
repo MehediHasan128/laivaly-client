@@ -1,26 +1,23 @@
-"use client"
-
 import ProfileUpdateForm from "@/components/customer/ProfileUpdateForm";
-import { useGetUserQuery } from "@/redux/features/users/usersApi";
+import { getUserProfile } from "@/lib/api/user/user";
+import { TCustomerProfile, TResponce } from "@/types/types";
 
-// export const metadata = {
-//   title: "My Profile",
-//   description: "Manage your Laivaly account profile. Update personal details, and account settings for a personalized shopping experience.",
-//   keywords: [
-//     "Laivaly profile",
-//     "my account",
-//     "account settings",
-//     "edit profile",
-//     "Laivaly user account"
-//   ]
-// };
+export const metadata = {
+  title: "My Profile",
+  description:
+    "Manage your Laivaly account profile. Update personal details, and account settings for a personalized shopping experience.",
+  keywords: [
+    "Laivaly profile",
+    "my account",
+    "account settings",
+    "edit profile",
+    "Laivaly user account",
+  ],
+};
 
-
-const ProfilePage = () => {
-
-const { data: userData } = useGetUserQuery(null);
-
-  console.log(userData)
+const ProfilePage = async () => {
+  const data = (await getUserProfile()) as TResponce;
+  const customerData = data?.data as TCustomerProfile;
 
   return (
     <main className="space-y-10 md:space-y-16">
@@ -42,7 +39,7 @@ const { data: userData } = useGetUserQuery(null);
                 </div>
 
                 <div className="space-y-3 md:space-y-5">
-                  <h1>bayzidahmed467@gmail.com</h1>
+                  <h1>{customerData?.userEmail}</h1>
                   <h1>
                     ***** <span className="underline cursor-pointer">Edit</span>
                   </h1>
@@ -54,11 +51,12 @@ const { data: userData } = useGetUserQuery(null);
 
               <div className="mt-5 text-sm lg:text-base">
                 <h1 className="flex gap-10 lg:gap-16">
-                  <span className="text-gray-700">Laivaly Member ID:</span> <span>LVC-35F6S1</span>
+                  <span className="text-gray-700">Laivaly Member ID:</span>{" "}
+                  <span>{customerData?.customerId}</span>
                 </h1>
 
                 <div className="mt-8 2xl:w-[60%]">
-                  <ProfileUpdateForm />
+                  <ProfileUpdateForm customerData={customerData} />
                 </div>
               </div>
             </div>

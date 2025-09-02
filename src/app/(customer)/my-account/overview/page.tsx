@@ -81,6 +81,7 @@ const CustomerAccountPage = async () => {
                     ) : (
                       customerData?.phoneNumber
                     )}
+                    
                   </h1>
                   <h1>
                     {customerData?.dateOfBirth === null ? (
