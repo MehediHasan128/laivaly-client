@@ -4,15 +4,21 @@ import { decodedUserToken } from "@/utils";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { Label } from "../ui/label";
-import { TUser } from "@/types/types";
+import { TError, TResponce, TUser } from "@/types/types";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import Spinner from "../reusable/Spinner";
+import { toast } from "sonner";
+import { resetUserPassword } from "@/lib/api/auth/auth";
+import { useRouter } from "next/navigation";
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [givenPassword, setGivenPassword] = useState<string | null>(null);
+  const router = useRouter();
+
+  console.log(token);
 
   //   Check the password is 8 characters long
   const passLength = (givenPassword?.length ?? 0) >= 8;
@@ -28,7 +34,19 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   const userInfo = decodedUserToken(token) as TUser;
 
   const handleResetUserPassword = async (data: FieldValues) => {
-    console.log(data);
+    const toastId = toast.loading("Loading");
+    const resetPasswordData = {
+      userEmail: userInfo?.userEmail,
+      password: data?.password,
+    };
+    try {
+      const res = (await resetUserPassword(resetPasswordData, token)) as TResponce;
+      toast.success(res?.message, { id: toastId });
+      router.push("/login");
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
   };
 
   return (

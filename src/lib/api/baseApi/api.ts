@@ -10,11 +10,13 @@ interface FetchOptions extends RequestInit {
 interface TBaseApiProps {
   endPoints: string;
   options: FetchOptions;
+  temporaryToken?: string; 
 }
 
 export async function baseApi<T>({
   endPoints,
   options = {},
+  temporaryToken
 }: TBaseApiProps): Promise<T> {
   const baseURL = "http://localhost:5000/api/v1";
 
@@ -22,7 +24,7 @@ export async function baseApi<T>({
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    'Authorization': `${token}`,
+    'Authorization': `${token || temporaryToken}`,
     ...(options.headers || {}),
   };
 
