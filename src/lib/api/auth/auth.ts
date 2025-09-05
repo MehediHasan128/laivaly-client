@@ -13,4 +13,11 @@ export const userLogout = () => {
     endPoints: "/auth/logout",
     options: {method: "POST"}
   })
+};
+
+export const resetPasswordLink = (userEmail: string) => {
+  return baseApi({
+    endPoints: "/auth/forget-password",
+    options: {method: "POST", body: JSON.stringify({userEmail})}
+  })
 }

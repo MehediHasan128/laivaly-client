@@ -7,7 +7,7 @@ import LVInput from "../LVForm/LVInput";
 import { FieldValues } from "react-hook-form";
 import { Label } from "../ui/label";
 import Spinner from "../reusable/Spinner";
-import { userLogin } from "@/lib/api/auth/auth";
+import { resetPasswordLink, userLogin } from "@/lib/api/auth/auth";
 import { toast } from "sonner";
 import { TError, TResponce } from "@/types/types";
 import { useRouter } from "next/navigation";
@@ -31,7 +31,14 @@ const LoginForm = () => {
   // Forget User password
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const handleForgetUserPassword = async () => {
-    console.log(userEmail);
+    const toastId = toast.loading("Loading");
+    try {
+      const res = await resetPasswordLink(userEmail as string) as TResponce;
+      toast.success(res?.message, { id: toastId });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
   };
 
   return (
