@@ -15,12 +15,14 @@ const ShippingAddressDialog = async ({
   children,
   dialogTitle,
   userId,
-  defaultAddress
+  defaultAddress,
+  method
 }: {
   children: ReactNode;
   dialogTitle?: string;
   userId: string;
   defaultAddress?: TShippingAddress;
+  method?: string;
 }) => {
   return (
     <Dialog>
@@ -31,7 +33,7 @@ const ShippingAddressDialog = async ({
         </DialogHeader>
 
         <div className="my-10">
-          <ShippingAddressForm userId={userId} defaultAddress={defaultAddress} />
+          <ShippingAddressForm userId={userId} defaultAddress={defaultAddress} method={method} />
         </div>
 
         <DialogFooter>

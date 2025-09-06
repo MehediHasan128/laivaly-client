@@ -67,7 +67,7 @@ const Addresspage = async () => {
                       Set Default
                     </button>
                   )}
-                  <ShippingAddressDialog dialogTitle="Edit Shipping Address" userId={user?.id} defaultAddress={address}>
+                  <ShippingAddressDialog dialogTitle="Edit Shipping Address" userId={user?.id} defaultAddress={address} method="edit">
                     <button className="cursor-pointer hover:underline">
                       Edit
                     </button>

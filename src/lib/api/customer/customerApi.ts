@@ -27,3 +27,14 @@ export const getShippingAddress = (customerId: string) => {
     options: { method: "GET" },
   });
 };
+
+export const updateShippingAddress = (
+  updatedAddressInfo: object,
+  customerId: string,
+  addressId: string
+) => {
+  return baseApi({
+    endPoints: `/customer/update-shipping-address/${customerId}?addressId=${addressId}`,
+    options: { method: "PATCH", body: JSON.stringify(updatedAddressInfo) },
+  });
+};

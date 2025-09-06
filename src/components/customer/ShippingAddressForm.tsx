@@ -4,23 +4,31 @@ import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import LVForm from "../LVForm/LVForm";
-import { FieldValues } from "react-hook-form";
+import { FieldValue, FieldValues } from "react-hook-form";
 import LVInput from "../LVForm/LVInput";
 import { toast } from "sonner";
 import { TError, TResponce, TShippingAddress } from "@/types/types";
-import { addShippingAddress } from "@/lib/api/customer/customerApi";
+import {
+  addShippingAddress,
+  updateShippingAddress,
+} from "@/lib/api/customer/customerApi";
+import Spinner from "../reusable/Spinner";
 
 const ShippingAddressForm = ({
   userId,
   defaultAddress,
+  method,
 }: {
   userId: string;
   defaultAddress?: TShippingAddress;
+  method?: string;
 }) => {
   const category = defaultAddress ? defaultAddress.addressCategory : "Home";
   const [addressCategory, setAddressCategory] = useState<string>(category);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handelAddShippingAddress = async (data: FieldValues) => {
+    setLoading(true)
     const toastId = toast.loading("Loading...");
     const {
       recipientsName,
@@ -48,9 +56,53 @@ const ShippingAddressForm = ({
         userId
       )) as TResponce;
       toast.success(res?.message, { id: toastId });
+      setLoading(false)
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
+      setLoading(false)
+    }
+  };
+
+  const handleUpdateShippingAddress = async (data: FieldValues) => {
+    setLoading(true)
+    const toastId = toast.loading("Loading...");
+    const {
+      recipientsName,
+      phoneNumber,
+      address,
+      city,
+      postalCode,
+      state,
+      country,
+    } = data;
+    const shippingAddress = {
+      addressCategory,
+      recipientsName,
+      phoneNumber,
+      address,
+      city,
+      postalCode,
+      state,
+      country,
+    };
+
+    const updatedShippingAddress = {
+      shippingAddress,
+    };
+
+    try {
+      const res = (await updateShippingAddress(
+        updatedShippingAddress,
+        userId,
+        defaultAddress?._id as string
+      )) as TResponce;
+      toast.success(res?.message, { id: toastId });
+      setLoading(false)
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+      setLoading(false)
     }
   };
 
@@ -79,7 +131,15 @@ const ShippingAddressForm = ({
         </div>
       </RadioGroup>
 
-      <LVForm onSubmit={handelAddShippingAddress}>
+      <LVForm
+        onSubmit={(formData) => {
+          if (method === "edit") {
+            handleUpdateShippingAddress(formData);
+          } else {
+            handelAddShippingAddress(formData);
+          }
+        }}
+      >
         <div className="space-y-3">
           <div className="flex flex-col md:flex-row gap-5">
             <div className="w-full">
@@ -156,7 +216,7 @@ const ShippingAddressForm = ({
             />
           </div>
           <div>
-            <button className="btn mt-5 uppercase hover:underline">Add</button>
+            <button className="btn mt-5 uppercase hover:underline">{loading ? <Spinner /> : "save"}</button>
           </div>
         </div>
       </LVForm>

@@ -23,6 +23,8 @@ const CustomerAccountPage = async () => {
   const data = (await getUserProfile()) as TResponce;
   const customerData = data?.data as TCustomerProfile;
 
+  console.log(customerData);
+
   return (
     <main className="space-y-10 md:space-y-16">
       <div className="font-medium">
@@ -81,7 +83,6 @@ const CustomerAccountPage = async () => {
                     ) : (
                       customerData?.phoneNumber
                     )}
-                    
                   </h1>
                   <h1>
                     {customerData?.dateOfBirth === null ? (
@@ -117,21 +118,29 @@ const CustomerAccountPage = async () => {
             </div>
 
             <div>
-              <div className="xl:w-[40%]">
-                <div className="flex justify-between">
+              <div className="xl:w-[40%] space-y-3">
+                <div className="text-xl">
                   <h1>Default Address</h1>
-                  <button className="underline cursor-pointer">Edit</button>
                 </div>
 
-                <div className="flex mt-5 gap-5 md:gap-10 text-sm">
-                  <h1 className="leading-6 font-semibold text-gray-700">
-                    Home <br />
-                    Mehedi Hasan <br />
-                    123 Orchard Rd #05-67 Lucky Plaza <br />
-                    New Orleans, LA 70123-2524 <br />
-                    +8801302557956
-                  </h1>
-                </div>
+                {customerData?.shippingAddress.map((address) => (
+                  <div key={address._id}>
+                    {address.defaultAddress && (
+                      <div className="font-semibold text-gray-700">
+                        <p>{address?.addressCategory},</p>
+
+                        <h1>
+                          {address?.recipientsName} <br />
+                          {address?.phoneNumber} <br />
+                          {address?.address} <br />
+                          {address?.city}-{address?.postalCode},{" "}
+                          {address?.state} <br />
+                          {address?.country}
+                        </h1>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
