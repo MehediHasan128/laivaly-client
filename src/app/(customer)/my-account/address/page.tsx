@@ -1,4 +1,5 @@
 import ChangeDefaultAddress from "@/components/customer/ChangeDefaultAddress";
+import RemoveShippingAddress from "@/components/customer/RemoveShippingAddress";
 import ShippingAddressDialog from "@/components/customer/ShippingAddressDialog";
 import { Label } from "@/components/ui/label";
 import { currentUser } from "@/lib/api/currentUser";
@@ -49,7 +50,7 @@ const Addresspage = async () => {
                   <Label className="text-lg font-medium">Default Address</Label>
                 )}
                 {!address?.defaultAddress && (
-                  <div className="font-semibold text-gray-700">
+                  <div className="font-semibold text-gray-600">
                     <p>{address?.addressCategory},</p>
 
                     <h1>
@@ -64,7 +65,10 @@ const Addresspage = async () => {
                 )}
                 <div className="font-medium flex items-center gap-5">
                   {!address?.defaultAddress && (
-                    <ChangeDefaultAddress userId={user?.id} addressId={address?._id} />
+                    <ChangeDefaultAddress
+                      userId={user?.id}
+                      addressId={address?._id}
+                    />
                   )}
                   <ShippingAddressDialog
                     dialogTitle="Edit Shipping Address"
@@ -77,15 +81,16 @@ const Addresspage = async () => {
                     </button>
                   </ShippingAddressDialog>
                   {!address?.defaultAddress && (
-                    <button className="cursor-pointer hover:underline">
-                      Remove
-                    </button>
+                    <RemoveShippingAddress
+                      userId={user?.id}
+                      addressId={address?._id}
+                    />
                   )}
                 </div>
               </div>
 
               {address?.defaultAddress && (
-                <div className="mt-5 font-semibold text-gray-700">
+                <div className="mt-5 font-semibold text-gray-600">
                   <p>{address?.addressCategory},</p>
 
                   <h1>

@@ -45,3 +45,10 @@ export const changeDefaultAddress = (customerId: string, addressId: string) => {
     options: { method: "PATCH" },
   });
 }
+
+export const deleteShippingAddress = (customerId: string, addressId: string) => {
+  return baseApi({
+    endPoints: `/customer/delete-shipping-address/${customerId}?addressId=${addressId}`,
+    options: { method: "DELETE" },
+  });
+}
