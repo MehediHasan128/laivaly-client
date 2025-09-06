@@ -6,3 +6,10 @@ export const getUserProfile = () => {
     options: { method: "GET" },
   });
 };
+
+export const createCustomerAcoount = (customerData: object) => {
+  return baseApi({
+    endPoints: "/users/create-customer",
+    options: { method: "POST", body: JSON.stringify(customerData) },
+  });
+};

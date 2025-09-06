@@ -4,30 +4,31 @@ import { FieldValues } from "react-hook-form";
 import LVForm from "../LVForm/LVForm";
 import LVOTP from "../LVForm/LVOTP";
 import Countdown from "../reusable/Countdown";
-import { useVerifyUserEmailMutation } from "@/redux/features/auth/authApi";
-import { toast } from "sonner";
-import { TError, TResponce } from "@/types/types";
 import { useRouter } from "next/navigation";
 import Spinner from "../reusable/Spinner";
+import { useState } from "react";
+import { toast } from "sonner";
+import { verifyCustomerEmail } from "@/lib/api/auth/auth";
+import { TError, TResponce } from "@/types/types";
 
 const OTPForm = ({ userEmail }: { userEmail: string }) => {
-  const [verifyUserEmail, { isLoading }] = useVerifyUserEmailMutation();
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleVerifyUserEmail = async (data: FieldValues) => {
-    const toastId = toast.loading(null);
-    if (data?.otp) {
-      try {
-        const res = (await verifyUserEmail([data, userEmail]).unwrap()) as TResponce;
-        toast.success(res?.message, { id: toastId });
-        router.push("/login");
-      } catch (err) {
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-      }
-    }else{
-      toast.warning('You cannot verify your profile without entering the OTP. Please check your email and try again.', { id: toastId });
+    setLoading(true);
+    const toastId = toast.loading("Loading...");
+
+    try {
+      const res = (await verifyCustomerEmail(data, userEmail)) as TResponce;
+      console.log(res);
+      toast.success(res.message, { id: toastId });
+      router.push('/login');
+      setLoading(false);
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+      setLoading(false);
     }
   };
 
@@ -48,7 +49,7 @@ const OTPForm = ({ userEmail }: { userEmail: string }) => {
         </div>
         <div>
           <button type="submit" className="btn uppercase hover:underline">
-            {isLoading ? <Spinner /> : "verify"}
+            {loading ? <Spinner /> : "verify"}
           </button>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import LVForm from "../LVForm/LVForm";
-import { FieldValue, FieldValues } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import LVInput from "../LVForm/LVInput";
 import { toast } from "sonner";
 import { TError, TResponce, TShippingAddress } from "@/types/types";
@@ -13,22 +13,26 @@ import {
   updateShippingAddress,
 } from "@/lib/api/customer/customerApi";
 import Spinner from "../reusable/Spinner";
+import { useRouter } from "next/navigation";
 
 const ShippingAddressForm = ({
   userId,
   defaultAddress,
   method,
+  onSuccess,
 }: {
   userId: string;
   defaultAddress?: TShippingAddress;
   method?: string;
+  onSuccess?: () => void;
 }) => {
   const category = defaultAddress ? defaultAddress.addressCategory : "Home";
   const [addressCategory, setAddressCategory] = useState<string>(category);
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const handelAddShippingAddress = async (data: FieldValues) => {
-    setLoading(true)
+    setLoading(true);
     const toastId = toast.loading("Loading...");
     const {
       recipientsName,
@@ -56,16 +60,18 @@ const ShippingAddressForm = ({
         userId
       )) as TResponce;
       toast.success(res?.message, { id: toastId });
-      setLoading(false)
+      setLoading(false);
+      router.refresh();
+      onSuccess?.();
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const handleUpdateShippingAddress = async (data: FieldValues) => {
-    setLoading(true)
+    setLoading(true);
     const toastId = toast.loading("Loading...");
     const {
       recipientsName,
@@ -98,11 +104,13 @@ const ShippingAddressForm = ({
         defaultAddress?._id as string
       )) as TResponce;
       toast.success(res?.message, { id: toastId });
-      setLoading(false)
+      setLoading(false);
+      router.refresh();
+      onSuccess?.();
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -216,7 +224,9 @@ const ShippingAddressForm = ({
             />
           </div>
           <div>
-            <button className="btn mt-5 uppercase hover:underline">{loading ? <Spinner /> : "save"}</button>
+            <button className="btn mt-5 uppercase hover:underline">
+              {loading ? <Spinner /> : "save"}
+            </button>
           </div>
         </div>
       </LVForm>

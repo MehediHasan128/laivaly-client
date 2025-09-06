@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -11,7 +13,7 @@ import {
 import ShippingAddressForm from "./ShippingAddressForm";
 import { TShippingAddress } from "@/types/types";
 
-const ShippingAddressDialog = async ({
+const ShippingAddressDialog = ({
   children,
   dialogTitle,
   userId,
@@ -24,8 +26,11 @@ const ShippingAddressDialog = async ({
   defaultAddress?: TShippingAddress;
   method?: string;
 }) => {
+
+  const [open, setOpen] = useState(false)
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-xl h-[80vh] overflow-scroll scrollbar-hide">
         <DialogHeader>
@@ -33,7 +38,7 @@ const ShippingAddressDialog = async ({
         </DialogHeader>
 
         <div className="my-10">
-          <ShippingAddressForm userId={userId} defaultAddress={defaultAddress} method={method} />
+          <ShippingAddressForm userId={userId} defaultAddress={defaultAddress} method={method} onSuccess={() => setOpen(false)} />
         </div>
 
         <DialogFooter>

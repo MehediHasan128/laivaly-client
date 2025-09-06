@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed, EyeOff } from "lucide-react";
 import { useState } from "react";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
@@ -19,17 +19,17 @@ const LoginForm = () => {
 
   // User login function
   const handleCustomerLogin = async (userCredential: FieldValues) => {
-    setLoading(true)
+    setLoading(true);
     const toastId = toast.loading("Loading");
     try {
-      const res = await userLogin(userCredential) as TResponce;
+      const res = (await userLogin(userCredential)) as TResponce;
       toast.success(res?.message, { id: toastId });
       router.push("/home");
-      setLoading(false)
+      setLoading(false);
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -38,7 +38,7 @@ const LoginForm = () => {
   const handleForgetUserPassword = async () => {
     const toastId = toast.loading("Loading");
     try {
-      const res = await resetPasswordLink(userEmail as string) as TResponce;
+      const res = (await resetPasswordLink(userEmail as string)) as TResponce;
       toast.success(res?.message, { id: toastId });
     } catch (err) {
       const error = err as TError;
@@ -67,22 +67,24 @@ const LoginForm = () => {
               name="password"
               placeholder="Enter your password"
               className="py-4"
+              icon={
+                showPass ? (
+                  <div
+                    onClick={() => setShowPass(!showPass)}
+                    className="absolute top-0 right-0 h-full rounded-r flex items-center cursor-pointer px-5"
+                  >
+                    <Eye className="size-5" />
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setShowPass(!showPass)}
+                    className="absolute top-0 right-0 h-full rounded-r flex items-center cursor-pointer px-5"
+                  >
+                    <EyeOff className="size-5" />
+                  </div>
+                )
+              }
             />
-            {showPass ? (
-              <div
-                onClick={() => setShowPass(!showPass)}
-                className="absolute top-0 right-0 h-full rounded-r flex items-center cursor-pointer px-5"
-              >
-                <Eye className="size-5 md:size-6" />
-              </div>
-            ) : (
-              <div
-                onClick={() => setShowPass(!showPass)}
-                className="absolute top-0 right-0 h-full rounded-r flex items-center cursor-pointer px-5"
-              >
-                <EyeClosed className="size-5 md:size-6" />
-              </div>
-            )}
 
             <Label
               onClick={handleForgetUserPassword}

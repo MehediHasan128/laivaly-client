@@ -3,10 +3,16 @@ import Container from "@/components/reusable/Container";
 import { ProtectedRoute } from "@/components/routes/Protected.route";
 import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navbar/Navbar";
+import { getUserProfile } from "@/lib/api/user/user";
+import { TCustomerProfile, TResponce } from "@/types/types";
 import Image from "next/image";
 import { ReactNode } from "react";
 
-const CustomerLayout = ({ children }: { children: ReactNode }) => {
+const CustomerLayout = async({ children }: { children: ReactNode }) => {
+
+  const data = (await getUserProfile()) as TResponce;
+    const customerData = data?.data as TCustomerProfile;
+
   return (
     <ProtectedRoute role="customer">
       <main>
@@ -42,7 +48,7 @@ const CustomerLayout = ({ children }: { children: ReactNode }) => {
           <div className="flex flex-col md:flex-row gap-10 lg:gap-20 py-10">
             <div className="relative md:w-[40%] lg:w-[30%] xl:px-20 2xl:px-36">
               <div className="sticky top-10">
-                <CustomerSidebar />
+                <CustomerSidebar customerData={customerData}/>
               </div>
             </div>
             <div className="md:w-[60%] lg:w-[50%]">

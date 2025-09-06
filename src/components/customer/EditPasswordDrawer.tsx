@@ -51,7 +51,7 @@ const EditPasswordDrawer = ({ children }: { children: ReactNode }) => {
                 <h1 className="text-2xl font-semibold">Change Password</h1>
                 <p className="text-sm text-gray-700 font-semibold">Update password for enhanced account security.</p>
             </div>
-            <EditPasswordForm drawerOpen={setOpenDrawer} />
+            <EditPasswordForm onSuccess={() => setOpenDrawer(false)} />
           </div>
         </div>
       </DrawerContent>

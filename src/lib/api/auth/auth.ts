@@ -26,6 +26,26 @@ export const resetUserPassword = (resetPasswordData: object, token: string) => {
   return baseApi({
     endPoints: "/auth/reset-password",
     options: { method: "POST", body: JSON.stringify(resetPasswordData) },
-    temporaryToken: token
+    temporaryToken: token,
+  });
+};
+
+export const changeUserPassword = (
+  passwordData: object
+) => {
+  return baseApi({
+    endPoints: "/auth/change-password",
+    options: { method: "PATCH", body: JSON.stringify(passwordData) },
+  });
+};
+
+
+export const verifyCustomerEmail = (
+  otp: object,
+  userEmail: string
+) => {
+  return baseApi({
+    endPoints: `/auth/email-verify/${userEmail}`,
+    options: { method: "PATCH", body: JSON.stringify(otp) },
   });
 };

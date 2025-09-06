@@ -4,7 +4,7 @@ import { TCustomerProfile, TResponce } from "@/types/types";
 import React from "react";
 
 export const metadata = {
-  title: "My Account",
+  title: "Account Overview",
   description:
     "Manage your Laivaly account. View orders, track shipments, update personal information, and manage your wishlist all in one place.",
   keywords: [

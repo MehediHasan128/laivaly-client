@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "My Orders",
+  title: "Orders",
   description:
     "Track and manage all your orders on Laivaly. View order details, status, payment history, and delivery updates in one place.",
   keywords: [

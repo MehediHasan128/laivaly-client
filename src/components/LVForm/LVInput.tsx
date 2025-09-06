@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Eye } from "lucide-react";
 
 interface TLVInputProps {
   type: string;
@@ -14,6 +15,7 @@ interface TLVInputProps {
   disabled?: boolean;
   label?: string;
   required?: boolean;
+  icon?: ReactNode
 }
 
 const LVInput = ({
@@ -25,32 +27,38 @@ const LVInput = ({
   defaultValue,
   disabled,
   label,
-  required
+  required,
+  icon
 }: TLVInputProps) => {
   return (
     <div className="space-y-2">
       {label && <Label>{label}</Label>}
-      <Controller
-        name={name}
-        defaultValue={defaultValue ?? ""}
-        render={({ field }) => (
-          <Input
-            {...field}
-            onChange={(e) => {
-              field.onChange(e);
-              setInputValue?.(e.target.value);
-            }}
-            type={type}
-            placeholder={placeholder}
-            disabled={disabled}
-            required={required}
-            className={cn(
-              "outline-none border focus:border-black w-full rounded font-medium",
-              className
-            )}
-          />
-        )}
-      />
+      <div className="relative">
+        <Controller
+          name={name}
+          defaultValue={defaultValue ?? ""}
+          render={({ field }) => (
+            <Input
+              {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                setInputValue?.(e.target.value);
+              }}
+              type={type}
+              placeholder={placeholder}
+              disabled={disabled}
+              required={required}
+              className={cn(
+                "outline-none border focus:border-black w-full rounded font-medium",
+                className
+              )}
+            />
+          )}
+        />
+        <div className="absolute top-0 right-0 flex justify-center items-center h-full px-5">
+          {icon}
+        </div>
+      </div>
     </div>
   );
 };

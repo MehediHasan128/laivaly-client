@@ -50,7 +50,7 @@ const Addresspage = async () => {
                   <Label className="text-lg font-medium">Default Address</Label>
                 )}
                 {!address?.defaultAddress && (
-                  <div className="font-semibold text-gray-600">
+                  <div className="font-semibold text-gray-600 text-sm lg:text-base">
                     <p>{address?.addressCategory},</p>
 
                     <h1>
@@ -63,7 +63,7 @@ const Addresspage = async () => {
                     </h1>
                   </div>
                 )}
-                <div className="font-medium flex items-center gap-5">
+                <div className="font-medium flex flex-col xl:flex-row items-end xl:items-center gap-2 xl:gap-5 text-sm lg:text-base">
                   {!address?.defaultAddress && (
                     <ChangeDefaultAddress
                       userId={user?.id}
@@ -90,7 +90,7 @@ const Addresspage = async () => {
               </div>
 
               {address?.defaultAddress && (
-                <div className="mt-5 font-semibold text-gray-600">
+                <div className="mt-5 font-semibold text-gray-600 text-sm lg:text-base">
                   <p>{address?.addressCategory},</p>
 
                   <h1>

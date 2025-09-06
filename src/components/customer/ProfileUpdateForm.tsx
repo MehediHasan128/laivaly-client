@@ -41,8 +41,8 @@ const ProfileUpdateForm = ({
 }: {
   customerData: TCustomerProfile;
 }) => {
-  const [defaultDate, defaultMonth, defaultYear]: string[] = customerData!
-    .dateOfBirth!.replace(",", "")
+  const dob = customerData?.dateOfBirth ?? "";
+  const [defaultDate, defaultMonth, defaultYear]: string[] = dob.replace(",", "")
     .split(" ");
 
   const handleUpdateCustomerInformation = async (data: FieldValues) => {

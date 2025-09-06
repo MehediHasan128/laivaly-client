@@ -1,5 +1,6 @@
 "use client";
 
+import { TCustomerProfile } from "@/types/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,12 +12,12 @@ const sideBar = [
   { path: "/wishlist", label: "Wishlist" },
 ];
 
-const CustomerSidebar = () => {
+const CustomerSidebar = ({customerData}: {customerData: TCustomerProfile}) => {
   const pathName = usePathname();
 
   return (
     <div>
-      <h1 className="text-xl md:text-2xl font-semibold">Hi, Mehedi Hasan</h1>
+      <h1 className="text-xl md:text-2xl font-semibold">Hi, {customerData?.userName.firstName} {customerData?.userName.lastName}</h1>
 
       <div className="mt-5 space-y-1">
         {sideBar.map((item, index) => (
