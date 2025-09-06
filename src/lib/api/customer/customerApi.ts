@@ -17,6 +17,13 @@ export const addShippingAddress = (
 ) => {
   return baseApi({
     endPoints: `/customer/add-shipping-address/${customerId}`,
-    options: { method: "PATCH", body: JSON.stringify({shippingAddress}) },
+    options: { method: "PATCH", body: JSON.stringify({ shippingAddress }) },
+  });
+};
+
+export const getShippingAddress = (customerId: string) => {
+  return baseApi({
+    endPoints: `/customer/shipping-address/${customerId}`,
+    options: { method: "GET" },
   });
 };

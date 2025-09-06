@@ -6,7 +6,8 @@ interface TUserName {
   lastName: string;
 }
 
-interface TShippingAddress {
+export interface TShippingAddress {
+  _id: string;
   addressCategory: string;
   recipientsName: string;
   phoneNumber: string;
@@ -15,6 +16,7 @@ interface TShippingAddress {
   postalCode: string;
   state: string;
   country: string;
+  defaultAddress: boolean;
 }
 
 export interface TUser {

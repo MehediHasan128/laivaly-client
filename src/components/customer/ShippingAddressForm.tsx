@@ -7,11 +7,18 @@ import LVForm from "../LVForm/LVForm";
 import { FieldValues } from "react-hook-form";
 import LVInput from "../LVForm/LVInput";
 import { toast } from "sonner";
-import { TError, TResponce } from "@/types/types";
+import { TError, TResponce, TShippingAddress } from "@/types/types";
 import { addShippingAddress } from "@/lib/api/customer/customerApi";
 
-const ShippingAddressForm = ({ userId }: { userId: string }) => {
-  const [addressCategory, setAddressCategory] = useState<string>("Home");
+const ShippingAddressForm = ({
+  userId,
+  defaultAddress,
+}: {
+  userId: string;
+  defaultAddress?: TShippingAddress;
+}) => {
+  const category = defaultAddress ? defaultAddress.addressCategory : "Home";
+  const [addressCategory, setAddressCategory] = useState<string>(category);
 
   const handelAddShippingAddress = async (data: FieldValues) => {
     const toastId = toast.loading("Loading...");
@@ -81,6 +88,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="recipientsName"
                 placeholder="Enter Recipients Name"
                 label="Recipients Name"
+                defaultValue={defaultAddress?.recipientsName}
                 required
               />
             </div>
@@ -90,6 +98,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="phoneNumber"
                 placeholder="Enter phone number"
                 label="Phone Number"
+                defaultValue={defaultAddress?.phoneNumber}
                 required
               />
             </div>
@@ -100,6 +109,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
               name="address"
               placeholder="House no. / Building / Street / Area"
               label="Address"
+              defaultValue={defaultAddress?.address}
               required
             />
           </div>
@@ -110,6 +120,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="city"
                 placeholder="City"
                 label="City"
+                defaultValue={defaultAddress?.city}
                 required
               />
             </div>
@@ -119,6 +130,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="postalCode"
                 placeholder="Enter postal code"
                 label="Postal Code"
+                defaultValue={defaultAddress?.postalCode}
                 required
               />
             </div>
@@ -129,6 +141,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
               name="state"
               placeholder="State"
               label="State"
+              defaultValue={defaultAddress?.state}
               required
             />
           </div>
@@ -138,6 +151,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
               name="country"
               placeholder="Country"
               label="Country"
+              defaultValue={defaultAddress?.country}
               required
             />
           </div>

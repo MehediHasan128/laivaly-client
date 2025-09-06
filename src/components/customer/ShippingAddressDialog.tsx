@@ -9,18 +9,19 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import ShippingAddressForm from "./ShippingAddressForm";
-import { currentUser } from "@/lib/api/currentUser";
-import { TUser } from "@/types/types";
+import { TShippingAddress } from "@/types/types";
 
-const AddShippingAddressDialog = async ({
+const ShippingAddressDialog = async ({
   children,
   dialogTitle,
+  userId,
+  defaultAddress
 }: {
   children: ReactNode;
   dialogTitle?: string;
+  userId: string;
+  defaultAddress?: TShippingAddress;
 }) => {
-  const user = (await currentUser()) as TUser;
-
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -30,7 +31,7 @@ const AddShippingAddressDialog = async ({
         </DialogHeader>
 
         <div className="my-10">
-          <ShippingAddressForm userId={user?.id} />
+          <ShippingAddressForm userId={userId} defaultAddress={defaultAddress} />
         </div>
 
         <DialogFooter>
@@ -41,4 +42,4 @@ const AddShippingAddressDialog = async ({
   );
 };
 
-export default AddShippingAddressDialog;
+export default ShippingAddressDialog;
