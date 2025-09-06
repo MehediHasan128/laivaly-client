@@ -19,18 +19,18 @@ const genderOptions = [
 ];
 
 const monthOptions = [
-  { label: "January", value: "january" },
-  { label: "February", value: "february" },
-  { label: "March", value: "march" },
-  { label: "April", value: "april" },
-  { label: "May", value: "may" },
-  { label: "June", value: "june" },
-  { label: "July", value: "july" },
-  { label: "August", value: "august" },
-  { label: "September", value: "september" },
-  { label: "October", value: "october" },
-  { label: "November", value: "november" },
-  { label: "December", value: "december" },
+  { label: "January", value: "January" },
+  { label: "February", value: "February" },
+  { label: "March", value: "March" },
+  { label: "April", value: "April" },
+  { label: "May", value: "May" },
+  { label: "June", value: "June" },
+  { label: "July", value: "July" },
+  { label: "August", value: "August" },
+  { label: "September", value: "September" },
+  { label: "October", value: "October" },
+  { label: "November", value: "November" },
+  { label: "December", value: "December" },
 ];
 
 const dateOptions = generateDateAndYearOptions(1, 31);
@@ -41,8 +41,9 @@ const ProfileUpdateForm = ({
 }: {
   customerData: TCustomerProfile;
 }) => {
-
-  const [defaultDate, defaultMonth, defaultYear]: string[] = customerData!.dateOfBirth!.replace(",", "").split(" ");
+  const [defaultDate, defaultMonth, defaultYear]: string[] = customerData!
+    .dateOfBirth!.replace(",", "")
+    .split(" ");
 
   const handleUpdateCustomerInformation = async (data: FieldValues) => {
     const { userName, phoneNumber, date, month, year, gender } = data;
@@ -71,35 +72,35 @@ const ProfileUpdateForm = ({
     <LVForm onSubmit={handleUpdateCustomerInformation}>
       <div className="space-y-5">
         <div className="flex gap-5">
-          <div className="space-y-1.5 w-full">
-            <Label>First Name*</Label>
+          <div className="w-full">
             <LVInput
               type="text"
               name="userName.firstName"
               defaultValue={customerData?.userName.firstName}
+              label="First Name*"
             />
           </div>
-          <div className="space-y-1.5 w-full">
-            <Label>Last Name*</Label>
+          <div className="w-full">
             <LVInput
               type="text"
               name="userName.lastName"
               defaultValue={customerData?.userName.lastName}
+              label="Last Name*"
             />
           </div>
         </div>
 
-        <div className="space-y-1.5 w-full">
-          <Label>Phone Number (Optional)</Label>
+        <div className="w-full">
           <LVInput
             type="text"
             name="phoneNumber"
             placeholder="Enter your phone number"
             defaultValue={customerData?.phoneNumber}
+            label="Phone Number (Optional)"
           />
         </div>
 
-        <div className="space-y-1.5 w-full">
+        <div className="space-y-2 w-full">
           <Label>Birthday (Optional)</Label>
           <div className="flex flex-col md:flex-row gap-3">
             <div className="w-full">
@@ -129,13 +130,13 @@ const ProfileUpdateForm = ({
           </div>
         </div>
 
-        <div className="space-y-1.5 w-full">
-          <Label>Gender (Optional)</Label>
+        <div className="w-full">
           <LVSelect
             name="gender"
             placeholder="Select Gender"
             options={genderOptions}
             defaultValue={customerData?.gender}
+            label="Gender (Optional)"
           />
         </div>
 

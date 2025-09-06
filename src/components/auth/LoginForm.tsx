@@ -14,17 +14,22 @@ import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // User login function
   const handleCustomerLogin = async (userCredential: FieldValues) => {
+    setLoading(true)
     const toastId = toast.loading("Loading");
     try {
       const res = await userLogin(userCredential) as TResponce;
       toast.success(res?.message, { id: toastId });
-      router.push("/home")
+      router.push("/home");
+      setLoading(false)
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
+      setLoading(false)
     }
   };
 
@@ -92,7 +97,7 @@ const LoginForm = () => {
               type="submit"
               className="btn mt-10 uppercase flex justify-center"
             >
-              {false ? (
+              {loading ? (
                 <>
                   <Spinner />
                 </>

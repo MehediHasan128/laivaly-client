@@ -9,6 +9,7 @@ import {
 } from "../ui/select";
 import { cn } from "@/lib/utils";
 import { Controller } from "react-hook-form";
+import { Label } from "../ui/label";
 
 interface TLVSelectProps {
   name: string;
@@ -17,6 +18,7 @@ interface TLVSelectProps {
   setInputValue?: Dispatch<SetStateAction<string | null>>;
   defaultValue?: string | null;
   options: { label: string; value: string }[];
+  label?: string;
 }
 
 const LVSelect = ({
@@ -26,9 +28,11 @@ const LVSelect = ({
   setInputValue,
   defaultValue,
   options,
+  label,
 }: TLVSelectProps) => {
   return (
-    <div>
+    <div className="space-y-2">
+      {label && <Label>{label}</Label>}
       <Controller
         name={name}
         defaultValue={defaultValue ?? ""}

@@ -32,7 +32,7 @@ const SidebarButton = () => {
         <div className="h-5 flex items-center overflow-hidden text-sm md:text-base">
           <div
             className={`transition-transform duration-500 ${
-              sideBarOpen ? "-translate-y-2.5 md:translate-y-3" : "translate-y-2.5 md:translate-y-3"
+              sideBarOpen ? "-translate-y-2.5 md:-translate-y-3" : "translate-y-2.5 md:translate-y-3"
             }`}
           >
             <h1>Menu</h1>

@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 interface TLVInputProps {
   type: string;
@@ -10,7 +11,8 @@ interface TLVInputProps {
   className?: string;
   setInputValue?: Dispatch<SetStateAction<string | null>>;
   defaultValue?: string;
-  disabled?: boolean
+  disabled?: boolean;
+  label?: string;
 }
 
 const LVInput = ({
@@ -20,13 +22,15 @@ const LVInput = ({
   className,
   setInputValue,
   defaultValue,
-  disabled
+  disabled,
+  label,
 }: TLVInputProps) => {
   return (
-    <div>
+    <div className="space-y-2">
+      {label && <Label>{label}</Label>}
       <Controller
         name={name}
-         defaultValue={defaultValue ?? ""}
+        defaultValue={defaultValue ?? ""}
         render={({ field }) => (
           <Input
             {...field}

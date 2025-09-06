@@ -40,7 +40,10 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       password: data?.password,
     };
     try {
-      const res = (await resetUserPassword(resetPasswordData, token)) as TResponce;
+      const res = (await resetUserPassword(
+        resetPasswordData,
+        token
+      )) as TResponce;
       toast.success(res?.message, { id: toastId });
       router.push("/login");
     } catch (err) {
@@ -52,37 +55,35 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   return (
     <LVForm onSubmit={handleResetUserPassword}>
       <div className="space-y-3">
-        <div className="space-y-1.5">
-          <Label>Email</Label>
+        <div>
           <LVInput
             type="text"
             name="userEmail"
             defaultValue={userInfo?.userEmail}
             disabled
+            label="Email"
           />
         </div>
-        <div className="space-y-1.5">
-          <Label>New Password</Label>
-          <div className="relative">
-            <LVInput
-              type={showPass ? "text" : "password"}
-              name="password"
-              placeholder="Enter new password"
-              setInputValue={setGivenPassword}
-            />
-            <div className="absolute top-0 right-0 flex justify-center items-center h-full px-5">
-              {showPass ? (
-                <Eye
-                  onClick={() => setShowPass(!showPass)}
-                  className="size-5 cursor-pointer"
-                />
-              ) : (
-                <EyeOff
-                  onClick={() => setShowPass(!showPass)}
-                  className="size-5 cursor-pointer"
-                />
-              )}
-            </div>
+        <div className="relative">
+          <LVInput
+            type={showPass ? "text" : "password"}
+            name="password"
+            placeholder="Enter new password"
+            setInputValue={setGivenPassword}
+            label="New Password"
+          />
+          <div className="absolute top-0 right-0 flex justify-center items-center h-full px-5">
+            {showPass ? (
+              <Eye
+                onClick={() => setShowPass(!showPass)}
+                className="size-5 cursor-pointer"
+              />
+            ) : (
+              <EyeOff
+                onClick={() => setShowPass(!showPass)}
+                className="size-5 cursor-pointer"
+              />
+            )}
           </div>
         </div>
         {givenPassword && (
@@ -121,12 +122,12 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             </span>
           </div>
         )}
-        <div className="space-y-1.5">
-          <Label>Confirm Password</Label>
+        <div>
           <LVInput
             type={showPass ? "text" : "password"}
             name="confirmPassword"
             placeholder="Confirm your password"
+            label="Confirm Password"
           />
         </div>
         <div>

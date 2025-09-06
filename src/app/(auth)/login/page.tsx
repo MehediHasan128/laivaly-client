@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 const LoginPage = () => {
   return (
-    <main className="h-screen flex">
+    <main className="h-screen flex overflow-hidden">
       {/* Main Container */}
       <section className="w-full lg:w-[50%]">
         {/* Form Container */}
