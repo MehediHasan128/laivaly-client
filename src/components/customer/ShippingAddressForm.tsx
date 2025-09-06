@@ -6,11 +6,15 @@ import { Label } from "../ui/label";
 import LVForm from "../LVForm/LVForm";
 import { FieldValues } from "react-hook-form";
 import LVInput from "../LVForm/LVInput";
+import { toast } from "sonner";
+import { TError, TResponce } from "@/types/types";
+import { addShippingAddress } from "@/lib/api/customer/customerApi";
 
 const ShippingAddressForm = ({ userId }: { userId: string }) => {
   const [addressCategory, setAddressCategory] = useState<string>("Home");
 
   const handelAddShippingAddress = async (data: FieldValues) => {
+    const toastId = toast.loading("Loading...");
     const {
       recipientsName,
       phoneNumber,
@@ -30,12 +34,26 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
       state,
       country,
     };
-    console.log(shippingAddress);
+
+    try {
+      const res = (await addShippingAddress(
+        shippingAddress,
+        userId
+      )) as TResponce;
+      toast.success(res?.message, { id: toastId });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
   };
 
   return (
     <div className="space-y-10">
-      <RadioGroup defaultValue={addressCategory} onValueChange={setAddressCategory} className="flex">
+      <RadioGroup
+        defaultValue={addressCategory}
+        onValueChange={setAddressCategory}
+        className="flex"
+      >
         <div className="flex items-center gap-3 cursor-pointer">
           <RadioGroupItem value="Home" id="Home" className="cursor-pointer" />
           <Label htmlFor="Home" className="cursor-pointer">
@@ -63,6 +81,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="recipientsName"
                 placeholder="Enter Recipients Name"
                 label="Recipients Name"
+                required
               />
             </div>
             <div className="w-full">
@@ -71,6 +90,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="phoneNumber"
                 placeholder="Enter phone number"
                 label="Phone Number"
+                required
               />
             </div>
           </div>
@@ -80,6 +100,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
               name="address"
               placeholder="House no. / Building / Street / Area"
               label="Address"
+              required
             />
           </div>
           <div className="flex flex-col md:flex-row gap-5">
@@ -89,6 +110,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="city"
                 placeholder="City"
                 label="City"
+                required
               />
             </div>
             <div className="w-full">
@@ -97,6 +119,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
                 name="postalCode"
                 placeholder="Enter postal code"
                 label="Postal Code"
+                required
               />
             </div>
           </div>
@@ -106,6 +129,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
               name="state"
               placeholder="State"
               label="State"
+              required
             />
           </div>
           <div>
@@ -114,6 +138,7 @@ const ShippingAddressForm = ({ userId }: { userId: string }) => {
               name="country"
               placeholder="Country"
               label="Country"
+              required
             />
           </div>
           <div>

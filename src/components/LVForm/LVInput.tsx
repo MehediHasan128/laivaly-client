@@ -13,6 +13,7 @@ interface TLVInputProps {
   defaultValue?: string;
   disabled?: boolean;
   label?: string;
+  required?: boolean;
 }
 
 const LVInput = ({
@@ -24,6 +25,7 @@ const LVInput = ({
   defaultValue,
   disabled,
   label,
+  required
 }: TLVInputProps) => {
   return (
     <div className="space-y-2">
@@ -41,6 +43,7 @@ const LVInput = ({
             type={type}
             placeholder={placeholder}
             disabled={disabled}
+            required={required}
             className={cn(
               "outline-none border focus:border-black w-full rounded font-medium",
               className
