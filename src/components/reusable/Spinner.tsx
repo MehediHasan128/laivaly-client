@@ -1,10 +1,18 @@
 import { cn } from "@/lib/utils";
 
-const Spinner = ({ className }: { className?: string }) => {
+const Spinner = ({
+  className,
+  isDark = true,
+}: {
+  className?: string;
+  isDark?: boolean;
+}) => {
   return (
     <div
       className={cn(
-        "size-6 animate-spin rounded-full border-2 border-white border-t-transparent",
+        `size-6 animate-spin rounded-full border-2 ${
+          isDark ? "border-white" : "border-black"
+        } border-t-transparent`,
         className
       )}
     />

@@ -1,3 +1,4 @@
+import ChangeDefaultAddress from "@/components/customer/ChangeDefaultAddress";
 import ShippingAddressDialog from "@/components/customer/ShippingAddressDialog";
 import { Label } from "@/components/ui/label";
 import { currentUser } from "@/lib/api/currentUser";
@@ -61,13 +62,16 @@ const Addresspage = async () => {
                     </h1>
                   </div>
                 )}
-                <div className="space-x-5 font-medium">
+                <div className="font-medium flex items-center gap-5">
                   {!address?.defaultAddress && (
-                    <button className="cursor-pointer hover:underline">
-                      Set Default
-                    </button>
+                    <ChangeDefaultAddress userId={user?.id} addressId={address?._id} />
                   )}
-                  <ShippingAddressDialog dialogTitle="Edit Shipping Address" userId={user?.id} defaultAddress={address} method="edit">
+                  <ShippingAddressDialog
+                    dialogTitle="Edit Shipping Address"
+                    userId={user?.id}
+                    defaultAddress={address}
+                    method="edit"
+                  >
                     <button className="cursor-pointer hover:underline">
                       Edit
                     </button>

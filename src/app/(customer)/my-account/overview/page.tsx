@@ -23,8 +23,6 @@ const CustomerAccountPage = async () => {
   const data = (await getUserProfile()) as TResponce;
   const customerData = data?.data as TCustomerProfile;
 
-  console.log(customerData);
-
   return (
     <main className="space-y-10 md:space-y-16">
       <div className="font-medium">

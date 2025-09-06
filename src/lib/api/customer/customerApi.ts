@@ -38,3 +38,10 @@ export const updateShippingAddress = (
     options: { method: "PATCH", body: JSON.stringify(updatedAddressInfo) },
   });
 };
+
+export const changeDefaultAddress = (customerId: string, addressId: string) => {
+  return baseApi({
+    endPoints: `/customer/change-default-address/${customerId}?addressId=${addressId}`,
+    options: { method: "PATCH" },
+  });
+}
