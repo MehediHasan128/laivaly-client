@@ -11,28 +11,22 @@ export const decodedUserToken = (token: string) => {
 
 
 export const rearrangeProducts = (
-  productItems: Pick<
-    TProduct,
-    "_id" | "title" | "price" | "thumbnail" | "isLarge"
-  >[]
+  productItems: Pick<TProduct, "_id" | "title" | "price" | "productThumbnail" | "highlightedProduct">[]
 ) => {
-  const products: Pick<
-    TProduct,
-    "_id" | "title" | "price" | "thumbnail" | "isLarge"
-  >[] = [];
+  const products: Pick<TProduct, "_id" | "title" | "price" | "productThumbnail" | "highlightedProduct">[] = [];
   let remaining = [...productItems];
   let placeLargeFirst = true;
 
   while (remaining.length > 0) {
     const group = remaining.slice(0, 4);
-    const largeIndex = group.findIndex((item) => item.isLarge);
+    const largeIndex = group.findIndex((item) => item.highlightedProduct);
 
     if (largeIndex === -1) {
       products.push(...group);
       remaining.splice(0, 4);
     } else {
       const largeItem = group[largeIndex];
-      const smallItems = group.filter((item) => !item.isLarge).slice(0, 2);
+      const smallItems = group.filter((item) => !item.highlightedProduct).slice(0, 2);
 
       if (placeLargeFirst) {
         products.push(largeItem, ...smallItems);

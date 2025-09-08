@@ -38,12 +38,63 @@ export interface TCustomerProfile {
   shippingAddress: TShippingAddress[] | [];
 }
 
+// Products type
+interface TProductDescription {
+  shortDescription: string;
+  longDescription: string;
+  material: string;
+  careInstructions?: string;
+  features?: string;
+  productWeight?: number;
+  countryOfOrigin?: string;
+}
 
+interface TVariants {
+  size?: string;
+  color?: string;
+  stock: number;
+  SKU: string;
+}
 
+interface Review {
+  userId: string;
+  rating?: number;
+  comment?: string;
+  pictures?: string[] | [];
+}
 
+interface TProductVariant {
+  _id: string;
+  productId: string;
+  variants: TVariants[] | [];
+}
 
+interface TReviews {
+  _id: string;
+  productId: string;
+  reviews: Review[] | [];
+}
 
-
+export interface TProduct {
+  _id: string;
+  highlightedProduct: boolean;
+  parentProductId: string;
+  title: string;
+  description: TProductDescription;
+  season?: string;
+  productFor: string;
+  productGroup: string;
+  productCategory: string;
+  productSubCategory: string;
+  productVeriants: TProductVariant;
+  price: number;
+  discount: number;
+  perUnitCost: number;
+  productThumbnail: string;
+  productImages: string[];
+  productReviews: TReviews;
+  isDeleted: boolean;
+}
 
 // Req & Res type
 export interface TResponce {
@@ -63,15 +114,6 @@ export interface TError {
       message: string;
     }[];
   };
-}
-
-export interface TProduct {
-  _id: string;
-  title: string;
-  price: number;
-  thumbnail: string;
-  images: string[];
-  isLarge: boolean;
 }
 
 export interface TRatingData {
