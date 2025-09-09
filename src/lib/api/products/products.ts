@@ -5,4 +5,11 @@ export const getAllProducts = () => {
     endPoints: `/products`,
     options: { method: "GET" },
   });
+};
+
+export const getSingleProducts = (productId: string) => {
+  return baseApi({
+    endPoints: `/products/${productId}`,
+    options: { method: "GET" },
+  });
 }

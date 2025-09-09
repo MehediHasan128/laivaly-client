@@ -39,7 +39,7 @@ export interface TCustomerProfile {
 }
 
 // Products type
-interface TProductDescription {
+export interface TProductDescription {
   shortDescription: string;
   longDescription: string;
   material: string;

@@ -13,7 +13,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
     <>
       <div className="hidden lg:block">
         {images.map((image, index) => (
-          <div key={index} className="relative w-full h-[150vh]">
+          <div key={index} className="relative w-full md:h-[160vh] lg:h-[100vh] xl:h-[150vh]">
             <Image
               src={image}
               alt="product"

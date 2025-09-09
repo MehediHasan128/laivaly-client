@@ -27,7 +27,7 @@ const ProductCard = ({
         <div
           className={`xl:absolute bottom-0 w-full p-5 xl:border-t xl:translate-y-24 bg-accent group-hover:translate-y-0 duration-500`}
         >
-          <span className="flex justify-between items-center font-medium">
+          <span className="flex justify-between items-center font-semibold text-sm">
             <h1>{product.title}</h1>
             <h1>${product.price}</h1>
           </span>
