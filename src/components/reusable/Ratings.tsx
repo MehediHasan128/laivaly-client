@@ -23,6 +23,8 @@ const Ratings = ({ value, transition, readonly, size = 100 }: TratingProps) => {
 
   const [rating, setRating] = useState(3.6);
 
+  console.log(rating);
+
   return (
     <ReactRating
       style={{ maxWidth: size }}

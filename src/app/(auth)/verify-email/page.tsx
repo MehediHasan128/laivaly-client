@@ -1,5 +1,6 @@
 import OTPForm from "@/components/auth/OTPForm";
 import LogoWithTitle from "@/components/reusable/LogoWithTitle";
+import { use } from "react";
 
 export const metadata = {
   title: "Verify Your Email",
@@ -9,13 +10,8 @@ export const metadata = {
   robots: "index, follow",
 };
 
-interface VerifyEmailPageProps {
-  searchParams: { userEmail: string; };
-}
-
-const VerifyEmailPage = async({ searchParams }: VerifyEmailPageProps) => {
-
-  const {userEmail} = searchParams;
+const VerifyEmailPage = ({params}: {params: Promise<{ userEmail: string }>}) => {
+  const {userEmail} = use(params)
 
   return (
     <main className="flex justify-center items-center h-screen relative">

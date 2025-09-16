@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import { baseApi } from "../baseApi/api";
+import { baseApi } from "../baseApi/baseApi";
 
 export const updateCustomerProfile = (
   updateUserData: FieldValues,
@@ -44,11 +44,14 @@ export const changeDefaultAddress = (customerId: string, addressId: string) => {
     endPoints: `/customer/change-default-address/${customerId}?addressId=${addressId}`,
     options: { method: "PATCH" },
   });
-}
+};
 
-export const deleteShippingAddress = (customerId: string, addressId: string) => {
+export const deleteShippingAddress = (
+  customerId: string,
+  addressId: string
+) => {
   return baseApi({
     endPoints: `/customer/delete-shipping-address/${customerId}?addressId=${addressId}`,
     options: { method: "DELETE" },
   });
-}
+};

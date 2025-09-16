@@ -28,6 +28,3 @@ export const ProtectedRoute = async ({
 
   return children;
 };
-
-
-// Bayzid@13

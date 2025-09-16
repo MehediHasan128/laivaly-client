@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import { baseApi } from "../baseApi/api";
+import { baseApi } from "../baseApi/baseApi";
 
 export const userLogin = (userCreadential: FieldValues) => {
   return baseApi({
@@ -22,30 +22,24 @@ export const resetPasswordLink = (userEmail: string) => {
   });
 };
 
-export const resetUserPassword = (resetPasswordData: object, token: string) => {
+export const resetUserPassword = (resetPasswordData: object) => {
   return baseApi({
     endPoints: "/auth/reset-password",
     options: { method: "POST", body: JSON.stringify(resetPasswordData) },
-    temporaryToken: token,
   });
 };
 
-export const changeUserPassword = (
-  passwordData: object
-) => {
+export const changeUserPassword = (passwordData: object) => {
   return baseApi({
     endPoints: "/auth/change-password",
     options: { method: "PATCH", body: JSON.stringify(passwordData) },
   });
 };
 
-
-export const verifyCustomerEmail = (
-  otp: object,
-  userEmail: string
-) => {
+export const verifyCustomerEmail = (otp: object, userEmail: string) => {
   return baseApi({
     endPoints: `/auth/email-verify/${userEmail}`,
     options: { method: "PATCH", body: JSON.stringify(otp) },
   });
 };
+

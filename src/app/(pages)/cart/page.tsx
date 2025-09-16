@@ -5,12 +5,6 @@ import Container from "@/components/reusable/Container";
 import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
 import HorizontalDivider from "@/components/reusable/HorizontalDivider";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   Carousel,
   CarouselContent,
   CarouselItem,

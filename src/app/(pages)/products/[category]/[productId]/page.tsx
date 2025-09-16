@@ -2,8 +2,6 @@ import ProductColorSizeAndQuantity from "@/components/pages/productDetail/Produc
 import ProductDescriptionDrawer from "@/components/pages/productDetail/ProductDescriptionDrawer";
 import ProductImages from "@/components/pages/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewDrawer";
-import ProductGrid from "@/components/pages/products/ProductGrid";
-import Button from "@/components/reusable/Button";
 import { getSingleProducts } from "@/lib/api/products/products";
 import { TProduct, TResponce } from "@/types/types";
 import { ChevronRight, Heart } from "lucide-react";
@@ -12,15 +10,8 @@ import { Metadata } from "next";
 const colors = ["#FF7F50", "#1E3A8A", "#8B4513", "#000000"];
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
-interface ProductPageProps {
-  params: {
-    category: string;
-    productId: string;
-  };
-};
-
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata>{
-  const {productId} = params
+export async function generateMetadata({params}: {params: Promise<{ productId: string }>}): Promise<Metadata>{
+  const {productId} = await params;
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
 
@@ -30,8 +21,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 }
 
-const ProductDetailsPage = async ({ params }: ProductPageProps) => {
-  const { productId } = params;
+const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string }>}) => {
+  const { productId } = await params;
 
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
@@ -117,9 +108,9 @@ const ProductDetailsPage = async ({ params }: ProductPageProps) => {
           You might also like
         </h1>
 
-        {/* <div>
-          <ProductGrid products={allProducts} category="men" />
-        </div> */}
+        <div>
+          
+        </div>
       </section>
     </main>
   );

@@ -1,9 +1,7 @@
 import Button from "@/components/reusable/Button";
 import WishlistProductCard from "@/components/reusable/WishlistProductCard";
-import { Label } from "@/components/ui/label";
 import { smoochsans } from "@/styles/font";
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 

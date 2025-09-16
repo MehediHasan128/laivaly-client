@@ -3,7 +3,6 @@
 import { decodedUserToken } from "@/utils";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
-import { Label } from "../ui/label";
 import { TError, TResponce, TUser } from "@/types/types";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
@@ -17,8 +16,6 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [givenPassword, setGivenPassword] = useState<string | null>(null);
   const router = useRouter();
-
-  console.log(token);
 
   //   Check the password is 8 characters long
   const passLength = (givenPassword?.length ?? 0) >= 8;
@@ -40,10 +37,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       password: data?.password,
     };
     try {
-      const res = (await resetUserPassword(
-        resetPasswordData,
-        token
-      )) as TResponce;
+      const res = (await resetUserPassword(resetPasswordData)) as TResponce;
       toast.success(res?.message, { id: toastId });
       router.push("/login");
     } catch (err) {
@@ -71,9 +65,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             placeholder="Enter new password"
             setInputValue={setGivenPassword}
             label="New Password"
-          />
-          <div className="absolute top-0 right-0 flex justify-center items-center h-full px-5">
-            {showPass ? (
+            icon={showPass ? (
               <Eye
                 onClick={() => setShowPass(!showPass)}
                 className="size-5 cursor-pointer"
@@ -84,7 +76,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
                 className="size-5 cursor-pointer"
               />
             )}
-          </div>
+          />
         </div>
         {givenPassword && (
           <div>

@@ -1,4 +1,5 @@
 {
+  // set NODE_EXTRA_CA_CERTS=C:\\Users\\User\\AppData\\Local\\mkcert\\rootCA.pem && next dev
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -23,6 +24,31 @@
     },
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  // "compilerOptions": {
+  //   "target": "ES2020",
+  //   "lib": ["dom", "dom.iterable", "esnext"],
+  //   "allowJs": true,
+  //   "skipLibCheck": true,
+  //   "strict": true,
+  //   "noEmit": true,
+  //   "esModuleInterop": true,
+  //   "module": "esnext",
+  //   "moduleResolution": "Node",
+  //   "allowSyntheticDefaultImports": true,
+  //   "resolveJsonModule": true,
+  //   "isolatedModules": true,
+  //   "jsx": "preserve",
+  //   "incremental": true,
+  //   "plugins": [
+  //     {
+  //       "name": "next"
+  //     }
+  //   ],
+  //   "paths": {
+  //     "@/*": ["./src/*"]
+  //   },
+  //   "forceConsistentCasingInFileNames": true
+  // },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next-sitemap.config.js"],
   "exclude": ["node_modules"]
 }

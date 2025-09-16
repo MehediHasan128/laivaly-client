@@ -8,10 +8,10 @@ import { TProduct } from "@/types/types";
 const NewArrivalCard = ({
   product,
 }: {
-  product: Pick<TProduct, "_id" | "title" | "thumbnail" | "images" | "price">;
+  product: Pick<TProduct, "_id" | "title" | "productThumbnail" | "productImages" | "price">;
 }) => {
   const [productThumbnail, setProductThumbnail] = useState<string>(
-    product?.thumbnail
+    product?.productThumbnail
   );
 
   return (
@@ -19,8 +19,8 @@ const NewArrivalCard = ({
       {/* Product Image */}
       <div
         className="h-48 md:h-56 lg:h-72 2xl:h-80 cursor-pointer"
-        onMouseEnter={() => setProductThumbnail(product?.images[1])}
-        onMouseLeave={() => setProductThumbnail(product?.thumbnail)}
+        onMouseEnter={() => setProductThumbnail(product?.productImages[1])}
+        onMouseLeave={() => setProductThumbnail(product?.productThumbnail)}
       >
         <div className="relative h-full">
           <Image

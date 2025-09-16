@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TError } from "@/types/types";
-import { getAccessToken } from "./getToken";
+
+const isProd = process.env.NODE_ENV === "production";
+const prodURL = "https://server.laivaly.com/api/v1";
+const devURL = "http://localhost:5000/api/v1";
 
 interface FetchOptions extends RequestInit {
   cache?: RequestCache;
@@ -10,30 +13,36 @@ interface FetchOptions extends RequestInit {
 interface TBaseApiProps {
   endPoints: string;
   options: FetchOptions;
-  temporaryToken?: string; 
 }
 
 export async function baseApi<T>({
   endPoints,
   options = {},
-  temporaryToken
 }: TBaseApiProps): Promise<T> {
-  const baseURL = "http://localhost:5000/api/v1";
-
-  const token = await getAccessToken();
+  const baseURL = isProd ? prodURL : devURL;
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    'Authorization': `${token || temporaryToken}`,
     ...(options.headers || {}),
   };
 
-  const fetchOptions: RequestInit & { next?: { revalidate?: number | false } } =
-    {
-      ...options,
-      headers,
-      credentials: "include",
+  let fetchOptions: RequestInit & { next?: { revalidate?: number | false } } = {
+    ...options,
+    credentials: "include",
+    headers,
+  };
+
+  if (typeof window === "undefined") {
+    const { cookies } = await import("next/headers");
+    const cookieHeader = (await cookies()).toString();
+    fetchOptions = {
+      ...fetchOptions,
+      headers: {
+        ...headers,
+        cookie: cookieHeader,
+      },
     };
+  }
 
   try {
     const res = await fetch(`${baseURL}${endPoints}`, fetchOptions);

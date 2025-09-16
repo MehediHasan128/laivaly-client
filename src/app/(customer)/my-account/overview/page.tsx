@@ -1,7 +1,6 @@
 import EditPasswordDrawer from "@/components/customer/EditPasswordDrawer";
 import { getUserProfile } from "@/lib/api/user/user";
 import { TCustomerProfile, TResponce } from "@/types/types";
-import React from "react";
 
 export const metadata = {
   title: "Account Overview",

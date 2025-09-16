@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, EyeClosed, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
@@ -39,6 +39,7 @@ const LoginForm = () => {
     const toastId = toast.loading("Loading");
     try {
       const res = (await resetPasswordLink(userEmail as string)) as TResponce;
+      console.log(res);
       toast.success(res?.message, { id: toastId });
     } catch (err) {
       const error = err as TError;
@@ -58,6 +59,7 @@ const LoginForm = () => {
               placeholder="Enter your Laivaly email"
               setInputValue={setUserEmail}
               className="py-4"
+              defaultValue="bayzidahmed467@gmail.com"
             />
           </div>
           {/* Password Input */}
@@ -67,6 +69,7 @@ const LoginForm = () => {
               name="password"
               placeholder="Enter your password"
               className="py-4"
+              defaultValue="Bayzid@13"
               icon={
                 showPass ? (
                   <div

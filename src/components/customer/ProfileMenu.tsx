@@ -63,6 +63,7 @@ const ProfileMenu = ({
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </Link>
+              
             </>
           )}
         </DropdownMenuGroup>

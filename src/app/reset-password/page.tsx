@@ -1,10 +1,11 @@
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
+import { cookies } from "next/headers";
 
-interface ResetPasswordPageProps {
-  searchParams: { token?: string };
-}
+const ResetPassPage = async() => {
 
-const ResetPassPage = ({ searchParams }: ResetPasswordPageProps) => {
+  const cookieStore = (cookies() as unknown as ReturnType<typeof cookies>);
+  const token = (await cookieStore).get("passwordResetToken")?.value;
+
   return (
     <main className="flex justify-center items-center h-screen">
       <div className="w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] 2xl:w-[20%]">
@@ -15,7 +16,7 @@ const ResetPassPage = ({ searchParams }: ResetPasswordPageProps) => {
           </p>
         </div>
         <div>
-          <ResetPasswordForm token={searchParams.token as string} />
+          <ResetPasswordForm token={token as string} />
         </div>
       </div>
     </main>

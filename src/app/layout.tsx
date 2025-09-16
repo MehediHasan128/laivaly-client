@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@smastrom/react-rating/style.css";
 import "./globals.css";
 import { Toaster } from "sonner";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     title: "Laivaly – Fashion for Everyone",
     description:
       "Access your Laivaly account to track orders, manage your profile, and explore our latest fashion collections.",
-    url: "https://laivaly.vercel.app/",
+    url: "https://laivaly.com/",
     siteName: "Laivaly",
     images: [
       {
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://laivaly.vercel.app/",
+    canonical: "https://laivaly.com/",
   },
 };
 
@@ -50,6 +51,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Laivaly – Fashion for Men, Women & Kids</title>
+        <meta
+          name="description"
+          content="Laivaly is a modern clothing e-commerce platform offering trendy, high-quality fashion for men, women, and kids."
+        />
+        <Script
+          type="application/ld+json"
+          id="laivaly-schema"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Laivaly",
+              url: "https://laivaly.com/",
+              logo: "https://laivaly.com/images/logo/logo.png",
+            }),
+          }}
+        />
+      </head>
+
       <body className={`${inter.className} antialiased`}>
         {children}
         <Toaster

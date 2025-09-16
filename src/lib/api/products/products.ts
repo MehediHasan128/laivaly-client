@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi/api";
+import { baseApi } from "../baseApi/baseApi";
 
 export const getAllProducts = () => {
   return baseApi({
@@ -12,4 +12,4 @@ export const getSingleProducts = (productId: string) => {
     endPoints: `/products/${productId}`,
     options: { method: "GET" },
   });
-}
+};

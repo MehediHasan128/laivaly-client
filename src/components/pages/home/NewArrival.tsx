@@ -21,48 +21,48 @@ const buttons = [
 
 export const products: Pick<
   TProduct,
-  "_id" | "title" | "thumbnail" | "images" | "price"
+  "_id" | "title" | "productThumbnail" | "productImages" | "price"
 >[] = [
   {
     _id: "1",
     title: "Classic White T-Shirt",
-    thumbnail: "/images/products/1.jpg",
-    images: ["/images/products/1.jpg", "/images/products/2.jpg"],
+    productThumbnail: "/images/products/1.jpg",
+    productImages: ["/images/products/1.jpg", "/images/products/2.jpg"],
     price: 19.99,
   },
   {
     _id: "2",
     title: "Slim Fit Blue Jeans",
-    thumbnail: "/images/products/3.jpg",
-    images: ["/images/products/3.jpg", "/images/products/4.jpg"],
+    productThumbnail: "/images/products/3.jpg",
+    productImages: ["/images/products/3.jpg", "/images/products/4.jpg"],
     price: 49.99,
   },
   {
     _id: "3",
     title: "Black Leather Jacket",
-    thumbnail: "/images/products/5.jpg",
-    images: ["/images/products/5.jpg", "/images/products/6.jpg"],
+    productThumbnail: "/images/products/5.jpg",
+    productImages: ["/images/products/5.jpg", "/images/products/6.jpg"],
     price: 129.99,
   },
   {
     _id: "4",
     title: "Red Summer Dress",
-    thumbnail: "/images/products/7.jpg",
-    images: ["/images/products/7.jpg", "/images/products/8.jpg"],
+    productThumbnail: "/images/products/7.jpg",
+    productImages: ["/images/products/7.jpg", "/images/products/8.jpg"],
     price: 59.99,
   },
   {
     _id: "5",
     title: "Sport Running Shoes",
-    thumbnail: "/images/products/9.jpg",
-    images: ["/images/products/9.jpg", "/images/products/10.jpg"],
+    productThumbnail: "/images/products/9.jpg",
+    productImages: ["/images/products/9.jpg", "/images/products/10.jpg"],
     price: 79.99,
   },
   {
     _id: "6",
     title: "Formal White Shirt",
-    thumbnail: "/images/products/11.jpg",
-    images: ["/images/products/11.jpg", "/images/products/12.jpg"],
+    productThumbnail: "/images/products/11.jpg",
+    productImages: ["/images/products/11.jpg", "/images/products/12.jpg"],
     price: 39.99,
   },
 ];

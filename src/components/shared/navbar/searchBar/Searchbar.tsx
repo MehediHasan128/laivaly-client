@@ -5,8 +5,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { smoochsans } from "@/styles/font";
-import { Search, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import SearchProducts from "./SearchProducts";
 

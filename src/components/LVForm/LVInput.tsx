@@ -3,7 +3,6 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Eye } from "lucide-react";
 
 interface TLVInputProps {
   type: string;

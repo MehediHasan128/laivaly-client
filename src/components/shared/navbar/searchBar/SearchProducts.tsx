@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const SearchProducts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState<TProduct[]>();
-
+  console.log(searchTerm);
   useEffect(() => {
     const fetchProducts = async () => {
       const {data} = (await getAllProducts()) as TResponce;
