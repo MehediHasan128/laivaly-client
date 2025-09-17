@@ -1,7 +1,8 @@
 import CategoryBanner from "@/components/pages/products/CategoryBanner";
+import { filters } from "@/components/pages/products/Filters";
 import ProductFilters from "@/components/pages/products/ProductFilters";
 import ProductGrid from "@/components/pages/products/ProductGrid";
-import { getAllProducts } from "@/lib/api/products/products";
+import { getAllProducts, TProductQueryParams } from "@/lib/api/products/products";
 import { TResponce } from "@/types/types";
 import { rearrangeProducts } from "@/utils";
 import { Metadata } from "next";
@@ -9,30 +10,26 @@ import { Metadata } from "next";
 const filtersData = [
   {
     title: "Category",
+    value: "productCategory",
     options: [
-      { value: "black t-shirt", label: "Black T-Shirt" },
-      { value: "white t-shirt", label: "White T-Shirt" },
+      { value: "Tops", label: "Tops" },
+      { value: "Bottoms", label: "Bottoms" },
     ],
   },
   {
-    title: "Price",
+    title: "Season",
+    value: "season",
     options: [
-      { value: "10.00 - 20.00", label: "$10.00 - $20.00" },
-      { value: "20.00 - 30.00", label: "$20.00 - $30.00" },
-    ],
-  },
-  {
-    title: "Size",
-    options: [
-      { value: "xs", label: "XS" },
-      { value: "s", label: "S" },
-      { value: "m", label: "M" },
-      { value: "l", label: "L" },
-      { value: "xl", label: "XL" },
-      { value: "xxl", label: "XXL" },
+      { value: "summer", label: "Summer" },
+      { value: "winter", label: "Winter" },
+      { value: "all-season", label: "All Season" },
     ],
   },
 ];
+
+export interface TSearchParamsProp {
+  searchParams?: Record<string, string>;
+}
 
 export const metadata: Metadata = {
   title: "Men's Fashion",
@@ -48,10 +45,11 @@ export const metadata: Metadata = {
   ],
 };
 
-const MenPage = async () => {
-  const allProducts = (await getAllProducts([
-    { field: "productFor", value: "men" },
-  ])) as TResponce;
+const MenPage = async ({searchParams}: TSearchParamsProp) => {
+
+  const Filters = filters('men', searchParams as Record<string, string>)
+
+  const allProducts = (await getAllProducts(Filters)) as TResponce;
 
   const products = rearrangeProducts(allProducts.data);
   return (
@@ -65,7 +63,7 @@ const MenPage = async () => {
 
       <ProductFilters filters={filtersData} totalProducts={products?.length} />
 
-      <ProductGrid products={products} category="men" />
+      <ProductGrid products={products} />
     </main>
   );
 };

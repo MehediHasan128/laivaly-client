@@ -6,12 +6,11 @@ import Link from "next/link";
 interface TProductGrid {
   products: Pick<
     TProduct,
-    "_id" | "title" | "price" | "productThumbnail" | "highlightedProduct"
+    "_id" | "title" | "price" | "productFor" | "productThumbnail" | "highlightedProduct"
   >[];
-  category: string;
 }
 
-const ProductGrid = ({ products, category }: TProductGrid) => {
+const ProductGrid = ({ products }: TProductGrid) => {
 
   return (
     <Container>
@@ -20,12 +19,12 @@ const ProductGrid = ({ products, category }: TProductGrid) => {
           (
             product: Pick<
               TProduct,
-              "_id" | "title" | "price" | "productThumbnail" | "highlightedProduct"
+              "_id" | "title" | "price" | "productFor" | "productThumbnail" | "highlightedProduct"
             >
           ) => (
             <Link
               key={product._id}
-              href={`/products/${category}/${product._id}`}
+              href={`/products/${product.productFor}/${product._id}`}
               className={`${
                 product.highlightedProduct ? "col-span-2" : ""
               } cursor-pointer overflow-hidden w-full border-b border-r`}

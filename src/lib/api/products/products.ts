@@ -1,6 +1,6 @@
 import { baseApi } from "../baseApi/baseApi";
 
-interface TProductQueryParams {
+export interface TProductQueryParams {
   field: string;
   value: string;
 }

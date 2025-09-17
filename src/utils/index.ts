@@ -11,9 +11,9 @@ export const decodedUserToken = (token: string) => {
 
 
 export const rearrangeProducts = (
-  productItems: Pick<TProduct, "_id" | "title" | "price" | "productThumbnail" | "highlightedProduct">[]
+  productItems: Pick<TProduct, "_id" | "title" | "price" | "productFor" | "productThumbnail" | "highlightedProduct">[]
 ) => {
-  const products: Pick<TProduct, "_id" | "title" | "price" | "productThumbnail" | "highlightedProduct">[] = [];
+  const products: Pick<TProduct, "_id" | "title" | "price" | "productFor" | "productThumbnail" | "highlightedProduct">[] = [];
   let remaining = [...productItems];
   let placeLargeFirst = true;
 

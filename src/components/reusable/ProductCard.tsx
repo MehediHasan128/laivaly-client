@@ -18,13 +18,6 @@ const ProductCard = ({
           className="object-cover object-top w-full h-full hover:scale-110 duration-500"
         />
         <div
-          className={`absolute top-0 right-0 ${
-            product.highlightedProduct ? "text-white" : "text-gray-500"
-          } p-3 xl:p-5`}
-        >
-          <Heart className="size-5" />
-        </div>
-        <div
           className={`xl:absolute bottom-0 w-full p-5 xl:border-t xl:translate-y-24 bg-accent group-hover:translate-y-0 duration-500`}
         >
           <span className="flex justify-between items-center font-semibold text-sm">
