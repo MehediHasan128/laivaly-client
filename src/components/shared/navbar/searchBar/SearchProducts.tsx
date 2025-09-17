@@ -10,15 +10,16 @@ import { useEffect, useState } from "react";
 const SearchProducts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState<TProduct[]>();
-  console.log(searchTerm);
   useEffect(() => {
     const fetchProducts = async () => {
-      const {data} = (await getAllProducts()) as TResponce;
-      setProducts(data)
+      const { data } = (await getAllProducts([
+        { field: "searchTerm", value: searchTerm },
+      ])) as TResponce;
+      setProducts(data);
     };
 
     fetchProducts();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <>
@@ -40,16 +41,23 @@ const SearchProducts = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 mt-20 border-y">
-        {
-            products?.map((product: TProduct) => (
-                <div key={product?._id} className="border-r cursor-pointer overflow-hidden">
-                    <div className="relative h-96">
-                        <Image src={product?.productThumbnail} alt={product?.title} quality={100} fill className="hover:scale-110 duration-700" />
-                    </div>
-                </div>
-            ))
-        }
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 mt-5 md:mt-10 lg:mt-16 border-y max-h-[600px] overflow-y-scroll scrollbar-hide">
+        {products?.map((product: TProduct) => (
+          <div
+            key={product?._id}
+            className="cursor-pointer overflow-hidden border-r border-b"
+          >
+            <div className="relative h-52 md:h-80 xl:h-96">
+              <Image
+                src={product?.productThumbnail}
+                alt={product?.title}
+                quality={100}
+                fill
+                className="hover:scale-110 duration-700 object-cover"
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

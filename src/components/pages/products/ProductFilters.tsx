@@ -17,7 +17,13 @@ interface TProductFiltersProps {
   }[];
 }
 
-const ProductFilters = ({ filters }: { filters: TProductFiltersProps[] }) => {
+const ProductFilters = ({
+  filters,
+  totalProducts,
+}: {
+  filters: TProductFiltersProps[];
+  totalProducts?: number;
+}) => {
   return (
     <div className="border-b p-5 md:p-10 xl:p-12">
       <div className="hidden md:flex justify-between items-center">
@@ -43,7 +49,10 @@ const ProductFilters = ({ filters }: { filters: TProductFiltersProps[] }) => {
           ))}
         </div>
         <div className="flex items-center gap-3 lg:gap-5 gray-text xl:w-[25%] 2xl:w-[20%]">
-          <h1 className="whitespace-nowrap">1404 items</h1>
+          <h1 className="whitespace-nowrap">
+            {totalProducts ? totalProducts : 0} item
+            <span>{(totalProducts as number) > 1 ? "s" : ""}</span>
+          </h1>
           <span className="border-l-2 h-5" />
           <h1 className="whitespace-nowrap">Sort By</h1>
           <div className="w-full">

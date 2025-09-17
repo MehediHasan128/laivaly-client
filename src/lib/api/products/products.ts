@@ -1,8 +1,21 @@
 import { baseApi } from "../baseApi/baseApi";
 
-export const getAllProducts = () => {
+interface TProductQueryParams {
+  field: string;
+  value: string;
+}
+
+export const getAllProducts = (args?: TProductQueryParams[]) => {
+  const params = new URLSearchParams();
+
+  if(params) {
+    args?.forEach((item: TProductQueryParams) => {
+      params.append(item.field, item.value)
+    })
+  }
+
   return baseApi({
-    endPoints: `/products`,
+    endPoints: `/products?${params}`,
     options: { method: "GET" },
   });
 };

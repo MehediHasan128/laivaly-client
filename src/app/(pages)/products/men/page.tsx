@@ -49,7 +49,9 @@ export const metadata: Metadata = {
 };
 
 const MenPage = async () => {
-  const allProducts = (await getAllProducts()) as TResponce;
+  const allProducts = (await getAllProducts([
+    { field: "productFor", value: "men" },
+  ])) as TResponce;
 
   const products = rearrangeProducts(allProducts.data);
   return (
@@ -61,7 +63,7 @@ const MenPage = async () => {
         sectionSubtitle="Explore premium men’s fashion for every occasion."
       />
 
-      <ProductFilters filters={filtersData} />
+      <ProductFilters filters={filtersData} totalProducts={products?.length} />
 
       <ProductGrid products={products} category="men" />
     </main>
