@@ -3,10 +3,11 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navItems = [
-  { label: "New Collection", path: "/products/new-collection" },
+  { label: "New Collection", path: "/products/new" },
   { label: "Men", path: "/products/men" },
   { label: "Women", path: "/products/women" },
   { label: "Kid's", path: "/products/kids" },
+  { label: "Winter", path: "/products/winter" },
 ];
 
 const NavItems = () => {

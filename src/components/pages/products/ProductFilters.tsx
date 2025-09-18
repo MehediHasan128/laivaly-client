@@ -72,11 +72,6 @@ const ProductFilters = ({
             </Select>
           ))}
         </div>
-
-        <div>
-          <button className="btn px-5">Clear Filter</button>
-        </div>
-
         <div className="flex items-center gap-3 lg:gap-5 gray-text xl:w-[25%] 2xl:w-[15%]">
           <h1 className="whitespace-nowrap">
             {totalProducts ? totalProducts : 0} item

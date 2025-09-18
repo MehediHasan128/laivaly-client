@@ -18,8 +18,8 @@ const filtersData = [
     ],
   },
   {
-    title: "Season",
-    field: "season",
+    title: "Price",
+    field: "price",
     options: [
       { value: "summer", label: "Summer" },
       { value: "winter", label: "Winter" },
@@ -29,23 +29,28 @@ const filtersData = [
 ];
 
 export const metadata: Metadata = {
-  title: "Women's Fashion",
+  title: "Winter Collection",
   description:
-    "Explore the latest trends in women's fashion at Laivaly. Shop high-quality clothing, accessories, and footwear for women with fast delivery and secure checkout.",
+    "Stay warm and stylish with Laivaly's Winter Collection. Shop jackets, coats, hoodies, sweaters, boots, and more for men, women, and kids with fast delivery and secure checkout.",
   keywords: [
-    "Women's clothing",
-    "Women's fashion",
-    "Women's accessories",
-    "Laivaly",
-    "Trendy women's wear",
-    "Women's shoes",
-  ],
+    "Winter fashion",
+    "Winter collection",
+    "Winter jackets",
+    "Winter coats",
+    "Winter hoodies",
+    "Winter boots",
+    "Men's winter wear",
+    "Women's winter fashion",
+    "Kids' winter clothes",
+    "Laivaly winter collection",
+  ]
 };
 
-const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
+
+const WinterCollectionPage = async ({ searchParams }: TSearchParamsProp) => {
   const Filters = filters(
-    "productFor",
-    "women",
+    "season",
+    "winter",
     searchParams as Record<string, string>
   );
 
@@ -61,8 +66,8 @@ const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
         fallback={<ProductSkeleton products={products} />}
       >
         <ProductSection
-          defaultField="productFor"
-          productFor="women"
+          defaultField="season"
+          productFor="winter"
           searchParams={searchParams as Record<string, string>}
         />
       </Suspense>
@@ -70,4 +75,4 @@ const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
   );
 };
 
-export default WomenPage;
+export default WinterCollectionPage;

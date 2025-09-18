@@ -26,26 +26,36 @@ const filtersData = [
       { value: "all-season", label: "All Season" },
     ],
   },
+  {
+    title: "Price",
+    field: "price",
+    options: [
+      { value: "summer", label: "Summer" },
+      { value: "winter", label: "Winter" },
+      { value: "all-season", label: "All Season" },
+    ],
+  },
 ];
 
 export const metadata: Metadata = {
-  title: "Women's Fashion",
+  title: "New Collections",
   description:
-    "Explore the latest trends in women's fashion at Laivaly. Shop high-quality clothing, accessories, and footwear for women with fast delivery and secure checkout.",
+    "Discover Laivaly's curated collections featuring premium fashion for men, women, and kids. Shop seasonal styles, trendy outfits, and must-have essentials with fast delivery and secure checkout.",
   keywords: [
-    "Women's clothing",
-    "Women's fashion",
-    "Women's accessories",
+    "Fashion collections",
+    "Men's collections",
+    "Women's collections",
+    "Kids' collections",
+    "Seasonal fashion",
+    "Trendy outfits",
     "Laivaly",
-    "Trendy women's wear",
-    "Women's shoes",
   ],
 };
 
-const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
+const NewCollectionPage = async ({ searchParams }: TSearchParamsProp) => {
   const Filters = filters(
-    "productFor",
-    "women",
+    "searchTerm",
+    "",
     searchParams as Record<string, string>
   );
 
@@ -61,8 +71,8 @@ const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
         fallback={<ProductSkeleton products={products} />}
       >
         <ProductSection
-          defaultField="productFor"
-          productFor="women"
+          defaultField="searchTerm"
+          productFor=""
           searchParams={searchParams as Record<string, string>}
         />
       </Suspense>
@@ -70,4 +80,4 @@ const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
   );
 };
 
-export default WomenPage;
+export default NewCollectionPage;

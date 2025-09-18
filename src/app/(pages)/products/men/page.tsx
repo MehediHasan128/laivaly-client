@@ -1,4 +1,3 @@
-import CategoryBanner from "@/components/pages/products/CategoryBanner";
 import { filters } from "@/components/pages/products/Filters.utils";
 import ProductFilters from "@/components/pages/products/ProductFilters";
 import ProductSection from "@/components/pages/products/ProductSection";
@@ -44,19 +43,16 @@ export const metadata: Metadata = {
 };
 
 const MenPage = async ({ searchParams }: TSearchParamsProp) => {
-  const Filters = filters("men", searchParams as Record<string, string>);
+  const Filters = filters(
+    "productFor",
+    "men",
+    searchParams as Record<string, string>
+  );
   const allProducts = (await getAllProducts(Filters)) as TResponce;
   const products = rearrangeProducts(allProducts.data);
 
   return (
     <main className="relative">
-      <CategoryBanner
-        bannerImage="/images/categories/men.jpg"
-        imageAlt="men"
-        sectionTitle="Men"
-        sectionSubtitle="Explore premium men’s fashion for every occasion."
-      />
-
       <ProductFilters filters={filtersData} totalProducts={products.length} />
 
       <Suspense
@@ -64,6 +60,7 @@ const MenPage = async ({ searchParams }: TSearchParamsProp) => {
         fallback={<ProductSkeleton products={products} />}
       >
         <ProductSection
+          defaultField="productFor"
           productFor="men"
           searchParams={searchParams as Record<string, string>}
         />

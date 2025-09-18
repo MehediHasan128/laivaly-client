@@ -1,9 +1,9 @@
 import { baseApi } from "../baseApi/baseApi";
 
 export interface TProductQueryParams {
-  field: string;
+  field: "productFor" | "season" | "productGroup" | "searchTerm";
   value: string;
-}
+} 
 
 export const getAllProducts = (args?: TProductQueryParams[]) => {
   const params = new URLSearchParams();
