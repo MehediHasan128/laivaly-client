@@ -9,63 +9,28 @@ import { TProduct } from "@/types/types";
 import { smoochsans } from "@/styles/font";
 
 const buttons = [
-  { value: "all", label: "All" },
-  { value: "cozy-knitwear", label: "Cozy Knitwear" },
-  { value: "puffer-jackets", label: "Puffer Jackets" },
-  { value: "wool-coats", label: "Wool Coats" },
-  { value: "thermal-layers", label: "Thermal Layers" },
+  { value: "", label: "All" },
+  { value: "Jacket", label: "Jacket" },
+  { value: "Coat", label: "Coat" },
+  { value: "Hoodie", label: "Hoodie" },
+  { value: "Blazer", label: "Blazer" },
+  { value: "Cardigan", label: "Cardigan" },
+  { value: "Ankle Boots", label: "Ankle Boots" },
+  { value: "Chelsea Boots", label: "Chelsea Boots" },
 ];
 
-export const products: Pick<
-  TProduct,
-  "_id" | "title" | "productThumbnail" | "productImages" | "price"
->[] = [
-  {
-    _id: "1",
-    title: "Classic White T-Shirt",
-    productThumbnail: "/images/products/13.jpg",
-    productImages: ["/images/products/13.jpg", "/images/products/14.jpg"],
-    price: 19.99,
-  },
-  {
-    _id: "2",
-    title: "Slim Fit Blue Jeans",
-    productThumbnail: "/images/products/15.jpg",
-    productImages: ["/images/products/15.jpg", "/images/products/16.jpg"],
-    price: 49.99,
-  },
-  {
-    _id: "3",
-    title: "Black Leather Jacket",
-    productThumbnail: "/images/products/17.jpg",
-    productImages: ["/images/products/17.jpg", "/images/products/18.jpg"],
-    price: 129.99,
-  },
-  {
-    _id: "4",
-    title: "Red Summer Dress",
-    productThumbnail: "/images/products/19.jpg",
-    productImages: ["/images/products/19.jpg", "/images/products/20.jpg"],
-    price: 59.99,
-  },
-  {
-    _id: "5",
-    title: "Sport Running Shoes",
-    productThumbnail: "/images/products/21.jpg",
-    productImages: ["/images/products/21.jpg", "/images/products/22.jpg"],
-    price: 79.99,
-  },
-  {
-    _id: "6",
-    title: "Formal White Shirt",
-    productThumbnail: "/images/products/23.jpg",
-    productImages: ["/images/products/23.jpg", "/images/products/24.jpg"],
-    price: 39.99,
-  },
-];
+const SesonalCollection = ({
+  winterProducts,
+}: {
+  winterProducts: TProduct[];
+}) => {
+  const [productCategory, setProductCategory] = useState<string>("");
 
-const SesonalCollection = () => {
-  const [productCategory, setProductCategory] = useState<string>("all");
+  const selectedProducts = winterProducts?.filter(
+    (product: TProduct) => product.productSubCategory === productCategory
+  );
+
+  const products = productCategory === "" ? winterProducts : selectedProducts;
 
   return (
     <section>

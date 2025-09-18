@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Handbag, Heart } from "lucide-react";
 import { TProduct } from "@/types/types";
 
 const NewArrivalCard = ({
@@ -27,23 +26,19 @@ const NewArrivalCard = ({
             src={productThumbnail}
             alt={product?.title}
             fill
-            className="object-cover rounded-lg"
+            className="rounded-lg border object-cover"
           />
-          <div className="absolute top-0 w-full flex justify-between p-2.5 md:p-4 md:gap-5">
-            <Handbag className="size-5" />
-            <Heart className="size-5" />
-          </div>
         </div>
       </div>
 
       {/* Product Info */}
-      <div className="p-2 font-semibold flex justify-between items-start text-xs md:text-sm lg:text-xs xl:text-base">
+      <div className="p-2 font-semibold flex justify-between items-start text-xs md:text-sm">
         {product?.title.length === 20 ? (
           <h1>{product?.title}</h1>
         ) : (
           <h1>
             {product?.title.slice(0, 21)}
-            <span className="bg-gradient-to-r from-[#000000ac] to-transparent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#000000d4] to-transparent bg-clip-text text-transparent">
               {product?.title.slice(21, 30)}
             </span>
           </h1>

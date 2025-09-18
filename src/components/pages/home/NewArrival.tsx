@@ -8,67 +8,25 @@ import Button from "../../reusable/Button";
 import { smoochsans } from "@/styles/font";
 import { TProduct } from "@/types/types";
 
+
 const buttons = [
-  { value: "all", label: "All" },
-  { value: "t-shirt", label: "T-Shirts" },
-  { value: "shirts", label: "Shirts" },
-  { value: "bottoms", label: "Bottoms" },
-  { value: "jackets", label: "Jackets" },
-  { value: "hoodies & sweatshirts", label: "Hoodies" },
-  { value: "bags", label: "Bags" },
-  { value: "shoes", label: "Shoes" },
-];
+  {value: '', label: 'All'},
+  {value: 'Tops', label: 'Tops'},
+  {value: 'Bottoms', label: 'Bottoms'},
+  {value: 'Outerwear', label: 'Outerwear'},
+  {value: 'Bags', label: 'Bags'},
+  {value: 'Sneakers', label: 'Sneakers'},
+  {value: 'Boots', label: 'Boots'},
+  {value: 'Perfume', label: 'Perfume'},
+]
 
-export const products: Pick<
-  TProduct,
-  "_id" | "title" | "productThumbnail" | "productImages" | "price"
->[] = [
-  {
-    _id: "1",
-    title: "Classic White T-Shirt",
-    productThumbnail: "/images/products/1.jpg",
-    productImages: ["/images/products/1.jpg", "/images/products/2.jpg"],
-    price: 19.99,
-  },
-  {
-    _id: "2",
-    title: "Slim Fit Blue Jeans",
-    productThumbnail: "/images/products/3.jpg",
-    productImages: ["/images/products/3.jpg", "/images/products/4.jpg"],
-    price: 49.99,
-  },
-  {
-    _id: "3",
-    title: "Black Leather Jacket",
-    productThumbnail: "/images/products/5.jpg",
-    productImages: ["/images/products/5.jpg", "/images/products/6.jpg"],
-    price: 129.99,
-  },
-  {
-    _id: "4",
-    title: "Red Summer Dress",
-    productThumbnail: "/images/products/7.jpg",
-    productImages: ["/images/products/7.jpg", "/images/products/8.jpg"],
-    price: 59.99,
-  },
-  {
-    _id: "5",
-    title: "Sport Running Shoes",
-    productThumbnail: "/images/products/9.jpg",
-    productImages: ["/images/products/9.jpg", "/images/products/10.jpg"],
-    price: 79.99,
-  },
-  {
-    _id: "6",
-    title: "Formal White Shirt",
-    productThumbnail: "/images/products/11.jpg",
-    productImages: ["/images/products/11.jpg", "/images/products/12.jpg"],
-    price: 39.99,
-  },
-];
+const NewArrival = ({newArrivalProducts}: {newArrivalProducts: TProduct[]}) => {
 
-const NewArrival = () => {
-  const [productCategory, setProductCategory] = useState<string>("all");
+  const [productCategory, setProductCategory] = useState<string>("");
+
+  const selectedProducts = newArrivalProducts?.filter((product: TProduct) => product.productCategory === productCategory);
+
+  const products = productCategory === "" ? newArrivalProducts : selectedProducts
 
   return (
     <section>

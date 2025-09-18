@@ -3,6 +3,8 @@ import CustomerReview from "@/components/pages/home/CustomerReview";
 import FeaturedCategories from "@/components/pages/home/FeaturedCategories";
 import NewArrival from "@/components/pages/home/NewArrival";
 import SesonalCollection from "@/components/pages/home/SesonalCollection";
+import { getAllProducts } from "@/lib/api/products/products";
+import { TResponce } from "@/types/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -28,14 +30,26 @@ export const metadata: Metadata = {
   },
 };
 
-const HomePage = () => {
+const HomePage = async() => {
+
+  const [newArrivalProducts, winterProducts] = await Promise.all([
+    getAllProducts([
+      {field: 'season', value: 'summer'},
+      {field: 'season', value: 'all-season'},
+      {field: 'limit', value: '15'},
+    ]),
+    getAllProducts([
+      {field: 'season', value: 'winter'},
+      {field: 'limit', value: '15'},
+    ]),
+  ]) as TResponce[];
 
   return (
     <main>
       <Banner />
       <FeaturedCategories />
-      <NewArrival />
-      <SesonalCollection />
+      <NewArrival newArrivalProducts={newArrivalProducts?.data} />
+      <SesonalCollection winterProducts={winterProducts?.data} />
       <CustomerReview />
     </main>
   );
