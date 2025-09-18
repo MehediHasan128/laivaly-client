@@ -132,3 +132,12 @@ export interface TCartProduct {
   discount?: number;
   quantity: number;
 }
+
+
+
+
+// Proge props 
+
+export interface TSearchParamsProp {
+  searchParams?: Record<string, string>;
+}

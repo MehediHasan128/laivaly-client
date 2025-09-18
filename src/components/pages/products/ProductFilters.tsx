@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { SlidersHorizontal } from "lucide-react";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../../ui/select";
 import SidebarFilters from "./SidebarFilters";
 import { useRouter, useSearchParams } from "next/navigation";
-import { filtersProducts } from "./Filters";
+import { filtersProducts } from "./Filters.utils";
 
 interface TProductFiltersProps {
   title: string;
@@ -29,16 +29,20 @@ const ProductFilters = ({
   filters: TProductFiltersProps[];
   totalProducts?: number;
 }) => {
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
   return (
-    <div className="border-b p-5 md:p-10 xl:p-12">
+    <div className="sticky top-0 z-10 bg-white border-b p-5 md:p-8">
       <div className="hidden md:flex justify-between items-center">
         <div className="flex gap-3 xl:w-[30%]">
           {filters.map((filter, index) => (
-            <Select key={index} onValueChange={(value) => filtersProducts(router, searchParams, filter.value, value)}>
+            <Select
+              key={index}
+              onValueChange={(value) =>
+                filtersProducts(router, searchParams, filter.value, value)
+              }
+            >
               <SelectTrigger className="hover:border-black">
                 <SelectValue
                   placeholder={filter.title}
@@ -56,6 +60,10 @@ const ProductFilters = ({
               </SelectContent>
             </Select>
           ))}
+        </div>
+
+        <div>
+          <button className="btn px-5">Clear Filter</button>
         </div>
 
         <div className="flex items-center gap-3 lg:gap-5 gray-text xl:w-[25%] 2xl:w-[20%]">

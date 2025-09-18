@@ -1,11 +1,13 @@
 import CategoryBanner from "@/components/pages/products/CategoryBanner";
-import { filters } from "@/components/pages/products/Filters";
+import { filters } from "@/components/pages/products/Filters.utils";
 import ProductFilters from "@/components/pages/products/ProductFilters";
-import ProductGrid from "@/components/pages/products/ProductGrid";
-import { getAllProducts, TProductQueryParams } from "@/lib/api/products/products";
-import { TResponce } from "@/types/types";
+import ProductSection from "@/components/pages/products/ProductSection";
+import ProductSkeleton from "@/components/pages/products/ProductSkeleton";
+import { getAllProducts } from "@/lib/api/products/products";
+import { TResponce, TSearchParamsProp } from "@/types/types";
 import { rearrangeProducts } from "@/utils";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 const filtersData = [
   {
@@ -27,10 +29,6 @@ const filtersData = [
   },
 ];
 
-export interface TSearchParamsProp {
-  searchParams?: Record<string, string>;
-}
-
 export const metadata: Metadata = {
   title: "Men's Fashion",
   description:
@@ -45,15 +43,13 @@ export const metadata: Metadata = {
   ],
 };
 
-const MenPage = async ({searchParams}: TSearchParamsProp) => {
-
-  const Filters = filters('men', searchParams as Record<string, string>)
-
+const MenPage = async ({ searchParams }: TSearchParamsProp) => {
+  const Filters = filters("men", searchParams as Record<string, string>);
   const allProducts = (await getAllProducts(Filters)) as TResponce;
-
   const products = rearrangeProducts(allProducts.data);
+
   return (
-    <main>
+    <main className="relative">
       <CategoryBanner
         bannerImage="/images/categories/men.jpg"
         imageAlt="men"
@@ -61,9 +57,17 @@ const MenPage = async ({searchParams}: TSearchParamsProp) => {
         sectionSubtitle="Explore premium men’s fashion for every occasion."
       />
 
-      <ProductFilters filters={filtersData} totalProducts={products?.length} />
+      <ProductFilters filters={filtersData} totalProducts={products.length} />
 
-      <ProductGrid products={products} />
+      <Suspense
+        key={JSON.stringify(searchParams)}
+        fallback={<ProductSkeleton products={products} />}
+      >
+        <ProductSection
+          productFor="men"
+          searchParams={searchParams as Record<string, string>}
+        />
+      </Suspense>
     </main>
   );
 };

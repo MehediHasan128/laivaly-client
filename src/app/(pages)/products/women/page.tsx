@@ -1,37 +1,31 @@
 import CategoryBanner from "@/components/pages/products/CategoryBanner";
+import { filters } from "@/components/pages/products/Filters.utils";
 import ProductFilters from "@/components/pages/products/ProductFilters";
 import ProductGrid from "@/components/pages/products/ProductGrid";
+import ProductSection from "@/components/pages/products/ProductSection";
+import ProductSkeleton from "@/components/pages/products/ProductSkeleton";
 import { getAllProducts } from "@/lib/api/products/products";
-import { TResponce } from "@/types/types";
+import { TResponce, TSearchParamsProp } from "@/types/types";
 import { rearrangeProducts } from "@/utils";
 import { Metadata } from "next";
-
-
+import { Suspense } from "react";
 
 const filtersData = [
   {
     title: "Category",
+    value: "productCategory",
     options: [
-      { value: "black t-shirt", label: "Black T-Shirt" },
-      { value: "white t-shirt", label: "White T-Shirt" },
+      { value: "Tops", label: "Tops" },
+      { value: "Bottoms", label: "Bottoms" },
     ],
   },
   {
-    title: "Price",
+    title: "Season",
+    value: "season",
     options: [
-      { value: "10.00 - 20.00", label: "$10.00 - $20.00" },
-      { value: "20.00 - 30.00", label: "$20.00 - $30.00" },
-    ],
-  },
-  {
-    title: "Size",
-    options: [
-      { value: "xs", label: "XS" },
-      { value: "s", label: "S" },
-      { value: "m", label: "M" },
-      { value: "l", label: "L" },
-      { value: "xl", label: "XL" },
-      { value: "xxl", label: "XXL" },
+      { value: "summer", label: "Summer" },
+      { value: "winter", label: "Winter" },
+      { value: "all-season", label: "All Season" },
     ],
   },
 ];
@@ -50,11 +44,10 @@ export const metadata: Metadata = {
   ],
 };
 
-const WomenPage = async () => {
+const WomenPage = async ({ searchParams }: TSearchParamsProp) => {
+  const Filters = filters("women", searchParams as Record<string, string>);
 
-  const allProducts = (await getAllProducts([
-    { field: "productFor", value: "women" },
-  ])) as TResponce;
+  const allProducts = (await getAllProducts(Filters)) as TResponce;
 
   const products = rearrangeProducts(allProducts.data);
   return (
@@ -66,9 +59,17 @@ const WomenPage = async () => {
         sectionSubtitle="Explore premium women’s fashion for every occasion."
       />
 
-      <ProductFilters filters={filtersData} totalProducts={products?.length} />
+      <ProductFilters filters={filtersData} totalProducts={products.length} />
 
-      <ProductGrid products={products} />
+      <Suspense
+        key={JSON.stringify(searchParams)}
+        fallback={<ProductSkeleton products={products} />}
+      >
+        <ProductSection
+          productFor="women"
+          searchParams={searchParams as Record<string, string>}
+        />
+      </Suspense>
     </main>
   );
 };

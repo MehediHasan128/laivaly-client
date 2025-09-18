@@ -2,7 +2,7 @@
 import { TProductQueryParams } from "@/lib/api/products/products";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
-export const filters = (defaultFilterValue: string, searchParams: Record<string, string>) => {
+export const filters = (defaultFilterValue: "men" | "women" | "kid's", searchParams: Record<string, string>) => {
     const defaultFilter: TProductQueryParams = { field: "productFor", value: defaultFilterValue };
 
     const productFilters = searchParams ? Object.entries(searchParams).map(([field, value]) => ({field, value})) : [];
@@ -28,3 +28,7 @@ export const filtersProducts = (
 
   router.push(`?${params.toString()}`);
 };
+
+export const clearFilter = () => {
+  
+}
