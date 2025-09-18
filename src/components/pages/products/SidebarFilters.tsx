@@ -20,7 +20,7 @@ interface TSidebarFilters {
   children: ReactNode;
   filters: {
     title: string;
-    value: string;
+    field: string;
     options: {
       value: string;
       label: string;

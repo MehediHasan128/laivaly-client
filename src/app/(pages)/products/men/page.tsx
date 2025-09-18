@@ -12,7 +12,7 @@ import { Suspense } from "react";
 const filtersData = [
   {
     title: "Category",
-    value: "productCategory",
+    field: "productCategory",
     options: [
       { value: "Tops", label: "Tops" },
       { value: "Bottoms", label: "Bottoms" },
@@ -20,7 +20,7 @@ const filtersData = [
   },
   {
     title: "Season",
-    value: "season",
+    field: "season",
     options: [
       { value: "summer", label: "Summer" },
       { value: "winter", label: "Winter" },

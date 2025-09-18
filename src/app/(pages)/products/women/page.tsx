@@ -1,7 +1,6 @@
 import CategoryBanner from "@/components/pages/products/CategoryBanner";
 import { filters } from "@/components/pages/products/Filters.utils";
 import ProductFilters from "@/components/pages/products/ProductFilters";
-import ProductGrid from "@/components/pages/products/ProductGrid";
 import ProductSection from "@/components/pages/products/ProductSection";
 import ProductSkeleton from "@/components/pages/products/ProductSkeleton";
 import { getAllProducts } from "@/lib/api/products/products";

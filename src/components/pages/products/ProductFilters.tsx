@@ -15,12 +15,23 @@ import { filtersProducts } from "./Filters.utils";
 
 interface TProductFiltersProps {
   title: string;
-  value: string;
+  field: string;
   options: {
     value: string;
     label: string;
   }[];
 }
+
+const sortedData = [
+  {
+    title: "Sorted By",
+    field: "sort",
+    options: [
+      { label: "Price Low To High", value: "price" },
+      { label: "Price High To Low", value: "-price" },
+    ],
+  },
+];
 
 const ProductFilters = ({
   filters,
@@ -40,7 +51,7 @@ const ProductFilters = ({
             <Select
               key={index}
               onValueChange={(value) =>
-                filtersProducts(router, searchParams, filter.value, value)
+                filtersProducts(router, searchParams, filter.field, value)
               }
             >
               <SelectTrigger className="hover:border-black">
@@ -66,26 +77,31 @@ const ProductFilters = ({
           <button className="btn px-5">Clear Filter</button>
         </div>
 
-        <div className="flex items-center gap-3 lg:gap-5 gray-text xl:w-[25%] 2xl:w-[20%]">
+        <div className="flex items-center gap-3 lg:gap-5 gray-text xl:w-[25%] 2xl:w-[15%]">
           <h1 className="whitespace-nowrap">
             {totalProducts ? totalProducts : 0} item
             <span>{(totalProducts as number) > 1 ? "s" : ""}</span>
           </h1>
           <span className="border-l-2 h-5" />
-          <h1 className="whitespace-nowrap">Sort By</h1>
           <div className="w-full">
-            <Select>
-              <SelectTrigger className="hover:border-black">
-                <SelectValue placeholder="Sorted By" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="newArrival">New Arrival</SelectItem>
-                  <SelectItem value="low-high">Price Low To High</SelectItem>
-                  <SelectItem value="high-low">Price High To Low</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            {sortedData?.map((item) => (
+              <Select key={item?.title} onValueChange={(value) =>
+                filtersProducts(router, searchParams, item.field, value)
+              }>
+                <SelectTrigger className="hover:border-black">
+                  <SelectValue placeholder="Sorted By" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {
+                      item?.options?.map((option) => (
+                        <SelectItem key={option.label} value={option.value}>{option.label}</SelectItem>
+                      ))
+                    }
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            ))}
           </div>
         </div>
       </div>
