@@ -7,6 +7,8 @@ import NewArrivalCard from "../../reusable/NewArrivalCard";
 import Button from "../../reusable/Button";
 import { TProduct } from "@/types/types";
 import { smoochsans } from "@/styles/font";
+import Link from "next/link";
+import HomePageProductNotFound from "@/components/reusable/HomePageProductNotFound";
 
 const buttons = [
   { value: "", label: "All" },
@@ -79,12 +81,16 @@ const SesonalCollection = ({
           ))}
         </div>
 
+        {!products.length && <HomePageProductNotFound />}
+
         {/* See more product button */}
-        <div className="text-center mt-5 md:mt-10">
-          <Button
-            buttonTitle="Explore Collection"
-            className="bg-black text-white hover:bg-accent hover:text-black"
-          />
+        <div className="flex justify-center mt-5 md:mt-10">
+          <Link href="/products/winter">
+            <Button
+              buttonTitle="Explore Winter Collection"
+              className="bg-black text-white hover:bg-accent hover:text-black"
+            />
+          </Link>
         </div>
       </Container>
     </section>

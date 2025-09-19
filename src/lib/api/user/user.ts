@@ -7,9 +7,9 @@ export const getUserProfile = () => {
   });
 };
 
-// export const createCustomerAcoount = (customerData: object) => {
-//   return baseApi({
-//     endPoints: "/users/create-customer",
-//     options: { method: "POST", body: JSON.stringify(customerData) },
-//   });
-// };
+export const createCustomerAcoount = (customerData: object) => {
+  return baseApi({
+    endPoints: "/users/create-customer",
+    options: { method: "POST", body: JSON.stringify(customerData) },
+  });
+};

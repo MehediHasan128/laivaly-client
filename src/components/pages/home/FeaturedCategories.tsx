@@ -10,21 +10,21 @@ const images = [
     url: "/images/categories/male.jpg",
     name: "maleImage",
     sectionTitle: "Men’s Collection",
-    path: "/",
+    path: "/products/men",
   },
   {
     index: 1,
     url: "/images/categories/female.jpg",
     name: "femaleImage",
     sectionTitle: "Women’s Collection",
-    path: "/",
+    path: "/products/women",
   },
   {
     index: 2,
     url: "/images/categories/children.jpg",
     name: "childrenImage",
     sectionTitle: "Kid’s Collection",
-    path: "/",
+    path: "/products/kid's",
   },
 ];
 

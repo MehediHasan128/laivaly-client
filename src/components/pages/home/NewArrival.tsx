@@ -7,26 +7,34 @@ import NewArrivalCard from "../../reusable/NewArrivalCard";
 import Button from "../../reusable/Button";
 import { smoochsans } from "@/styles/font";
 import { TProduct } from "@/types/types";
-
+import Link from "next/link";
+import Image from "next/image";
+import HomePageProductNotFound from "@/components/reusable/HomePageProductNotFound";
 
 const buttons = [
-  {value: '', label: 'All'},
-  {value: 'Tops', label: 'Tops'},
-  {value: 'Bottoms', label: 'Bottoms'},
-  {value: 'Outerwear', label: 'Outerwear'},
-  {value: 'Bags', label: 'Bags'},
-  {value: 'Sneakers', label: 'Sneakers'},
-  {value: 'Boots', label: 'Boots'},
-  {value: 'Perfume', label: 'Perfume'},
-]
+  { value: "", label: "All" },
+  { value: "Tops", label: "Tops" },
+  { value: "Bottoms", label: "Bottoms" },
+  { value: "Outerwear", label: "Outerwear" },
+  { value: "Bags", label: "Bags" },
+  { value: "Sneakers", label: "Sneakers" },
+  { value: "Boots", label: "Boots" },
+  { value: "Perfume", label: "Perfume" },
+];
 
-const NewArrival = ({newArrivalProducts}: {newArrivalProducts: TProduct[]}) => {
-
+const NewArrival = ({
+  newArrivalProducts,
+}: {
+  newArrivalProducts: TProduct[];
+}) => {
   const [productCategory, setProductCategory] = useState<string>("");
 
-  const selectedProducts = newArrivalProducts?.filter((product: TProduct) => product.productCategory === productCategory);
+  const selectedProducts = newArrivalProducts?.filter(
+    (product: TProduct) => product.productCategory === productCategory
+  );
 
-  const products = productCategory === "" ? newArrivalProducts : selectedProducts
+  const products =
+    productCategory === "" ? newArrivalProducts : selectedProducts;
 
   return (
     <section>
@@ -70,17 +78,21 @@ const NewArrival = ({newArrivalProducts}: {newArrivalProducts: TProduct[]}) => {
 
           {/* New arribal card */}
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4">
-            {products.map((product) => (
+            {products.slice(0, 12).map((product) => (
               <NewArrivalCard key={product?._id} product={product} />
             ))}
           </div>
 
+          {!products.length && <HomePageProductNotFound />}
+
           {/* See more product button */}
-          <div className="text-center mt-5 md:mt-10">
-            <Button
-              buttonTitle="Explore All Product"
-              className="bg-black text-white hover:bg-accent hover:text-black"
-            />
+          <div className="flex justify-center mt-5 md:mt-10">
+            <Link href="/products/new">
+              <Button
+                buttonTitle="Explore All Product"
+                className="bg-black text-white hover:bg-accent hover:text-black"
+              />
+            </Link>
           </div>
         </div>
       </Container>

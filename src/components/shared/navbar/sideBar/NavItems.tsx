@@ -1,3 +1,4 @@
+import { DrawerClose } from "@/components/ui/drawer";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -29,7 +30,9 @@ const NavItems = () => {
                   : "text-gray-500"
               }`}
             >
-              <h1>{item.label}</h1>
+              <DrawerClose asChild>
+                <h1>{item.label}</h1>
+              </DrawerClose>
               <div className="h-[2px] bg-black w-full transition-transform -translate-x-64 group-hover:translate-x-0 duration-1000" />
             </div>
             <ChevronRight
