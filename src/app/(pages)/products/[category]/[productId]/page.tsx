@@ -3,12 +3,9 @@ import ProductDescriptionDrawer from "@/components/pages/productDetail/ProductDe
 import ProductImages from "@/components/pages/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewDrawer";
 import { getSingleProducts } from "@/lib/api/products/products";
-import { TProduct, TResponce } from "@/types/types";
+import { TProduct, TProductVariant, TResponce } from "@/types/types";
 import { ChevronRight, Heart } from "lucide-react";
 import { Metadata } from "next";
-
-const colors = ["#FF7F50", "#1E3A8A", "#8B4513", "#000000"];
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
 export async function generateMetadata({params}: {params: Promise<{ productId: string }>}): Promise<Metadata>{
   const {productId} = await params;
@@ -26,6 +23,9 @@ const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string
 
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
+
+  const productVeriants = product.productVeriants as TProductVariant;
+  const allVariants = productVeriants?.variants;
 
   const discountPrice = (
     product?.price -
@@ -73,7 +73,7 @@ const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string
               </p>
             </div>
 
-            <ProductColorSizeAndQuantity colors={colors} sizes={sizes} />
+            <ProductColorSizeAndQuantity productVariants={allVariants} />
 
             <div className="mt-10 flex gap-3">
               <button className="btn border border-black ">Buy It Now</button>

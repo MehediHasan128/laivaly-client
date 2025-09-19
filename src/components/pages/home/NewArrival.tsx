@@ -8,7 +8,6 @@ import Button from "../../reusable/Button";
 import { smoochsans } from "@/styles/font";
 import { TProduct } from "@/types/types";
 import Link from "next/link";
-import Image from "next/image";
 import HomePageProductNotFound from "@/components/reusable/HomePageProductNotFound";
 
 const buttons = [

@@ -49,11 +49,12 @@ export interface TProductDescription {
   countryOfOrigin?: string;
 }
 
-interface TVariants {
+export interface TVariants {
   size?: string;
   color?: string;
   stock: number;
   SKU: string;
+  _id: string;
 }
 
 interface Review {
@@ -63,7 +64,7 @@ interface Review {
   pictures?: string[] | [];
 }
 
-interface TProductVariant {
+export interface TProductVariant {
   _id: string;
   productId: string;
   variants: TVariants[] | [];
