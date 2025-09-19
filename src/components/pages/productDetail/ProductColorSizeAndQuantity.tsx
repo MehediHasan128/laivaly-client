@@ -91,24 +91,35 @@ const ProductColorSizeAndQuantity = ({
       <div className="space-y-2">
         <h1 className="font-semibold text-sm md:text-base">Quantity</h1>
         <div className="flex items-center w-fit rounded">
-          <div
+          <button
+            disabled={quantity === 0}
             onClick={() =>
               setQuantity((quantity) => (quantity > 0 ? quantity - 1 : 0))
             }
-            className="bg-black text-white cursor-pointer active:scale-95 duration-700 px-2 py-1 rounded-l"
+            className="bg-black text-white cursor-pointer active:scale-95 duration-700 px-2 py-1 rounded-l disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Minus />
-          </div>
+          </button>
           <div className="text-xl font-semibold w-20 text-center">
             {quantity}
           </div>
-          <div
-            onClick={() => setQuantity(quantity + 1)}
-            className="bg-black text-white cursor-pointer active:scale-95 duration-700 px-2 py-1 rounded-r"
+          <button
+            disabled={quantity >= 5 || quantity === remainingProduct}
+            onClick={() =>
+              setQuantity((quantity) =>
+                quantity <= 5 ? quantity + 1 : quantity
+              )
+            }
+            className="bg-black text-white cursor-pointer active:scale-95 duration-700 px-2 py-1 rounded-r disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Plus />
-          </div>
+          </button>
         </div>
+        {quantity === 5 && (
+          <p className="text-sm font-medium text-red-700">
+            A user cannot purchase more than 5 products.
+          </p>
+        )}
       </div>
     </div>
   );

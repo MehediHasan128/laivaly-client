@@ -32,6 +32,10 @@ export async function baseApi<T>({
     headers,
   };
 
+  if (options.revalidate !== undefined) {
+  fetchOptions.next = { revalidate: options.revalidate };
+}
+
   if (typeof window === "undefined") {
     const { cookies } = await import("next/headers");
     const cookieHeader = (await cookies()).toString();
