@@ -1,31 +1,39 @@
 "use client";
 
-import { TVariants } from "@/types/types";
-import { Minus, Plus } from "lucide-react";
-import React, { useState } from "react";
+import { TProduct, TProductVariant } from "@/types/types";
+import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 interface TProductColorSizeAndQuantityProps {
-  productVariants: TVariants[];
+  product: TProduct;
 }
 
 const ProductColorSizeAndQuantity = ({
-  productVariants,
+  product,
 }: TProductColorSizeAndQuantityProps) => {
-  const getProductColors = new Set(
-    productVariants.map((variant) => variant.color)
-  );
+  // Find product variants
+  const productVeriants = product.productVeriants as TProductVariant;
+  const allVariants = productVeriants?.variants;
+
+  // Set product color in array
+  const getProductColors = new Set(allVariants.map((variant) => variant.color));
   const colors = Array.from(getProductColors);
 
+  // product color size and quantity state
   const [productColor, setProductColor] = useState<string>(colors[0] as string);
   const [productSize, setProductSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(0);
+  const [productSKU, setProductSKU] = useState<string | null>(null);
+  const [warning, setWarning] = useState<boolean>(false);
 
-  const getProductSizes = productVariants.filter(
+  // set product sizes and stock in array
+  const getProductSizes = allVariants.filter(
     (variant) => variant.color === productColor
   );
   const sizes = getProductSizes.map((v) => ({
     size: v.size,
     stock: v.stock,
+    sku: v.SKU,
   }));
 
   const selectedSizeVariant = getProductSizes.find(
@@ -33,6 +41,33 @@ const ProductColorSizeAndQuantity = ({
   );
 
   const remainingProduct = selectedSizeVariant?.stock;
+
+  useEffect(() => {
+    if (productSize) {
+      setWarning(false);
+    }
+  }, [productSize]);
+
+  const productData = {
+    productId: product?._id,
+    productThumbnail: product?.productImages[0],
+    quantity,
+    selectedVariant: {
+      color: productColor && productColor,
+      size: productSize && productSize,
+      SKU: productSKU && productSKU,
+    },
+    totalPrice: (
+      product?.price -
+      product?.price * (product?.discount / 100)
+    ).toFixed(2),
+  };
+
+  const handleBuyProduct = () => {
+    if (!productSize) {
+      setWarning(true);
+    }
+  };
 
   return (
     <div className="space-y-3 xl:space-y-5">
@@ -65,11 +100,16 @@ const ProductColorSizeAndQuantity = ({
             <button
               key={index}
               disabled={size.stock === 0}
-              onClick={() => setProductSize(size.size as string)}
+              onClick={() => {
+                setProductSize(size.size as string);
+                setProductSKU(size.sku);
+              }}
               className={`border duration-500 hover:border-black ${
                 productSize === size.size
                   ? "bg-black text-white"
                   : "bg-accent text-black"
+              } ${
+                warning && "border-red-600 "
               } rounded font-medium w-16 md:w-20 lg:w-16 xl:w-20 text-center text-sm xl:text-base py-1.5 cursor-pointer
               disabled:cursor-not-allowed disabled:hover:border-accent disabled:border-accent overflow-hidden disabled:line-through disabled:text-gray-500`}
             >
@@ -80,8 +120,14 @@ const ProductColorSizeAndQuantity = ({
       </div>
 
       <div>
+        {warning && (
+          <h1 className="flex items-center gap-1 font-medium text-sm text-red-700">
+            <CircleAlert className="size-5" /> Please select a size
+          </h1>
+        )}
+
         {remainingProduct && remainingProduct <= 10 && (
-          <h1 className="text-sm font-semibold text-red-700">
+          <h1 className="text-sm font-medium text-red-700">
             Only {remainingProduct} Unit Available
           </h1>
         )}
@@ -104,12 +150,14 @@ const ProductColorSizeAndQuantity = ({
             {quantity}
           </div>
           <button
-            disabled={quantity >= 5 || quantity === remainingProduct}
-            onClick={() =>
+            disabled={
+              quantity >= 5 || quantity === remainingProduct || !productSize
+            }
+            onClick={() => {
               setQuantity((quantity) =>
                 quantity <= 5 ? quantity + 1 : quantity
-              )
-            }
+              );
+            }}
             className="bg-black text-white cursor-pointer active:scale-95 duration-700 px-2 py-1 rounded-r disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Plus />
@@ -120,6 +168,16 @@ const ProductColorSizeAndQuantity = ({
             A user cannot purchase more than 5 products.
           </p>
         )}
+      </div>
+
+      <div className="mt-10 flex gap-3">
+        <button onClick={handleBuyProduct} className="btn border border-black ">
+          Buy It Now
+        </button>
+        <button className="btn bg-white border text-black">Add To Cart</button>
+        <button className="btn rounded-full w-fit px-5 bg-white border text-black">
+          <Heart className="size-5" />
+        </button>
       </div>
     </div>
   );

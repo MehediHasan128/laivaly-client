@@ -24,9 +24,6 @@ const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
 
-  const productVeriants = product.productVeriants as TProductVariant;
-  const allVariants = productVeriants?.variants;
-
   const discountPrice = (
     product?.price -
     product?.price * (product?.discount / 100)
@@ -73,13 +70,7 @@ const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string
               </p>
             </div>
 
-            <ProductColorSizeAndQuantity productVariants={allVariants} />
-
-            <div className="mt-10 flex gap-3">
-              <button className="btn border border-black ">Buy It Now</button>
-              <button className="btn bg-white border text-black">Add To Cart</button>
-              <button className="btn rounded-full w-fit px-5 bg-white border text-black"><Heart className="size-5" /></button>
-            </div>
+            <ProductColorSizeAndQuantity product={product} />
 
             <div className="mt-12">
               <div className="w-full border-b mb-5" />
