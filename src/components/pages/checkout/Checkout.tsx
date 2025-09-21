@@ -2,13 +2,14 @@
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { TCartProduct, TCustomerProfile } from "@/types/types";
+import { TCartProduct, TCustomerProfile, TShippingAddress } from "@/types/types";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { NotebookPen, Plus } from "lucide-react";
 import Link from "next/link";
 import CartSummary from "../cart/CartSummary";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
 import { useState } from "react";
+import AddressDrawer from "./AddressDrawer";
 
 const shippingAddress = true;
 
@@ -26,7 +27,9 @@ const Checkout = ({
   userData: TCustomerProfile;
 }) => {
   const [shippingMethod, setShippingMethod] = useState<string>("standard");
-  const [address, setAddress] = useState(userData?.shippingAddress.find((address) => address.defaultAddress === true));
+  const [address, setAddress] = useState<TShippingAddress | undefined>(
+    userData?.shippingAddress.find((address) => address.defaultAddress === true)
+  );
 
   const { subTotal, shippingCharge, tax, estimatedTotal } =
     CalculateProductTotalPriceShippingAndTax(products, shippingMethod);
@@ -87,11 +90,17 @@ const Checkout = ({
             <div className="space-y-5 md:space-y-10">
               <div className="font-medium text-gray-600 text-sm md:text-base">
                 <p>{address?.addressCategory}</p>
-                <h1 className="text-base md:text-xl">{address?.recipientsName}</h1>
+                <h1 className="text-base md:text-xl">
+                  {address?.recipientsName}
+                </h1>
                 <p>{address?.phoneNumber}</p>
                 <p>{address?.address}</p>
-                <p>{address?.city}-{address?.postalCode}</p>
-                <p>{address?.state}, {address?.country}</p>
+                <p>
+                  {address?.city}-{address?.postalCode}
+                </p>
+                <p>
+                  {address?.state}, {address?.country}
+                </p>
               </div>
 
               <div className="flex gap-5">
@@ -99,10 +108,12 @@ const Checkout = ({
                   <Plus className="size-4 md:size-5" />
                   New Address
                 </button>
-                <button className="border rounded flex justify-center items-center w-full py-3 md:py-4 hover:border-black cursor-pointer duration-500 gap-3 font-medium text-xs md:text-sm">
-                  <NotebookPen className="size-4 md:size-5" />
-                  Another Address
-                </button>
+                <AddressDrawer shippingAddress={userData?.shippingAddress} defaultAddress={address as TShippingAddress} setShippingAddress={setAddress}>
+                  <button className="border rounded flex justify-center items-center w-full py-3 md:py-4 hover:border-black cursor-pointer duration-500 gap-3 font-medium text-xs md:text-sm">
+                    <NotebookPen className="size-4 md:size-5" />
+                    Another Address
+                  </button>
+                </AddressDrawer>
               </div>
             </div>
           )}
