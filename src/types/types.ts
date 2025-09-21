@@ -1,10 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Auth types
 
+// User
 interface TUserName {
   firstName: string;
   lastName: string;
 }
+
+export interface TUser {
+  id: string;
+  userName: TUserName;
+  userEmail: string;
+  userProfileURL: string;
+  userRole: string;
+}
+
+// Customer
 
 export interface TShippingAddress {
   _id: string;
@@ -19,14 +30,6 @@ export interface TShippingAddress {
   defaultAddress: boolean;
 }
 
-export interface TUser {
-  id: string;
-  userName: TUserName;
-  userEmail: string;
-  userProfileURL: string;
-  userRole: string;
-}
-
 export interface TCustomerProfile {
   _id: string;
   customerId: string;
@@ -38,7 +41,8 @@ export interface TCustomerProfile {
   shippingAddress: TShippingAddress[] | [];
 }
 
-// Products type
+// Products description
+
 export interface TProductDescription {
   shortDescription: string;
   longDescription: string;
@@ -49,6 +53,8 @@ export interface TProductDescription {
   countryOfOrigin?: string;
 }
 
+// Product variant
+
 export interface TVariants {
   size?: string;
   color?: string;
@@ -57,6 +63,14 @@ export interface TVariants {
   _id: string;
 }
 
+export interface TProductVariant {
+  _id: string;
+  productId: string;
+  variants: TVariants[] | [];
+}
+
+// Product Review
+
 interface Review {
   userId: string;
   rating?: number;
@@ -64,17 +78,13 @@ interface Review {
   pictures?: string[] | [];
 }
 
-export interface TProductVariant {
-  _id: string;
-  productId: string;
-  variants: TVariants[] | [];
-}
-
 interface TReviews {
   _id: string;
   productId: string;
   reviews: Review[] | [];
 }
+
+// Product Interface
 
 export interface TProduct {
   _id: string;
@@ -95,6 +105,19 @@ export interface TProduct {
   productImages: string[];
   productReviews: TReviews;
   isDeleted: boolean;
+}
+
+// Cart product data
+export interface TCartProduct {
+  productId: string;
+  productThumbnail: string;
+  quantity: number;
+  selectedVariant: {
+    color?: string | null;
+    size?: string | null;
+    SKU: string;
+  };
+  totalPrice: number;
 }
 
 // Req & Res type
@@ -122,7 +145,7 @@ export interface TRatingData {
   totalRating: number;
 }
 
-export interface TCartProduct {
+export interface TCartProduct2 {
   id: string;
   productThumbnai: string;
   title: string;
@@ -134,11 +157,7 @@ export interface TCartProduct {
   quantity: number;
 }
 
-
-
-
-// Proge props 
-
+// Proge props
 export interface TSearchParamsProp {
   searchParams?: Record<string, string>;
 }

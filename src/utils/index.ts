@@ -1,4 +1,4 @@
-import { TCartProduct, TProduct, TRatingData } from "@/types/types";
+import { TCartProduct2, TProduct, TRatingData } from "@/types/types";
 import { jwtDecode } from "jwt-decode";
 
 // Decoded user token
@@ -9,11 +9,26 @@ export const decodedUserToken = (token: string) => {
 
 // Create cookie when user logout
 
-
 export const rearrangeProducts = (
-  productItems: Pick<TProduct, "_id" | "title" | "price" | "productFor" | "productThumbnail" | "highlightedProduct">[]
+  productItems: Pick<
+    TProduct,
+    | "_id"
+    | "title"
+    | "price"
+    | "productFor"
+    | "productThumbnail"
+    | "highlightedProduct"
+  >[]
 ) => {
-  const products: Pick<TProduct, "_id" | "title" | "price" | "productFor" | "productThumbnail" | "highlightedProduct">[] = [];
+  const products: Pick<
+    TProduct,
+    | "_id"
+    | "title"
+    | "price"
+    | "productFor"
+    | "productThumbnail"
+    | "highlightedProduct"
+  >[] = [];
   let remaining = [...productItems];
   let placeLargeFirst = true;
 
@@ -26,7 +41,9 @@ export const rearrangeProducts = (
       remaining.splice(0, 4);
     } else {
       const largeItem = group[largeIndex];
-      const smallItems = group.filter((item) => !item.highlightedProduct).slice(0, 2);
+      const smallItems = group
+        .filter((item) => !item.highlightedProduct)
+        .slice(0, 2);
 
       if (placeLargeFirst) {
         products.push(largeItem, ...smallItems);
@@ -69,7 +86,7 @@ export const CalculateAvgRatingAndPercentages = (ratingData: TRatingData[]) => {
 };
 
 export const CalculateProductTotalPriceShippingAndTax = (
-  products: TCartProduct[]
+  products: TCartProduct2[]
 ) => {
   let subTotal = 0;
   let shippingCharge = 9.95;

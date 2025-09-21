@@ -10,7 +10,7 @@ const Spinner = ({
   return (
     <div
       className={cn(
-        `size-6 animate-spin rounded-full border-2 ${
+        `size-5 animate-spin rounded-full border-2 ${
           isDark ? "border-white" : "border-black"
         } border-t-transparent`,
         className

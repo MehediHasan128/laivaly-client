@@ -1,8 +1,13 @@
 "use client";
 
-import { TProduct, TProductVariant } from "@/types/types";
+import Spinner from "@/components/reusable/Spinner";
+import { addProductToCart } from "@/lib/api/cart/cart";
+import { buySingleProduct } from "@/lib/api/orders/orders";
+import { TError, TProduct, TProductVariant, TResponce } from "@/types/types";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface TProductColorSizeAndQuantityProps {
   product: TProduct;
@@ -11,6 +16,8 @@ interface TProductColorSizeAndQuantityProps {
 const ProductColorSizeAndQuantity = ({
   product,
 }: TProductColorSizeAndQuantityProps) => {
+  // User router
+  const router = useRouter();
   // Find product variants
   const productVeriants = product.productVeriants as TProductVariant;
   const allVariants = productVeriants?.variants;
@@ -25,6 +32,7 @@ const ProductColorSizeAndQuantity = ({
   const [quantity, setQuantity] = useState<number>(0);
   const [productSKU, setProductSKU] = useState<string | null>(null);
   const [warning, setWarning] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // set product sizes and stock in array
   const getProductSizes = allVariants.filter(
@@ -55,17 +63,52 @@ const ProductColorSizeAndQuantity = ({
     selectedVariant: {
       color: productColor && productColor,
       size: productSize && productSize,
-      SKU: productSKU && productSKU,
+      SKU: productSKU as string,
     },
-    totalPrice: (
-      product?.price -
-      product?.price * (product?.discount / 100)
-    ).toFixed(2),
+    totalPrice: Number(
+      (product?.price - product?.price * (product?.discount / 100)).toFixed(2)
+    ),
   };
 
-  const handleBuyProduct = () => {
+  const handleBuySingleProduct = async () => {
     if (!productSize) {
       setWarning(true);
+    }
+
+    if (productSize && quantity) {
+      setLoading(true);
+      try {
+        const res = (await buySingleProduct(productData)) as TResponce;
+        if(res.success){
+          router.push('/checkout')
+        }
+        setLoading(false);
+      } catch (err) {
+        const toastId = toast.loading("Loading");
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId });
+        setLoading(false);
+      }
+    }
+  };
+
+  const handleProductAddToCart = async () => {
+    if (!productSize) {
+      setWarning(true);
+    }
+
+    if (productSize && quantity) {
+      const toastId = toast.loading("Loading");
+      setLoading(true);
+      try {
+        const res = (await addProductToCart(productData)) as TResponce;
+        toast.success(res.message, { id: toastId });
+        setLoading(false);
+      } catch (err) {
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId });
+        setLoading(false);
+      }
     }
   };
 
@@ -171,10 +214,18 @@ const ProductColorSizeAndQuantity = ({
       </div>
 
       <div className="mt-10 flex gap-3">
-        <button onClick={handleBuyProduct} className="btn border border-black ">
-          Buy It Now
+        <button
+          onClick={handleBuySingleProduct}
+          className="btn border border-black "
+        >
+          {loading ? <Spinner /> : "Buy It Now"}
         </button>
-        <button className="btn bg-white border text-black">Add To Cart</button>
+        <button
+          onClick={handleProductAddToCart}
+          className="btn bg-white border text-black"
+        >
+          {loading ? <Spinner isDark={false} /> : "Add To Cart"}
+        </button>
         <button className="btn rounded-full w-fit px-5 bg-white border text-black">
           <Heart className="size-5" />
         </button>

@@ -9,9 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { TCartProduct } from "@/types/types";
+import { TCartProduct2 } from "@/types/types";
 
-const CartProductCard = ({ product }: { product: TCartProduct; }) => {
+const CartProductCard = ({ product }: { product: TCartProduct2 }) => {
   return (
     <div className="border-b py-5 flex flex-col lg:flex-row justify-between gap-5">
       {/* Image and product Info */}
