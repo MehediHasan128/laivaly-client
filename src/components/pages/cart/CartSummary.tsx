@@ -55,7 +55,7 @@ const CartSummary = ({
               {shippingCharge === 0 ? (
                 <span className="text-red-700">Free</span>
               ) : (
-                "$" + shippingCharge
+                "$" + shippingCharge.toFixed(2)
               )}
             </p>
           </div>
@@ -67,7 +67,7 @@ const CartSummary = ({
         <div className="w-full border-t border-black" />
         <div className="flex justify-between text-sm font-semibold">
           <h1>Estimated Total</h1>
-          <p>${estimatedTotal}</p>
+          <p>${estimatedTotal.toFixed(2)}</p>
         </div>
       </div>
     </>

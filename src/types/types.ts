@@ -110,6 +110,7 @@ export interface TProduct {
 // Cart product data
 export interface TCartProduct {
   productId: string;
+  productTitle: string;
   productThumbnail: string;
   quantity: number;
   selectedVariant: {

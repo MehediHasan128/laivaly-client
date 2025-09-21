@@ -4,6 +4,7 @@ import Spinner from "@/components/reusable/Spinner";
 import { addProductToCart } from "@/lib/api/cart/cart";
 import { buySingleProduct } from "@/lib/api/orders/orders";
 import { TError, TProduct, TProductVariant, TResponce } from "@/types/types";
+import { authGuard } from "@/utils/authGuard";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -32,7 +33,8 @@ const ProductColorSizeAndQuantity = ({
   const [quantity, setQuantity] = useState<number>(0);
   const [productSKU, setProductSKU] = useState<string | null>(null);
   const [warning, setWarning] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [buyLoading, setBuyLoading] = useState<boolean>(false);
+  const [cartLoading, setCartLoading] = useState<boolean>(false);
 
   // set product sizes and stock in array
   const getProductSizes = allVariants.filter(
@@ -58,6 +60,7 @@ const ProductColorSizeAndQuantity = ({
 
   const productData = {
     productId: product?._id,
+    productTitle: product?.title,
     productThumbnail: product?.productImages[0],
     quantity,
     selectedVariant: {
@@ -66,48 +69,55 @@ const ProductColorSizeAndQuantity = ({
       SKU: productSKU as string,
     },
     totalPrice: Number(
-      (product?.price - product?.price * (product?.discount / 100)).toFixed(2)
+      (
+        (product?.price - product?.price * (product?.discount / 100)) *
+        quantity
+      ).toFixed(2)
     ),
   };
 
   const handleBuySingleProduct = async () => {
+    await authGuard();
+
     if (!productSize) {
       setWarning(true);
     }
 
     if (productSize && quantity) {
-      setLoading(true);
+      setBuyLoading(true);
       try {
         const res = (await buySingleProduct(productData)) as TResponce;
-        if(res.success){
-          router.push('/checkout')
+        if (res.success) {
+          router.push("/checkout");
         }
-        setLoading(false);
+        setBuyLoading(false);
       } catch (err) {
         const toastId = toast.loading("Loading");
         const error = err as TError;
         toast.error(error?.data?.message, { id: toastId });
-        setLoading(false);
+        setBuyLoading(false);
       }
     }
   };
 
   const handleProductAddToCart = async () => {
+    await authGuard();
+
     if (!productSize) {
       setWarning(true);
     }
 
     if (productSize && quantity) {
       const toastId = toast.loading("Loading");
-      setLoading(true);
+      setCartLoading(true);
       try {
         const res = (await addProductToCart(productData)) as TResponce;
         toast.success(res.message, { id: toastId });
-        setLoading(false);
+        setCartLoading(false);
       } catch (err) {
         const error = err as TError;
         toast.error(error?.data?.message, { id: toastId });
-        setLoading(false);
+        setCartLoading(false);
       }
     }
   };
@@ -218,13 +228,13 @@ const ProductColorSizeAndQuantity = ({
           onClick={handleBuySingleProduct}
           className="btn border border-black "
         >
-          {loading ? <Spinner /> : "Buy It Now"}
+          {buyLoading ? <Spinner /> : "Buy It Now"}
         </button>
         <button
           onClick={handleProductAddToCart}
           className="btn bg-white border text-black"
         >
-          {loading ? <Spinner isDark={false} /> : "Add To Cart"}
+          {cartLoading ? <Spinner isDark={false} /> : "Add To Cart"}
         </button>
         <button className="btn rounded-full w-fit px-5 bg-white border text-black">
           <Heart className="size-5" />
