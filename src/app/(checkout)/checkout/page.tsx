@@ -21,16 +21,16 @@ const CheckOutPage = async () => {
   const cookieStore = cookies();
   const rawData = (await cookieStore).get("buySingleProduct")?.value;
 
-  if(!rawData) return [];
-  let singleProduct; 
-  try{
+  if (!rawData) return [];
+  let singleProduct;
+  try {
     const decodedCookie = decodeURIComponent(rawData);
     singleProduct = JSON.parse(decodedCookie) as TCartProduct[];
-  }catch(err){
+  } catch (err) {
     return [];
-  };
+  }
 
-  const user = await getUserProfile() as TResponce;
+  const user = (await getUserProfile()) as TResponce;
   const userData = user?.data as TCustomerProfile;
 
   return (

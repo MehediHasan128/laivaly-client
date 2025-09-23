@@ -121,6 +121,35 @@ export interface TCartProduct {
   totalPrice: number;
 }
 
+// Orders Data type
+export interface TPaymentInfo {
+  TXID?: string;
+  email?: string;
+  paidAt?: Date;
+  status?: 'success' | 'failed';
+}
+
+export interface TOrderData {
+  orderId: string;
+  userId: string;
+  orderItems: TCartProduct[];
+  subTotal: number;
+  shippingCharge: number;
+  tax: number;
+  estimatedTotal: number;
+  shippingMethod: "standard" | "second Day" | "overnight";
+  shippingAddress: TShippingAddress;
+  paymentMethod: "stripe" | "sslcommerz" | "cod";
+  paymentInfo?: TPaymentInfo;
+  paymentStatus: "pending" | "paid" | "failed" | "refunded";
+  orderStatus:
+    | "processing"
+    | "shipped"
+    | "delivered"
+    | "cancelled"
+    | "returned";
+}
+
 // Req & Res type
 export interface TResponce {
   statusCode: number;

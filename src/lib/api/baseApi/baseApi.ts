@@ -4,6 +4,7 @@ import { TError } from "@/types/types";
 const isProd = process.env.NODE_ENV === "production";
 const prodURL = "https://server.laivaly.com/api/v1";
 const devURL = "http://localhost:5000/api/v1";
+export const baseURL = isProd ? prodURL : devURL;
 
 interface FetchOptions extends RequestInit {
   cache?: RequestCache;
@@ -19,8 +20,6 @@ export async function baseApi<T>({
   endPoints,
   options = {},
 }: TBaseApiProps): Promise<T> {
-  const baseURL = isProd ? prodURL : devURL;
-
   const headers: HeadersInit = {
     "Content-Type": "application/json",
     ...(options.headers || {}),
@@ -33,8 +32,8 @@ export async function baseApi<T>({
   };
 
   if (options.revalidate !== undefined) {
-  fetchOptions.next = { revalidate: options.revalidate };
-}
+    fetchOptions.next = { revalidate: options.revalidate };
+  }
 
   if (typeof window === "undefined") {
     const { cookies } = await import("next/headers");

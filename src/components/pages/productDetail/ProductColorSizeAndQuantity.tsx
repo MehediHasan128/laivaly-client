@@ -2,7 +2,7 @@
 
 import Spinner from "@/components/reusable/Spinner";
 import { addProductToCart } from "@/lib/api/cart/cart";
-import { buySingleProduct } from "@/lib/api/orders/orders";
+import { buySingleProduct, removeOrderData } from "@/lib/api/orders/orders";
 import { TError, TProduct, TProductVariant, TResponce } from "@/types/types";
 import { authGuard } from "@/utils/authGuard";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
@@ -121,6 +121,17 @@ const ProductColorSizeAndQuantity = ({
       }
     }
   };
+
+  useEffect(() => {
+    const data = async () => {
+      try {
+        removeOrderData("buySingleProduct");
+      } catch (err) {
+        return err
+      }
+    };
+    data();
+  }, []);
 
   return (
     <div className="space-y-3 xl:space-y-5">

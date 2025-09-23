@@ -2,14 +2,26 @@
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { TCartProduct, TCustomerProfile, TShippingAddress } from "@/types/types";
+import {
+  TCartProduct,
+  TCustomerProfile,
+  TError,
+  TOrderData,
+  TResponce,
+  TShippingAddress,
+} from "@/types/types";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { NotebookPen, Plus } from "lucide-react";
 import Link from "next/link";
 import CartSummary from "../cart/CartSummary";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddressDrawer from "./AddressDrawer";
+import Spinner from "@/components/reusable/Spinner";
+import { authGuard } from "@/utils/authGuard";
+import { removeOrderData, storeOrderData } from "@/lib/api/orders/orders";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const shippingAddress = true;
 
@@ -30,6 +42,9 @@ const Checkout = ({
   const [address, setAddress] = useState<TShippingAddress | undefined>(
     userData?.shippingAddress.find((address) => address.defaultAddress === true)
   );
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const { subTotal, shippingCharge, tax, estimatedTotal } =
     CalculateProductTotalPriceShippingAndTax(products, shippingMethod);
@@ -44,19 +59,70 @@ const Checkout = ({
     },
     {
       method: "Second Day",
-      value: "secondDay",
+      value: "second Day",
       charge: "24.00",
       estimatedTime: "2",
       date: `${addDays(2)}`,
     },
     {
       method: "Overnight",
-      value: "overNight",
+      value: "overnight",
       charge: "35.00",
       estimatedTime: "1",
       date: `${addDays(1)}`,
     },
   ];
+
+  const ordersData = {
+    userId: userData?._id,
+    orderItems: products,
+    subTotal,
+    shippingCharge,
+    tax,
+    estimatedTotal,
+    shippingMethod,
+    shippingAddress: address,
+  };
+
+  const handleStoreOrderData = async (
+    data: Pick<
+      TOrderData,
+      | "userId"
+      | "orderItems"
+      | "subTotal"
+      | "shippingCharge"
+      | "tax"
+      | "estimatedTotal"
+      | "shippingMethod"
+      | "shippingAddress"
+    >
+  ) => {
+    await authGuard();
+    setLoading(true);
+    try {
+      const res = (await storeOrderData(data)) as TResponce;
+      if (res.success) {
+        router.push("/checkout/payment");
+      }
+      setLoading(false);
+    } catch (err) {
+      const toastId = toast.loading("Loading");
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const data = async () => {
+      try {
+        removeOrderData("orderData");
+      } catch (err) {
+        return err;
+      }
+    };
+    data();
+  }, []);
 
   return (
     <>
@@ -108,7 +174,11 @@ const Checkout = ({
                   <Plus className="size-4 md:size-5" />
                   New Address
                 </button>
-                <AddressDrawer shippingAddress={userData?.shippingAddress} defaultAddress={address as TShippingAddress} setShippingAddress={setAddress}>
+                <AddressDrawer
+                  shippingAddress={userData?.shippingAddress}
+                  defaultAddress={address as TShippingAddress}
+                  setShippingAddress={setAddress}
+                >
                   <button className="border rounded flex justify-center items-center w-full py-3 md:py-4 hover:border-black cursor-pointer duration-500 gap-3 font-medium text-xs md:text-sm">
                     <NotebookPen className="size-4 md:size-5" />
                     Another Address
@@ -180,11 +250,26 @@ const Checkout = ({
         </div>
 
         <div className="w-full mt-10">
-          <Link href="/checkout/payment">
-            <button className="bg-black border rounded text-white w-full py-5 cursor-pointer active:scale-95 duration-500 hover:underline">
-              Continue To Payment
-            </button>
-          </Link>
+          <button
+            onClick={() =>
+              handleStoreOrderData(
+                ordersData as Pick<
+                  TOrderData,
+                  | "userId"
+                  | "orderItems"
+                  | "subTotal"
+                  | "shippingCharge"
+                  | "tax"
+                  | "estimatedTotal"
+                  | "shippingMethod"
+                  | "shippingAddress"
+                >
+              )
+            }
+            className="btn hover:underline"
+          >
+            {loading ? <Spinner /> : "Continue To Payment"}
+          </button>
         </div>
       </div>
 

@@ -105,9 +105,9 @@ export const CalculateProductTotalPriceShippingAndTax = (
   subTotal = Number(subTotal.toFixed(2));
   if (subTotal > 100) {
     shippingCharge = 0;
-  }else if(shippingMethod === 'secondDay'){
+  }else if(shippingMethod === 'second Day'){
     shippingCharge = 24;
-  }else if(shippingMethod === 'overNight'){
+  }else if(shippingMethod === 'overnight'){
     shippingCharge = 35.00;
   }
   const tax = Number((subTotal * 0.05).toFixed(2));
@@ -115,7 +115,7 @@ export const CalculateProductTotalPriceShippingAndTax = (
 
   return {
     subTotal,
-    shippingCharge,
+    shippingCharge: Number(shippingCharge),
     tax,
     estimatedTotal,
   };

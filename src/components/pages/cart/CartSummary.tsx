@@ -47,7 +47,7 @@ const CartSummary = ({
         <div className="space-y-2 text-sm gray-text font-medium">
           <div className="flex justify-between">
             <h1>Subtotal</h1>
-            <p>${subTotal}</p>
+            <p>${subTotal.toFixed(2)}</p>
           </div>
           <div className="flex justify-between">
             <h1>Shipping</h1>
@@ -61,7 +61,7 @@ const CartSummary = ({
           </div>
           <div className="flex justify-between">
             <h1>Tax</h1>
-            <p>${tax}</p>
+            <p>${tax.toFixed(2)}</p>
           </div>
         </div>
         <div className="w-full border-t border-black" />

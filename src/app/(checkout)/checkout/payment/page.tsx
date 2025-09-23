@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import CartSummary from "@/components/pages/cart/CartSummary";
 import PaymentOptints from "@/components/pages/payment/PaymentOptints";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
+import { TOrderData } from "@/types/types";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
+import { cookies } from "next/headers";
 import React from "react";
 
 export const metadata = {
@@ -25,35 +28,32 @@ export const metadata = {
   },
 };
 
-const cartProducts = [
-  {
-    id: "01",
-    productThumbnai: "/images/products/26.jpg",
-    title: "Premium Breathable Linen Button-Down Shirt",
-    productSKU: "LVP-R85W20",
-    price: 49.99,
-    color: "Red",
-    size: "M",
-    discount: 50,
-    quantity: 1,
-  },
-  {
-    id: "02",
-    productThumbnai: "/images/products/25.jpg",
-    title: "Premium Breathable Linen Button-Down Shirt",
-    productSKU: "LVP-58GR23",
-    price: 26.5,
-    color: "Blue",
-    size: "S",
-    discount: 10,
-    quantity: 2,
-  },
-];
+const PaymentPage = async () => {
+  const cookieStore = cookies();
+  const rawData = (await cookieStore).get("orderData")?.value;
 
-const { subTotal, shippingCharge, tax, estimatedTotal } =
-  CalculateProductTotalPriceShippingAndTax(cartProducts);
+  if (!rawData) return null;
+  let orderData;
+  try {
+    const decodedCookie = decodeURIComponent(rawData);
+    orderData = JSON.parse(decodedCookie) as Pick<
+      TOrderData,
+      | "userId"
+      | "orderItems"
+      | "subTotal"
+      | "shippingCharge"
+      | "tax"
+      | "estimatedTotal"
+      | "shippingMethod"
+      | "shippingAddress"
+    >;
+  } catch (err) {
+    return null;
+  }
 
-const PaymentPage = () => {
+  const {userId, orderItems, shippingAddress, shippingCharge, shippingMethod, subTotal, tax, estimatedTotal} = orderData;
+  const {addressCategory, recipientsName, phoneNumber, address, city, postalCode, state, country} = shippingAddress;
+
   return (
     <main className="p-3 xl:p-16">
       <div className="flex flex-col-reverse lg:flex-row xl:w-[90%] 2xl:w-[80%] gap-10 mx-auto">
@@ -64,12 +64,13 @@ const PaymentPage = () => {
             <div className="border-t" />
           </div>
 
-          <div className="font-medium text-gray-600 text-sm">
-            <p>Home</p>
-            <h1>Mehedi Hasan</h1>
-            <p>+658036520</p>
-            <p>88 Apgar Rd #10-21 International Plaza</p>
-            <p>Long Valley, NJ 07853-3001</p>
+          <div className="font-medium text-gray-600 text-sm md:text-base">
+            <p>{addressCategory}</p>
+            <h1>{recipientsName}</h1>
+            <p>{phoneNumber}</p>
+            <p>{address}</p>
+            <p>{city}-{postalCode}</p>
+            <p>{state}, {country}</p>
           </div>
 
           <div className="space-y-5 mt-10">
@@ -90,7 +91,7 @@ const PaymentPage = () => {
         <div className="lg:w-[40%] xl:w-[50%] 2xl:w-[40%]">
           <div className="space-y-5 xl:px-20 xl:sticky xl:top-20">
             <CartSummary
-              totalItems={cartProducts.length}
+              totalItems={orderItems?.length}
               subTotal={subTotal}
               shippingCharge={shippingCharge}
               tax={tax}
@@ -101,9 +102,9 @@ const PaymentPage = () => {
               <h1 className="text-sm font-medium">In your Shopping Bag</h1>
 
               <div className="flex flex-col gap-3 mt-5">
-                {cartProducts.map((product) => (
+                {orderItems?.map((product) => (
                   <ProductCheckoutCard
-                    key={product.id}
+                    key={product.productId}
                     checkoutProduct={product}
                   />
                 ))}
