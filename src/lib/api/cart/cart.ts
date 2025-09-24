@@ -7,3 +7,10 @@ export const addProductToCart = (productData: TCartProduct) => {
     options: { method: "PATCH", body: JSON.stringify(productData) },
   });
 };
+
+export const getAllProductFromCart = () => {
+  return baseApi({
+    endPoints: '/cart',
+    options: { method: "GET"},
+  });
+};

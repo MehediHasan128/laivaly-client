@@ -11,7 +11,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { getAllProductFromCart } from "@/lib/api/cart/cart";
+import { getAllProducts } from "@/lib/api/products/products";
 import { smoochsans } from "@/styles/font";
+import { TCartProduct, TProduct, TResponce } from "@/types/types";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { MessageCircleWarning } from "lucide-react";
 import Image from "next/image";
@@ -32,40 +35,19 @@ export const metadata = {
   ],
 };
 
-const cartProducts = [
-  {
-    id: "01",
-    productThumbnai: "/images/products/26.jpg",
-    title: "Premium Breathable Linen Button-Down Shirt",
-    productSKU: "LVP-R85W20",
-    price: 49.99,
-    color: "Red",
-    size: "M",
-    discount: 50,
-    quantity: 1,
-  },
-  {
-    id: "02",
-    productThumbnai: "/images/products/25.jpg",
-    title: "Premium Breathable Linen Button-Down Shirt",
-    productSKU: "LVP-58GR23",
-    price: 26.5,
-    color: "Blue",
-    size: "S",
-    discount: 10,
-    quantity: 2,
-  },
-];
+const CartPage = async () => {
+  const cartData = (await getAllProductFromCart()) as TResponce;
+  const { items: cartProducts } = cartData?.data;
 
-const haveProduct = true;
-
-const CartPage = () => {
   const { subTotal, shippingCharge, tax, estimatedTotal } =
     CalculateProductTotalPriceShippingAndTax(cartProducts);
 
+    const productData = await getAllProducts([{field: 'limit', value: '10'}]) as TResponce;
+    const products = productData?.data;
+
   return (
     <>
-      {!haveProduct && (
+      {!cartProducts.length && (
         <div className="flex items-center min-h-screen">
           <div className="w-full space-y-32 md:space-y-5 lg:space-y-0">
             <div className="text-center space-y-5">
@@ -87,12 +69,12 @@ const CartPage = () => {
               <div className="mt-10 relative">
                 <Carousel>
                   <CarouselContent>
-                    {Array.from({ length: 20 }).map((_, index) => (
+                    {products?.map((product: TProduct) => (
                       <CarouselItem
-                        key={index}
+                        key={product?._id}
                         className="basis-[50%] md:basis-[35%] xl:basis-[25%] 2xl:basis-[20%]"
                       >
-                        <DiscoverMoreProductCard />
+                        <DiscoverMoreProductCard product={product} />
                       </CarouselItem>
                     ))}
                   </CarouselContent>
@@ -107,7 +89,7 @@ const CartPage = () => {
         </div>
       )}
 
-      {haveProduct && (
+      {cartProducts.length && (
         <Container>
           <div className="w-[90%] mx-auto space-y-10">
             <div className="space-y-2">
@@ -132,8 +114,8 @@ const CartPage = () => {
 
             <div className="flex flex-col xl:flex-row gap-10 xl:gap-0">
               <div className="xl:w-[65%] border-t">
-                {cartProducts.map((product) => (
-                  <CartProductCard key={product.id} product={product} />
+                {cartProducts.map((product: TCartProduct) => (
+                  <CartProductCard key={product._id} product={product} />
                 ))}
               </div>
 

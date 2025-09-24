@@ -109,6 +109,7 @@ export interface TProduct {
 
 // Cart product data
 export interface TCartProduct {
+  _id: string;
   productId: string;
   productTitle: string;
   productThumbnail: string;
@@ -119,6 +120,8 @@ export interface TCartProduct {
     SKU: string;
   };
   totalPrice: number;
+  disscountRate: number;
+  productFor: string;
 }
 
 // Orders Data type

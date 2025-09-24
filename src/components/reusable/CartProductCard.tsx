@@ -9,37 +9,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { TCartProduct2 } from "@/types/types";
+import { TCartProduct } from "@/types/types";
+import { GetColorName } from 'hex-color-to-color-name';
 
-const CartProductCard = ({ product }: { product: TCartProduct2 }) => {
+const CartProductCard = ({ product }: { product: TCartProduct }) => {
+
+  const {productThumbnail, productTitle, quantity, selectedVariant, disscountRate, totalPrice} = product;
+  const {SKU, size, color} = selectedVariant;
+
   return (
     <div className="border-b py-5 flex flex-col lg:flex-row justify-between gap-5">
       {/* Image and product Info */}
       <div className="flex items-start gap-3 h-48 md:h-72 lg:h-60 lg:w-[60%] xl:w-[50%]">
         <div className="relative w-[45%] md:w-[30%] h-full">
           <Image
-            src={product?.productThumbnai}
-            alt={product?.productThumbnai}
+            src={productThumbnail}
+            alt='Product Image'
             fill
           />
         </div>
 
         <div className="text-xs md:text-sm font-semibold flex flex-col justify-between items-start h-full">
           <div className="space-y-1">
-            <h1>{product?.title}</h1>
-            <p className="text-gray-600">SKU: {product?.productSKU}</p>
-            <p className="text-gray-600">Price: ${product?.price}</p>
+            <h1>{productTitle}</h1>
+            <p className="text-gray-600">SKU: {SKU}</p>
+            <p className="text-gray-600">Price: ${totalPrice}</p>
             <p className="text-gray-600">
-              {product?.color} | {product?.size}
+              {GetColorName(color as string)} | {size}
             </p>
           </div>
           <div className="space-y-1">
-            {product?.discount !== 0 && (
+            {product?.disscountRate !== 0 && (
               <p className="flex items-center gap-1.5 text-red-800">
                 <span>
                   <CircleCheck className="size-4 md:size-5" />
                 </span>{" "}
-                {product?.discount}% Off Select Men Styles
+                {disscountRate}% Off Select Men Styles
               </p>
             )}
             <p className="text-gray-600">
@@ -66,7 +71,7 @@ const CartProductCard = ({ product }: { product: TCartProduct2 }) => {
           <h1>Quantity</h1>
           <Select>
             <SelectTrigger className="w-[80px] md:w-[120px]">
-              <SelectValue placeholder={product.quantity} />
+              <SelectValue placeholder={quantity} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -85,7 +90,7 @@ const CartProductCard = ({ product }: { product: TCartProduct2 }) => {
         <div className="text-xs md:text-sm font-semibold space-y-1">
           <h1>Total Price</h1>
           <p className="text-gray-600">
-            ${(product?.price * product?.quantity).toFixed(2)}
+            ${(product?.totalPrice * product?.quantity).toFixed(2)}
           </p>
         </div>
       </div>

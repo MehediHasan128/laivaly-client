@@ -3,7 +3,13 @@
 import Spinner from "@/components/reusable/Spinner";
 import { addProductToCart } from "@/lib/api/cart/cart";
 import { buySingleProduct, removeOrderData } from "@/lib/api/orders/orders";
-import { TError, TProduct, TProductVariant, TResponce } from "@/types/types";
+import {
+  TCartProduct,
+  TError,
+  TProduct,
+  TProductVariant,
+  TResponce,
+} from "@/types/types";
 import { authGuard } from "@/utils/authGuard";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -74,6 +80,8 @@ const ProductColorSizeAndQuantity = ({
         quantity
       ).toFixed(2)
     ),
+    disscountRate: product?.discount,
+    productFor: product?.productFor,
   };
 
   const handleBuySingleProduct = async () => {
@@ -86,7 +94,9 @@ const ProductColorSizeAndQuantity = ({
     if (productSize && quantity) {
       setBuyLoading(true);
       try {
-        const res = (await buySingleProduct(productData)) as TResponce;
+        const res = (await buySingleProduct(
+          productData as TCartProduct
+        )) as TResponce;
         if (res.success) {
           router.push("/checkout");
         }
@@ -111,7 +121,9 @@ const ProductColorSizeAndQuantity = ({
       const toastId = toast.loading("Loading");
       setCartLoading(true);
       try {
-        const res = (await addProductToCart(productData)) as TResponce;
+        const res = (await addProductToCart(
+          productData as TCartProduct
+        )) as TResponce;
         toast.success(res.message, { id: toastId });
         setCartLoading(false);
       } catch (err) {
@@ -127,7 +139,7 @@ const ProductColorSizeAndQuantity = ({
       try {
         removeOrderData("buySingleProduct");
       } catch (err) {
-        return err
+        return err;
       }
     };
     data();

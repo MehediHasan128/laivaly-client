@@ -1,7 +1,7 @@
 import { baseApi } from "../baseApi/baseApi";
 
 export interface TProductQueryParams {
-  field: "productFor" | "season" | "productGroup" | "searchTerm";
+  field: "productFor" | "season" | "productGroup" | "searchTerm" | "limit";
   value: string;
 } 
 
