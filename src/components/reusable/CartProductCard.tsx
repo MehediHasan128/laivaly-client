@@ -10,23 +10,25 @@ import {
   SelectValue,
 } from "../ui/select";
 import { TCartProduct } from "@/types/types";
-import { GetColorName } from 'hex-color-to-color-name';
+import { GetColorName } from "hex-color-to-color-name";
 
 const CartProductCard = ({ product }: { product: TCartProduct }) => {
-
-  const {productThumbnail, productTitle, quantity, selectedVariant, disscountRate, totalPrice} = product;
-  const {SKU, size, color} = selectedVariant;
+  const {
+    productThumbnail,
+    productTitle,
+    quantity,
+    selectedVariant,
+    disscountRate,
+    totalPrice,
+  } = product;
+  const { SKU, size, color } = selectedVariant;
 
   return (
     <div className="border-b py-5 flex flex-col lg:flex-row justify-between gap-5">
       {/* Image and product Info */}
       <div className="flex items-start gap-3 h-48 md:h-72 lg:h-60 lg:w-[60%] xl:w-[50%]">
         <div className="relative w-[45%] md:w-[30%] h-full">
-          <Image
-            src={productThumbnail}
-            alt='Product Image'
-            fill
-          />
+          <Image src={productThumbnail} alt="Product Image" fill />
         </div>
 
         <div className="text-xs md:text-sm font-semibold flex flex-col justify-between items-start h-full">
@@ -69,7 +71,7 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
         {/* Quantity */}
         <div className="text-xs md:text-sm font-semibold space-y-1">
           <h1>Quantity</h1>
-          <Select>
+          <Select defaultValue={quantity.toString()}>
             <SelectTrigger className="w-[80px] md:w-[120px]">
               <SelectValue placeholder={quantity} />
             </SelectTrigger>

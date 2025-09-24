@@ -53,7 +53,7 @@ const Checkout = ({
     {
       method: "Standard",
       value: "standard",
-      charge: shippingCharge === 0 ? "Free" : "9.95",
+      charge: subTotal >= 100 ? "Free" : "9.95",
       estimatedTime: "3-6",
       date: `${addDays(3)} - ${addDays(6)}`,
     },
@@ -217,14 +217,14 @@ const Checkout = ({
                       <span
                         className={`${
                           method.value === "standard"
-                            ? shippingCharge === 0
+                            ? subTotal >= 100
                               ? "text-red-700"
                               : "text-gray-600"
                             : "text-gray-600"
                         }`}
                       >
                         {method.value === "standard"
-                          ? shippingCharge === 0
+                          ? subTotal >= 100
                             ? ""
                             : "$"
                           : "$"}

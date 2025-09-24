@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Checkout from "@/components/pages/checkout/Checkout";
+import { getAllProductFromCart } from "@/lib/api/cart/cart";
 import { getUserProfile } from "@/lib/api/user/user";
 import { TCartProduct, TCustomerProfile, TResponce } from "@/types/types";
 import { cookies } from "next/headers";
@@ -18,25 +19,31 @@ export const metadata = {
 };
 
 const CheckOutPage = async () => {
+  const user = (await getUserProfile()) as TResponce;
+  const userData = user?.data as TCustomerProfile;
+  
+  let orderProducts: TCartProduct[] = [];
+
   const cookieStore = cookies();
   const rawData = (await cookieStore).get("buySingleProduct")?.value;
 
-  if (!rawData) return [];
-  let singleProduct;
-  try {
-    const decodedCookie = decodeURIComponent(rawData);
-    singleProduct = JSON.parse(decodedCookie) as TCartProduct[];
-  } catch (err) {
-    return [];
+  if (rawData) {
+    try {
+      const decodedCookie = decodeURIComponent(rawData);
+      orderProducts = JSON.parse(decodedCookie) as TCartProduct[];
+    } catch (err) {
+      orderProducts = [];
+    }
+  } else {
+    const cartData = (await getAllProductFromCart()) as TResponce;
+    const { items } = cartData?.data;
+    orderProducts = items || [];
   }
-
-  const user = (await getUserProfile()) as TResponce;
-  const userData = user?.data as TCustomerProfile;
 
   return (
     <main className="p-3 xl:p-16">
       <div className="flex flex-col-reverse lg:flex-row xl:w-[90%] 2xl:w-[80%] gap-10 mx-auto">
-        <Checkout products={singleProduct} userData={userData} />
+        <Checkout products={orderProducts} userData={userData} />
       </div>
     </main>
   );

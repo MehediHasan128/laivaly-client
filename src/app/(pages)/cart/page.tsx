@@ -42,8 +42,10 @@ const CartPage = async () => {
   const { subTotal, shippingCharge, tax, estimatedTotal } =
     CalculateProductTotalPriceShippingAndTax(cartProducts);
 
-    const productData = await getAllProducts([{field: 'limit', value: '10'}]) as TResponce;
-    const products = productData?.data;
+  const productData = (await getAllProducts([
+    { field: "limit", value: "10" },
+  ])) as TResponce;
+  const products = productData?.data;
 
   return (
     <>
@@ -79,8 +81,8 @@ const CartPage = async () => {
                     ))}
                   </CarouselContent>
                   <div className="absolute -top-8 right-14 border flex flex-col">
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="cursor-pointer" />
+                    <CarouselNext className="cursor-pointer" />
                   </div>
                 </Carousel>
               </div>

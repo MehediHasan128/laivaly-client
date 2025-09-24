@@ -21,11 +21,13 @@ const DiscoverMoreProductCard = ({ product }: { product: TProduct }) => {
       <div className="mt-2 space-y-2 px-1">
         <p className="text-xs font-semibold gray-text">{title}</p>
         <p className="text-xs font-semibold">
-          <span className="line-through">${price.toFixed(2)}</span>{" "}
-          <span>${discountPrice}</span>{" "}
-          <span className="text-red-700">
-            {discount > 0 && `${discount}% off`}
-          </span>
+          <span className={`${discount > 0 && "line-through text-gray-600"}`}>
+            ${price.toFixed(2)}
+          </span>{" "}
+          {discount > 0 && <span>${discountPrice}</span>}{" "}
+          {discount > 0 && (
+            <span className="text-red-700">{discount}% off</span>
+          )}
         </p>
       </div>
     </Link>

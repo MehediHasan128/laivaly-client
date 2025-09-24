@@ -7,9 +7,8 @@ import ProfileMenu from "@/components/customer/ProfileMenu";
 import { currentUser } from "@/lib/api/currentUser";
 import { TUser } from "@/types/types";
 
-const Navbar = async() => {
-
-  const user = await currentUser() as TUser;
+const Navbar = async () => {
+  const user = (await currentUser()) as TUser;
 
   return (
     <header>
@@ -36,7 +35,9 @@ const Navbar = async() => {
         </Link>
 
         <div className="flex items-center gap-3 md:gap-5">
-          <Handbag className="cursor-pointer size-5 md:size-6" />
+          <Link href="/cart">
+            <Handbag className="cursor-pointer size-5 md:size-6" />
+          </Link>
           <ProfileMenu user={user}>
             <UserRound className="cursor-pointer size-5 md:size-6" />
           </ProfileMenu>

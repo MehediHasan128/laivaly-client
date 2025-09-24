@@ -98,12 +98,12 @@ export const CalculateProductTotalPriceShippingAndTax = (
   let shippingCharge = 9.95;
 
   for (const product of products) {
-    const productTotalPrice = Number(product.totalPrice);
+    const productTotalPrice = Number(product.totalPrice * product.quantity);
     subTotal += productTotalPrice;
   }
 
   subTotal = Number(subTotal.toFixed(2));
-  if (subTotal > 100) {
+  if (subTotal > 100 && shippingMethod === 'standard') {
     shippingCharge = 0;
   }else if(shippingMethod === 'second Day'){
     shippingCharge = 24;
