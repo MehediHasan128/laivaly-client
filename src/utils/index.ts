@@ -1,8 +1,4 @@
-import {
-  TCartProduct,
-  TProduct,
-  TRatingData,
-} from "@/types/types";
+import { TCartProduct, TProduct, TRatingData } from "@/types/types";
 import { jwtDecode } from "jwt-decode";
 
 // Decoded user token
@@ -93,7 +89,6 @@ export const CalculateProductTotalPriceShippingAndTax = (
   products: TCartProduct[],
   shippingMethod?: string
 ) => {
-
   let subTotal = 0;
   let shippingCharge = 9.95;
 
@@ -103,13 +98,21 @@ export const CalculateProductTotalPriceShippingAndTax = (
   }
 
   subTotal = Number(subTotal.toFixed(2));
-  if (subTotal > 100 && shippingMethod === 'standard') {
-    shippingCharge = 0;
-  }else if(shippingMethod === 'second Day'){
-    shippingCharge = 24;
-  }else if(shippingMethod === 'overnight'){
-    shippingCharge = 35.00;
+
+  if (shippingMethod) {
+    if (subTotal >= 100 && shippingMethod === "standard") {
+      shippingCharge = 0;
+    } else if (shippingMethod === "second Day") {
+      shippingCharge = 24;
+    } else if (shippingMethod === "overnight") {
+      shippingCharge = 35.0;
+    }
+  } else {
+    if (subTotal >= 100) {
+      shippingCharge = 0;
+    }
   }
+
   const tax = Number((subTotal * 0.05).toFixed(2));
   const estimatedTotal = Number((subTotal + shippingCharge + tax).toFixed(2));
 

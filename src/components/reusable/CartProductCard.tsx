@@ -1,3 +1,5 @@
+"use client";
+
 import { CircleCheck } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -9,11 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { TCartProduct } from "@/types/types";
+import { TCartProduct, TError, TResponce } from "@/types/types";
 import { GetColorName } from "hex-color-to-color-name";
+import { deleteProductFromCart } from "@/lib/api/cart/cart";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const CartProductCard = ({ product }: { product: TCartProduct }) => {
+  const router = useRouter();
   const {
+    _id,
     productThumbnail,
     productTitle,
     quantity,
@@ -22,6 +29,19 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
     totalPrice,
   } = product;
   const { SKU, size, color } = selectedVariant;
+
+  const handelDeleteProductFromCart = async (cartId: string) => {
+    try {
+      const res = (await deleteProductFromCart(cartId)) as TResponce;
+      if (res?.success) {
+        router.refresh();
+      }
+    } catch (err) {
+      const error = err as TError;
+      const toastId = toast.loading("Loading...");
+      toast.error(error?.data?.message, { id: toastId });
+    }
+  };
 
   return (
     <div className="border-b py-5 flex flex-col lg:flex-row justify-between gap-5">
@@ -57,7 +77,12 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
           <div className="hidden md:flex gap-5 text-gray-600">
             <button className="hover:underline cursor-pointer">Edit</button>
             <span>|</span>
-            <button className="hover:underline cursor-pointer">Remove</button>
+            <button
+              onClick={() => handelDeleteProductFromCart(_id)}
+              className="hover:underline cursor-pointer"
+            >
+              Remove
+            </button>
             <span>|</span>
             <button className="hover:underline cursor-pointer">
               Move To Wishlist
