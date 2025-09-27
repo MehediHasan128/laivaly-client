@@ -1,9 +1,13 @@
+"use client";
+
 import { TOrderData } from "@/types/types";
 import { BsBoxSeam } from "react-icons/bs";
 import { format, addDays } from "date-fns";
+import CancelOrderAlert from "./CancelOrderAlert";
 
 const OrderCard = ({ order }: { order: TOrderData }) => {
   const {
+    _id,
     orderId,
     shippingAddress,
     createdAt,
@@ -22,6 +26,13 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
   } = shippingAddress;
 
   const orderDate = format(new Date(createdAt), "do MMMM yyyy");
+
+  const alertProps = {
+    _id,
+    orderId,
+    orderDate,
+    grandTotal,
+  };
 
   let shippindDuration;
   if (shippingMethod === "standard") {
@@ -70,10 +81,8 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
           <span className="text-gray-700">Total Price:</span> ${grandTotal}
         </h1>
         <button className="btn py-2.5">Order Details</button>
-        {orderStatus === "processing" && (
-          <button className="btn py-2.5 bg-white border text-black">
-            Cancel Order
-          </button>
+        {orderStatus === "pending" && (
+          <CancelOrderAlert alertProps={alertProps} />
         )}
       </div>
     </div>

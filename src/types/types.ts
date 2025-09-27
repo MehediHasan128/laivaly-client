@@ -160,6 +160,7 @@ export interface TOrderData {
   paymentInfo?: TPaymentInfo;
   paymentStatus: "pending" | "paid" | "failed" | "refunded";
   orderStatus:
+    | "pending"
     | "processing"
     | "shipped"
     | "delivered"

@@ -20,7 +20,6 @@ export const metadata = {
 const OrdersPage = async () => {
   const orsersData = (await getOrdersByUserId()) as TResponce;
   const orders = orsersData?.data;
-  console.log(orders);
 
   return (
     <main className="space-y-5">

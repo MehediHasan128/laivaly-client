@@ -57,3 +57,10 @@ export const getOrdersByUserId = () => {
     options: { method: "GET" },
   });
 };
+
+export const canceledOrder = (orderId: string) => {
+  return baseApi({
+    endPoints: `/orders/cancel-order/${orderId}`,
+    options: { method: "PATCH" },
+  });
+};
