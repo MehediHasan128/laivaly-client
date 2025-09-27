@@ -49,7 +49,7 @@ const CustomerLayout = async ({ children }: { children: ReactNode }) => {
               <CustomerSidebar customerData={customerData} />
             </div>
           </div>
-          <div className="md:w-[60%] lg:w-[50%]">
+          <div className="md:w-[60%] lg:w-[50%] xl:w-[70%] 2xl:w-[60%]">
             <div>{children}</div>
             <div className="md:w-[80%] mt-10 md:mt-20 font-medium">
               <p className="text-sm text-gray-700 text-justify">
