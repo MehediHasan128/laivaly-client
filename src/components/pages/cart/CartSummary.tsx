@@ -12,7 +12,7 @@ interface TCartSummayProps {
   subTotal: number;
   shippingCharge: number;
   tax: number;
-  estimatedTotal: number;
+  grandTotal: number;
 }
 
 const CartSummary = ({
@@ -20,8 +20,9 @@ const CartSummary = ({
   subTotal,
   shippingCharge,
   tax,
-  estimatedTotal,
+  grandTotal,
 }: TCartSummayProps) => {
+
   return (
     <>
       {/* Promo Code */}
@@ -67,7 +68,7 @@ const CartSummary = ({
         <div className="w-full border-t border-black" />
         <div className="flex justify-between text-sm font-semibold">
           <h1>Estimated Total</h1>
-          <p>${estimatedTotal.toFixed(2)}</p>
+          <p>${grandTotal.toFixed(2)}</p>
         </div>
       </div>
     </>

@@ -8,89 +8,138 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import Image from "next/image";
+import { TError, TOrderData, TResponce } from "@/types/types";
+import { placeOrderByCOD } from "@/lib/api/orders/orders";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Spinner from "@/components/reusable/Spinner";
 
-const paymentMethods = [
-  {
-    paymentIcon: "/images/icon/stripe.png",
-    method: "Stripe",
-    value: "stripe",
-    content: (
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          {[
-            "/images/icon/visa.ico",
-            "/images/icon/masterCard.ico",
-            "/images/icon/americamExpress.ico",
-            "/images/icon/jcb.ico",
-            "/images/icon/discover.ico",
-          ].map((icon, index) => (
-            <div key={index} className="relative size-10">
-              <Image src={icon} alt="icon" fill quality={100} />
-            </div>
-          ))}
-        </div>
-        <div className="text-xs font-semibold space-y-1 text-gray-600">
-          <h1>Stripe accepts all major debit & credit cards.</h1>
-          <h1>
-            We do not charge any additional fees for payments made through
-            Stripe
-          </h1>
-        </div>
-        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6 active:scale-95">
-          <div className="relative size-12 md:size-14">
-            <Image
-              src="/images/icon/stripe.png"
-              alt="stripe"
-              fill
-              quality={100}
-            />
-          </div>
-        </button>
-      </div>
-    ),
-  },
-  {
-    paymentIcon: "/images/icon/klarna.png",
-    method: "klarna",
-    value: "klarna",
-    content: (
-      <div className="space-y-3">
-        <div className="text-xs font-semibold space-y-1 text-gray-600">
-          <h1>Split your purchase into 3 or 4 interest-free payments.</h1>
-          <h1>Pay later within 30 days after delivery.</h1>
-        </div>
-        <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6 active:scale-95">
-          <div className="relative size-12 md:size-14">
-            <Image
-              src="/images/icon/klarna.png"
-              alt="stripe"
-              fill
-              quality={100}
-            />
-          </div>
-        </button>
-      </div>
-    ),
-  },
-  {
-    method: "Cash On Delivery",
-    value: "cod",
-    content: (
-      <div className="space-y-3">
-        <div className="text-xs font-semibold space-y-1 text-gray-600">
-          <h1>Pay with cash when your order is delivered to your doorstep.</h1>
-          <h1>No advance payment required.</h1>
-        </div>
-        <button className="border w-full rounded flex justify-center cursor-pointer bg-black text-white mt-6 py-5 font-semibold active:scale-95 duration-500">
-          <h1>Place Order</h1>
-        </button>
-      </div>
-    ),
-  },
-];
-
-const PaymentOptints = () => {
+const PaymentOptints = ({
+  data,
+}: {
+  data: Pick<
+    TOrderData,
+    | "userId"
+    | "orderItems"
+    | "subTotal"
+    | "shippingCharge"
+    | "tax"
+    | "grandTotal"
+    | "shippingMethod"
+    | "shippingAddress"
+  >;
+}) => {
   const [paymentMethod, setPaymentMethod] = useState("stripe");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const orderData = {
+    ...data,
+    paymentMethod,
+  };
+
+  const handlePlaceOrderInCOD = async () => {
+    setLoading(true);
+    const toastId = toast.loading("Loading...");
+
+    try {
+      const res = (await placeOrderByCOD(orderData as TOrderData)) as TResponce;
+      toast.success(res.message, { id: toastId });
+      router.push('/my-account/orders');
+      setLoading(false);
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error.data.message, { id: toastId });
+      setLoading(false);
+    }
+  };
+
+  const paymentMethods = [
+    {
+      paymentIcon: "/images/icon/stripe.png",
+      method: "Stripe",
+      value: "stripe",
+      content: (
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            {[
+              "/images/icon/visa.ico",
+              "/images/icon/masterCard.ico",
+              "/images/icon/americamExpress.ico",
+              "/images/icon/jcb.ico",
+              "/images/icon/discover.ico",
+            ].map((icon, index) => (
+              <div key={index} className="relative size-10">
+                <Image src={icon} alt="icon" fill quality={100} />
+              </div>
+            ))}
+          </div>
+          <div className="text-xs font-semibold space-y-1 text-gray-600">
+            <h1>Stripe accepts all major debit & credit cards.</h1>
+            <h1>
+              We do not charge any additional fees for payments made through
+              Stripe
+            </h1>
+          </div>
+          <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6 active:scale-95">
+            <div className="relative size-12 md:size-14">
+              <Image
+                src="/images/icon/stripe.png"
+                alt="stripe"
+                fill
+                quality={100}
+              />
+            </div>
+          </button>
+        </div>
+      ),
+    },
+    {
+      paymentIcon: "/images/icon/klarna.png",
+      method: "klarna",
+      value: "klarna",
+      content: (
+        <div className="space-y-3">
+          <div className="text-xs font-semibold space-y-1 text-gray-600">
+            <h1>Split your purchase into 3 or 4 interest-free payments.</h1>
+            <h1>Pay later within 30 days after delivery.</h1>
+          </div>
+          <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6 active:scale-95">
+            <div className="relative size-12 md:size-14">
+              <Image
+                src="/images/icon/klarna.png"
+                alt="stripe"
+                fill
+                quality={100}
+              />
+            </div>
+          </button>
+        </div>
+      ),
+    },
+    {
+      method: "Cash On Delivery",
+      value: "cod",
+      content: (
+        <div className="space-y-3">
+          <div className="text-xs font-semibold space-y-1 text-gray-600">
+            <h1>
+              Pay with cash when your order is delivered to your doorstep.
+            </h1>
+            <h1>No advance payment required.</h1>
+          </div>
+          <button
+            onClick={handlePlaceOrderInCOD}
+            className="border w-full rounded flex justify-center cursor-pointer bg-black text-white mt-6 py-5 font-semibold active:scale-95 duration-500"
+          >
+            {
+              loading ? <Spinner /> : "Place Order"
+            }
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <Accordion

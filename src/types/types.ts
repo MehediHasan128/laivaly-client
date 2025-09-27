@@ -8,11 +8,13 @@ interface TUserName {
 }
 
 export interface TUser {
+  _id: string;
   id: string;
   userName: TUserName;
   userEmail: string;
   userProfileURL: string;
-  userRole: string;
+  role: string;
+  status: string;
 }
 
 // Customer
@@ -32,6 +34,7 @@ export interface TShippingAddress {
 
 export interface TCustomerProfile {
   _id: string;
+  userId: TUser;
   customerId: string;
   userName: TUserName;
   userEmail: string;
@@ -107,6 +110,17 @@ export interface TProduct {
   isDeleted: boolean;
 }
 
+export type TPartialProductData = Pick<
+  TProduct,
+  | "_id"
+  | "title"
+  | "price"
+  | "highlightedProduct"
+  | "productFor"
+  | "productThumbnail"
+  | "discount"
+>;
+
 // Cart product data
 export interface TCartProduct {
   _id: string;
@@ -129,17 +143,17 @@ export interface TPaymentInfo {
   TXID?: string;
   email?: string;
   paidAt?: Date;
-  status?: 'success' | 'failed';
+  status?: "success" | "failed";
 }
 
 export interface TOrderData {
+  _id: string;
   orderId: string;
   userId: string;
   orderItems: TCartProduct[];
-  subTotal: number;
   shippingCharge: number;
   tax: number;
-  estimatedTotal: number;
+  grandTotal: number;
   shippingMethod: "standard" | "second Day" | "overnight";
   shippingAddress: TShippingAddress;
   paymentMethod: "stripe" | "sslcommerz" | "cod";
@@ -151,6 +165,7 @@ export interface TOrderData {
     | "delivered"
     | "cancelled"
     | "returned";
+  createdAt: string;
 }
 
 // Req & Res type

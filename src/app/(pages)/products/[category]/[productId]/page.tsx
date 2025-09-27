@@ -2,27 +2,47 @@ import ProductColorSizeAndQuantity from "@/components/pages/productDetail/Produc
 import ProductDescriptionDrawer from "@/components/pages/productDetail/ProductDescriptionDrawer";
 import ProductImages from "@/components/pages/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewDrawer";
-import { getSingleProducts } from "@/lib/api/products/products";
+import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
+import { getAllProducts, getSingleProducts } from "@/lib/api/products/products";
 import { TProduct, TProductVariant, TResponce } from "@/types/types";
 import { ChevronRight, Heart } from "lucide-react";
 import { Metadata } from "next";
 
-export async function generateMetadata({params}: {params: Promise<{ productId: string }>}): Promise<Metadata>{
-  const {productId} = await params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ productId: string }>;
+}): Promise<Metadata> {
+  const { productId } = await params;
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
 
   return {
     title: `${product?.title}`,
-     description: product?.description?.shortDescription, 
-  }
+    description: product?.description?.shortDescription,
+  };
 }
 
-const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string }>}) => {
+const ProductDetailsPage = async ({
+  params,
+}: {
+  params: Promise<{ productId: string }>;
+}) => {
   const { productId } = await params;
 
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
+
+  const { season, productGroup, productCategory, productSubCategory } = product;
+
+  const relatedProducts = (await getAllProducts([
+    { field: "limit", value: "6" },
+    { field: "season", value: season as string },
+    { field: "productGroup", value: productGroup as string },
+    { field: "productCategory", value: productCategory as string },
+    { field: "productSubCategory", value: productSubCategory as string },
+  ])) as TResponce;
+  const products = relatedProducts?.data;
 
   const discountPrice = (
     product?.price -
@@ -62,7 +82,9 @@ const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string
               <h1 className="font-semibold text-lg">Description:</h1>
               <p className="gray-text text-justify text-xs xl:text-sm">
                 {product?.description?.shortDescription}{" "}
-                <ProductDescriptionDrawer productDescriptions={product?.description}>
+                <ProductDescriptionDrawer
+                  productDescriptions={product?.description}
+                >
                   <span className="text-blue-700 font-semibold cursor-pointer">
                     See More
                   </span>
@@ -99,8 +121,15 @@ const ProductDetailsPage = async ({params}: {params: Promise<{ productId: string
           You might also like
         </h1>
 
-        <div>
-          
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 my-20 gap-y-5">
+          {products?.map((product: TProduct) => (
+            <div
+              key={product?._id}
+              className="basis-[50%] md:basis-[35%] xl:basis-[25%] 2xl:basis-[20%]"
+            >
+              <DiscoverMoreProductCard product={product} />
+            </div>
+          ))}
         </div>
       </section>
     </main>

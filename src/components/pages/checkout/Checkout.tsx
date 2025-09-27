@@ -46,7 +46,7 @@ const Checkout = ({
 
   const router = useRouter();
 
-  const { subTotal, shippingCharge, tax, estimatedTotal } =
+  const { subTotal, shippingCharge, tax, grandTotal } =
     CalculateProductTotalPriceShippingAndTax(products, shippingMethod);
 
   const shippingMethods = [
@@ -74,12 +74,12 @@ const Checkout = ({
   ];
 
   const ordersData = {
-    userId: userData?._id,
+    userId: userData?.userId._id,
     orderItems: products,
     subTotal,
     shippingCharge,
     tax,
-    estimatedTotal,
+    grandTotal,
     shippingMethod,
     shippingAddress: address,
   };
@@ -89,10 +89,9 @@ const Checkout = ({
       TOrderData,
       | "userId"
       | "orderItems"
-      | "subTotal"
       | "shippingCharge"
       | "tax"
-      | "estimatedTotal"
+      | "grandTotal"
       | "shippingMethod"
       | "shippingAddress"
     >
@@ -257,10 +256,9 @@ const Checkout = ({
                   TOrderData,
                   | "userId"
                   | "orderItems"
-                  | "subTotal"
                   | "shippingCharge"
                   | "tax"
-                  | "estimatedTotal"
+                  | "grandTotal"
                   | "shippingMethod"
                   | "shippingAddress"
                 >
@@ -281,7 +279,7 @@ const Checkout = ({
             subTotal={subTotal}
             shippingCharge={shippingCharge}
             tax={tax}
-            estimatedTotal={estimatedTotal}
+            grandTotal={grandTotal}
           />
 
           <div className="mt-5">

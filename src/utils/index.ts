@@ -1,4 +1,4 @@
-import { TCartProduct, TProduct, TRatingData } from "@/types/types";
+import { TCartProduct, TPartialProductData, TRatingData } from "@/types/types";
 import { jwtDecode } from "jwt-decode";
 
 // Decoded user token
@@ -8,27 +8,8 @@ export const decodedUserToken = (token: string) => {
 };
 
 // Create cookie when user logout
-
-export const rearrangeProducts = (
-  productItems: Pick<
-    TProduct,
-    | "_id"
-    | "title"
-    | "price"
-    | "productFor"
-    | "productThumbnail"
-    | "highlightedProduct"
-  >[]
-) => {
-  const products: Pick<
-    TProduct,
-    | "_id"
-    | "title"
-    | "price"
-    | "productFor"
-    | "productThumbnail"
-    | "highlightedProduct"
-  >[] = [];
+export const rearrangeProducts = (productItems: TPartialProductData[]) => {
+  const products: TPartialProductData[] = [];
   let remaining = [...productItems];
   let placeLargeFirst = true;
 
@@ -114,13 +95,13 @@ export const CalculateProductTotalPriceShippingAndTax = (
   }
 
   const tax = Number((subTotal * 0.05).toFixed(2));
-  const estimatedTotal = Number((subTotal + shippingCharge + tax).toFixed(2));
+  const grandTotal = Number((subTotal + shippingCharge + tax).toFixed(2));
 
   return {
     subTotal,
     shippingCharge: Number(shippingCharge),
     tax,
-    estimatedTotal,
+    grandTotal,
   };
 };
 

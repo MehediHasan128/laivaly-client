@@ -15,6 +15,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { toast } from "sonner";
 import { userLogout } from "@/lib/api/auth/auth";
+import { useRouter } from "next/navigation";
 
 const ProfileMenu = ({
   children,
@@ -23,11 +24,13 @@ const ProfileMenu = ({
   children: ReactNode;
   user: TUser;
 }) => {
-  
+  const router = useRouter();
+
   const handleUserLogout = async () => {
     const toastId = toast.loading("Loading");
 
     await userLogout();
+    router.refresh();
 
     toast.success("User logout succesfully!", { id: toastId });
   };
@@ -63,7 +66,6 @@ const ProfileMenu = ({
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </Link>
-              
             </>
           )}
         </DropdownMenuGroup>

@@ -13,10 +13,9 @@ export const storeOrderData = (
     TOrderData,
     | "userId"
     | "orderItems"
-    | "subTotal"
     | "shippingCharge"
     | "tax"
-    | "estimatedTotal"
+    | "grandTotal"
     | "shippingMethod"
     | "shippingAddress"
   >
@@ -31,5 +30,30 @@ export const removeOrderData = (name: string) => {
   return baseApi({
     endPoints: "/remove",
     options: { method: "POST", body: JSON.stringify({ cookieName: name }) },
+  });
+};
+
+export const placeOrderByCOD = (
+  data: Pick<
+    TOrderData,
+    | "userId"
+    | "orderItems"
+    | "shippingCharge"
+    | "grandTotal"
+    | "shippingMethod"
+    | "shippingAddress"
+    | "paymentMethod"
+  >
+) => {
+  return baseApi({
+    endPoints: "/orders/cash-on-delivery",
+    options: { method: "POST", body: JSON.stringify(data) },
+  });
+};
+
+export const getOrdersByUserId = () => {
+  return baseApi({
+    endPoints: "/orders/my",
+    options: { method: "GET" },
   });
 };

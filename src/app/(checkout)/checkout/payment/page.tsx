@@ -3,7 +3,6 @@ import CartSummary from "@/components/pages/cart/CartSummary";
 import PaymentOptints from "@/components/pages/payment/PaymentOptints";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
 import { TOrderData } from "@/types/types";
-import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { cookies } from "next/headers";
 import React from "react";
 
@@ -43,7 +42,7 @@ const PaymentPage = async () => {
       | "subTotal"
       | "shippingCharge"
       | "tax"
-      | "estimatedTotal"
+      | "grandTotal"
       | "shippingMethod"
       | "shippingAddress"
     >;
@@ -51,7 +50,7 @@ const PaymentPage = async () => {
     return null;
   }
 
-  const {userId, orderItems, shippingAddress, shippingCharge, shippingMethod, subTotal, tax, estimatedTotal} = orderData;
+  const {userId, orderItems, shippingAddress, shippingCharge, shippingMethod, subTotal, tax, grandTotal} = orderData;
   const {addressCategory, recipientsName, phoneNumber, address, city, postalCode, state, country} = shippingAddress;
 
   return (
@@ -83,7 +82,7 @@ const PaymentPage = async () => {
           </div>
 
           <div className="mt-10 border-t">
-            <PaymentOptints />
+            <PaymentOptints data={orderData} />
           </div>
         </div>
 
@@ -95,7 +94,7 @@ const PaymentPage = async () => {
               subTotal={subTotal}
               shippingCharge={shippingCharge}
               tax={tax}
-              estimatedTotal={estimatedTotal}
+              grandTotal={grandTotal}
             />
 
             <div className="mt-5">

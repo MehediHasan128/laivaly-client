@@ -39,7 +39,7 @@ const CartPage = async () => {
   const cartData = (await getAllProductFromCart()) as TResponce;
   const { items: cartProducts } = cartData?.data;
 
-  const { subTotal, shippingCharge, tax, estimatedTotal } =
+  const { subTotal, shippingCharge, tax, grandTotal } =
     CalculateProductTotalPriceShippingAndTax(cartProducts);
 
   const productData = (await getAllProducts([
@@ -129,7 +129,7 @@ const CartPage = async () => {
                     subTotal={subTotal}
                     shippingCharge={shippingCharge}
                     tax={tax}
-                    estimatedTotal={estimatedTotal}
+                    grandTotal={grandTotal}
                   />
 
                   {/* Checkout link */}
