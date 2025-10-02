@@ -4,7 +4,9 @@ import ShippingAddressDialog from "@/components/customer/ShippingAddressDialog";
 import { Label } from "@/components/ui/label";
 import { currentUser } from "@/lib/api/currentUser";
 import { getShippingAddress } from "@/lib/api/customer/customerApi";
-import { TResponce, TShippingAddress, TUser } from "@/types/types";
+import { TShippingAddress } from "@/types/customer.type";
+import { TResponce } from "@/types/types";
+import { TUser } from "@/types/user.type";
 
 export const metadata = {
   title: "Shipping Addresses",

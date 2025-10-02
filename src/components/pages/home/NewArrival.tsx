@@ -6,9 +6,9 @@ import Headline from "../../reusable/Headline";
 import NewArrivalCard from "../../reusable/NewArrivalCard";
 import Button from "../../reusable/Button";
 import { smoochsans } from "@/styles/font";
-import { TProduct } from "@/types/types";
 import Link from "next/link";
 import HomePageProductNotFound from "@/components/reusable/HomePageProductNotFound";
+import { TProduct } from "@/types/product.type";
 
 const buttons = [
   { value: "", label: "All" },

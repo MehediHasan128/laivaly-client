@@ -3,13 +3,9 @@
 import Spinner from "@/components/reusable/Spinner";
 import { addProductToCart } from "@/lib/api/cart/cart";
 import { buySingleProduct, removeOrderData } from "@/lib/api/orders/orders";
-import {
-  TCartProduct,
-  TError,
-  TProduct,
-  TProductVariant,
-  TResponce,
-} from "@/types/types";
+import { TCreateCartData, TCartProduct } from "@/types/cart.type";
+import { TProduct, TProductVariant } from "@/types/product.type";
+import { TError, TResponce } from "@/types/types";
 import { authGuard } from "@/utils/authGuard";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -55,7 +51,6 @@ const ProductColorSizeAndQuantity = ({
   const selectedSizeVariant = getProductSizes.find(
     (variant) => variant.size === productSize
   );
-
   const remainingProduct = selectedSizeVariant?.stock;
 
   useEffect(() => {
@@ -65,23 +60,20 @@ const ProductColorSizeAndQuantity = ({
   }, [productSize]);
 
   const productData = {
-    productId: product?._id,
-    productTitle: product?.title,
-    productThumbnail: product?.productImages[0],
+    productId: {
+      _id: product?._id,
+      title: product?.title,
+      productFor: product?.productFor,
+      price: product?.price,
+      discount: product?.discount,
+      productImages: product?.productImages[0],
+    },
     quantity,
     selectedVariant: {
       color: productColor && productColor,
       size: productSize && productSize,
       SKU: productSKU as string,
     },
-    totalPrice: Number(
-      (
-        (product?.price - product?.price * (product?.discount / 100)) *
-        quantity
-      ).toFixed(2)
-    ),
-    disscountRate: product?.discount,
-    productFor: product?.productFor,
   };
 
   const handleBuySingleProduct = async () => {
@@ -110,6 +102,16 @@ const ProductColorSizeAndQuantity = ({
     }
   };
 
+  const cartData = {
+    productId: product?._id,
+    quantity,
+    selectedVariant: {
+      color: productColor && productColor,
+      size: productSize && productSize,
+      SKU: productSKU as string,
+    },
+  };
+
   const handleProductAddToCart = async () => {
     await authGuard();
 
@@ -122,7 +124,7 @@ const ProductColorSizeAndQuantity = ({
       setCartLoading(true);
       try {
         const res = (await addProductToCart(
-          productData as TCartProduct
+          cartData as TCreateCartData
         )) as TResponce;
         toast.success(res.message, { id: toastId });
         setCartLoading(false);

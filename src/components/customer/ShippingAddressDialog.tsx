@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import ShippingAddressForm from "./ShippingAddressForm";
-import { TShippingAddress } from "@/types/types";
+import { TShippingAddress } from "@/types/customer.type";
 
 const ShippingAddressDialog = ({
   children,

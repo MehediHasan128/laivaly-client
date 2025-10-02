@@ -1,6 +1,6 @@
 "use client";
 
-import { TCustomerProfile } from "@/types/types";
+import { TCustomerProfile } from "@/types/customer.type";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

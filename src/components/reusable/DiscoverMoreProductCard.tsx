@@ -1,4 +1,4 @@
-import { TProduct } from "@/types/types";
+import { TProduct } from "@/types/product.type";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,4 +1,4 @@
-import { TPartialProductData } from "@/types/types";
+import { TPartialProductData } from "@/types/product.type";
 import Image from "next/image";
 
 const ProductCard = ({ product }: { product: TPartialProductData }) => {

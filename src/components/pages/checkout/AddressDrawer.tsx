@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { TShippingAddress } from "@/types/types";
+import { TShippingAddress } from "@/types/customer.type";
 import {
   Dispatch,
   ReactNode,

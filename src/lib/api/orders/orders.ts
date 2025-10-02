@@ -1,5 +1,6 @@
-import { TCartProduct, TOrderData } from "@/types/types";
+import { TCartProduct } from "@/types/cart.type";
 import { baseApi } from "../baseApi/baseApi";
+import { TOrderData } from "@/types/order.type";
 
 export const buySingleProduct = (productData: TCartProduct) => {
   return baseApi({
@@ -8,18 +9,7 @@ export const buySingleProduct = (productData: TCartProduct) => {
   });
 };
 
-export const storeOrderData = (
-  orderData: Pick<
-    TOrderData,
-    | "userId"
-    | "orderItems"
-    | "shippingCharge"
-    | "tax"
-    | "grandTotal"
-    | "shippingMethod"
-    | "shippingAddress"
-  >
-) => {
+export const storeOrderData = (orderData: TOrderData) => {
   return baseApi({
     endPoints: "/orders/create",
     options: { method: "POST", body: JSON.stringify(orderData) },
@@ -33,18 +23,7 @@ export const removeOrderData = (name: string) => {
   });
 };
 
-export const placeOrderByCOD = (
-  data: Pick<
-    TOrderData,
-    | "userId"
-    | "orderItems"
-    | "shippingCharge"
-    | "grandTotal"
-    | "shippingMethod"
-    | "shippingAddress"
-    | "paymentMethod"
-  >
-) => {
+export const placeOrderByCOD = (data: TOrderData) => {
   return baseApi({
     endPoints: "/orders/cash-on-delivery",
     options: { method: "POST", body: JSON.stringify(data) },

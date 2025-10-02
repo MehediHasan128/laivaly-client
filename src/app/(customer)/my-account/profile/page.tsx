@@ -1,6 +1,7 @@
 import ProfileUpdateForm from "@/components/customer/ProfileUpdateForm";
 import { getUserProfile } from "@/lib/api/user/user";
-import { TCustomerProfile, TResponce } from "@/types/types";
+import { TCustomerProfile } from "@/types/customer.type";
+import { TResponce } from "@/types/types";
 
 export const metadata = {
   title: "My Profile",

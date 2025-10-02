@@ -1,4 +1,4 @@
-import { TPartialProductData } from "@/types/types";
+import { TPartialProductData } from "@/types/product.type";
 import Container from "../../reusable/Container";
 import ProductCard from "../../reusable/ProductCard";
 import Link from "next/link";

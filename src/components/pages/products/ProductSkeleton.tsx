@@ -1,6 +1,6 @@
 import Container from "@/components/reusable/Container";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TProduct } from "@/types/types";
+import { TProduct } from "@/types/product.type";
 
 
 const ProductSkeleton = ({

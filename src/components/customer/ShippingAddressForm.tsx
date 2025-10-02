@@ -7,13 +7,14 @@ import LVForm from "../LVForm/LVForm";
 import { FieldValues } from "react-hook-form";
 import LVInput from "../LVForm/LVInput";
 import { toast } from "sonner";
-import { TError, TResponce, TShippingAddress } from "@/types/types";
+import { TError, TResponce } from "@/types/types";
 import {
   addShippingAddress,
   updateShippingAddress,
 } from "@/lib/api/customer/customerApi";
 import Spinner from "../reusable/Spinner";
 import { useRouter } from "next/navigation";
+import { TShippingAddress } from "@/types/customer.type";
 
 const ShippingAddressForm = ({
   userId,

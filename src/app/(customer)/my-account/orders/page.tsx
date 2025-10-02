@@ -1,6 +1,7 @@
 import OrderCard from "@/components/customer/OrderCard";
 import { getOrdersByUserId } from "@/lib/api/orders/orders";
-import { TOrderData, TResponce } from "@/types/types";
+import { TOrderData } from "@/types/order.type";
+import { TResponce } from "@/types/types";
 import Link from "next/link";
 
 export const metadata = {

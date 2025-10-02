@@ -5,10 +5,10 @@ import Container from "../../reusable/Container";
 import Headline from "../../reusable/Headline";
 import NewArrivalCard from "../../reusable/NewArrivalCard";
 import Button from "../../reusable/Button";
-import { TProduct } from "@/types/types";
 import { smoochsans } from "@/styles/font";
 import Link from "next/link";
 import HomePageProductNotFound from "@/components/reusable/HomePageProductNotFound";
+import { TProduct } from "@/types/product.type";
 
 const buttons = [
   { value: "", label: "All" },

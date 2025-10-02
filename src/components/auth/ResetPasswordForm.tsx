@@ -3,7 +3,7 @@
 import { decodedUserToken } from "@/utils";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
-import { TError, TResponce, TUser } from "@/types/types";
+import { TError, TResponce } from "@/types/types";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
@@ -11,6 +11,7 @@ import Spinner from "../reusable/Spinner";
 import { toast } from "sonner";
 import { resetUserPassword } from "@/lib/api/auth/auth";
 import { useRouter } from "next/navigation";
+import { TUser } from "@/types/user.type";
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const [showPass, setShowPass] = useState<boolean>(false);

@@ -4,8 +4,9 @@ import ProductImages from "@/components/pages/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewDrawer";
 import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
 import { getAllProducts, getSingleProducts } from "@/lib/api/products/products";
-import { TProduct, TProductVariant, TResponce } from "@/types/types";
-import { ChevronRight, Heart } from "lucide-react";
+import { TProduct } from "@/types/product.type";
+import { TResponce } from "@/types/types";
+import { ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 
 export async function generateMetadata({

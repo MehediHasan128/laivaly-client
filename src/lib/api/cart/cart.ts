@@ -1,7 +1,7 @@
-import { TCartProduct } from "@/types/types";
+import { TCreateCartData } from "@/types/cart.type";
 import { baseApi } from "../baseApi/baseApi";
 
-export const addProductToCart = (productData: TCartProduct) => {
+export const addProductToCart = (productData: TCreateCartData) => {
   return baseApi({
     endPoints: "/cart/add-product",
     options: { method: "PATCH", body: JSON.stringify(productData) },

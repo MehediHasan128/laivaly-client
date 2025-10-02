@@ -2,7 +2,10 @@
 import Checkout from "@/components/pages/checkout/Checkout";
 import { getAllProductFromCart } from "@/lib/api/cart/cart";
 import { getUserProfile } from "@/lib/api/user/user";
-import { TCartProduct, TCustomerProfile, TResponce } from "@/types/types";
+import { TCartProduct } from "@/types/cart.type";
+import { TCheckoutProduct } from "@/types/checkout.type";
+import { TCustomerProfile } from "@/types/customer.type";
+import { TResponce } from "@/types/types";
 import { cookies } from "next/headers";
 
 export const metadata = {
@@ -19,26 +22,31 @@ export const metadata = {
 };
 
 const CheckOutPage = async () => {
+
+  // Get User data from db
   const user = (await getUserProfile()) as TResponce;
   const userData = user?.data as TCustomerProfile;
-  
-  let orderProducts: TCartProduct[] = [];
 
+  // Declear a veriable where store cart products or single buy product
+  let orderProducts: TCheckoutProduct[] = [];
+
+  // Get single product from cookie
   const cookieStore = cookies();
   const rawData = (await cookieStore).get("buySingleProduct")?.value;
 
+  // Check if get single product cookie then store the single product
   if (rawData) {
     try {
       const decodedCookie = decodeURIComponent(rawData);
-      orderProducts = JSON.parse(decodedCookie) as TCartProduct[];
+      orderProducts = JSON.parse(decodedCookie) as TCheckoutProduct[];
     } catch (err) {
       orderProducts = [];
     }
   } else {
     const cartData = (await getAllProductFromCart()) as TResponce;
-    const { items } = cartData?.data;
+    const items = cartData?.data;
     orderProducts = items || [];
-  }
+  };
 
   return (
     <main className="p-3 xl:p-16">

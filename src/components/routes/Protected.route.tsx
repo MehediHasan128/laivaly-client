@@ -1,4 +1,4 @@
-import { TUser } from "@/types/types";
+import { TUser } from "@/types/user.type";
 import { decodedUserToken } from "@/utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -19,7 +19,7 @@ export const ProtectedRoute = async ({
   let userRole: string | undefined;
   if (token) {
     const userInfo = decodedUserToken(token?.value as string) as TUser;
-    userRole = userInfo?.userRole;
+    userRole = userInfo?.role;
   }
 
   if (!token || role !== userRole) {

@@ -10,7 +10,7 @@ import {
   DrawerTrigger,
 } from "../../ui/drawer";
 import { X } from "lucide-react";
-import { TProductDescription } from "@/types/types";
+import { TProductDescription } from "@/types/product.type";
 
 const ProductDescriptionDrawer = ({ children, productDescriptions }: { children: ReactNode; productDescriptions: TProductDescription }) => {
 

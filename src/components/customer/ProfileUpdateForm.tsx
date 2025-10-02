@@ -5,10 +5,11 @@ import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { Label } from "../ui/label";
 import LVSelect from "../LVForm/LVSelect";
-import { TCustomerProfile, TError, TResponce } from "@/types/types";
+import { TError, TResponce } from "@/types/types";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { updateCustomerProfile } from "@/lib/api/customer/customerApi";
+import { TCustomerProfile } from "@/types/customer.type";
 
 const startYear = new Date().getFullYear();
 const endYear = startYear - 60;

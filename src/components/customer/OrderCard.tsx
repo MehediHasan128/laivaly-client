@@ -1,9 +1,9 @@
 "use client";
 
-import { TOrderData } from "@/types/types";
 import { BsBoxSeam } from "react-icons/bs";
 import { format, addDays } from "date-fns";
 import CancelOrderAlert from "./CancelOrderAlert";
+import { TOrderData } from "@/types/order.type";
 
 const OrderCard = ({ order }: { order: TOrderData }) => {
   const {

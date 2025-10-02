@@ -14,7 +14,9 @@ import {
 import { getAllProductFromCart } from "@/lib/api/cart/cart";
 import { getAllProducts } from "@/lib/api/products/products";
 import { smoochsans } from "@/styles/font";
-import { TCartProduct, TProduct, TResponce } from "@/types/types";
+import { TCartProduct } from "@/types/cart.type";
+import { TProduct } from "@/types/product.type";
+import { TResponce } from "@/types/types";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { MessageCircleWarning } from "lucide-react";
 import Image from "next/image";
@@ -36,12 +38,15 @@ export const metadata = {
 };
 
 const CartPage = async () => {
+  // Product for cart
   const cartData = (await getAllProductFromCart()) as TResponce;
-  const { items: cartProducts } = cartData?.data;
+  const cartProducts = cartData?.data as TCartProduct[];
 
+  // Calculate product price, tax, shipping charge
   const { subTotal, shippingCharge, tax, grandTotal } =
     CalculateProductTotalPriceShippingAndTax(cartProducts);
 
+  // Product if there is no product in cart
   const productData = (await getAllProducts([
     { field: "limit", value: "10" },
   ])) as TResponce;

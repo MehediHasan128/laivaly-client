@@ -2,7 +2,8 @@
 
 import { getAllProducts } from "@/lib/api/products/products";
 import { smoochsans } from "@/styles/font";
-import { TProduct, TResponce } from "@/types/types";
+import { TProduct } from "@/types/product.type";
+import { TResponce } from "@/types/types";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";

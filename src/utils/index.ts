@@ -74,7 +74,16 @@ export const CalculateProductTotalPriceShippingAndTax = (
   let shippingCharge = 9.95;
 
   for (const product of products) {
-    const productTotalPrice = Number(product.totalPrice * product.quantity);
+    const { productId, quantity } = product;
+    const { price, discount } = productId;
+
+    const discountPrice = price * (discount / 100);
+
+    const productTotalPrice =
+      product?.productId.discount === 0
+        ? price * quantity
+        : discountPrice * quantity;
+
     subTotal += productTotalPrice;
   }
 

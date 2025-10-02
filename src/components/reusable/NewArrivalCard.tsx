@@ -1,8 +1,8 @@
 "use client";
 
+import { TProduct } from "@/types/product.type";
 import Image from "next/image";
 import { useState } from "react";
-import { TProduct } from "@/types/types";
 
 const NewArrivalCard = ({
   product,

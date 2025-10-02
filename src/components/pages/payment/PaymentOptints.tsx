@@ -8,47 +8,34 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import Image from "next/image";
-import { TError, TOrderData, TResponce } from "@/types/types";
+import { TError, TResponce } from "@/types/types";
 import { placeOrderByCOD } from "@/lib/api/orders/orders";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/reusable/Spinner";
+import { TOrderData } from "@/types/order.type";
 
-const PaymentOptints = ({
-  data,
-}: {
-  data: Pick<
-    TOrderData,
-    | "userId"
-    | "orderItems"
-    | "subTotal"
-    | "shippingCharge"
-    | "tax"
-    | "grandTotal"
-    | "shippingMethod"
-    | "shippingAddress"
-  >;
-}) => {
+const PaymentOptints = ({ order }: { order: TOrderData }) => {
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const orderData = {
-    ...data,
+    ...order,
     paymentMethod,
   };
 
-  const handlePlaceOrderInCOD = async () => {
+  const handlePlaceOrderInCOD = async (orderData: TOrderData) => {
     setLoading(true);
     const toastId = toast.loading("Loading...");
-
     try {
       const res = (await placeOrderByCOD(orderData as TOrderData)) as TResponce;
       toast.success(res.message, { id: toastId });
-      router.push('/my-account/orders');
+      router.push("/my-account/orders");
       setLoading(false);
     } catch (err) {
       const error = err as TError;
+      console.log(error);
       toast.error(error.data.message, { id: toastId });
       setLoading(false);
     }
@@ -129,12 +116,10 @@ const PaymentOptints = ({
             <h1>No advance payment required.</h1>
           </div>
           <button
-            onClick={handlePlaceOrderInCOD}
+            onClick={() => handlePlaceOrderInCOD(orderData as TOrderData)}
             className="border w-full rounded flex justify-center cursor-pointer bg-black text-white mt-6 py-5 font-semibold active:scale-95 duration-500"
           >
-            {
-              loading ? <Spinner /> : "Place Order"
-            }
+            {loading ? <Spinner /> : "Place Order"}
           </button>
         </div>
       ),

@@ -1,6 +1,6 @@
 "use client";
 
-import { TUser } from "@/types/types";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ import { ReactNode } from "react";
 import { toast } from "sonner";
 import { userLogout } from "@/lib/api/auth/auth";
 import { useRouter } from "next/navigation";
+import { TUser } from "@/types/user.type";
 
 const ProfileMenu = ({
   children,

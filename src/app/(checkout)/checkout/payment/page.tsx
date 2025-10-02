@@ -2,7 +2,8 @@
 import CartSummary from "@/components/pages/cart/CartSummary";
 import PaymentOptints from "@/components/pages/payment/PaymentOptints";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
-import { TOrderData } from "@/types/types";
+import { TCartProduct } from "@/types/cart.type";
+import { TOrderData } from "@/types/order.type";
 import { cookies } from "next/headers";
 import React from "react";
 
@@ -28,6 +29,7 @@ export const metadata = {
 };
 
 const PaymentPage = async () => {
+  // Get order data from cookie
   const cookieStore = cookies();
   const rawData = (await cookieStore).get("orderData")?.value;
 
@@ -35,23 +37,29 @@ const PaymentPage = async () => {
   let orderData;
   try {
     const decodedCookie = decodeURIComponent(rawData);
-    orderData = JSON.parse(decodedCookie) as Pick<
-      TOrderData,
-      | "userId"
-      | "orderItems"
-      | "subTotal"
-      | "shippingCharge"
-      | "tax"
-      | "grandTotal"
-      | "shippingMethod"
-      | "shippingAddress"
-    >;
+    orderData = JSON.parse(decodedCookie) as TOrderData;
   } catch (err) {
     return null;
   }
 
-  const {userId, orderItems, shippingAddress, shippingCharge, shippingMethod, subTotal, tax, grandTotal} = orderData;
-  const {addressCategory, recipientsName, phoneNumber, address, city, postalCode, state, country} = shippingAddress;
+  const {
+    orderItems,
+    shippingCharge,
+    grandTotal,
+    shippingAddress,
+    subTotal,
+    tax,
+  } = orderData as TOrderData;
+  const {
+    addressCategory,
+    recipientsName,
+    phoneNumber,
+    address,
+    city,
+    postalCode,
+    state,
+    country,
+  } = shippingAddress;
 
   return (
     <main className="p-3 xl:p-16">
@@ -68,8 +76,12 @@ const PaymentPage = async () => {
             <h1>{recipientsName}</h1>
             <p>{phoneNumber}</p>
             <p>{address}</p>
-            <p>{city}-{postalCode}</p>
-            <p>{state}, {country}</p>
+            <p>
+              {city}-{postalCode}
+            </p>
+            <p>
+              {state}, {country}
+            </p>
           </div>
 
           <div className="space-y-5 mt-10">
@@ -82,7 +94,7 @@ const PaymentPage = async () => {
           </div>
 
           <div className="mt-10 border-t">
-            <PaymentOptints data={orderData} />
+            <PaymentOptints order={orderData} />
           </div>
         </div>
 
@@ -101,10 +113,10 @@ const PaymentPage = async () => {
               <h1 className="text-sm font-medium">In your Shopping Bag</h1>
 
               <div className="flex flex-col gap-3 mt-5">
-                {orderItems?.map((product) => (
+                {orderItems?.map((product, index) => (
                   <ProductCheckoutCard
-                    key={product.productId}
-                    checkoutProduct={product}
+                    key={product?.productId || index}
+                    orderItems={product}
                   />
                 ))}
               </div>

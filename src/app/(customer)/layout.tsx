@@ -1,10 +1,10 @@
 import CustomerSidebar from "@/components/customer/CustomerSidebar";
 import Container from "@/components/reusable/Container";
-import { ProtectedRoute } from "@/components/routes/Protected.route";
 import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navbar/Navbar";
 import { getUserProfile } from "@/lib/api/user/user";
-import { TCustomerProfile, TResponce } from "@/types/types";
+import { TCustomerProfile } from "@/types/customer.type";
+import { TResponce } from "@/types/types";
 import Image from "next/image";
 import { ReactNode } from "react";
 

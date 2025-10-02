@@ -11,25 +11,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { TCartProduct, TError, TResponce } from "@/types/types";
+import { TError, TResponce } from "@/types/types";
 import { GetColorName } from "hex-color-to-color-name";
 import { deleteProductFromCart } from "@/lib/api/cart/cart";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { TCartProduct } from "@/types/cart.type";
 
 const CartProductCard = ({ product }: { product: TCartProduct }) => {
+  // Router for page refreshing
   const router = useRouter();
-  const {
-    _id,
-    productThumbnail,
-    productTitle,
-    quantity,
-    selectedVariant,
-    disscountRate,
-    totalPrice,
-  } = product;
-  const { SKU, size, color } = selectedVariant;
 
+  // Get all information of product
+  const { _id, productId, quantity, selectedVariant } = product;
+  const { title, productFor, price, discount, productImages } = productId;
+  const { color, size, SKU } = selectedVariant;
+
+  // Calculater discount price
+  const discountPrice = price * (discount / 100);
+
+  //  Set productImage
+  const productImage = productImages?.[0];
+
+  // Delete product from cart function
   const handelDeleteProductFromCart = async (cartId: string) => {
     try {
       const res = (await deleteProductFromCart(cartId)) as TResponce;
@@ -48,25 +52,32 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
       {/* Image and product Info */}
       <div className="flex items-start gap-3 h-48 md:h-72 lg:h-60 lg:w-[60%] xl:w-[50%]">
         <div className="relative w-[45%] md:w-[30%] h-full">
-          <Image src={productThumbnail} alt="Product Image" fill />
+          <Image src={productImage} alt="Product Image" fill />
         </div>
 
         <div className="text-xs md:text-sm font-semibold flex flex-col justify-between items-start h-full">
           <div className="space-y-1">
-            <h1>{productTitle}</h1>
-            <p className="text-gray-600">SKU: {SKU}</p>
-            <p className="text-gray-600">Price: ${totalPrice}</p>
+            <h1>{title}</h1>
             <p className="text-gray-600">
+              SKU: <span className="text-black">{SKU}</span>
+            </p>
+            <p className="text-gray-600">
+              Price:{" "}
+              <span className="text-black">
+                ${discount === 0 ? price : discountPrice}
+              </span>
+            </p>
+            <p>
               {GetColorName(color as string)} | {size}
             </p>
           </div>
           <div className="space-y-1">
-            {product?.disscountRate !== 0 && (
+            {discount !== 0 && (
               <p className="flex items-center gap-1.5 text-red-800">
                 <span>
                   <CircleCheck className="size-4 md:size-5" />
                 </span>{" "}
-                {disscountRate}% Off Select Men Styles
+                {discount}% Off Select {productFor} Styles
               </p>
             )}
             <p className="text-gray-600">
@@ -78,7 +89,7 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
             <button className="hover:underline cursor-pointer">Edit</button>
             <span>|</span>
             <button
-              onClick={() => handelDeleteProductFromCart(_id)}
+              onClick={() => handelDeleteProductFromCart(_id as string)}
               className="hover:underline cursor-pointer"
             >
               Remove
@@ -117,7 +128,10 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
         <div className="text-xs md:text-sm font-semibold space-y-1">
           <h1>Total Price</h1>
           <p className="text-gray-600">
-            ${(product?.totalPrice * product?.quantity).toFixed(2)}
+            $
+            {discount === 0
+              ? (price * quantity).toFixed(2)
+              : (discountPrice * quantity).toFixed(2)}
           </p>
         </div>
       </div>
@@ -125,7 +139,12 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
       <div className="lg:hidden text-xs md:text-sm font-semibold flex gap-5 text-gray-600">
         <button className="hover:underline cursor-pointer">Edit</button>
         <span>|</span>
-        <button className="hover:underline cursor-pointer">Remove</button>
+        <button
+          onClick={() => handelDeleteProductFromCart(_id as string)}
+          className="hover:underline cursor-pointer"
+        >
+          Remove
+        </button>
         <span>|</span>
         <button className="hover:underline cursor-pointer">
           Move To Wishlist

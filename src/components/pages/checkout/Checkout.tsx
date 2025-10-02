@@ -2,17 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  TCartProduct,
-  TCustomerProfile,
-  TError,
-  TOrderData,
-  TResponce,
-  TShippingAddress,
-} from "@/types/types";
+import { TError, TResponce } from "@/types/types";
 import { CalculateProductTotalPriceShippingAndTax } from "@/utils";
 import { NotebookPen, Plus } from "lucide-react";
-import Link from "next/link";
 import CartSummary from "../cart/CartSummary";
 import ProductCheckoutCard from "@/components/reusable/ProductCheckoutCard";
 import { useEffect, useState } from "react";
@@ -22,6 +14,10 @@ import { authGuard } from "@/utils/authGuard";
 import { removeOrderData, storeOrderData } from "@/lib/api/orders/orders";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { TCartProduct } from "@/types/cart.type";
+import { TCustomerProfile, TShippingAddress } from "@/types/customer.type";
+import { TOrderData, TOrderItems } from "@/types/order.type";
+import { TCheckoutProduct } from "@/types/checkout.type";
 
 const shippingAddress = true;
 
@@ -35,20 +31,27 @@ const Checkout = ({
   products,
   userData,
 }: {
-  products: TCartProduct[];
+  products: TCheckoutProduct[];
   userData: TCustomerProfile;
 }) => {
+  // Router for refreshing and redirect route
+  const router = useRouter();
+
+  // Get Shipping method and shipping address
   const [shippingMethod, setShippingMethod] = useState<string>("standard");
   const [address, setAddress] = useState<TShippingAddress | undefined>(
     userData?.shippingAddress.find((address) => address.defaultAddress === true)
   );
+  // Set loading state for button loading
   const [loading, setLoading] = useState<boolean>(false);
 
-  const router = useRouter();
-
+  // Cal culate product price shipping charge tax
   const { subTotal, shippingCharge, tax, grandTotal } =
     CalculateProductTotalPriceShippingAndTax(products, shippingMethod);
 
+  console.log(userData);
+
+  // Shipping method
   const shippingMethods = [
     {
       method: "Standard",
@@ -73,9 +76,22 @@ const Checkout = ({
     },
   ];
 
-  const ordersData = {
+  const items = products.map((order: TCartProduct) => ({
+    productId: order?.productId._id,
+    title: order?.productId.title,
+    productFor: order?.productId.productFor,
+    price: order?.productId.price,
+    discount: order?.productId.discount,
+    productImages: order?.productId.productImages[0],
+    quantity: order?.quantity,
+    color: order?.selectedVariant.color,
+    size: order?.selectedVariant.size,
+    SKU: order?.selectedVariant.SKU,
+  }));
+
+  const orderData = {
     userId: userData?.userId._id,
-    orderItems: products,
+    orderItems: items,
     subTotal,
     shippingCharge,
     tax,
@@ -84,29 +100,18 @@ const Checkout = ({
     shippingAddress: address,
   };
 
-  const handleStoreOrderData = async (
-    data: Pick<
-      TOrderData,
-      | "userId"
-      | "orderItems"
-      | "shippingCharge"
-      | "tax"
-      | "grandTotal"
-      | "shippingMethod"
-      | "shippingAddress"
-    >
-  ) => {
+  const handleStoreOrderData = async (data: TOrderData) => {
     await authGuard();
+
     setLoading(true);
     try {
-      const res = (await storeOrderData(data)) as TResponce;
-      if (res.success) {
-        router.push("/checkout/payment");
-      }
+      (await storeOrderData(data)) as TResponce;
+      router.push("/checkout/payment");
       setLoading(false);
     } catch (err) {
       const toastId = toast.loading("Loading");
       const error = err as TError;
+      console.log(error);
       toast.error(error?.data?.message, { id: toastId });
       setLoading(false);
     }
@@ -250,20 +255,7 @@ const Checkout = ({
 
         <div className="w-full mt-10">
           <button
-            onClick={() =>
-              handleStoreOrderData(
-                ordersData as Pick<
-                  TOrderData,
-                  | "userId"
-                  | "orderItems"
-                  | "shippingCharge"
-                  | "tax"
-                  | "grandTotal"
-                  | "shippingMethod"
-                  | "shippingAddress"
-                >
-              )
-            }
+            onClick={() => handleStoreOrderData(orderData as TOrderData)}
             className="btn hover:underline"
           >
             {loading ? <Spinner /> : "Continue To Payment"}
@@ -286,10 +278,10 @@ const Checkout = ({
             <h1 className="text-sm font-medium">In your Shopping Bag</h1>
 
             <div className="flex flex-col gap-3 mt-5">
-              {products.map((product: TCartProduct) => (
+              {items.map((item) => (
                 <ProductCheckoutCard
-                  key={product.productId}
-                  checkoutProduct={product}
+                  key={item.productId}
+                  orderItems={item as TOrderItems}
                 />
               ))}
             </div>
