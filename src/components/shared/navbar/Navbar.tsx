@@ -5,7 +5,7 @@ import Link from "next/link";
 import Searchbar from "./searchBar/Searchbar";
 import ProfileMenu from "@/components/customer/ProfileMenu";
 import { currentUser } from "@/lib/api/currentUser";
-import { TUser } from "@/types/user.type";
+import { TUser } from "@/types/user";
 
 const Navbar = async () => {
   const user = (await currentUser()) as TUser;

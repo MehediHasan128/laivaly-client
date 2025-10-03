@@ -3,6 +3,7 @@ import { getOrdersByUserId } from "@/lib/api/orders/orders";
 import { TOrderData } from "@/types/order.type";
 import { TResponce } from "@/types/types";
 import Link from "next/link";
+import React from "react";
 
 export const metadata = {
   title: "Orders",
@@ -18,17 +19,12 @@ export const metadata = {
   ],
 };
 
-const OrdersPage = async () => {
+const OrderPage = async () => {
   const orsersData = (await getOrdersByUserId()) as TResponce;
   const orders = orsersData?.data;
 
   return (
-    <main className="space-y-5">
-      <div className="space-y-5">
-        <h1 className="text-xl md:text-2xl font-semibold">Orders</h1>
-        <div className="border-t" />
-      </div>
-
+    <main>
       {!orders?.length && (
         <>
           <div className="my-5 md:my-10 space-y-2 md:space-y-4 text-sm md:text-base font-medium text-gray-700">
@@ -55,4 +51,4 @@ const OrdersPage = async () => {
   );
 };
 
-export default OrdersPage;
+export default OrderPage;
