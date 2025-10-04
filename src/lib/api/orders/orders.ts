@@ -37,6 +37,13 @@ export const getOrdersByUserId = () => {
   });
 };
 
+export const getSingleOrdersByUserId = (orderId: string) => {
+  return baseApi({
+    endPoints: `/orders/my/${orderId}`,
+    options: { method: "GET" },
+  });
+};
+
 export const canceledOrder = (orderId: string) => {
   return baseApi({
     endPoints: `/orders/cancel-order/${orderId}`,

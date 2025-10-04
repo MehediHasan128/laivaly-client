@@ -49,8 +49,6 @@ const Checkout = ({
   const { subTotal, shippingCharge, tax, grandTotal } =
     CalculateProductTotalPriceShippingAndTax(products, shippingMethod);
 
-  console.log(userData);
-
   // Shipping method
   const shippingMethods = [
     {

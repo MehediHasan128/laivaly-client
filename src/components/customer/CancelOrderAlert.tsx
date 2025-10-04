@@ -17,10 +17,10 @@ import { TError, TResponce } from "@/types/types";
 import Spinner from "../reusable/Spinner";
 
 interface TAlertProps {
-  _id: string;
-  orderId: string;
-  orderDate: string;
-  grandTotal: number;
+  _id: string | undefined;
+  orderId: string | undefined;
+  orderDate: string | undefined;
+  grandTotal: number | undefined;
 }
 
 const CancelOrderAlert = ({ alertProps }: { alertProps: TAlertProps }) => {

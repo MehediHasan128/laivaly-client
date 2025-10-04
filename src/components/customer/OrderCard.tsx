@@ -4,6 +4,7 @@ import { BsBoxSeam } from "react-icons/bs";
 import { format, addDays } from "date-fns";
 import CancelOrderAlert from "./CancelOrderAlert";
 import { TOrderData } from "@/types/order.type";
+import OrderDetailsDrawer from "./OrderDetailsDrawer";
 
 const OrderCard = ({ order }: { order: TOrderData }) => {
   const {
@@ -25,7 +26,7 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
     country,
   } = shippingAddress;
 
-  const orderDate = format(new Date(createdAt), "do MMMM yyyy");
+  const orderDate = format(new Date(createdAt as string), "do MMMM yyyy");
 
   const alertProps = {
     _id,
@@ -43,7 +44,10 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
     shippindDuration = 1;
   }
 
-  const duration = addDays(new Date(createdAt), shippindDuration as number);
+  const duration = addDays(
+    new Date(createdAt as string),
+    shippindDuration as number
+  );
   const shippingDate = format(new Date(duration), "EEEE, do MMMM yyyy");
 
   return (
@@ -80,7 +84,7 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
         <h1 className="font-bold text-sm">
           <span className="text-gray-700">Total Price:</span> ${grandTotal}
         </h1>
-        <button className="btn py-2.5">Order Details</button>
+        <OrderDetailsDrawer orderId={_id as string} />
         {orderStatus === "pending" && (
           <CancelOrderAlert alertProps={alertProps} />
         )}

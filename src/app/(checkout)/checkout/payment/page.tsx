@@ -18,14 +18,6 @@ export const metadata = {
     "Cash on delivery",
     "secure payment",
   ],
-  openGraph: {
-    title: "Laivaly Payment",
-    description:
-      "Select Stripe, PayPal, or Cash on Delivery to complete your purchase securely.",
-    url: "https://laivaly.com/checkout/payment",
-    siteName: "Laivaly",
-    type: "website",
-  },
 };
 
 const PaymentPage = async () => {
