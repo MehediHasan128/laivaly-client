@@ -37,9 +37,9 @@ export const getOrdersByUserId = () => {
   });
 };
 
-export const getSingleOrdersByUserId = (orderId: string) => {
+export const getOrdersHistoryByUserId = () => {
   return baseApi({
-    endPoints: `/orders/my/${orderId}`,
+    endPoints: '/orders/order-history',
     options: { method: "GET" },
   });
 };

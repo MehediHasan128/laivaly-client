@@ -23,9 +23,9 @@ const OrderDetils = ({ order }: { order: TOrderData }) => {
           {orderItems.length} items
         </h1>
         {orderItems.map((item: TOrderItems) => (
-          <div key={item?.SKU} className="p-5 border-b">
+          <div key={item?.SKU} className="p-3 md:p-5 border-b">
             <div className="flex gap-2">
-              <div className="relative h-42 w-[20%]">
+              <div className="relative h-28 md:h-42 w-[20%]">
                 <Image
                   src={item.productImages}
                   alt={item.title}
@@ -33,7 +33,7 @@ const OrderDetils = ({ order }: { order: TOrderData }) => {
                   quality={100}
                 />
               </div>
-              <div className="text-sm font-semibold space-y-1.5">
+              <div className="text-xs md:text-sm font-semibold space-y-1 md:space-y-1.5">
                 <h1>{item.title}</h1>
                 <p>{item.SKU}</p>
                 <p>
@@ -51,7 +51,7 @@ const OrderDetils = ({ order }: { order: TOrderData }) => {
           </div>
         ))}
       </div>
-      <div className="p-5 text-sm font-semibold space-y-1.5 mt-auto">
+      <div className="p-5 text-xs md:text-sm font-semibold space-y-1.5 mt-auto">
         <h1 className="text-gray-600">
           OrderId: <span className="text-black">{orderId}</span>
         </h1>
@@ -72,7 +72,7 @@ const OrderDetils = ({ order }: { order: TOrderData }) => {
           <span className="text-black">{orderStatus?.toUpperCase()}</span>
         </h1>
       </div>
-      <div className="p-5 text-sm font-semibold space-y-1.5 mt-auto">
+      <div className="p-5 text-xs md:text-sm font-semibold space-y-1.5 mt-auto">
         <div className="flex justify-between ">
           <span>Subtotal:</span>
           <span>${subTotal}</span>

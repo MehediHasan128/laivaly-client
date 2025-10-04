@@ -1,5 +1,5 @@
 import OrderCard from "@/components/customer/OrderCard";
-import { getOrdersByUserId } from "@/lib/api/orders/orders";
+import { getOrdersHistoryByUserId } from "@/lib/api/orders/orders";
 import { TOrderData } from "@/types/order.type";
 import { TResponce } from "@/types/types";
 import Link from "next/link";
@@ -20,15 +20,13 @@ export const metadata = {
   ],
 };
 
-
-const OrderHistory = async() => {
-
-    const orsersData = (await getOrdersByUserId()) as TResponce;
-      const orders = orsersData?.data;
+const OrderHistory = async () => {
+  const orsersData = (await getOrdersHistoryByUserId()) as TResponce;
+  const ordersHistory = orsersData?.data;
 
   return (
     <main>
-      {!orders?.length && (
+      {!ordersHistory?.length && (
         <>
           <div className="my-5 md:my-10 space-y-2 md:space-y-4 text-sm md:text-base font-medium text-gray-700">
             <p>You don’t have any orders yet</p>
@@ -43,10 +41,10 @@ const OrderHistory = async() => {
         </>
       )}
 
-      {orders?.length > 0 && (
+      {ordersHistory?.length > 0 && (
         <>
-          {orders?.map((order: TOrderData) => (
-            <OrderCard key={order?._id} order={order} />
+          {ordersHistory?.map((order: TOrderData) => (
+            <OrderCard key={order?._id} order={order} isHistoryCard />
           ))}
         </>
       )}

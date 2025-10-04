@@ -1,4 +1,6 @@
-import { TCartProduct, TPartialProductData, TRatingData } from "@/types/types";
+import { TCartProduct } from "@/types/cart.type";
+import { TPartialProductData } from "@/types/product.type";
+import { TRatingData } from "@/types/types";
 import { jwtDecode } from "jwt-decode";
 
 // Decoded user token
@@ -129,3 +131,7 @@ export const generateDateAndYearOptions = (start: number, end: number) => {
 
   return options;
 };
+
+export const capitalizeFirstLetter = (text: string) => {
+   return text.charAt(0).toUpperCase() + text.slice(1);
+}

@@ -2,19 +2,20 @@
 
 import { TProduct } from "@/types/product.type";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const NewArrivalCard = ({
   product,
 }: {
-  product: Pick<TProduct, "_id" | "title" | "productThumbnail" | "productImages" | "price">;
+  product: Pick<TProduct, "_id" | "title" | "productThumbnail" | "productImages" | "price" | "productFor">;
 }) => {
   const [productThumbnail, setProductThumbnail] = useState<string>(
     product?.productThumbnail
   );
 
   return (
-    <div className="rounded-lg overflow-hidden">
+    <Link href={`/products/${product?.productFor}/${product?._id}`} className="rounded-lg overflow-hidden">
       {/* Product Image */}
       <div
         className="h-48 md:h-56 lg:h-72 2xl:h-80 cursor-pointer"
@@ -45,7 +46,7 @@ const NewArrivalCard = ({
         )}
         <h1>${product?.price}</h1>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import {
   Drawer,
@@ -8,27 +10,42 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-import { getSingleOrdersByUserId } from "@/lib/api/orders/orders";
-import { TResponce } from "@/types/types";
 import { TOrderData } from "@/types/order.type";
 import OrderDetils from "./OrderDetils";
 
-const OrderDetailsDrawer = ({ orderId }: { orderId: string }) => {
-  const [orderDetails, setOrderDetails] = useState<TOrderData>();
+const OrderDetailsDrawer = ({ order }: { order: TOrderData }) => {
+  const [direction, setDirection] = useState<"right" | "bottom">("bottom");
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+  //   const getOrderDetails = async () => {
+  //     const data = (await getSingleOrdersByUserId(orderId)) as TResponce;
+  //     setOrderDetails(data?.data as TOrderData);
+  //   };
+
+  //   getOrderDetails();
+  // }, [orderId]);
 
   useEffect(() => {
-    const getOrderDetails = async () => {
-      const data = (await getSingleOrdersByUserId(orderId)) as TResponce;
-      setOrderDetails(data?.data as TOrderData);
+    const updateDirection = () => {
+      if (window.innerWidth >= 1024) {
+        setDirection("right");
+      } else {
+        setDirection("bottom");
+      }
     };
 
-    getOrderDetails();
-  }, [orderId]);
+    updateDirection();
 
-  console.log(orderDetails);
+    window.addEventListener("resize", updateDirection);
+
+    return () => window.removeEventListener("resize", updateDirection);
+  }, []);
 
   return (
-    <Drawer direction="right">
+    <Drawer
+      direction={direction}
+      open={openDrawer}
+      onOpenChange={setOpenDrawer}
+    >
       <DrawerTrigger asChild>
         <button className="btn py-2.5">Order Details</button>
       </DrawerTrigger>
@@ -37,8 +54,8 @@ const OrderDetailsDrawer = ({ orderId }: { orderId: string }) => {
           <DrawerTitle className="text-center">Order Details</DrawerTitle>
         </DrawerHeader>
 
-        <div className="h-full">
-          {orderDetails && <OrderDetils order={orderDetails as TOrderData} />}
+        <div className="h-full overflow-scroll scrollbar-hide">
+          {order && <OrderDetils order={order as TOrderData} />}
         </div>
 
         <DrawerFooter>

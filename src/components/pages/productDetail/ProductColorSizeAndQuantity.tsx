@@ -19,6 +19,8 @@ interface TProductColorSizeAndQuantityProps {
 const ProductColorSizeAndQuantity = ({
   product,
 }: TProductColorSizeAndQuantityProps) => {
+  const { _id, title, price, discount, productFor, productImages } = product;
+
   // User router
   const router = useRouter();
   // Find product variants
@@ -59,22 +61,24 @@ const ProductColorSizeAndQuantity = ({
     }
   }, [productSize]);
 
-  const productData = {
-    productId: {
-      _id: product?._id,
-      title: product?.title,
-      productFor: product?.productFor,
-      price: product?.price,
-      discount: product?.discount,
-      productImages: product?.productImages[0],
-    },
-    quantity,
-    selectedVariant: {
-      color: productColor && productColor,
-      size: productSize && productSize,
-      SKU: productSKU as string,
-    },
-  };
+  // Single product data
+  const singleProductData = 
+    {
+      productId: {
+        _id,
+        title,
+        productFor,
+        price,
+        discount,
+        productImages: [productImages[0]],
+      },
+      quantity,
+      selectedVariant: {
+        color: productColor,
+        size: productSize,
+        SKU: productSKU,
+      },
+    };
 
   const handleBuySingleProduct = async () => {
     await authGuard();
@@ -86,9 +90,7 @@ const ProductColorSizeAndQuantity = ({
     if (productSize && quantity) {
       setBuyLoading(true);
       try {
-        const res = (await buySingleProduct(
-          productData as TCartProduct
-        )) as TResponce;
+        const res = (await buySingleProduct(singleProductData as TCartProduct)) as TResponce;
         if (res.success) {
           router.push("/checkout");
         }

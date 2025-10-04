@@ -48,6 +48,8 @@ const CheckOutPage = async () => {
     orderProducts = items || [];
   };
 
+  console.log(orderProducts);
+
   return (
     <main className="p-3 xl:p-16">
       <div className="flex flex-col-reverse lg:flex-row xl:w-[90%] 2xl:w-[80%] gap-10 mx-auto">

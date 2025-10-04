@@ -5,8 +5,15 @@ import { format, addDays } from "date-fns";
 import CancelOrderAlert from "./CancelOrderAlert";
 import { TOrderData } from "@/types/order.type";
 import OrderDetailsDrawer from "./OrderDetailsDrawer";
+import { capitalizeFirstLetter } from "@/utils";
 
-const OrderCard = ({ order }: { order: TOrderData }) => {
+const OrderCard = ({
+  order,
+  isHistoryCard,
+}: {
+  order: TOrderData;
+  isHistoryCard?: boolean;
+}) => {
   const {
     _id,
     orderId,
@@ -62,11 +69,25 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
         </h1>
         <h1>
           <span className="text-gray-700">Shipping Method:</span>{" "}
-          {shippingMethod}
+          {capitalizeFirstLetter(shippingMethod as string)}
         </h1>
-        <p className="font-semibold text-green-700">
-          Estimated delivery {shippingDate}
-        </p>
+        {!isHistoryCard && (
+          <p className="font-semibold text-green-700">
+            Estimated delivery {shippingDate}
+          </p>
+        )}
+        {isHistoryCard && (
+          <h1>
+            <span className="text-gray-700">Order Status:</span>{" "}
+            <span
+              className={`${
+                orderStatus === "cancelled" ? "text-red-700" : "text-green-700"
+              }`}
+            >
+              {capitalizeFirstLetter(orderStatus as string)}
+            </span>
+          </h1>
+        )}
       </div>
 
       <div>
@@ -84,7 +105,7 @@ const OrderCard = ({ order }: { order: TOrderData }) => {
         <h1 className="font-bold text-sm">
           <span className="text-gray-700">Total Price:</span> ${grandTotal}
         </h1>
-        <OrderDetailsDrawer orderId={_id as string} />
+        <OrderDetailsDrawer order={order} />
         {orderStatus === "pending" && (
           <CancelOrderAlert alertProps={alertProps} />
         )}

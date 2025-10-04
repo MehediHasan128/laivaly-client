@@ -2,6 +2,7 @@ import EditPasswordDrawer from "@/components/customer/EditPasswordDrawer";
 import { getUserProfile } from "@/lib/api/user/user";
 import { TCustomerProfile } from "@/types/customer.type";
 import { TResponce } from "@/types/types";
+import { capitalizeFirstLetter } from "@/utils";
 
 export const metadata = {
   title: "Account Overview",
@@ -22,6 +23,8 @@ export const metadata = {
 const CustomerAccountPage = async () => {
   const data = (await getUserProfile()) as TResponce;
   const customerData = data?.data as TCustomerProfile;
+
+  const {userEmail, customerId, userName, phoneNumber, dateOfBirth, gender} = customerData;
 
   return (
     <main className="space-y-10 md:space-y-16">
@@ -45,7 +48,7 @@ const CustomerAccountPage = async () => {
                 </div>
 
                 <div className="space-y-3 md:space-y-5">
-                  <h1>{customerData?.userEmail}</h1>
+                  <h1>{userEmail}</h1>
                   <h1>
                     *****{" "}
                     <EditPasswordDrawer>
@@ -67,10 +70,10 @@ const CustomerAccountPage = async () => {
                   <h1>Gender</h1>
                 </div>
                 <div className="space-y-3 md:space-y-5">
-                  <h1>{customerData?.customerId}</h1>
+                  <h1>{customerId}</h1>
                   <h1>
-                    {customerData?.userName?.firstName}{" "}
-                    {customerData?.userName?.lastName}
+                    {userName?.firstName}{" "}
+                    {userName?.lastName}
                   </h1>
 
                   <h1>
@@ -79,7 +82,7 @@ const CustomerAccountPage = async () => {
                         Add Phone Number
                       </span>
                     ) : (
-                      customerData?.phoneNumber
+                      phoneNumber
                     )}
                   </h1>
                   <h1>
@@ -88,16 +91,16 @@ const CustomerAccountPage = async () => {
                         Add Birthday
                       </span>
                     ) : (
-                      customerData?.dateOfBirth
+                      dateOfBirth
                     )}
                   </h1>
                   <h1>
-                    {customerData?.gender === null ? (
+                    {gender === null ? (
                       <span className="text-gray-700 underline cursor-pointer hover:text-black duration-500">
                         Add Gender
                       </span>
                     ) : (
-                      customerData?.gender
+                      capitalizeFirstLetter(gender)
                     )}
                   </h1>
                 </div>
