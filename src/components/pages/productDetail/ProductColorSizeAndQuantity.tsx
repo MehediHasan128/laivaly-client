@@ -3,6 +3,7 @@
 import Spinner from "@/components/reusable/Spinner";
 import { addProductToCart } from "@/lib/api/cart/cart";
 import { buySingleProduct, removeOrderData } from "@/lib/api/orders/orders";
+import { addProductToWishlist } from "@/lib/api/wishlist/wishlist";
 import { TCreateCartData, TCartProduct } from "@/types/cart.type";
 import { TProduct, TProductVariant } from "@/types/product.type";
 import { TError, TResponce } from "@/types/types";
@@ -62,23 +63,22 @@ const ProductColorSizeAndQuantity = ({
   }, [productSize]);
 
   // Single product data
-  const singleProductData = 
-    {
-      productId: {
-        _id,
-        title,
-        productFor,
-        price,
-        discount,
-        productImages: [productImages[0]],
-      },
-      quantity,
-      selectedVariant: {
-        color: productColor,
-        size: productSize,
-        SKU: productSKU,
-      },
-    };
+  const singleProductData = {
+    productId: {
+      _id,
+      title,
+      productFor,
+      price,
+      discount,
+      productImages: [productImages[0]],
+    },
+    quantity,
+    selectedVariant: {
+      color: productColor,
+      size: productSize,
+      SKU: productSKU,
+    },
+  };
 
   const handleBuySingleProduct = async () => {
     await authGuard();
@@ -90,7 +90,9 @@ const ProductColorSizeAndQuantity = ({
     if (productSize && quantity) {
       setBuyLoading(true);
       try {
-        const res = (await buySingleProduct(singleProductData as TCartProduct)) as TResponce;
+        const res = (await buySingleProduct(
+          singleProductData as TCartProduct
+        )) as TResponce;
         if (res.success) {
           router.push("/checkout");
         }
@@ -135,6 +137,18 @@ const ProductColorSizeAndQuantity = ({
         toast.error(error?.data?.message, { id: toastId });
         setCartLoading(false);
       }
+    }
+  };
+
+  const handleProductAddToWishlist = async (productId: string) => {
+    await authGuard();
+    const toastId = toast.loading("Loading");
+    try {
+      const res = (await addProductToWishlist(productId)) as TResponce;
+      toast.success(res.message, { id: toastId });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
     }
   };
 
@@ -263,7 +277,10 @@ const ProductColorSizeAndQuantity = ({
         >
           {cartLoading ? <Spinner isDark={false} /> : "Add To Cart"}
         </button>
-        <button className="btn rounded-full w-fit px-5 bg-white border text-black">
+        <button
+          onClick={() => handleProductAddToWishlist(_id)}
+          className="btn rounded-full w-fit px-5 bg-white border text-black"
+        >
           <Heart className="size-5" />
         </button>
       </div>
