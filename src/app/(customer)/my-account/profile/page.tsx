@@ -1,4 +1,5 @@
 import ProfileUpdateForm from "@/components/customer/ProfileUpdateForm";
+import ProfileUploader from "@/components/customer/ProfileUploader";
 import { getUserProfile } from "@/lib/api/user/user";
 import { TCustomerProfile } from "@/types/customer.type";
 import { TResponce } from "@/types/types";
@@ -27,6 +28,10 @@ const ProfilePage = async () => {
           <div className="space-y-3">
             <h1 className="text-2xl">Personal Information</h1>
             <div className="border-t" />
+          </div>
+
+          <div>
+            <ProfileUploader defaultImageURL={customerData?.userId.userProfileURL} />
           </div>
 
           <div className="my-5 space-y-5 md:space-y-8">

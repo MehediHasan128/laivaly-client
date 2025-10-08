@@ -13,3 +13,10 @@ export const createCustomerAcoount = (customerData: object) => {
     options: { method: "POST", body: JSON.stringify(customerData) },
   });
 };
+
+export const uploadProfilePicture = (formData: FormData) => {
+  return baseApi({
+    endPoints: "/users/add-profile-picture",
+    options: { method: "POST", body: formData },
+  });
+};

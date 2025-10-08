@@ -20,10 +20,11 @@ export async function baseApi<T>({
   endPoints,
   options = {},
 }: TBaseApiProps): Promise<T> {
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-    ...(options.headers || {}),
-  };
+  const headers: HeadersInit = options.headers || {};
+
+  if (!(options.body instanceof FormData)) {
+    (headers as Record<string, string>)["Content-Type"] = "application/json";
+  }
 
   let fetchOptions: RequestInit & { next?: { revalidate?: number | false } } = {
     ...options,
