@@ -6,7 +6,7 @@ import { currentUser } from "@/lib/api/currentUser";
 import { getShippingAddress } from "@/lib/api/customer/customerApi";
 import { TShippingAddress } from "@/types/customer.type";
 import { TResponce } from "@/types/types";
-import { TUser } from "@/types/user.type";
+import { TUser } from "@/types/user";
 
 export const metadata = {
   title: "Shipping Addresses",

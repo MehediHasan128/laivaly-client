@@ -7,6 +7,7 @@ import { addProductToWishlist } from "@/lib/api/wishlist/wishlist";
 import { TCreateCartData, TCartProduct } from "@/types/cart.type";
 import { TProduct, TProductVariant } from "@/types/product.type";
 import { TError, TResponce } from "@/types/types";
+import { TUser } from "@/types/user";
 import { authGuard } from "@/utils/authGuard";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -15,10 +16,14 @@ import { toast } from "sonner";
 
 interface TProductColorSizeAndQuantityProps {
   product: TProduct;
+  user: TUser | null;
+  isProductExistToWishlist: boolean;
 }
 
 const ProductColorSizeAndQuantity = ({
   product,
+  user,
+  isProductExistToWishlist,
 }: TProductColorSizeAndQuantityProps) => {
   const { _id, title, price, discount, productFor, productImages } = product;
 
@@ -146,10 +151,15 @@ const ProductColorSizeAndQuantity = ({
     try {
       const res = (await addProductToWishlist(productId)) as TResponce;
       toast.success(res.message, { id: toastId });
+      router.refresh();
     } catch (err) {
       const error = err as TError;
       toast.error(error?.data?.message, { id: toastId });
     }
+  };
+
+  const handleAddProductToLocaStorageWishlist = () => {
+    console.log(5);
   };
 
   useEffect(() => {
@@ -278,8 +288,16 @@ const ProductColorSizeAndQuantity = ({
           {cartLoading ? <Spinner isDark={false} /> : "Add To Cart"}
         </button>
         <button
-          onClick={() => handleProductAddToWishlist(_id)}
-          className="btn rounded-full w-fit px-5 bg-white border text-black"
+          onClick={() => {
+            if (user) {
+              handleProductAddToWishlist(_id);
+            } else {
+              handleAddProductToLocaStorageWishlist();
+            }
+          }}
+          className={`btn rounded-full w-fit px-5 bg-white border text-black ${
+            isProductExistToWishlist && "border-red-700 text-red-700"
+          }`}
         >
           <Heart className="size-5" />
         </button>

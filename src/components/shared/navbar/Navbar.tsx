@@ -1,4 +1,4 @@
-import { Handbag, Search, UserRound } from "lucide-react";
+import { Handbag, Heart, Search, UserRound } from "lucide-react";
 import Image from "next/image";
 import SidebarButton from "./sideBar/SidebarButton";
 import Link from "next/link";
@@ -34,12 +34,15 @@ const Navbar = async () => {
           </div>
         </Link>
 
-        <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex items-center gap-3 md:gap-5 2xl:gap-6">
+          <Link href="/wishlist">
+            <Heart className="cursor-pointer size-5 2xl:size-6" />
+          </Link>
           <Link href="/cart">
-            <Handbag className="cursor-pointer size-5 md:size-6" />
+            <Handbag className="cursor-pointer size-5 2xl:size-6" />
           </Link>
           <ProfileMenu user={user}>
-            <UserRound className="cursor-pointer size-5 md:size-6" />
+            <UserRound className="cursor-pointer size-5 2xl:size-6" />
           </ProfileMenu>
         </div>
       </div>

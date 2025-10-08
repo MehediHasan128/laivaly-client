@@ -3,11 +3,15 @@ import ProductDescriptionDrawer from "@/components/pages/productDetail/ProductDe
 import ProductImages from "@/components/pages/productDetail/ProductImages";
 import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewDrawer";
 import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
+import { currentUser } from "@/lib/api/currentUser";
 import { getAllProducts, getSingleProducts } from "@/lib/api/products/products";
+import { productExistToWishlist } from "@/lib/api/wishlist/wishlist";
 import { TProduct } from "@/types/product.type";
 import { TResponce } from "@/types/types";
+import { TUser } from "@/types/user";
 import { ChevronRight } from "lucide-react";
 import { Metadata } from "next";
+import { use } from "react";
 
 export async function generateMetadata({
   params,
@@ -31,10 +35,19 @@ const ProductDetailsPage = async ({
 }) => {
   const { productId } = await params;
 
+  const user = (await currentUser()) as TUser;
+
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
 
-  const { season, productGroup, productCategory, productSubCategory } = product;
+  const { _id, season, productGroup, productCategory, productSubCategory } =
+    product;
+
+  let isProductExistToWishlist = false;
+  if (user !== null) {
+    const { data } = (await productExistToWishlist(_id)) as TResponce;
+    isProductExistToWishlist = data;
+  }
 
   const relatedProducts = (await getAllProducts([
     { field: "limit", value: "6" },
@@ -93,7 +106,11 @@ const ProductDetailsPage = async ({
               </p>
             </div>
 
-            <ProductColorSizeAndQuantity product={product} />
+            <ProductColorSizeAndQuantity
+              product={product}
+              user={user}
+              isProductExistToWishlist={isProductExistToWishlist}
+            />
 
             <div className="mt-12">
               <div className="w-full border-b mb-5" />

@@ -3,6 +3,7 @@ import { getUserProfile } from "@/lib/api/user/user";
 import { TCustomerProfile } from "@/types/customer.type";
 import { TResponce } from "@/types/types";
 import { capitalizeFirstLetter } from "@/utils";
+import Image from "next/image";
 
 export const metadata = {
   title: "Account Overview",
@@ -24,12 +25,33 @@ const CustomerAccountPage = async () => {
   const data = (await getUserProfile()) as TResponce;
   const customerData = data?.data as TCustomerProfile;
 
-  const {userEmail, customerId, userName, phoneNumber, dateOfBirth, gender} = customerData;
+  const {
+    userEmail,
+    customerId,
+    userName,
+    phoneNumber,
+    dateOfBirth,
+    gender,
+    userId,
+  } = customerData;
+  const { userProfileURL } = userId;
 
   return (
     <main className="space-y-10 md:space-y-16">
       <div className="font-medium">
         <h1 className="text-2xl md:text-4xl">Overview</h1>
+
+        {userProfileURL && (
+          <div className="relative size-52 mt-5 rounded-lg overflow-hidden">
+            <Image
+              src={userProfileURL}
+              alt={userName.firstName}
+              quality={100}
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
 
         <div className="my-5 space-y-5 md:space-y-8">
           <div className="space-y-3">
@@ -72,8 +94,7 @@ const CustomerAccountPage = async () => {
                 <div className="space-y-3 md:space-y-5">
                   <h1>{customerId}</h1>
                   <h1>
-                    {userName?.firstName}{" "}
-                    {userName?.lastName}
+                    {userName?.firstName} {userName?.lastName}
                   </h1>
 
                   <h1>

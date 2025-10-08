@@ -1,6 +1,10 @@
 import Button from "@/components/reusable/Button";
 import WishlistProductCard from "@/components/reusable/WishlistProductCard";
+import { currentUser } from "@/lib/api/currentUser";
+import { getAllProductFromWishlist } from "@/lib/api/wishlist/wishlist";
 import { smoochsans } from "@/styles/font";
+import { TProduct } from "@/types/product.type";
+import { TResponce } from "@/types/types";
 import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
@@ -11,8 +15,11 @@ export const metadata: Metadata = {
     "Discover the latest in fashion at Laivaly – your go-to destination for stylish, high-quality clothing for men, women, and kids. Enjoy fast delivery, secure checkout, and unbeatable prices.",
 };
 
-const WishlistPage = () => {
-  const user = true;
+const WishlistPage = async () => {
+  const user = (await currentUser()) as TResponce;
+
+  const data = (await getAllProductFromWishlist()) as TResponce;
+  const products = data?.data;
 
   return (
     <div>
@@ -43,14 +50,13 @@ const WishlistPage = () => {
           >
             favourites
           </h1>
-          <p className="text-lg font-semibold">2 Items</p>
+          <p className="text-lg font-semibold">{products?.length} Items</p>
         </div>
 
-        <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-5">
-            <WishlistProductCard />
-            <WishlistProductCard />
-            <WishlistProductCard />
-            <WishlistProductCard />
+        <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-y-5">
+          {products.map((product: TProduct) => (
+            <WishlistProductCard key={product?._id} product={product} />
+          ))}
         </div>
       </div>
     </div>
