@@ -11,7 +11,6 @@ import { TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
 import { ChevronRight } from "lucide-react";
 import { Metadata } from "next";
-import { use } from "react";
 
 export async function generateMetadata({
   params,
@@ -35,13 +34,24 @@ const ProductDetailsPage = async ({
 }) => {
   const { productId } = await params;
 
+  // Get user data
   const user = (await currentUser()) as TUser;
 
+  // Get the single product
   const data = (await getSingleProducts(productId)) as TResponce;
   const product = data?.data as TProduct;
 
-  const { _id, season, productGroup, productCategory, productSubCategory } =
-    product;
+  // Product desstructuring
+  const {
+    _id,
+    title,
+    season,
+    productGroup,
+    productCategory,
+    productSubCategory,
+    productImages,
+    productReviews,
+  } = product;
 
   let isProductExistToWishlist = false;
   if (user !== null) {
@@ -114,7 +124,13 @@ const ProductDetailsPage = async ({
 
             <div className="mt-12">
               <div className="w-full border-b mb-5" />
-              <ProductReviewDrawer>
+              <ProductReviewDrawer
+              productId={_id}
+                productTitle={title}
+                productImage={productImages?.[0]}
+                userId={user?.userId}
+                productReviewId={productReviews as string}
+              >
                 <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
                   <h1>Reviews</h1>
                   <span className="flex gap-2 items-center">

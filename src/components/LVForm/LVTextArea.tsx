@@ -14,7 +14,6 @@ const LVTextArea = ({
   name,
   placeholder,
   className,
-  setInputValue,
 }: TLVTextAreaProps) => {
   return (
     <>
@@ -23,7 +22,6 @@ const LVTextArea = ({
         render={({ field }) => (
           <Textarea
             {...field}
-            onChange={(e) => setInputValue?.(e.target.value)}
             placeholder={placeholder}
             className={cn(
               "outline-none border focus:border-black w-full rounded font-medium",

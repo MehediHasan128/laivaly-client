@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,9 +13,57 @@ import Ratings from "../../reusable/Ratings";
 import LVTextArea from "../../LVForm/LVTextArea";
 import { Label } from "../../ui/label";
 import LVInput from "../../LVForm/LVInput";
+import { FieldValues } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { addProductReview } from "@/lib/api/review/review";
+import { TError, TResponce } from "@/types/types";
+import Spinner from "@/components/reusable/Spinner";
 
-const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
-  const handleAddReview = async () => {};
+const WriteProductReviewDialog = ({
+  children,
+  productTitle,
+  productImage,
+  userId,
+  productReviewId,
+}: {
+  children: ReactNode;
+  productTitle: string;
+  productImage: string;
+  userId: string;
+  productReviewId: string;
+}) => {
+  const [rating, setRating] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleAddReview = async (data: FieldValues) => {
+    setLoading(true)
+    const reviewData = {
+      userId,
+      rating,
+      comment: data?.comment,
+    };
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(reviewData))
+
+    try {
+      const res = (await addProductReview({
+        reviewId: productReviewId,
+        formData,
+      })) as TResponce;
+      if (res.success) {
+        router.refresh();
+      }
+      setLoading(false);
+    } catch (err) {
+      const toastId = toast.loading("Loading");
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog>
@@ -24,22 +72,15 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
         <DialogHeader>
           <DialogTitle>Please share your experience</DialogTitle>
 
-          <h1 className="text-sm font-medium">
-            Solid Oxford Classic Button-Down Shirt
-          </h1>
+          <h1 className="text-sm font-medium">{productTitle}</h1>
 
           <DialogDescription>
             Your feedback will help other shoppers make good choices, and well
             use it to improve our products.
           </DialogDescription>
 
-          <div className="relative size-42 md:size-64 mx-auto mt-5">
-            <Image
-              src="/images/products/10.jpg"
-              alt="product"
-              quality={100}
-              fill
-            />
+          <div className="relative mt-5 mx-auto md:mx-0 h-64 md:h-80 w-[55%] md:w-[35%] lg:w-[30%] xl:w-[25%]">
+            <Image src={productImage} alt="product" quality={100} fill />
           </div>
         </DialogHeader>
 
@@ -48,7 +89,7 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
             <div className="space-y-10">
               <div className="space-y-2">
                 <Label className="text-sm md:text-base">Rating</Label>
-                <Ratings value={0} size={180} />
+                <Ratings size={170} setRating={setRating} value={rating} />
               </div>
 
               <div className="space-y-1">
@@ -70,8 +111,10 @@ const WriteProductReviewDialog = ({ children }: { children: ReactNode }) => {
               </div>
 
               <div>
-                <button className="bg-black text-white rounded cursor-pointer w-full md:w-[30%] py-3">
-                  Submit
+                <button className="bg-black text-white rounded cursor-pointer w-full md:w-[30%] py-3 flex justify-center">
+                  {
+                    loading ? <Spinner /> : "Submit"
+                  }
                 </button>
               </div>
             </div>

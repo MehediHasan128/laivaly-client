@@ -56,7 +56,7 @@ export interface TProduct {
   perUnitCost: number;
   productThumbnail: string;
   productImages: string[];
-  productReviews: TReviews;
+  productReviews: TReviews | string;
   isDeleted: boolean;
 }
 

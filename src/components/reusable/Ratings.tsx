@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Rating as ReactRating, ThinStar } from "@smastrom/react-rating";
 
 interface TratingProps {
-  value: number;
+  value?: number | undefined;
   transition?: "none" | "zoom" | "colors" | "opacity" | "position";
   readonly?: boolean;
   size?:number;
+  setRating?: Dispatch<SetStateAction<number>>
 };
 
 const myStyles = {
@@ -19,16 +20,12 @@ const myStyles = {
   inactiveStrokeColor: '#d89816'
 }
 
-const Ratings = ({ value, transition, readonly, size = 100 }: TratingProps) => {
-
-  const [rating, setRating] = useState(3.6);
-
-  console.log(rating);
+const Ratings = ({ value, transition, readonly, size = 100, setRating }: TratingProps) => {
 
   return (
     <ReactRating
       style={{ maxWidth: size }}
-      value={value}
+      value={value as number}
       onChange={setRating}
       halfFillMode="svg"
       transition={transition}
