@@ -20,3 +20,10 @@ export const productExistToWishlist = (productId: string) => {
     options: { method: "GET" },
   });
 };
+
+export const productRemoveToWishlist = (productId: string) => {
+  return baseApi({
+    endPoints: `/wishlist/remove-product/${productId}`,
+    options: { method: "DELETE" },
+  });
+};
