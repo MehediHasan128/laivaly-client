@@ -35,6 +35,7 @@ const WriteProductReviewDialog = ({
 }) => {
   const [rating, setRating] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const router = useRouter();
 
   const handleAddReview = async (data: FieldValues) => {
@@ -55,6 +56,7 @@ const WriteProductReviewDialog = ({
       })) as TResponce;
       if (res.success) {
         router.refresh();
+        setOpenDialog(false)
       }
       setLoading(false);
     } catch (err) {
@@ -66,7 +68,7 @@ const WriteProductReviewDialog = ({
   };
 
   return (
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="md:max-w-2xl lg:max-w-3xl xl:max-w-4xl h-[80vh] md:h-[90vh] overflow-scroll scrollbar-hide">
         <DialogHeader>

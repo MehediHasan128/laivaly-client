@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Rating as ReactRating, ThinStar } from "@smastrom/react-rating";
 
 interface TratingProps {

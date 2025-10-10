@@ -21,14 +21,7 @@ import { getProductReview } from "@/lib/api/review/review";
 import { TReviewData } from "@/types/review.type";
 
 const isComment = true;
-
-const ratingData = [
-  { rating: 5, totalRating: 800 },
-  { rating: 4, totalRating: 300 },
-  { rating: 3, totalRating: 120 },
-  { rating: 2, totalRating: 80 },
-  { rating: 1, totalRating: 50 },
-];
+const ratings = [5, 4, 3, 2, 1];
 
 const ProductReviewDrawer = ({
   children,
@@ -75,6 +68,23 @@ const ProductReviewDrawer = ({
     getProductReviews();
   }, [productId]);
 
+  const ratingCount = productReviews?.reduce<Record<number, number>>(
+    (acc, curr) => {
+      acc[curr.rating] = (acc[curr.rating] || 0) + 1;
+      return acc;
+    },
+    {}
+  );
+
+  const ratingData = ratingCount
+    ? Object.entries(ratingCount)
+        .map(([rating, totalRating]) => ({
+          rating: Number(rating),
+          totalRating,
+        }))
+        .sort((a, b) => b.rating - a.rating)
+    : [];
+
   const { avarageRating, ratingPercentages } =
     CalculateAvgRatingAndPercentages(ratingData);
 
@@ -112,25 +122,32 @@ const ProductReviewDrawer = ({
                       <span className="text-base">out of 5 star</span>
                     </h1>
                     <div className={`${!isComment && "hidden"}`}>
-                      <Ratings value={5} readonly />
+                      <Ratings value={Number(avarageRating)} readonly />
                     </div>
                   </div>
                   <div className="w-full md:w-[60%] lg:w-full">
-                    {ratingPercentages.map((percent, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center font-semibold rounded-full space-y-1"
-                      >
-                        <IoStarSharp className="text-xl" />
-                        <h1 className="w-8 text-center">{percent.rating}</h1>
-                        <div className="h-1 w-full bg-accent">
-                          <div
-                            className="h-full bg-black rounded-full"
-                            style={{ width: percent.percent }}
-                          />
+                    {ratings.map((rating) => {
+                      const ratingData = ratingPercentages.find(
+                        (r) => r.rating === rating
+                      );
+                      const percent = ratingData ? ratingData.percent : "0%";
+
+                      return (
+                        <div
+                          key={rating}
+                          className="flex items-center font-semibold rounded-full space-y-1"
+                        >
+                          <IoStarSharp className="text-xl" />
+                          <h1 className="w-8 text-center">{rating}</h1>
+                          <div className="h-1 w-full bg-accent">
+                            <div
+                              className="h-full bg-black rounded-full"
+                              style={{ width: percent }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -150,12 +167,14 @@ const ProductReviewDrawer = ({
           </div>
 
           <div className="lg:w-[90%] mx-auto py-10 2xl:py-16">
-            <h1 className="text-base md:text-xl font-semibold">Review: {productReviews?.length}</h1>
+            <h1 className="text-base md:text-xl font-semibold">
+              Review: {productReviews?.length}
+            </h1>
 
             <div className="mt-10">
-              {
-                productReviews?.map((review: TReviewData) => <ProductReview key={review?._id} review={review} />)
-              }
+              {productReviews?.map((review: TReviewData) => (
+                <ProductReview key={review?._id} review={review} />
+              ))}
             </div>
           </div>
         </div>
