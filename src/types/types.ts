@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
 // Req & Res type
 export interface TResponce {
   statusCode: number;
@@ -27,5 +26,5 @@ export interface TRatingData {
 }
 
 export interface TSearchParamsProp {
-  searchParams?: Record<string, string>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }

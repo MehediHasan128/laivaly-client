@@ -9,7 +9,7 @@ const DiscoverMoreProductCard = ({ product }: { product: TProduct }) => {
 
   return (
     <Link href={`/products/${productFor}/${_id}`}>
-      <div className="relative h-[250px] lg:h-[350px] xl:h-[300px] 2xl:h-[400px] w-full border-y border-l">
+      <div className="relative h-[250px] lg:h-[350px] xl:h-[300px] 2xl:h-[400px] w-full border-y border-r">
         <Image
           src={productThumbnail}
           alt="product"

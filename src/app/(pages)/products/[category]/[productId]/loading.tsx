@@ -1,7 +1,9 @@
+import Spinner from "@/components/reusable/Spinner";
+
 const loading = () => {
     return (
-        <div>
-            <h1>Product details page is loading</h1>
+        <div className="flex justify-center items-center h-[90vh]">
+            <Spinner isDark={false} className="size-20 border-4" />
         </div>
     );
 };

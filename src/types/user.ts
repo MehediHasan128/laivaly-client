@@ -4,6 +4,7 @@ export interface TUserName {
 }
 
 export interface TUser {
+  _id: string
   userId: string;
   id: string;
   userName: TUserName;

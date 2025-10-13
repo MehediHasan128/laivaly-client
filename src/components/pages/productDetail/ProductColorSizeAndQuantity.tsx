@@ -5,7 +5,7 @@ import { addProductToCart } from "@/lib/api/cart/cart";
 import { buySingleProduct, removeOrderData } from "@/lib/api/orders/orders";
 import { addProductToWishlist } from "@/lib/api/wishlist/wishlist";
 import { TCreateCartData, TCartProduct } from "@/types/cart.type";
-import { TProduct, TProductVariant } from "@/types/product.type";
+import { TProduct, TVariants } from "@/types/product.type";
 import { TError, TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
 import { authGuard } from "@/utils/authGuard";
@@ -13,28 +13,27 @@ import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { GetColorName } from "hex-color-to-color-name";
 
 interface TProductColorSizeAndQuantityProps {
   product: TProduct;
   user: TUser | null;
+  variants: TVariants[];
   isProductExistToWishlist: boolean;
 }
 
 const ProductColorSizeAndQuantity = ({
   product,
   user,
+  variants,
   isProductExistToWishlist,
 }: TProductColorSizeAndQuantityProps) => {
   const { _id, title, price, discount, productFor, productImages } = product;
 
   // User router
   const router = useRouter();
-  // Find product variants
-  const productVeriants = product.productVeriants as TProductVariant;
-  const allVariants = productVeriants?.variants;
-
   // Set product color in array
-  const getProductColors = new Set(allVariants.map((variant) => variant.color));
+  const getProductColors = new Set(variants.map((variant) => variant.color));
   const colors = Array.from(getProductColors);
 
   // product color size and quantity state
@@ -47,7 +46,7 @@ const ProductColorSizeAndQuantity = ({
   const [cartLoading, setCartLoading] = useState<boolean>(false);
 
   // set product sizes and stock in array
-  const getProductSizes = allVariants.filter(
+  const getProductSizes = variants.filter(
     (variant) => variant.color === productColor
   );
   const sizes = getProductSizes.map((v) => ({
@@ -177,7 +176,9 @@ const ProductColorSizeAndQuantity = ({
     <div className="space-y-3 xl:space-y-5">
       {/* Color button */}
       <div className="space-y-2">
-        <h1 className="font-semibold text-sm md:text-base">Select Color</h1>
+        <h1 className="font-semibold text-sm md:text-base">
+          Color: {GetColorName(productColor)}
+        </h1>
         <div className="flex gap-1.5">
           {colors.map((color, index) => (
             <div
@@ -222,7 +223,6 @@ const ProductColorSizeAndQuantity = ({
           ))}
         </div>
       </div>
-
       <div>
         {warning && (
           <h1 className="flex items-center gap-1 font-medium text-sm text-red-700">
@@ -274,6 +274,7 @@ const ProductColorSizeAndQuantity = ({
         )}
       </div>
 
+      {/* Buy, add to cart and add to wishlist button */}
       <div className="mt-10 flex gap-3">
         <button
           onClick={handleBuySingleProduct}

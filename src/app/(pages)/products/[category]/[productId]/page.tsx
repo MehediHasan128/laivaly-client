@@ -5,8 +5,9 @@ import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewD
 import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
 import { currentUser } from "@/lib/api/currentUser";
 import { getAllProducts, getSingleProducts } from "@/lib/api/products/products";
+import { getProductVariant } from "@/lib/api/productVariant/productVariant";
 import { productExistToWishlist } from "@/lib/api/wishlist/wishlist";
-import { TProduct } from "@/types/product.type";
+import { TProduct, TVariants } from "@/types/product.type";
 import { TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
 import { ChevronRight } from "lucide-react";
@@ -51,7 +52,11 @@ const ProductDetailsPage = async ({
     productSubCategory,
     productImages,
     productReviews,
+    productVeriants,
   } = product;
+
+  const productVariant = (await getProductVariant(productVeriants)) as TResponce;
+  const varaiants = productVariant?.data as TVariants[];
 
   let isProductExistToWishlist = false;
   if (user !== null) {
@@ -120,25 +125,18 @@ const ProductDetailsPage = async ({
               product={product}
               user={user}
               isProductExistToWishlist={isProductExistToWishlist}
+              variants={varaiants}
             />
 
             <div className="mt-12">
               <div className="w-full border-b mb-5" />
               <ProductReviewDrawer
-              productId={_id}
+                productId={_id}
                 productTitle={title}
                 productImage={productImages?.[0]}
                 userId={user?.userId}
                 productReviewId={productReviews as string}
-              >
-                <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
-                  <h1>Reviews</h1>
-                  <span className="flex gap-2 items-center">
-                    <h1>4.3/5</h1>
-                    <ChevronRight />
-                  </span>
-                </div>
-              </ProductReviewDrawer>
+              />
               <div className="w-full border-b my-5" />
               <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
                 <h1>Shipping & Return</h1>

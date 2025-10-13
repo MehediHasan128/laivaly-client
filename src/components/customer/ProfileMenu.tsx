@@ -16,7 +16,7 @@ import { ReactNode } from "react";
 import { toast } from "sonner";
 import { userLogout } from "@/lib/api/auth/auth";
 import { useRouter } from "next/navigation";
-import { TUser } from "@/types/user.type";
+import { TUser } from "@/types/user";
 
 const ProfileMenu = ({
   children,

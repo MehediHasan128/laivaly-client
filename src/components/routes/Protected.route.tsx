@@ -1,4 +1,4 @@
-import { TUser } from "@/types/user.type";
+import { TUser } from "@/types/user";
 import { decodedUserToken } from "@/utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

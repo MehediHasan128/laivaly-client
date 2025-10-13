@@ -48,10 +48,13 @@ export const metadata: Metadata = {
 
 
 const WinterCollectionPage = async ({ searchParams }: TSearchParamsProp) => {
+
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+
   const Filters = filters(
     "season",
     "winter",
-    searchParams as Record<string, string>
+    resolvedSearchParams
   );
 
   const allProducts = (await getAllProducts(Filters)) as TResponce;
@@ -68,7 +71,7 @@ const WinterCollectionPage = async ({ searchParams }: TSearchParamsProp) => {
         <ProductSection
           defaultField="season"
           productFor="winter"
-          searchParams={searchParams as Record<string, string>}
+          searchParams={resolvedSearchParams}
         />
       </Suspense>
     </main>

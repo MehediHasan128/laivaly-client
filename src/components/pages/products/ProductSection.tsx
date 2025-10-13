@@ -11,7 +11,7 @@ const ProductSection = async ({
 }: {
   defaultField: "productFor" | "season" | "productGroup" | "searchTerm",
   productFor: string;
-  searchParams: Record<string, string>;
+  searchParams: Record<string, string | string[] | undefined>;
 }) => {
   await new Promise((resolve) => setTimeout(resolve, 4000));
 

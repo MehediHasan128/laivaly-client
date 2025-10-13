@@ -73,7 +73,7 @@ const CancelOrderAlert = ({ alertProps }: { alertProps: TAlertProps }) => {
           </AlertDialogCancel>
 
           <AlertDialogAction
-            onClick={() => cancelOrderIntoDB(alertProps?._id)}
+            onClick={() => cancelOrderIntoDB(alertProps?._id as string)}
             className="bg-black hover:bg-black cursor-pointer"
           >
             {

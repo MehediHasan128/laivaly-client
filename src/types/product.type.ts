@@ -50,7 +50,7 @@ export interface TProduct {
   productGroup: string;
   productCategory: string;
   productSubCategory: string;
-  productVeriants: TProductVariant;
+  productVeriants: string;
   price: number;
   discount: number;
   perUnitCost: number;

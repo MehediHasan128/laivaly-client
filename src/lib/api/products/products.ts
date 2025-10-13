@@ -2,7 +2,7 @@ import { baseApi } from "../baseApi/baseApi";
 
 export interface TProductQueryParams {
   field: "productFor" | "season" | "productGroup" | "productCategory" | "productSubCategory" | "searchTerm" | "limit";
-  value: string;
+  value: string | string[] | undefined; 
 } 
 
 export const getAllProducts = (args?: TProductQueryParams[]) => {
@@ -10,7 +10,7 @@ export const getAllProducts = (args?: TProductQueryParams[]) => {
 
   if(params) {
     args?.forEach((item: TProductQueryParams) => {
-      params.append(item.field, item.value)
+      params.append(item.field, item.value as string)
     })
   }
 

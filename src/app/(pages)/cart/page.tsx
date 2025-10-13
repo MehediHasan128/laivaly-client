@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getAllProductFromCart } from "@/lib/api/cart/cart";
+import { currentUser } from "@/lib/api/currentUser";
 import { getAllProducts } from "@/lib/api/products/products";
 import { smoochsans } from "@/styles/font";
 import { TCartProduct } from "@/types/cart.type";
@@ -38,9 +39,15 @@ export const metadata = {
 };
 
 const CartPage = async () => {
-  // Product for cart
-  const cartData = (await getAllProductFromCart()) as TResponce;
-  const cartProducts = cartData?.data as TCartProduct[];
+  // Check the user is logged in
+  const isUserExist = await currentUser();
+
+  let cartProducts: TCartProduct[] = [];
+  if (isUserExist) {
+    // Product for cart
+    const cartData = (await getAllProductFromCart()) as TResponce;
+    cartProducts = cartData?.data as TCartProduct[];
+  };
 
   // Calculate product price, tax, shipping charge
   const { subTotal, shippingCharge, tax, grandTotal } =
@@ -54,18 +61,19 @@ const CartPage = async () => {
 
   return (
     <>
-      {!cartProducts.length && (
+      {!isUserExist && (
         <div className="flex items-center min-h-screen">
           <div className="w-full space-y-32 md:space-y-5 lg:space-y-0">
             <div className="text-center space-y-5">
               <h1 className="text-2xl md:text-3xl font-medium">
                 Your shopping bag is empty
               </h1>
+              <p>Sign In to your account to see your previously added items.</p>
               <div className="flex justify-center">
-                <Link href="/men">
+                <Link href="/login" className="w-72">
                   <Button
-                    buttonTitle="Continue Shopping"
-                    className="bg-black text-white rounded flex justify-center"
+                    buttonTitle="Sign In"
+                    className="btn rounded bg-white text-black hover:bg-black hover:text-white duration-500"
                   />
                 </Link>
               </div>
@@ -96,7 +104,49 @@ const CartPage = async () => {
         </div>
       )}
 
-      {cartProducts.length && (
+      {!cartProducts.length && isUserExist && (
+        <div className="flex items-center min-h-screen">
+          <div className="w-full space-y-32 md:space-y-5 lg:space-y-0">
+            <div className="text-center space-y-5">
+              <h1 className="text-2xl md:text-3xl font-medium">
+                Your shopping bag is empty
+              </h1>
+              <div className="flex justify-center">
+                <Link href="/new" className="w-72">
+                  <Button
+                    buttonTitle="Continue Shopping"
+                    className="btn rounded bg-white text-black hover:bg-black hover:text-white duration-500"
+                  />
+                </Link>
+              </div>
+            </div>
+
+            <Container>
+              <h1 className="text-2xl font-bold">Discover More</h1>
+              <div className="mt-10 relative">
+                <Carousel>
+                  <CarouselContent>
+                    {products?.map((product: TProduct) => (
+                      <CarouselItem
+                        key={product?._id}
+                        className="basis-[50%] md:basis-[35%] xl:basis-[25%] 2xl:basis-[20%]"
+                      >
+                        <DiscoverMoreProductCard product={product} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <div className="absolute -top-8 right-14 border flex flex-col">
+                    <CarouselPrevious className="cursor-pointer" />
+                    <CarouselNext className="cursor-pointer" />
+                  </div>
+                </Carousel>
+              </div>
+            </Container>
+          </div>
+        </div>
+      )}
+
+      {(cartProducts.length > 0) && (
         <Container>
           <div className="w-[90%] mx-auto space-y-10">
             <div className="space-y-2">

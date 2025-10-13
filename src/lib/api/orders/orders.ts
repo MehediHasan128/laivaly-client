@@ -23,6 +23,13 @@ export const removeOrderData = (name: string) => {
   });
 };
 
+export const placeOrderByKlarna = (data: TOrderData) => {
+  return baseApi({
+    endPoints: "/orders/klarna-payment",
+    options: { method: "POST", body: JSON.stringify(data) },
+  });
+};
+
 export const placeOrderByCOD = (data: TOrderData) => {
   return baseApi({
     endPoints: "/orders/cash-on-delivery",

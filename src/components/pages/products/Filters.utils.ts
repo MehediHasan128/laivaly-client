@@ -5,7 +5,7 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 export const filters = (
   defauldField: "productFor" | "season" | "productGroup" | "searchTerm",
   defaultFilterValue: string,
-  searchParams: Record<string, string>
+  searchParams: Record<string, string | string[] | undefined>
 ) => {
   const defaultFilter: TProductQueryParams = {
     field: defauldField,

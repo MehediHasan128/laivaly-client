@@ -37,6 +37,8 @@ const Checkout = ({
   // Router for refreshing and redirect route
   const router = useRouter();
 
+  console.log(userData);
+
   // Get Shipping method and shipping address
   const [shippingMethod, setShippingMethod] = useState<string>("standard");
   const [address, setAddress] = useState<TShippingAddress | undefined>(

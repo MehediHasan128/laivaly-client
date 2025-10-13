@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../../ui/drawer";
-import { X } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import Ratings from "../../reusable/Ratings";
 import ProductReview from "./ProductReview";
 import WriteProductReviewDialog from "./WriteProductReviewDialog";
@@ -20,18 +20,15 @@ import { TResponce } from "@/types/types";
 import { getProductReview } from "@/lib/api/review/review";
 import { TReviewData } from "@/types/review.type";
 
-const isComment = true;
 const ratings = [5, 4, 3, 2, 1];
 
 const ProductReviewDrawer = ({
-  children,
   productId,
   productTitle,
   productImage,
   userId,
   productReviewId,
 }: {
-  children: ReactNode;
   productId: string;
   productTitle: string;
   productImage: string;
@@ -55,9 +52,13 @@ const ProductReviewDrawer = ({
     return () => window.removeEventListener("resize", updateDirection);
   }, []);
 
+
+  
   const [productReviews, setProductReviews] = useState<TReviewData[] | null>(
     null
   );
+
+  const hasProductReviews = productReviews?.length;
 
   useEffect(() => {
     const getProductReviews = async () => {
@@ -90,7 +91,17 @@ const ProductReviewDrawer = ({
 
   return (
     <Drawer direction={direction}>
-      <DrawerTrigger asChild>{children}</DrawerTrigger>
+      <DrawerTrigger asChild>
+        <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
+          <h1>Reviews</h1>
+          <span className="flex gap-2 items-center">
+            {
+              Number(avarageRating) > 0 && <h1>{avarageRating}/5</h1>
+            }
+            <ChevronRight />
+          </span>
+        </div>
+      </DrawerTrigger>
       <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-4xl">
         <DrawerHeader className="relative">
           <DrawerTitle className="text-center py-5">Product Review</DrawerTitle>
@@ -103,7 +114,7 @@ const ProductReviewDrawer = ({
           <div className="border-y">
             <div className="lg:w-[90%] mx-auto py-10 2xl:py-16">
               <h1
-                className={`${isComment && "hidden"} text-center text-gray-500`}
+                className={`${hasProductReviews && "hidden"} text-center text-gray-500`}
               >
                 Be the first to review this item
               </h1>
@@ -115,13 +126,13 @@ const ProductReviewDrawer = ({
                   <div className="whitespace-nowrap">
                     <h1
                       className={`${
-                        !isComment && "hidden"
+                        !hasProductReviews && "hidden"
                       } text-5xl text-gray-600`}
                     >
                       {avarageRating}
                       <span className="text-base">out of 5 star</span>
                     </h1>
-                    <div className={`${!isComment && "hidden"}`}>
+                    <div className={`${!hasProductReviews && "hidden"}`}>
                       <Ratings value={Number(avarageRating)} readonly />
                     </div>
                   </div>

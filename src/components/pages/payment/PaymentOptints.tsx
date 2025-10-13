@@ -9,7 +9,7 @@ import {
 } from "../../ui/accordion";
 import Image from "next/image";
 import { TError, TResponce } from "@/types/types";
-import { placeOrderByCOD } from "@/lib/api/orders/orders";
+import { placeOrderByCOD, placeOrderByKlarna } from "@/lib/api/orders/orders";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/reusable/Spinner";
@@ -23,6 +23,17 @@ const PaymentOptints = ({ order }: { order: TOrderData }) => {
   const orderData = {
     ...order,
     paymentMethod,
+  };
+
+  const handlePlaceOrderWithKlarnaPayment = async (orderData: TOrderData) => {
+    const toastId = toast.loading("Loading");
+    try {
+      const res = (await placeOrderByKlarna(orderData)) as TResponce;
+      toast.success(res?.message, { id: toastId });
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error?.data?.message, { id: toastId });
+    }
   };
 
   const handlePlaceOrderInCOD = async (orderData: TOrderData) => {
@@ -91,7 +102,12 @@ const PaymentOptints = ({ order }: { order: TOrderData }) => {
             <h1>Split your purchase into 3 or 4 interest-free payments.</h1>
             <h1>Pay later within 30 days after delivery.</h1>
           </div>
-          <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6 active:scale-95">
+          <button
+            onClick={() =>
+              handlePlaceOrderWithKlarnaPayment(orderData as TOrderData)
+            }
+            className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e5e5] border-[#c6c6c6] hover:border-black duration-500 mt-6 active:scale-95"
+          >
             <div className="relative size-12 md:size-14">
               <Image
                 src="/images/icon/klarna.png"

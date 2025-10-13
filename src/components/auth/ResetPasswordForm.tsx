@@ -11,7 +11,7 @@ import Spinner from "../reusable/Spinner";
 import { toast } from "sonner";
 import { resetUserPassword } from "@/lib/api/auth/auth";
 import { useRouter } from "next/navigation";
-import { TUser } from "@/types/user.type";
+import { TUser } from "@/types/user";
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
