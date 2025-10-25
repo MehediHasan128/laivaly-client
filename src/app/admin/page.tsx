@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 const AdminPage = ({ children }: { children: ReactNode }) => {
   return <div>{children}</div>;

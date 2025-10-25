@@ -1,16 +1,29 @@
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import { ReactNode } from "react";
+import AdminSidebar from "@/components/admin/sidebar/AdminSidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import React, { CSSProperties } from "react";
 
-const AdminLayout = ({ children }: { children: ReactNode }) => {
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main>
-      <div className="flex h-screen">
-        <div className="w-[15%] h-full">
-          <AdminSidebar />
+    <SidebarProvider
+      defaultOpen={true}
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+        } as CSSProperties
+      }
+    >
+      <AdminSidebar variant="inset" />
+      <SidebarInset>
+        <div className="p-5 space-y-2">
+          <SidebarTrigger className="cursor-pointer" />
+          <div className="w-full">{children}</div>
         </div>
-        <div className="w-full p-10">{children}</div>
-      </div>
-    </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

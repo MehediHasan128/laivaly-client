@@ -123,17 +123,17 @@ const chartConfig = {
     label: "Visitors",
   },
   desktop: {
-    label: "Revenue",
+    label: "revenue",
     color: "var(--chart-1)",
   },
   mobile: {
-    label: "Sell",
+    label: "sell",
     color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 
 const ChartAreaInteractive = () => {
-  const [timeRange, setTimeRange] = useState("90d");
+  const [timeRange, setTimeRange] = useState("7d");
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
     const referenceDate = new Date("2024-06-30");
@@ -148,8 +148,8 @@ const ChartAreaInteractive = () => {
     return date >= startDate;
   });
   return (
-    <Card className="pt-0 bg-gray-50 border-0 shadow-none h-[100%]">
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b sm:flex-row">
+    <Card className="bg-transparent border-0 shadow-none">
+      <CardHeader className="flex items-center gap-2 space-y-0 border-b">
         <div className="grid flex-1 gap-1">
           <CardTitle>Revenue Analytics</CardTitle>
           <CardDescription>
@@ -176,10 +176,10 @@ const ChartAreaInteractive = () => {
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="">
+      <CardContent>
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[200px] w-full"
+          className="h-[200px] w-full"
         >
           <AreaChart data={filteredData}>
             <defs>
@@ -240,15 +240,15 @@ const ChartAreaInteractive = () => {
             <Area
               dataKey="sell"
               type="natural"
-              fill="url(#fillMobile)"
-              stroke="var(--color-mobile)"
+              fill="#7393B3"
+              stroke="#5076AF"
               stackId="a"
             />
             <Area
               dataKey="revenue"
               type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
+              fill="#B2BEB5"
+              stroke="#758A7A"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />

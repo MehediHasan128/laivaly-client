@@ -10,7 +10,7 @@ const DashboardPage = () => {
       </div>
 
       <div className="mt-10">
-        <div className="grid grid-cols-4 grid-rows-5 h-[85vh] gap-2">
+        <div className="grid grid-cols-4 grid-rows-5 gap-2">
           {/* Total sell */}
           <div className="bg-gray-50 h-full rounded-xl py-5 px-8">
             <div className="flex flex-col h-full justify-between">
@@ -63,7 +63,7 @@ const DashboardPage = () => {
           <div className="row-span-3 bg-gray-50 h-full rounded-xl p-5">
             
           </div>
-          <div className=" col-span-2 row-span-2 bg-gray-50 h-full rounded-xl p-5">
+          <div className=" col-span-2 row-span-2 bg-gray-50 h-full rounded-xl">
             <ChartAreaInteractive />
           </div>
           <div className="row-span-2 bg-gray-50 h-full rounded-xl p-5">1</div>
