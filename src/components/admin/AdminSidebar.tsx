@@ -1,31 +1,38 @@
+"use client";
+
 import { smoochsans } from "@/styles/font";
 import { LayoutDashboard, Package2, PackageOpen, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const sidebarItems = [
     {
         icon: <LayoutDashboard />,
         label: 'Dashboard',
-        path: '/dashboard'
+        path: '/admin/dashboard'
     },
     {
         icon: <Users />,
         label: 'User',
-        path: '/user'
+        path: '/admin/user'
     },
     {
         icon: <PackageOpen />,
         label: 'Products',
-        path: '/product'
+        path: '/admin/product'
     },
     {
         icon: <Package2 />,
         label: 'Orders',
-        path: '/product'
+        path: '/admin/product'
     },
 ]
 
 const AdminSidebar = () => {
+
+  const pathName = usePathname();
+
   return (
     <div className="border h-full">
       <div className="flex justify-center gap-2 py-5">
@@ -38,12 +45,14 @@ const AdminSidebar = () => {
       <div className="mt-5">
         {
             sidebarItems.map((item) => (
-                <div key={item.label} className="py-3 px-4 mx-2 cursor-pointer hover:scale-105 duration-500">
+                <Link key={item.label} href={item.path}>
+                  <div className={`py-3 px-4 mx-2 cursor-pointer hover:scale-105 duration-500 rounded-lg ${item.path === pathName && 'bg-black text-white'}`}>
                     <span className="flex gap-2 font-semibold">
                         {item.icon}
                         <h1>{item.label}</h1>
                     </span>
                 </div>
+                </Link>
             ))
         }
       </div>

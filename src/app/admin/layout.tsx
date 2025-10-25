@@ -8,7 +8,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         <div className="w-[15%] h-full">
           <AdminSidebar />
         </div>
-        <div>{children}</div>
+        <div className="w-full p-10">{children}</div>
       </div>
     </main>
   );

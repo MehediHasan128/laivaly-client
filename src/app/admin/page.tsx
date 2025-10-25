@@ -1,9 +1,7 @@
-const AdminPage = () => {
-    return (
-        <div>
-            <h1>This is admin page</h1>
-        </div>
-    );
+import { ReactNode } from "react";
+
+const AdminPage = ({ children }: { children: ReactNode }) => {
+  return <div>{children}</div>;
 };
 
 export default AdminPage;
