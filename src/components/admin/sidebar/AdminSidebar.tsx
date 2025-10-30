@@ -1,4 +1,4 @@
-import { LucideLayoutDashboard, Package2, PackageOpen, Users } from "lucide-react";
+import { BriefcaseBusiness, LucideLayoutDashboard, Package2, PackageOpen, Users } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -23,9 +23,14 @@ const data = {
       icon: <LucideLayoutDashboard />,
     },
     {
-      title: "Users",
-      path: "/admin/users",
+      title: "Customers",
+      path: "/admin/customers",
       icon: <Users />,
+    },
+    {
+      title: "Staffs",
+      path: "/admin/staffs",
+      icon: <BriefcaseBusiness />,
     },
     {
       title: "Products",

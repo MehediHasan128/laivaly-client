@@ -1,7 +1,6 @@
 import ChartAreaInteractive from "@/components/admin/dashboard/ChartAreaInteractive";
 import LatestOrder from "@/components/admin/dashboard/LatestOrder";
 import MonthlyTargetChart from "@/components/admin/dashboard/MonthlyTargetChart";
-import RecentOrders from "@/components/admin/dashboard/RecentOrders";
 import { CircleDollarSign, Shirt, ShoppingBasket, Users } from "lucide-react";
 import React from "react";
 
