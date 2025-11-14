@@ -17,32 +17,12 @@ const data = {
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
-    {
-      title: "Dashboard",
-      path: "/admin/dashboard",
-      icon: <LucideLayoutDashboard />,
-    },
-    {
-      title: "Customers",
-      path: "/admin/customers",
-      icon: <Users />,
-    },
-    {
-      title: "Staffs",
-      path: "/admin/staffs",
-      icon: <BriefcaseBusiness />,
-    },
-    {
-      title: "Products",
-      path: "/admin/products",
-      icon: <PackageOpen />,
-    },
-    {
-      title: "Orders",
-      path: "/admin/orders",
-      icon: <Package2 />,
-    },
-  ],
+    {path: ['/dashboard'], label: 'Dashboard', icon: <LucideLayoutDashboard />},
+    {path: ['/customers'], label: 'Customers', icon: <Users />},
+    {path: ['/staffs'], label: 'Staffs', icon: <BriefcaseBusiness />},
+    {path: ['/products', '/add-product'], label: 'Products', icon: <PackageOpen />},
+    {path: ['/orders'], label: 'Orders', icon: <Package2 />},
+  ]
 };
 
 const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {

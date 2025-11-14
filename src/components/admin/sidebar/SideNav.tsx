@@ -9,12 +9,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
+
+
 const SideNav = ({
   items,
 }: {
   items: {
-    title: string;
-    path: string;
+    label: string;
+    path: string[];
     icon?: ReactNode;
   }[];
 }) => {
@@ -24,15 +26,15 @@ const SideNav = ({
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu className="gap-0">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <Link
-              key={item.title}
-              href={item.path}
-              className={`px-5 py-3 rounded-md hover:scale-105 duration-300 ${item.path === currentPath && 'bg-black text-white'}`}
+              key={index}
+              href={`/admin/${item.path[0]}`}
+              className={`px-5 py-3 rounded-md hover:scale-105 duration-300 ${item.path.some((p) => currentPath === `/admin${p}`) && 'bg-black text-white'}`}
             >
               <div className="flex items-center gap-3">
                 {item.icon}
-                <h1 className="text-lg font-medium">{item.title}</h1>
+                <h1 className="text-lg font-medium">{item.label}</h1>
               </div>
             </Link>
           ))}
