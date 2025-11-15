@@ -19,6 +19,8 @@ interface TLVSelectProps {
   defaultValue?: string | null;
   options: { label: string; value: string }[];
   label?: string;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 const LVSelect = ({
@@ -29,10 +31,12 @@ const LVSelect = ({
   defaultValue,
   options,
   label,
+  disabled,
+  required
 }: TLVSelectProps) => {
   return (
     <div className="space-y-2">
-      {label && <Label>{label}</Label>}
+      {label && <Label className="font-semibold">{label}<span className="text-red-600">{required && "*"}</span></Label>}
       <Controller
         name={name}
         defaultValue={defaultValue ?? ""}
@@ -43,6 +47,7 @@ const LVSelect = ({
               field.onChange(val);
               setInputValue?.(val);
             }}
+            disabled={disabled}
           >
             <SelectTrigger
               className={cn(

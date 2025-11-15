@@ -31,7 +31,7 @@ const LVInput = ({
 }: TLVInputProps) => {
   return (
     <div className="space-y-2">
-      {label && <Label>{label}</Label>}
+      {label && <Label className="font-semibold">{label}<span className="text-red-600">{required && "*"}</span></Label>}
       <div className="relative">
         <Controller
           name={name}
