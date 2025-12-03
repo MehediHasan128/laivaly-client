@@ -81,7 +81,7 @@ const WriteProductReviewDialog = ({
             use it to improve our products.
           </DialogDescription>
 
-          <div className="relative mt-5 mx-auto md:mx-0 h-64 md:h-80 w-[55%] md:w-[35%] lg:w-[30%] xl:w-[25%]">
+          <div className="relative mt-5 mx-auto md:mx-0 h-64 md:h-80 w-[80%] md:w-[50%] lg:w-[45%] xl:w-[40%] border rounded-md overflow-hidden">
             <Image src={productImage} alt="product" quality={100} fill />
           </div>
         </DialogHeader>

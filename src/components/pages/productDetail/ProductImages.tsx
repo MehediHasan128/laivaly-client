@@ -7,8 +7,6 @@ import { useState } from "react";
 const ProductImages = ({ images }: { images: string[] }) => {
   const [imgIndex, setImageIndex] = useState<number>(0);
 
-  console.log(imgIndex);
-
   return (
     <>
       <div className="hidden lg:block">

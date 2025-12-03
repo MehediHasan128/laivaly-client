@@ -9,11 +9,16 @@ export interface TProductDescription {
 }
 
 // Product variant
-export interface TVariants {
+export interface TProductSizes {
   size?: string;
-  color?: string;
   stock: number;
   SKU: string;
+}
+
+export interface TVariants {
+  color?: string;
+  images: string[];
+  sizes: TProductSizes[];
   _id: string;
 }
 
@@ -50,12 +55,11 @@ export interface TProduct {
   productGroup: string;
   productCategory: string;
   productSubCategory: string;
-  productVeriants: string;
+  productVariants: string;
   price: number;
   discount: number;
   perUnitCost: number;
   productThumbnail: string;
-  productImages: string[];
   productReviews: TReviews | string;
   isDeleted: boolean;
 }

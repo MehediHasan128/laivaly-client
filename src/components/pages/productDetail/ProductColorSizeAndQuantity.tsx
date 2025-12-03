@@ -11,7 +11,7 @@ import { TUser } from "@/types/user";
 import { authGuard } from "@/utils/authGuard";
 import { CircleAlert, Heart, Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { GetColorName } from "hex-color-to-color-name";
 
@@ -20,6 +20,7 @@ interface TProductColorSizeAndQuantityProps {
   user: TUser | null;
   variants: TVariants[];
   isProductExistToWishlist: boolean;
+  setImages: Dispatch<SetStateAction<string[]>>
 }
 
 const ProductColorSizeAndQuantity = ({
@@ -27,8 +28,9 @@ const ProductColorSizeAndQuantity = ({
   user,
   variants,
   isProductExistToWishlist,
+  setImages
 }: TProductColorSizeAndQuantityProps) => {
-  const { _id, title, price, discount, productFor, productImages } = product;
+  const { _id, title, price, discount, productFor } = product;
 
   // User router
   const router = useRouter();
@@ -46,19 +48,24 @@ const ProductColorSizeAndQuantity = ({
   const [cartLoading, setCartLoading] = useState<boolean>(false);
 
   // set product sizes and stock in array
-  const getProductSizes = variants.filter(
+  const getProductVariants = variants.find(
     (variant) => variant.color === productColor
   );
-  const sizes = getProductSizes.map((v) => ({
-    size: v.size,
-    stock: v.stock,
-    sku: v.SKU,
-  }));
+  const sizes = getProductVariants?.sizes;
+  const images = getProductVariants?.images;
 
-  const selectedSizeVariant = getProductSizes.find(
+
+  const selectedSizeVariant = sizes!.find(
     (variant) => variant.size === productSize
   );
   const remainingProduct = selectedSizeVariant?.stock;
+
+  useEffect(() => {
+    if(images){
+      setImages(images)
+    }
+  }, [images, setImages])
+
 
   useEffect(() => {
     if (productSize) {
@@ -67,113 +74,114 @@ const ProductColorSizeAndQuantity = ({
   }, [productSize]);
 
   // Single product data
-  const singleProductData = {
-    productId: {
-      _id,
-      title,
-      productFor,
-      price,
-      discount,
-      productImages: [productImages[0]],
-    },
-    quantity,
-    selectedVariant: {
-      color: productColor,
-      size: productSize,
-      SKU: productSKU,
-    },
-  };
+  // const singleProductData = {
+  //   productId: {
+  //     _id,
+  //     title,
+  //     productFor,
+  //     price,
+  //     discount,
+  //     productImages: [productImages[0]],
+  //   },
+  //   quantity,
+  //   selectedVariant: {
+  //     color: productColor,
+  //     size: productSize,
+  //     SKU: productSKU,
+  //   },
+  // };
 
-  const handleBuySingleProduct = async () => {
-    await authGuard();
+  // const handleBuySingleProduct = async () => {
+  //   await authGuard();
 
-    if (!productSize) {
-      setWarning(true);
-    }
+  //   if (!productSize) {
+  //     setWarning(true);
+  //   }
 
-    if (productSize && quantity) {
-      setBuyLoading(true);
-      try {
-        const res = (await buySingleProduct(
-          singleProductData as TCartProduct
-        )) as TResponce;
-        if (res.success) {
-          router.push("/checkout");
-        }
-        setBuyLoading(false);
-      } catch (err) {
-        const toastId = toast.loading("Loading");
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-        setBuyLoading(false);
-      }
-    }
-  };
+  //   if (productSize && quantity) {
+  //     setBuyLoading(true);
+  //     try {
+  //       const res = (await buySingleProduct(
+  //         singleProductData as TCartProduct
+  //       )) as TResponce;
+  //       if (res.success) {
+  //         router.push("/checkout");
+  //       }
+  //       setBuyLoading(false);
+  //     } catch (err) {
+  //       const toastId = toast.loading("Loading");
+  //       const error = err as TError;
+  //       toast.error(error?.data?.message, { id: toastId });
+  //       setBuyLoading(false);
+  //     }
+  //   }
+  // };
 
-  const cartData = {
-    productId: product?._id,
-    quantity,
-    selectedVariant: {
-      color: productColor && productColor,
-      size: productSize && productSize,
-      SKU: productSKU as string,
-    },
-  };
+  // const cartData = {
+  //   productId: product?._id,
+  //   quantity,
+  //   selectedVariant: {
+  //     color: productColor && productColor,
+  //     size: productSize && productSize,
+  //     SKU: productSKU as string,
+  //   },
+  // };
 
-  const handleProductAddToCart = async () => {
-    await authGuard();
+  // const handleProductAddToCart = async () => {
+  //   await authGuard();
 
-    if (!productSize) {
-      setWarning(true);
-    }
+  //   if (!productSize) {
+  //     setWarning(true);
+  //   }
 
-    if (productSize && quantity) {
-      const toastId = toast.loading("Loading");
-      setCartLoading(true);
-      try {
-        const res = (await addProductToCart(
-          cartData as TCreateCartData
-        )) as TResponce;
-        toast.success(res.message, { id: toastId });
-        setCartLoading(false);
-      } catch (err) {
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-        setCartLoading(false);
-      }
-    }
-  };
+  //   if (productSize && quantity) {
+  //     const toastId = toast.loading("Loading");
+  //     setCartLoading(true);
+  //     try {
+  //       const res = (await addProductToCart(
+  //         cartData as TCreateCartData
+  //       )) as TResponce;
+  //       toast.success(res.message, { id: toastId });
+  //       setCartLoading(false);
+  //     } catch (err) {
+  //       const error = err as TError;
+  //       toast.error(error?.data?.message, { id: toastId });
+  //       setCartLoading(false);
+  //     }
+  //   }
+  // };
 
-  const handleProductAddToWishlist = async (productId: string) => {
-    await authGuard();
-    const toastId = toast.loading("Loading");
-    try {
-      const res = (await addProductToWishlist(productId)) as TResponce;
-      toast.success(res.message, { id: toastId });
-      router.refresh();
-    } catch (err) {
-      const error = err as TError;
-      toast.error(error?.data?.message, { id: toastId });
-    }
-  };
+  // const handleProductAddToWishlist = async (productId: string) => {
+  //   await authGuard();
+  //   const toastId = toast.loading("Loading");
+  //   try {
+  //     const res = (await addProductToWishlist(productId)) as TResponce;
+  //     toast.success(res.message, { id: toastId });
+  //     router.refresh();
+  //   } catch (err) {
+  //     const error = err as TError;
+  //     toast.error(error?.data?.message, { id: toastId });
+  //   }
+  // };
 
-  const handleAddProductToLocaStorageWishlist = () => {
-    console.log(5);
-  };
+  // const handleAddProductToLocaStorageWishlist = () => {
+  //   console.log(5);
+  // };
 
-  useEffect(() => {
-    const data = async () => {
-      try {
-        removeOrderData("buySingleProduct");
-      } catch (err) {
-        return err;
-      }
-    };
-    data();
-  }, []);
+  // useEffect(() => {
+  //   const data = async () => {
+  //     try {
+  //       removeOrderData("buySingleProduct");
+  //     } catch (err) {
+  //       return err;
+  //     }
+  //   };
+  //   data();
+  // }, []);
 
   return (
     <div className="space-y-3 xl:space-y-5">
+
       {/* Color button */}
       <div className="space-y-2">
         <h1 className="font-semibold text-sm md:text-base">
@@ -190,7 +198,7 @@ const ProductColorSizeAndQuantity = ({
             >
               <div
                 className="size-full rounded-full"
-                style={{ backgroundColor: `#${color}` }}
+                style={{ backgroundColor: `${color}` }}
               />
             </div>
           ))}
@@ -201,13 +209,13 @@ const ProductColorSizeAndQuantity = ({
       <div className="space-y-2">
         <h1 className="font-semibold text-sm md:text-base">Select Size</h1>
         <div className="flex flex-wrap gap-1.5">
-          {sizes.map((size, index) => (
+          {sizes!.map((size, index) => (
             <button
               key={index}
               disabled={size.stock === 0}
               onClick={() => {
                 setProductSize(size.size as string);
-                setProductSKU(size.sku);
+                setProductSKU(size.SKU);
               }}
               className={`border duration-500 hover:border-black ${
                 productSize === size.size
@@ -223,6 +231,7 @@ const ProductColorSizeAndQuantity = ({
           ))}
         </div>
       </div>
+
       <div>
         {warning && (
           <h1 className="flex items-center gap-1 font-medium text-sm text-red-700">
@@ -277,25 +286,25 @@ const ProductColorSizeAndQuantity = ({
       {/* Buy, add to cart and add to wishlist button */}
       <div className="mt-10 flex gap-3">
         <button
-          onClick={handleBuySingleProduct}
+          // onClick={handleBuySingleProduct}
           className="btn border border-black "
         >
           {buyLoading ? <Spinner /> : "Buy It Now"}
         </button>
         <button
-          onClick={handleProductAddToCart}
+          // onClick={handleProductAddToCart}
           className="btn bg-white border text-black"
         >
           {cartLoading ? <Spinner isDark={false} /> : "Add To Cart"}
         </button>
         <button
-          onClick={() => {
-            if (user) {
-              handleProductAddToWishlist(_id);
-            } else {
-              handleAddProductToLocaStorageWishlist();
-            }
-          }}
+          // onClick={() => {
+          //   if (user) {
+          //     handleProductAddToWishlist(_id);
+          //   } else {
+          //     handleAddProductToLocaStorageWishlist();
+          //   }
+          // }}
           className={`btn rounded-full w-fit px-5 bg-white border text-black ${
             isProductExistToWishlist && "border-red-700 text-red-700"
           }`}
@@ -303,6 +312,7 @@ const ProductColorSizeAndQuantity = ({
           <Heart className="size-5" />
         </button>
       </div>
+
     </div>
   );
 };
