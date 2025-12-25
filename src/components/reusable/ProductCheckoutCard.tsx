@@ -16,7 +16,7 @@ const ProductCheckoutCard = ({
 
   return (
     <div className="flex gap-2">
-      <div className="relative h-[180px] w-[35%] md:w-[15%] lg:w-[40%] xl:w-[30%]">
+      <div className="relative h-[140px] w-[25%] md:w-[15%] lg:w-[25%]">
         <Image src={productImages} alt={title} quality={100} fill />
       </div>
       <div className="text-sm font-medium space-y-2">

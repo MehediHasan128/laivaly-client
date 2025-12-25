@@ -25,7 +25,7 @@ const AddressDrawer = ({
   setShippingAddress,
 }: {
   children: ReactNode;
-  shippingAddress: TShippingAddress[];
+  shippingAddress: TShippingAddress[] | [];
   defaultAddress: TShippingAddress;
   setShippingAddress: Dispatch<SetStateAction<TShippingAddress | undefined>>;
 }) => {
@@ -75,30 +75,36 @@ const AddressDrawer = ({
             defaultValue={defaultAddress._id}
             onValueChange={(value) => handleChangeShippingAddress(value)}
           >
-            {shippingAddress.map((address: TShippingAddress) => (
-              <div
-                key={address._id}
-                className="flex items-center gap-5 border-b py-5"
-              >
-                <RadioGroupItem value={address._id} id={address._id} />
-                <Label htmlFor={address._id} className="cursor-pointer">
-                  <div className="font-medium text-gray-600 text-sm md:text-base">
-                    <p>{address?.addressCategory}</p>
-                    <h1 className="text-base md:text-xl">
-                      {address?.recipientsName}
-                    </h1>
-                    <p>{address?.phoneNumber}</p>
-                    <p>{address?.address}</p>
-                    <p>
-                      {address?.city}-{address?.postalCode}
-                    </p>
-                    <p>
-                      {address?.state}, {address?.country}
-                    </p>
+            {shippingAddress?.length > 0 ? (
+              <>
+                {shippingAddress.map((address: TShippingAddress) => (
+                  <div
+                    key={address._id}
+                    className="flex items-center gap-5 border-b py-5"
+                  >
+                    <RadioGroupItem value={address._id} id={address._id} />
+                    <Label htmlFor={address._id} className="cursor-pointer">
+                      <div className="font-medium text-gray-600 text-sm md:text-base">
+                        <p>{address?.addressCategory}</p>
+                        <h1 className="text-base md:text-xl">
+                          {address?.recipientsName}
+                        </h1>
+                        <p>{address?.phoneNumber}</p>
+                        <p>{address?.address}</p>
+                        <p>
+                          {address?.city}-{address?.postalCode}
+                        </p>
+                        <p>
+                          {address?.state}, {address?.country}
+                        </p>
+                      </div>
+                    </Label>
                   </div>
-                </Label>
-              </div>
-            ))}
+                ))}
+              </>
+            ) : (
+              <></>
+            )}
           </RadioGroup>
         </div>
       </DrawerContent>

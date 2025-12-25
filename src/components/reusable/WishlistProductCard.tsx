@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import Spinner from "./Spinner";
 
 const WishlistProductCard = ({ product }: { product: TProduct }) => {
-  const { _id, title, price, discount, productFor, productImages } = product;
+  const { _id, title, price, discount, productFor, productThumbnail } = product;
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -38,7 +38,7 @@ const WishlistProductCard = ({ product }: { product: TProduct }) => {
       <div className="relative h-[30vh] md:h-[40vh] lg:h-[50vh] xl:h-[55vh] 2xl:h-[50vh] w-full border-r">
         <Link href={`/products/${productFor}/${_id}`}>
           <Image
-            src={productImages[0]}
+            src={productThumbnail}
             alt="product"
             quality={100}
             fill

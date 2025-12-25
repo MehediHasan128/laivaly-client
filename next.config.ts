@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
   webpack(config, options) {
     return config;
   },
+  reactStrictMode: true
 };
 
 export default nextConfig;

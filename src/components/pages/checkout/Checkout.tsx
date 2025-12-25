@@ -18,8 +18,7 @@ import { TCartProduct } from "@/types/cart.type";
 import { TCustomerProfile, TShippingAddress } from "@/types/customer.type";
 import { TOrderData, TOrderItems } from "@/types/order.type";
 import { TCheckoutProduct } from "@/types/checkout.type";
-
-const shippingAddress = true;
+import ShippingAddressDialog from "@/components/customer/ShippingAddressDialog";
 
 function addDays(days: number) {
   const date = new Date();
@@ -37,13 +36,12 @@ const Checkout = ({
   // Router for refreshing and redirect route
   const router = useRouter();
 
-  console.log(userData);
-
   // Get Shipping method and shipping address
   const [shippingMethod, setShippingMethod] = useState<string>("standard");
   const [address, setAddress] = useState<TShippingAddress | undefined>(
     userData?.shippingAddress.find((address) => address.defaultAddress === true)
   );
+
   // Set loading state for button loading
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -82,7 +80,7 @@ const Checkout = ({
     productFor: order?.productId.productFor,
     price: order?.productId.price,
     discount: order?.productId.discount,
-    productImages: order?.productId.productImages[0],
+    productImages: order?.selectedVariant.productImage,
     quantity: order?.quantity,
     color: order?.selectedVariant.color,
     size: order?.selectedVariant.size,
@@ -147,16 +145,21 @@ const Checkout = ({
         </div>
 
         <div>
-          {!shippingAddress && (
-            <button className="border rounded flex items-center justify-center w-full py-3 md:py-4 cursor-pointer duration-500 gap-3 font-semibold text-sm md:text-base bg-black text-white">
-              <Plus className="size-5" />
-              New Address
-            </button>
-          )}
+          <ShippingAddressDialog
+            dialogTitle="Add New Shipping Address"
+            userId={userData?.customerId}
+          >
+            {!address && (
+              <button className="border rounded flex items-center justify-center w-full py-3 md:py-4 cursor-pointer duration-500 gap-3 font-semibold text-sm md:text-base bg-black text-white">
+                <Plus className="size-5" />
+                New Address
+              </button>
+            )}
+          </ShippingAddressDialog>
         </div>
 
         <div>
-          {shippingAddress && (
+          {address && (
             <div className="space-y-5 md:space-y-10">
               <div className="font-medium text-gray-600 text-sm md:text-base">
                 <p>{address?.addressCategory}</p>

@@ -20,7 +20,7 @@ interface TProductColorSizeAndQuantityProps {
   user: TUser | null;
   variants: TVariants[];
   isProductExistToWishlist: boolean;
-  setImages: Dispatch<SetStateAction<string[]>>
+  setImages: Dispatch<SetStateAction<string[]>>;
 }
 
 const ProductColorSizeAndQuantity = ({
@@ -28,18 +28,17 @@ const ProductColorSizeAndQuantity = ({
   user,
   variants,
   isProductExistToWishlist,
-  setImages
+  setImages,
 }: TProductColorSizeAndQuantityProps) => {
-  const { _id, title, price, discount, productFor } = product;
-
+  const { _id, title, price, discount, productFor, productThumbnail } = product;
   // User router
   const router = useRouter();
   // Set product color in array
-  const getProductColors = new Set(variants.map((variant) => variant.color));
-  const colors = Array.from(getProductColors);
 
   // product color size and quantity state
-  const [productColor, setProductColor] = useState<string>(colors[0] as string);
+  const [productColor, setProductColor] = useState<string>(
+    variants[0].color as string
+  );
   const [productSize, setProductSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(0);
   const [productSKU, setProductSKU] = useState<string | null>(null);
@@ -54,18 +53,16 @@ const ProductColorSizeAndQuantity = ({
   const sizes = getProductVariants?.sizes;
   const images = getProductVariants?.images;
 
-
   const selectedSizeVariant = sizes!.find(
     (variant) => variant.size === productSize
   );
   const remainingProduct = selectedSizeVariant?.stock;
 
   useEffect(() => {
-    if(images){
-      setImages(images)
+    if (images) {
+      setImages(images);
     }
-  }, [images, setImages])
-
+  }, [images, setImages]);
 
   useEffect(() => {
     if (productSize) {
@@ -74,82 +71,102 @@ const ProductColorSizeAndQuantity = ({
   }, [productSize]);
 
   // Single product data
-  // const singleProductData = {
-  //   productId: {
-  //     _id,
-  //     title,
-  //     productFor,
-  //     price,
-  //     discount,
-  //     productImages: [productImages[0]],
-  //   },
-  //   quantity,
-  //   selectedVariant: {
-  //     color: productColor,
-  //     size: productSize,
-  //     SKU: productSKU,
-  //   },
-  // };
+  const singleProductData = {
+    productId: {
+      _id,
+      title,
+      productFor,
+      price,
+      discount
+    },
+    quantity,
+    selectedVariant: {
+      color: productColor,
+      size: productSize,
+      SKU: productSKU,
+      productImage: images?.[0]
+    },
+  };
 
-  // const handleBuySingleProduct = async () => {
-  //   await authGuard();
+  const handleBuySingleProduct = async () => {
+    await authGuard();
 
-  //   if (!productSize) {
-  //     setWarning(true);
-  //   }
+    if (!productSize) {
+      setWarning(true);
+    }
 
-  //   if (productSize && quantity) {
-  //     setBuyLoading(true);
-  //     try {
-  //       const res = (await buySingleProduct(
-  //         singleProductData as TCartProduct
-  //       )) as TResponce;
-  //       if (res.success) {
-  //         router.push("/checkout");
-  //       }
-  //       setBuyLoading(false);
-  //     } catch (err) {
-  //       const toastId = toast.loading("Loading");
-  //       const error = err as TError;
-  //       toast.error(error?.data?.message, { id: toastId });
-  //       setBuyLoading(false);
-  //     }
-  //   }
-  // };
+    if (productSize && quantity) {
+      setBuyLoading(true);
 
-  // const cartData = {
-  //   productId: product?._id,
-  //   quantity,
-  //   selectedVariant: {
-  //     color: productColor && productColor,
-  //     size: productSize && productSize,
-  //     SKU: productSKU as string,
-  //   },
-  // };
+      try {
+        const res = (await buySingleProduct(
+          singleProductData as TCartProduct
+        )) as TResponce;
+        if (res.success) {
+          router.push("/checkout");
+        }
+        setBuyLoading(false);
+      } catch (err) {
+        const toastId = toast.loading("Loading");
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId });
+        setBuyLoading(false);
+      }
+    }
 
-  // const handleProductAddToCart = async () => {
-  //   await authGuard();
+    // if (productSize && quantity) {
+    //   setBuyLoading(true);
+    //   try {
+    //     const res = (await buySingleProduct(
+    //       singleProductData as TCartProduct
+    //     )) as TResponce;
+    //     if (res.success) {
+    //       router.push("/checkout");
+    //     }
+    //     setBuyLoading(false);
+    //   } catch (err) {
+    //     const toastId = toast.loading("Loading");
+    //     const error = err as TError;
+    //     toast.error(error?.data?.message, { id: toastId });
+    //     setBuyLoading(false);
+    //   }
+    // }
+  };
 
-  //   if (!productSize) {
-  //     setWarning(true);
-  //   }
+  const cartData = {
+    productId: product?._id,
+    quantity,
+    selectedVariant: {
+      color: productColor && productColor,
+      size: productSize && productSize,
+      SKU: productSKU as string,
+      productImage: images?.[0],
+    },
+  };
 
-  //   if (productSize && quantity) {
-  //     const toastId = toast.loading("Loading");
-  //     setCartLoading(true);
-  //     try {
-  //       const res = (await addProductToCart(
-  //         cartData as TCreateCartData
-  //       )) as TResponce;
-  //       toast.success(res.message, { id: toastId });
-  //       setCartLoading(false);
-  //     } catch (err) {
-  //       const error = err as TError;
-  //       toast.error(error?.data?.message, { id: toastId });
-  //       setCartLoading(false);
-  //     }
-  //   }
-  // };
+  const handleProductAddToCart = async () => {
+    await authGuard();
+
+    if (!productSize) {
+      setWarning(true);
+    }
+
+    if (productSize && quantity) {
+      const toastId = toast.loading("Loading");
+      setCartLoading(true);
+      try {
+        const res = (await addProductToCart(
+          cartData as TCreateCartData
+        )) as TResponce;
+        toast.success(res.message, { id: toastId });
+        setCartLoading(false);
+      } catch (err) {
+        const error = err as TError;
+        toast.error(error?.data?.message, { id: toastId });
+        setCartLoading(false);
+      }
+    }
+  };
 
   // const handleProductAddToWishlist = async (productId: string) => {
   //   await authGuard();
@@ -168,37 +185,49 @@ const ProductColorSizeAndQuantity = ({
   //   console.log(5);
   // };
 
-  // useEffect(() => {
-  //   const data = async () => {
-  //     try {
-  //       removeOrderData("buySingleProduct");
-  //     } catch (err) {
-  //       return err;
-  //     }
-  //   };
-  //   data();
-  // }, []);
+  useEffect(() => {
+    const data = async () => {
+      try {
+        removeOrderData("buySingleProduct");
+      } catch (err) {
+        return err;
+      }
+    };
+    data();
+  }, []);
 
   return (
     <div className="space-y-3 xl:space-y-5">
-
       {/* Color button */}
       <div className="space-y-2">
         <h1 className="font-semibold text-sm md:text-base">
           Color: {GetColorName(productColor)}
         </h1>
         <div className="flex gap-1.5">
-          {colors.map((color, index) => (
+          {variants.map((color, index) => (
             <div
               key={index}
-              onClick={() => setProductColor(color as string)}
+              onClick={() => {
+                setProductColor(color?.color as string);
+
+                const foundSize = color.sizes.find(
+                  (s) => s.size === productSize
+                );
+
+                if (foundSize) {
+                  setProductSize(foundSize.size as string);
+                  setProductSKU(foundSize.SKU);
+                }
+              }}
               className={`size-10 rounded-full overflow-hidden border-2 cursor-pointer hover:border-black ${
-                productColor === color ? "border-black" : "border-transparent"
+                productColor === color?.color
+                  ? "border-black"
+                  : "border-transparent"
               } p-0.5`}
             >
               <div
                 className="size-full rounded-full"
-                style={{ backgroundColor: `${color}` }}
+                style={{ backgroundColor: `${color?.color}` }}
               />
             </div>
           ))}
@@ -286,25 +315,25 @@ const ProductColorSizeAndQuantity = ({
       {/* Buy, add to cart and add to wishlist button */}
       <div className="mt-10 flex gap-3">
         <button
-          // onClick={handleBuySingleProduct}
+          onClick={handleBuySingleProduct}
           className="btn border border-black "
         >
           {buyLoading ? <Spinner /> : "Buy It Now"}
         </button>
         <button
-          // onClick={handleProductAddToCart}
+          onClick={handleProductAddToCart}
           className="btn bg-white border text-black"
         >
           {cartLoading ? <Spinner isDark={false} /> : "Add To Cart"}
         </button>
         <button
-          // onClick={() => {
-          //   if (user) {
-          //     handleProductAddToWishlist(_id);
-          //   } else {
-          //     handleAddProductToLocaStorageWishlist();
-          //   }
-          // }}
+          onClick={() => {
+            if (user) {
+              //handleProductAddToWishlist(_id);
+            } else {
+              //handleAddProductToLocaStorageWishlist();
+            }
+          }}
           className={`btn rounded-full w-fit px-5 bg-white border text-black ${
             isProductExistToWishlist && "border-red-700 text-red-700"
           }`}
@@ -312,7 +341,6 @@ const ProductColorSizeAndQuantity = ({
           <Heart className="size-5" />
         </button>
       </div>
-
     </div>
   );
 };

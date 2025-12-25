@@ -8,7 +8,7 @@ import { useState } from "react";
 const NewArrivalCard = ({
   product,
 }: {
-  product: Pick<TProduct, "_id" | "title" | "productThumbnail" | "productImages" | "price" | "productFor">;
+  product: Pick<TProduct, "_id" | "title" | "productThumbnail" | "price" | "productFor">;
 }) => {
   const [productThumbnail, setProductThumbnail] = useState<string>(
     product?.productThumbnail
@@ -19,7 +19,7 @@ const NewArrivalCard = ({
       {/* Product Image */}
       <div
         className="h-48 md:h-56 lg:h-72 2xl:h-80 cursor-pointer"
-        onMouseEnter={() => setProductThumbnail(product?.productImages[1])}
+        onMouseEnter={() => setProductThumbnail(product?.productThumbnail)}
         onMouseLeave={() => setProductThumbnail(product?.productThumbnail)}
       >
         <div className="relative h-full">

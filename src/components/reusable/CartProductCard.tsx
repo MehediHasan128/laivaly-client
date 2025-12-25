@@ -24,14 +24,13 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
 
   // Get all information of product
   const { _id, productId, quantity, selectedVariant } = product;
-  const { title, productFor, price, discount, productImages } = productId;
-  const { color, size, SKU } = selectedVariant;
+  const { title, productFor, price, discount } = productId;
+  const { color, size, SKU, productImage } = selectedVariant;
 
   // Calculater discount price
   const discountPrice = price * (discount / 100);
 
   //  Set productImage
-  const productImage = productImages?.[0];
 
   // Delete product from cart function
   const handelDeleteProductFromCart = async (cartId: string) => {
