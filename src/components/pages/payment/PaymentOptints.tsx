@@ -42,7 +42,7 @@ const PaymentOptints = ({ order }: { order: TOrderData }) => {
     try {
       const res = (await placeOrderByCOD(orderData as TOrderData)) as TResponce;
       toast.success(res.message, { id: toastId });
-      router.push("/my-account/orders");
+       router.push("/my-account/orders");
       setLoading(false);
     } catch (err) {
       const error = err as TError;

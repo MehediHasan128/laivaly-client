@@ -7,10 +7,8 @@ export default function PagesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <div>
-        <Navbar />
-      </div>
+    <main className="relative">
+      <Navbar />
       <div className="min-h-screen">{children}</div>
       <Footer />
     </main>

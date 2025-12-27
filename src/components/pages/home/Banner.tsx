@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Searchbar from "../../shared/navbar/searchBar/Searchbar";
 import { grateVibes, smoochsans } from "@/styles/font";
 
@@ -12,89 +12,47 @@ const Banner = () => {
   return (
     <main>
       {/* Text and Image constent */}
-      <div className="px-2 lg:px-5 pt-2 lg:pt-5">
-        {/* Main div */}
-        <div className="flex flex-col-reverse lg:flex-row lg:gap-10 2xl:gap-0">
-          {/* Text Content */}
-          <div className="flex justify-center items-center lg:w-[40%]">
-            <div>
-              <div className="lg:relative">
-                <h1
-                  className={`${smoochsans.className} font-extrabold text-7xl md:text-9xl lg:text-7xl xl:text-8xl 2xl:text-9xl`}
-                >
-                  <span>Unleash Fashion</span> <br />
-                  <span className="flex items-start gap-5 lg:absolute md:left-[10%] xl:left-[8%] 2xl:left-[10%]">
-                    <span className="text-4xl md:text-6xl lg:text-4xl xl:text-6xl">
-                      With
-                    </span>
-                    <span className="text-9xl md:text-[240px] lg:text-[130px] xl:text-[180px] 2xl:text-[240px]">
-                      Laivaly
-                    </span>
-                  </span>
-                </h1>
-              </div>
-              <div className="xl:px-10 mt-5 lg:mt-36 xl:mt-48 2xl:mt-64">
-                <p className="gray-text font-semibold text-justify w-[95%] lg:w-[100%] 2xl:w-[80%] mb-5 md:mb-10 lg:mb-8 xl:mb-7 2xl:mb-10 text-sm">
-                  Step into elegance with our latest fashion collections,
-                  crafted to empower your everyday look. From casual wear to
-                  statement pieces, Laivaly brings you trend-forward designs
-                  without compromising comfort. Style that speaks – only at
-                  Laivaly.
-                </p>
-                <div className="flex gap-3 md:gap-5">
-                  <button className="border flex justify-between items-center rounded-full bg-black text-white cursor-pointer p-1">
-                    <h1 className="px-5 text-xs md:text-sm lg:text-xs xl:text-sm font-medium">
-                      Shop Now
-                    </h1>
-                    <div className="bg-white p-2.5 md:p-3 rounded-full text-black">
-                      <ArrowRight size={16} />
-                    </div>
-                  </button>
-                  <button className="border border-black flex justify-between items-center rounded-full cursor-pointer p-1">
-                    <h1 className="px-5 text-xs md:text-sm lg:text-xs xl:text-sm font-medium">
-                      Explore Collection
-                    </h1>
-                    <div className="bg-black p-2.5 md:p-3 rounded-full text-white">
-                      <ArrowRight size={16} />
-                    </div>
-                  </button>
-                </div>
-              </div>
+      <div>
+        <div className="px-2">
+          <Searchbar
+            searchBarOpen={searchBarOpen}
+            setSearchBarOpen={setSearchBarOpen}
+          >
+            <div className="lg:hidden relative mb-3">
+              <input
+                disabled
+                type="text"
+                placeholder="Search for Pre Order"
+                className="border rounded-full outline-none focus:border-black w-full px-3 py-2 text-sm"
+              />
+              <span className="absolute top-0 right-0 rounded-full w-full flex justify-end items-center h-full px-5">
+                <Search />
+              </span>
             </div>
-          </div>
-
-          {/* Image Content */}
-          <div className="lg:w-[60%]">
-            {/* Small device search input */}
-            <Searchbar
-              searchBarOpen={searchBarOpen}
-              setSearchBarOpen={setSearchBarOpen}
-            >
-              <div className="lg:hidden mb-2 relative">
-                <input
-                  disabled
-                  type="text"
-                  placeholder="Search for Pre Order"
-                  className="border rounded-full outline-none focus:border-black w-full p-3 text-sm"
-                />
-                <span className="absolute top-0 right-0 rounded-full w-full flex justify-end items-center h-full px-5 size-16">
-                  <Search />
-                </span>
-              </div>
-            </Searchbar>
-
-            {/* Banner image */}
-            <div className="overflow-hidden bg-gray-100 rounded-t-2xl">
-              <div className="mx-auto lg:w-[90%] xl:w-[80%] mt-10">
-                <img src="/images/banner/banner.png" alt="" />
-              </div>
+          </Searchbar>
+        </div>
+        <div className="h-[70vh] lg:h-[100vh] relative">
+          <img
+            src="/images/banner/bg4.jpg"
+            alt="banner"
+            className="size-full object-cover object-top brightness-75"
+          />
+          <div className="absolute top-0 h-full w-full flex justify-center items-end py-16 text-white">
+            <div className="text-center space-y-4 xl:space-y-10">
+              <p className="text-xs md:text-base">MEN</p>
+              <h1 className="text-2xl lg:text-3xl">
+                Pre-order Now: Men&apos;s Spring-Summer 2026 Show
+              </h1>
+              <p className="text-xs md:text-base underline">
+                Explore Collection
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Laivaly brand banner */}
-      <div className="w-full bg-black text-white px-5 py-3 mt-5 lg:mt-0">
+      <div className="w-full bg-black text-white px-5 py-3 lg:mt-0">
         <div className="flex gap-4 md:gap-8 lg:gap-5 xl:gap-8 overflow-hidden">
           {Array.from({ length: 20 }).map((_, index) => (
             <div
@@ -114,9 +72,9 @@ const Banner = () => {
 
       {/* Video banner */}
       <div>
-        <div className="2xl:h-[900px] overflow-hidden relative">
+        <div className="h-[400px] md:h-[600px] 2xl:h-[900px] overflow-hidden relative">
           <video
-            src="/videos/banner.mp4"
+            src="/videos/banner2.mp4"
             loop
             autoPlay
             muted

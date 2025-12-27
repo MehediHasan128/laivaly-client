@@ -15,7 +15,7 @@ const ProductCard = ({ product }: { product: TPartialProductData }) => {
           alt={title}
           quality={100}
           fill
-          className="object-cover object-top w-full h-full hover:scale-110 duration-500"
+          className="object-cover hover:scale-110 duration-500"
         />
         {discount !== 0 && !highlightedProduct && (
           <div className="absolute top-0 right-0 p-3 md:p-5 text-red-700 font-semibold text-xs md:text-sm">

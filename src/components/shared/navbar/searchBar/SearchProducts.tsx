@@ -42,7 +42,7 @@ const SearchProducts = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 mt-5 md:mt-10 lg:mt-16 border-y max-h-[600px] overflow-y-scroll scrollbar-hide">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 mt-5 md:mt-10 lg:mt-12 border-y max-h-[80vh] overflow-y-scroll scrollbar-hide">
         {products?.map((product: TProduct) => (
           <div
             key={product?._id}

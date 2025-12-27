@@ -1,5 +1,4 @@
 import Banner from "@/components/pages/home/Banner";
-import CustomerReview from "@/components/pages/home/CustomerReview";
 import FeaturedCategories from "@/components/pages/home/FeaturedCategories";
 import NewArrival from "@/components/pages/home/NewArrival";
 import SesonalCollection from "@/components/pages/home/SesonalCollection";
@@ -50,7 +49,6 @@ const HomePage = async() => {
       <FeaturedCategories />
       <NewArrival newArrivalProducts={newArrivalProducts?.data} />
       <SesonalCollection winterProducts={winterProducts?.data} />
-      <CustomerReview />
     </main>
   );
 };

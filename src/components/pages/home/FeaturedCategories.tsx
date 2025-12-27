@@ -1,37 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import Button from "../../reusable/Button";
 
 const images = [
   {
     index: 0,
-    url: "/images/categories/male.jpg",
+    url: "/images/categories/men3.jpg",
     name: "maleImage",
     sectionTitle: "Men’s Collection",
     path: "/products/men",
   },
   {
     index: 1,
-    url: "/images/categories/female.jpg",
+    url: "/images/categories/women3.jpg",
     name: "femaleImage",
     sectionTitle: "Women’s Collection",
     path: "/products/women",
-  },
-  {
-    index: 2,
-    url: "/images/categories/children.jpg",
-    name: "childrenImage",
-    sectionTitle: "Kid’s Collection",
-    path: "/products/kid's",
   },
 ];
 
 const FeaturedCategories = () => {
   return (
     <section className="overflow-hidden">
-      <div className="flex flex-col md:flex-row overflow-hidden">
+      {/* <div className="flex flex-col md:flex-row overflow-hidden">
         {images.slice(0, 1).map((image) => (
           <div
             key={image.index}
@@ -90,6 +81,23 @@ const FeaturedCategories = () => {
             </div>
           ))}
         </div>
+      </div> */}
+
+      <div className="flex">
+        {images.map((img, idx) => (
+          <div key={idx} className="relative h-[350px] md:h-[600px] lg:h-[800px] xl:h-[1200px] w-full">
+            <Image
+              src={img.url}
+              alt={img.name}
+              quality={100}
+              fill
+              className="h-full xl:object-cover"
+            />
+            <div className="absolute top-0 text-white w-full h-full flex justify-center items-end">
+              <h1>Hello</h1>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

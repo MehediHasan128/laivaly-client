@@ -33,7 +33,7 @@ const Sidebar = ({ children, openMenu, setOpenMenu }: TSideDrawerProps) => {
         </DrawerClose>
 
         {/* Main nav bar */}
-        <div className="p-10">
+        <div className="px-10 2xl:px-16">
           <nav className="font-medium text-xl">
             <NavItems />
           </nav>

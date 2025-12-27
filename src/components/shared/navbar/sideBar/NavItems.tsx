@@ -17,31 +17,31 @@ const NavItems = () => {
   return (
     <>
       {navItems.map((item, index) => (
-        <Link key={index} href={item?.path}>
-          <div
-            className="cursor-pointer flex items-center justify-between py-3 group"
-            onMouseEnter={() => setHoverIndex(index)}
-            onMouseLeave={() => setHoverIndex(null)}
-          >
+        <DrawerClose key={index} asChild>
+          <Link href={item?.path}>
             <div
-              className={`w-fit overflow-hidden duration-700 ${
-                hoverIndex === null || hoverIndex === index
-                  ? "text-black"
-                  : "text-gray-500"
-              }`}
+              className="cursor-pointer flex items-center justify-between py-2 2xl:py-3 group"
+              onMouseEnter={() => setHoverIndex(index)}
+              onMouseLeave={() => setHoverIndex(null)}
             >
-              <DrawerClose asChild>
-                <h1>{item.label}</h1>
-              </DrawerClose>
-              <div className="h-[2px] bg-black w-full transition-transform -translate-x-64 group-hover:translate-x-0 duration-1000" />
+              <div
+                className={`w-fit overflow-hidden duration-700 ${
+                  hoverIndex === null || hoverIndex === index
+                    ? "text-black"
+                    : "text-gray-500"
+                }`}
+              >
+                <h1 className="font-light text-lg">{item.label}</h1>
+                <div className="h-[1px] bg-black w-full transition-transform -translate-x-64 group-hover:translate-x-0 duration-500" />
+              </div>
+              <ChevronRight
+                className={`opacity-0 duration-700 ${
+                  hoverIndex === index && "opacity-100"
+                }`}
+              />
             </div>
-            <ChevronRight
-              className={`opacity-0 duration-700 ${
-                hoverIndex === index && "opacity-100"
-              }`}
-            />
-          </div>
-        </Link>
+          </Link>
+        </DrawerClose>
       ))}
     </>
   );

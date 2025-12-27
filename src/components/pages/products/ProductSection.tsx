@@ -22,7 +22,7 @@ const ProductSection = async ({
   const products = rearrangeProducts(allProducts.data);
 
   return (
-    <div>
+    <div className="border">
       <ProductGrid products={products} />
     </div>
   );

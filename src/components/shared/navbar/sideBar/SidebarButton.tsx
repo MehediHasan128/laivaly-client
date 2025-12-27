@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 
-const SidebarButton = () => {
+const SidebarButton = ({className}: {className?: string}) => {
   const [sideBarOpen, setSidebarOpen] = useState<boolean>(false);
 
   return (
@@ -14,25 +14,25 @@ const SidebarButton = () => {
       >
         <div className="flex flex-col gap-1">
           <div
-            className={`bg-black rounded-full h-0.5 w-6 md:w-8 transition-transform duration-500 ${
+            className={`${className} rounded-full h-0.5 w-6 md:w-8 transition-transform duration-500 ${
               sideBarOpen && "origin-center rotate-45 translate-y-[3px]"
             }`}
           />
           <div
-            className={`bg-black rounded-full h-0.5 w-6 md:w-8 transition-transform duration-500 ${
+            className={`${className} rounded-full h-0.5 w-6 md:w-8 transition-transform duration-500 ${
               sideBarOpen && "origin-center -rotate-45 -translate-y-[3px]"
             }`}
           />
           <div
             className={`${
               sideBarOpen && "hidden"
-            } bg-black rounded-full h-0.5 w-6 md:w-8`}
+            } ${className} rounded-full h-0.5 w-6 md:w-8`}
           />
         </div>
-        <div className="h-5 flex items-center overflow-hidden text-sm md:text-base">
+        <div className="h-5 hidden lg:flex items-center overflow-hidden text-sm xl:text-base">
           <div
             className={`transition-transform duration-500 ${
-              sideBarOpen ? "-translate-y-2.5 md:-translate-y-3" : "translate-y-2.5 md:translate-y-3"
+              sideBarOpen ? "-translate-y-2.5 xl:-translate-y-3" : "translate-y-2.5 xl:translate-y-3"
             }`}
           >
             <h1>Menu</h1>
