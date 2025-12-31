@@ -44,7 +44,7 @@ const ProductFilters = ({
   const searchParams = useSearchParams();
 
   return (
-    <div className="sticky top-0 z-10 bg-white border-b p-5 md:p-8">
+    <div className="sticky top-0 z-10 bg-white border-y p-5">
       <div className="hidden md:flex justify-between items-center">
         <div className="flex gap-3 xl:w-[30%]">
           {filters.map((filter, index) => (

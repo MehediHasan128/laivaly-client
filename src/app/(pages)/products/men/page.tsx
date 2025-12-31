@@ -50,7 +50,7 @@ const MenPage = async ({ searchParams }: TSearchParamsProp) => {
   const products = rearrangeProducts(allProducts.data);
 
   return (
-    <main className="relative">
+    <main>
       <ProductFilters filters={filtersData} totalProducts={products.length} />
 
       <Suspense

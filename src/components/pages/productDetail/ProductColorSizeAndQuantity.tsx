@@ -77,14 +77,14 @@ const ProductColorSizeAndQuantity = ({
       title,
       productFor,
       price,
-      discount
+      discount,
     },
     quantity,
     selectedVariant: {
       color: productColor,
       size: productSize,
       SKU: productSKU,
-      productImage: images?.[0]
+      productImage: images?.[0],
     },
   };
 
@@ -197,7 +197,7 @@ const ProductColorSizeAndQuantity = ({
   }, []);
 
   return (
-    <div className="space-y-3 xl:space-y-5">
+    <div className="space-y-3">
       {/* Color button */}
       <div className="space-y-2">
         <h1 className="font-semibold text-sm md:text-base">
@@ -261,6 +261,7 @@ const ProductColorSizeAndQuantity = ({
         </div>
       </div>
 
+      {/* Warning */}
       <div>
         {warning && (
           <h1 className="flex items-center gap-1 font-medium text-sm text-red-700">
@@ -334,7 +335,7 @@ const ProductColorSizeAndQuantity = ({
               //handleAddProductToLocaStorageWishlist();
             }
           }}
-          className={`btn rounded-full w-fit px-5 bg-white border text-black ${
+          className={`hidden md:block btn rounded-full w-fit px-5 bg-white border text-black ${
             isProductExistToWishlist && "border-red-700 text-red-700"
           }`}
         >

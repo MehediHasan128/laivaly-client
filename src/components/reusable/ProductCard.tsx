@@ -9,7 +9,7 @@ const ProductCard = ({ product }: { product: TPartialProductData }) => {
 
   return (
     <div className="group">
-      <div className={`relative h-[220px] md:h-[400px] 2xl:h-[500px]`}>
+      <div className={`relative h-[250px] md:h-[450px] lg:h-[400px] xl:h-[450px] 2xl:h-[600px]`}>
         <Image
           src={productThumbnail}
           alt={title}
@@ -17,6 +17,11 @@ const ProductCard = ({ product }: { product: TPartialProductData }) => {
           fill
           className="object-cover hover:scale-110 duration-500"
         />
+
+        <div className="absolute bottom-0 py-5 px-2">
+          <h1 className="text-xs font-medium">{title}</h1>
+        </div>
+
         {discount !== 0 && !highlightedProduct && (
           <div className="absolute top-0 right-0 p-3 md:p-5 text-red-700 font-semibold text-xs md:text-sm">
             <h1>{discount}% Off</h1>

@@ -13,16 +13,14 @@ const ProductSection = async ({
   productFor: string;
   searchParams: Record<string, string | string[] | undefined>;
 }) => {
-  await new Promise((resolve) => setTimeout(resolve, 4000));
 
   const Filters = filters(defaultField, productFor, searchParams as Record<string, string>);
 
   const allProducts = (await getAllProducts(Filters)) as TResponce;
-
   const products = rearrangeProducts(allProducts.data);
 
   return (
-    <div className="border">
+    <div>
       <ProductGrid products={products} />
     </div>
   );

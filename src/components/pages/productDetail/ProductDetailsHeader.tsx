@@ -8,6 +8,7 @@ import { ChevronRight } from "lucide-react";
 import { TUser } from "@/types/user";
 import { useState } from "react";
 import ProductReviewDrawer from "./ProductReviewDrawer";
+import { capitalizeFirstLetter } from "@/utils";
 
 interface TProps {
   product: TProduct;
@@ -41,12 +42,14 @@ const ProductDetailsHeader = ({ product, user, isProductExistToWishlist, variant
       </div>
 
       <div className="lg:w-[50vw] px-3 py-5 md:px-10 md:py-10 lg:px-10 xl:px-15 2xl:px-42 lg:py-16 relative">
-        <div className="sticky top-10 space-y-3 xl:space-y-5">
-          <div className="space-y-2 md:space-y-3 xl:space-y-5">
-            <div className="border rounded-full w-fit gray-text px-5 py-0.5">
-              {productCategory}
+        <div className="sticky top-24 space-y-3">
+
+          {/* Product Category title and price */}
+          <div className="space-y-2 md:space-y-3">
+            <div className="border rounded-full w-fit gray-text px-5 py-0.5 text-sm">
+              {capitalizeFirstLetter(productCategory)}
             </div>
-            <h1 className="font-semibold text-xl md:font-bold md:text-2xl lg:text-xl 2xl:text-3xl">
+            <h1 className="font-semibold text-lg md:font-bold md:text-2xl lg:text-xl 2xl:text-3xl">
               {title}
             </h1>
             <h1 className="text-xl md:text-2xl font-bold">
@@ -54,7 +57,7 @@ const ProductDetailsHeader = ({ product, user, isProductExistToWishlist, variant
               {discount > 0 && (
                 <>
                   <span className="font-light line-through text-gray-500">
-                    ${price}
+                    ${price.toFixed(2)}
                   </span>{" "}
                   <sub className="text-red-700">{discount}% off</sub>
                 </>

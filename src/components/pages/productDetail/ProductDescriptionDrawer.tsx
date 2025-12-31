@@ -92,7 +92,16 @@ const ProductDescriptionDrawer = ({ children, productDescriptions }: { children:
           <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-2.5">
             <h1 className="text-base font-semibold">Weight</h1>
             <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">
-              {productDescriptions?.productWeight}
+              {productDescriptions?.productWeight} gm
+            </p>
+          </div>
+
+          <div className="w-full border-b" />
+
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-2.5">
+            <h1 className="text-base font-semibold">Country of origin</h1>
+            <p className="md:w-[70%] text-xs md:text-sm text-justify font-medium gray-text">
+              {productDescriptions?.countryOfOrigin}
             </p>
           </div>
         </div>

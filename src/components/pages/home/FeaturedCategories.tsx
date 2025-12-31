@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const images = [
   {
@@ -83,9 +84,9 @@ const FeaturedCategories = () => {
         </div>
       </div> */}
 
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         {images.map((img, idx) => (
-          <div key={idx} className="relative h-[350px] md:h-[600px] lg:h-[800px] xl:h-[1200px] w-full">
+          <div key={idx} className="relative h-[550px] md:h-[600px] lg:h-[800px] xl:h-[1200px] w-full">
             <Image
               src={img.url}
               alt={img.name}
@@ -93,8 +94,10 @@ const FeaturedCategories = () => {
               fill
               className="h-full xl:object-cover"
             />
-            <div className="absolute top-0 text-white w-full h-full flex justify-center items-end">
-              <h1>Hello</h1>
+            <div className="absolute top-0 text-white w-full h-full flex justify-center items-end py-6 md:py-10">
+              <Link href={img.path}>
+              <h1 className="underline">{img.sectionTitle}</h1>
+              </Link>
             </div>
           </div>
         ))}

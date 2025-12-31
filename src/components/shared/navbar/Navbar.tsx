@@ -6,9 +6,9 @@ const Navbar = async () => {
   const user = (await currentUser()) as TUser;
 
   return (
-    <header className="sticky top-0 lg:fixed lg:w-full z-10 group">
+    <>
       <NavbarContent user={user} />
-    </header>
+    </>
   );
 };
 

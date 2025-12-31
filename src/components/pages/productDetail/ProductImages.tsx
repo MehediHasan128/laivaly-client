@@ -3,15 +3,20 @@
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { useState } from "react";
+import { Heart } from "lucide-react";
 
 const ProductImages = ({ images }: { images: string[] }) => {
   const [imgIndex, setImageIndex] = useState<number>(0);
 
   return (
     <>
+      {/* Picture for large device */}
       <div className="hidden lg:block">
         {images.map((image, index) => (
-          <div key={index} className="relative w-full md:h-[160vh] lg:h-[100vh] xl:h-[150vh]">
+          <div
+            key={index}
+            className="relative w-full lg:h-[100vh] xl:h-[150vh]"
+          >
             <Image
               src={image}
               alt="product"
@@ -23,6 +28,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
         ))}
       </div>
 
+      {/* Picture for medium or small device */}
       <div className="block lg:hidden">
         <Carousel
           setApi={(api) => {
@@ -46,6 +52,12 @@ const ProductImages = ({ images }: { images: string[] }) => {
                     fill
                     className="object-cover md:object-center"
                   />
+
+                  <div className="absolute top-0 right-0 p-6 md:p-10">
+                    <button>
+                      <Heart />
+                    </button>
+                  </div>
                 </div>
               </CarouselItem>
             ))}
