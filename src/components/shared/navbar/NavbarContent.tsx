@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation";
 
 const NavbarContent = ({ user }: { user: TUser }) => {
   const [scrollDown, setScrollDown] = useState(false);
+  const [searchBarOpen, setSearchBarOpen] = useState(false);
   let lastScrollY = 0;
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
                   }`
             }`}
           />
-          <Searchbar>
+          <Searchbar searchBarOpen={searchBarOpen} setSearchBarOpen={setSearchBarOpen}>
             <div
               className={`hidden lg:flex items-center gap-1.5 cursor-pointer text-sm xl:text-base`}
             >
@@ -73,7 +74,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
               <h1>Search</h1>
             </div>
           </Searchbar>
-          <Searchbar>
+          <Searchbar searchBarOpen={searchBarOpen} setSearchBarOpen={setSearchBarOpen}>
             <div className="lg:hidden">
               <Search
                 className={`${

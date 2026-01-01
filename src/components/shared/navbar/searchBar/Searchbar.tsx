@@ -42,7 +42,7 @@ const Searchbar = ({
 
         {/* Search Input */}
         <div className="py-10 overflow-hidden">
-          <SearchProducts />
+          <SearchProducts setSearchBarOpen={setSearchBarOpen} />
         </div>
       </DrawerContent>
     </Drawer>

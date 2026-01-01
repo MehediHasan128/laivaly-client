@@ -5,10 +5,10 @@ import { smoochsans } from "@/styles/font";
 import { TProduct } from "@/types/product.type";
 import { TResponce } from "@/types/types";
 import { Search } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import SearchProductCard from "./SearchProductCard";
 
-const SearchProducts = () => {
+const SearchProducts = ({setSearchBarOpen}: {setSearchBarOpen?: Dispatch<SetStateAction<boolean>>;}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState<TProduct[]>();
   useEffect(() => {
@@ -42,23 +42,8 @@ const SearchProducts = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 mt-5 md:mt-10 lg:mt-12 border-y max-h-[80vh] overflow-y-scroll scrollbar-hide">
-        {products?.map((product: TProduct) => (
-          <div
-            key={product?._id}
-            className="cursor-pointer overflow-hidden border-r border-b"
-          >
-            <div className="relative h-52 md:h-80 xl:h-96">
-              <Image
-                src={product?.productThumbnail}
-                alt={product?.title}
-                quality={100}
-                fill
-                className="hover:scale-110 duration-700 object-cover"
-              />
-            </div>
-          </div>
-        ))}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-0.5 mt-5 md:mt-10 lg:mt-12 max-h-[80vh] overflow-y-scroll scrollbar-hide">
+        <SearchProductCard products={products as TProduct[]} setSearchBarOpen={setSearchBarOpen}/>
       </div>
     </>
   );
