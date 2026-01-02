@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 8px;
   position: fixed;
   transition: opacity 0.3s;
@@ -9,7 +9,7 @@
 
 html {
   scrollbar-width: thin;
-  scrollbar-color: #000000 #EDF4F2;
+  scrollbar-color: #000000 #edf4f2;
 }
 
 .scrollbar-hide {
@@ -96,13 +96,13 @@ html {
     @apply bg-background text-foreground;
   }
   .flex-item-center {
-    @apply flex items-center gap-2
+    @apply flex items-center gap-2;
   }
   .gray-text {
-    @apply text-gray-600 font-medium text-sm md:text-base
+    @apply text-gray-600 font-medium text-sm md:text-base;
   }
   .btn {
-    @apply flex justify-center items-center text-sm bg-black font-semibold text-white rounded w-full active:scale-95 duration-1000 cursor-pointer py-4
+    @apply flex justify-center items-center text-sm bg-black font-semibold text-white rounded w-full active:scale-95 duration-1000 cursor-pointer py-4;
   }
 }
 
@@ -116,3 +116,52 @@ html {
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #000000 #000000 transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent #FF3D00 #FF3D00;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+    
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+    
+    

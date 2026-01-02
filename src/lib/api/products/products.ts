@@ -1,17 +1,24 @@
 import { baseApi } from "../baseApi/baseApi";
 
 export interface TProductQueryParams {
-  field: "productFor" | "season" | "productGroup" | "productCategory" | "productSubCategory" | "searchTerm" | "limit";
-  value: string | string[] | undefined; 
-} 
+  field:
+    | "productFor"
+    | "season"
+    | "productGroup"
+    | "productCategory"
+    | "productSubCategory"
+    | "searchTerm"
+    | "limit";
+  value: string | string[] | undefined;
+}
 
 export const getAllProducts = (args?: TProductQueryParams[]) => {
   const params = new URLSearchParams();
 
-  if(params) {
+  if (params) {
     args?.forEach((item: TProductQueryParams) => {
-      params.append(item.field, item.value as string)
-    })
+      params.append(item.field, item.value as string);
+    });
   }
 
   return baseApi({

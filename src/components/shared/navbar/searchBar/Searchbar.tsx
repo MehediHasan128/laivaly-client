@@ -20,6 +20,9 @@ const Searchbar = ({
   searchBarOpen,
   setSearchBarOpen,
 }: TSearchDrawerProps) => {
+
+  
+
   return (
     <Drawer
       direction="top"
