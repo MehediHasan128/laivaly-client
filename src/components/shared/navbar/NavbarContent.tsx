@@ -54,7 +54,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
               }`
         }`}
       >
-        <div className="flex items-center gap-5 font-semibold w-28 lg:w-auto">
+        <div className="relative flex items-center gap-5 font-semibold w-28 lg:w-auto">
           <SidebarButton
             className={`duration-500 ${
               scrollDown

@@ -18,23 +18,21 @@ interface TSideDrawerProps {
 const Sidebar = ({ children, openMenu, setOpenMenu }: TSideDrawerProps) => {
   return (
     <Drawer direction="left" open={openMenu} onOpenChange={setOpenMenu}>
-
       <DrawerOverlay />
 
       {/* Drawer trigger button */}
       <DrawerTrigger asChild>{children}</DrawerTrigger>
 
       {/* Main drawer content */}
-      <DrawerContent>
-        {/* Drawer close button */}
-        <DrawerTitle />
-        <DrawerClose asChild className="w-[50%] h-[90px] cursor-pointer">
-          <button></button>
-        </DrawerClose>
-
-        {/* Main nav bar */}
-        <div className="px-10 2xl:px-16">
-          <nav className="font-medium text-xl">
+      <DrawerContent className="">
+        <div className="h-screen relative">
+          <div className="absolute top-0">
+            <DrawerTitle />
+            <DrawerClose asChild className="w-[50%] h-[90px] cursor-pointer border">
+              <button></button>
+            </DrawerClose>
+          </div>
+          <nav>
             <NavItems />
           </nav>
         </div>

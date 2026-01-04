@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { TCartProduct } from "@/types/cart.type";
 
 const CartProductCard = ({ product }: { product: TCartProduct }) => {
+
   // Router for page refreshing
   const router = useRouter();
 
@@ -28,7 +29,7 @@ const CartProductCard = ({ product }: { product: TCartProduct }) => {
   const { color, size, SKU, productImage } = selectedVariant;
 
   // Calculater discount price
-  const discountPrice = price * (discount / 100);
+  const discountPrice = price - price * (discount / 100);
 
   //  Set productImage
 

@@ -39,7 +39,6 @@ const ProfileUploader = ({
       router.refresh();
     } catch (err) {
       const error = err as TError;
-      console.log(error);
       toast.error(error?.data?.message, { id: toastId });
     }
   };

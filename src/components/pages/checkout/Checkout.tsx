@@ -109,7 +109,6 @@ const Checkout = ({
     } catch (err) {
       const toastId = toast.loading("Loading");
       const error = err as TError;
-      console.log(error);
       toast.error(error?.data?.message, { id: toastId });
       setLoading(false);
     }

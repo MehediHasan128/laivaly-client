@@ -21,7 +21,6 @@ const OTPForm = ({ userEmail }: { userEmail: string }) => {
 
     try {
       const res = (await verifyCustomerEmail(data, userEmail)) as TResponce;
-      console.log(res);
       toast.success(res.message, { id: toastId });
       router.push('/login');
       setLoading(false);

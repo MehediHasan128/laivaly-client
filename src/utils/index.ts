@@ -17,7 +17,7 @@ export const rearrangeProducts = (productItems: TPartialProductData[]) => {
 
   while (remaining.length > 0) {
     const group = remaining.slice(0, 4);
-    const largeIndex = group.findIndex((item) => item.highlightedProduct);
+    const largeIndex = group.findIndex((item) => item.productLayout);
 
     if (largeIndex === -1) {
       products.push(...group);
@@ -25,7 +25,7 @@ export const rearrangeProducts = (productItems: TPartialProductData[]) => {
     } else {
       const largeItem = group[largeIndex];
       const smallItems = group
-        .filter((item) => !item.highlightedProduct)
+        .filter((item) => !item.productLayout)
         .slice(0, 2);
 
       if (placeLargeFirst) {
@@ -79,7 +79,7 @@ export const CalculateProductTotalPriceShippingAndTax = (
     const { productId, quantity } = product;
     const { price, discount } = productId;
 
-    const discountPrice = price * (discount / 100);
+    const discountPrice = price - price * (discount / 100);
 
     const productTotalPrice =
       product?.productId.discount === 0

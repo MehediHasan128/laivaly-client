@@ -39,7 +39,6 @@ const LoginForm = () => {
     const toastId = toast.loading("Loading");
     try {
       const res = (await resetPasswordLink(userEmail as string)) as TResponce;
-      console.log(res);
       toast.success(res?.message, { id: toastId });
     } catch (err) {
       const error = err as TError;

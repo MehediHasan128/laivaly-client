@@ -46,7 +46,7 @@ export interface TReviews {
 
 export interface TProduct {
   _id: string;
-  highlightedProduct: boolean;
+  productLayout: string;
   parentProductId: string;
   title: string;
   description: TProductDescription;
@@ -69,7 +69,7 @@ export type TPartialProductData = Pick<
   | "_id"
   | "title"
   | "price"
-  | "highlightedProduct"
+  | "productLayout"
   | "productFor"
   | "productThumbnail"
   | "discount"

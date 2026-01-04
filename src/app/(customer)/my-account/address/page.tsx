@@ -24,7 +24,7 @@ export const metadata = {
 const Addresspage = async () => {
   const user = (await currentUser()) as TUser;
 
-  console.log(user);
+  
 
   const { data: shippingAddress } = (await getShippingAddress(
     user?.id

@@ -49,7 +49,7 @@ const CheckOutPage = async () => {
     orderProducts = items || [];
   };
 
-  console.log(orderProducts);
+  
 
   return (
     <main className="p-3 xl:p-16">

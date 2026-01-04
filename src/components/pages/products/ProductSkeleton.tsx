@@ -6,7 +6,7 @@ import { TProduct } from "@/types/product.type";
 const ProductSkeleton = ({
   products,
 }: {
-  products: Pick<TProduct, "_id" | "highlightedProduct">[];
+  products: Pick<TProduct, "_id" | "productLayout">[];
 }) => {
   return (
     <Container>
@@ -15,7 +15,7 @@ const ProductSkeleton = ({
           <div
             key={product._id}
             className={`${
-              product.highlightedProduct ? "col-span-2" : ""
+              product.productLayout === 'vertical' ? "col-span-2" : ""
             } cursor-pointer overflow-hidden w-full`}
           >
             <Skeleton>

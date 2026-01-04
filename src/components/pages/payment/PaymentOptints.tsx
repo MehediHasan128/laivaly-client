@@ -46,7 +46,6 @@ const PaymentOptints = ({ order }: { order: TOrderData }) => {
       setLoading(false);
     } catch (err) {
       const error = err as TError;
-      console.log(error);
       toast.error(error.data.message, { id: toastId });
       setLoading(false);
     }

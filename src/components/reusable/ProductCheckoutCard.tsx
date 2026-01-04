@@ -2,17 +2,13 @@ import Image from "next/image";
 import { GetColorName } from "hex-color-to-color-name";
 import { TOrderItems } from "@/types/order.type";
 
-const ProductCheckoutCard = ({
-  orderItems,
-}: {
-  orderItems: TOrderItems;
-}) => {
+const ProductCheckoutCard = ({ orderItems }: { orderItems: TOrderItems }) => {
+  const { title, price, discount, productImages, quantity, color, size } =
+    orderItems;
 
-  const {title, price, discount, productImages, quantity, color, size} = orderItems;
+  const disCountPrice = price - price * (discount / 100);
 
-   const disCountPrice = price * (discount / 100);
-
-   const selectedColorName = GetColorName(color as string);
+  const selectedColorName = GetColorName(color as string);
 
   return (
     <div className="flex gap-2">

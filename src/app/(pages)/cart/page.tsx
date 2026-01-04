@@ -47,7 +47,7 @@ const CartPage = async () => {
     // Product for cart
     const cartData = (await getAllProductFromCart()) as TResponce;
     cartProducts = cartData?.data as TCartProduct[];
-  };
+  }
 
   // Calculate product price, tax, shipping charge
   const { subTotal, shippingCharge, tax, grandTotal } =
@@ -146,7 +146,7 @@ const CartPage = async () => {
         </div>
       )}
 
-      {(cartProducts.length > 0) && (
+      {cartProducts.length > 0 && (
         <Container>
           <div className="w-[90%] mx-auto space-y-10">
             <div className="space-y-2">

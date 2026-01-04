@@ -30,7 +30,7 @@ const ProductColorSizeAndQuantity = ({
   isProductExistToWishlist,
   setImages,
 }: TProductColorSizeAndQuantityProps) => {
-  const { _id, title, price, discount, productFor, productThumbnail } = product;
+  const { _id, title, price, discount, productFor, } = product;
   // User router
   const router = useRouter();
   // Set product color in array

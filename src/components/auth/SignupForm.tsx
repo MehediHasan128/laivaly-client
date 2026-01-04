@@ -50,7 +50,6 @@ const SignupForm = () => {
 
       try {
         const res = (await createCustomerAcoount(customerData)) as TResponce;
-        console.log(res);
         toast.success(res.message, { id: toastId });
         router.push(`/verify-email?userEmail=${res?.data[0].userEmail}`)
         setLoading(false)
