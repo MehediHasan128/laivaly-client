@@ -33,7 +33,7 @@ const Searchbar = ({
       <DrawerTrigger asChild>{children}</DrawerTrigger>
 
       {/* Main drawer content */}
-      <DrawerContent className="data-[vaul-drawer-direction=top]:min-h-[100vh]">
+      <DrawerContent className="data-[vaul-drawer-direction=top]:min-h-[100vh] z-[200]">
         {/* Drawer close button */}
         <DrawerTitle />
         <DrawerClose

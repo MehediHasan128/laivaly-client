@@ -25,7 +25,7 @@ const ProductDetailsHeader = ({ product, user, isProductExistToWishlist, variant
     _id,
     title,
     description,
-    productCategory,
+    category,
     productReviews,
     productThumbnail,
     price,
@@ -47,7 +47,7 @@ const ProductDetailsHeader = ({ product, user, isProductExistToWishlist, variant
           {/* Product Category title and price */}
           <div className="space-y-2 md:space-y-3">
             <div className="border rounded-full w-fit gray-text px-5 py-0.5 text-sm">
-              {capitalizeFirstLetter(productCategory)}
+              {capitalizeFirstLetter(category)}
             </div>
             <h1 className="font-semibold text-lg md:font-bold md:text-2xl lg:text-xl 2xl:text-3xl">
               {title}

@@ -3,23 +3,18 @@ import { TProductQueryParams } from "@/lib/api/products/products";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 export const filters = (
-  defauldField: "productFor" | "season" | "productGroup" | "searchTerm",
-  defaultFilterValue: string,
   searchParams: Record<string, string | string[] | undefined>
 ) => {
-  const defaultFilter: TProductQueryParams = {
-    field: defauldField,
-    value: defaultFilterValue,
-  };
 
   const productFilters = searchParams
     ? Object.entries(searchParams).map(([field, value]) => ({
-        field: field as "productFor" | "season" | "productGroup" | "searchTerm",
+        field: field as "productFor" | "season" | "productGroup" | "searchTerm" | "productCategory",
         value,
       }))
     : [];
 
-  const Filters: TProductQueryParams[] = [defaultFilter, ...productFilters];
+  const Filters: TProductQueryParams[] = [...productFilters];
+
 
   return Filters;
 };

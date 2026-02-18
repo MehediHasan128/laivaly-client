@@ -38,7 +38,7 @@ const SearchProductCard = ({
                 className="hidden md:block absolute bottom-0 px-3 py-5"
               >
                 <p className="text-xs font-medium text-gray-500">
-                  {capitalizeFirstLetter(product?.productCategory)}
+                  {capitalizeFirstLetter(product?.category)}
                 </p>
                 <h2 className="text-xs">{product?.title}</h2>
               </Link>
@@ -48,7 +48,7 @@ const SearchProductCard = ({
               className="md:hidden px-2 py-3"
             >
               <p className="text-xs font-medium text-gray-500">
-                {capitalizeFirstLetter(product?.productCategory)}
+                {capitalizeFirstLetter(product?.category)}
               </p>
               <h2 className="text-xs">{product?.title}</h2>
             </Link>

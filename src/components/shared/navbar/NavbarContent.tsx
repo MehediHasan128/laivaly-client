@@ -39,9 +39,9 @@ const NavbarContent = ({ user }: { user: TUser }) => {
   const isProductDetailsPage = path.startsWith("/products");
 
   return (
-    <header className={`sticky top-0 ${isProductDetailsPage ? "sticky top-0" : "lg:fixed lg:w-full"} z-10 group`}>
+    <header className={`${isProductDetailsPage ? "" : "sticky top-0 lg:fixed lg:w-full"} z-[150] lg:z-50 group`}>
       <div
-        className={`flex justify-between items-center px-4 md:px-10 lg:px-16 py-3 group-hover:shadow duration-500 ${
+        className={`flex justify-between items-center px-4 md:px-10 lg:px-10 xl:px-16 py-3 group-hover:shadow duration-500 ${
           scrollDown
             ? `bg-white ${
                 isProductDetailsPage &&
@@ -54,7 +54,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
               }`
         }`}
       >
-        <div className="relative flex items-center gap-5 font-semibold w-28 lg:w-auto">
+        <div className="flex items-center gap-5 font-semibold w-28 lg:w-auto">
           <SidebarButton
             className={`duration-500 ${
               scrollDown

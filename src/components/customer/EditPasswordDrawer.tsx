@@ -14,7 +14,7 @@ import EditPasswordForm from "./EditPasswordForm";
 
 const EditPasswordDrawer = ({ children }: { children: ReactNode }) => {
   const [direction, setDirection] = useState<"right" | "bottom">("bottom");
-  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   useEffect(() => {
     const updateDirection = () => {
@@ -33,7 +33,11 @@ const EditPasswordDrawer = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <Drawer direction={direction} open={openDrawer} onOpenChange={setOpenDrawer}>
+    <Drawer
+      direction={direction}
+      open={openDrawer}
+      onOpenChange={setOpenDrawer}
+    >
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-xl pb-10 xl:pb-0">
         <DrawerHeader className="relative">
@@ -48,8 +52,10 @@ const EditPasswordDrawer = ({ children }: { children: ReactNode }) => {
         <div className="h-full flex justify-center items-center">
           <div className="md:w-[45%] lg:w-[60%] xl:w-[70%] space-y-8">
             <div>
-                <h1 className="text-2xl font-semibold">Change Password</h1>
-                <p className="text-sm text-gray-700 font-semibold">Update password for enhanced account security.</p>
+              <h1 className="text-2xl font-semibold">Change Password</h1>
+              <p className="text-sm text-gray-700 font-semibold">
+                Update password for enhanced account security.
+              </p>
             </div>
             <EditPasswordForm onSuccess={() => setOpenDrawer(false)} />
           </div>

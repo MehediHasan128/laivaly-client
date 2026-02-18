@@ -5,16 +5,11 @@ import { rearrangeProducts } from "@/utils";
 import ProductGrid from "./ProductGrid";
 
 const ProductSection = async ({
-  defaultField,
-  productFor,
   searchParams,
 }: {
-  defaultField: "productFor" | "season" | "productGroup" | "searchTerm",
-  productFor: string;
   searchParams: Record<string, string | string[] | undefined>;
 }) => {
-
-  const Filters = filters(defaultField, productFor, searchParams as Record<string, string>);
+  const Filters = filters(searchParams as Record<string, string>);
 
   const allProducts = (await getAllProducts(Filters)) as TResponce;
   const products = rearrangeProducts(allProducts.data);

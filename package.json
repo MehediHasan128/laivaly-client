@@ -5,10 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "dev:https": "set NODE_EXTRA_CA_CERTS=C:\\Users\\User\\AppData\\Local\\mkcert\\rootCA.pem && node --loader ts-node/esm server.ts",
     "build": "next build --webpack",
     "start": "next start",
-    "startHttps": "NODE_ENV=production ts-node server.ts",
     "lint": "next lint",
     "postbuild": "next-sitemap"
   },
@@ -60,6 +58,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "@types/redux-persist": "^4.0.0",
+    "baseline-browser-mapping": "^2.9.19",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
     "tailwindcss": "^4",

@@ -52,14 +52,17 @@ export interface TProduct {
   description: TProductDescription;
   season?: string;
   productFor: string;
-  productGroup: string;
-  productCategory: string;
-  productSubCategory: string;
+  group: string;
+  category: string;
+  subCategory: string;
+  style: string;
   productVariants: string;
   price: number;
   discount: number;
   perUnitCost: number;
   productThumbnail: string;
+  status: string;
+  launchDate?: Date;
   productReviews: TReviews | string;
   isDeleted: boolean;
 }

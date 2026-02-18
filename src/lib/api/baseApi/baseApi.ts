@@ -3,7 +3,7 @@ import { TError } from "@/types/types";
 
 const isProd = process.env.NODE_ENV === "production";
 const prodURL = "https://server-laivaly.vercel.app/api/v1";
-const devURL = "https://localhost:5000/api/v1";
+const devURL = "http://localhost:5000/api/v1";
 export const baseURL = isProd ? prodURL : devURL;
 
 interface FetchOptions extends RequestInit {
