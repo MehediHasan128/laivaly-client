@@ -26,13 +26,13 @@ const SesonalCollection = ({
 }: {
   winterProducts: TProduct[];
 }) => {
-  const [productCategory, setProductCategory] = useState<string>("");
+  const [productSubCategory, setProductSubCategory] = useState<string>("");
 
   const selectedProducts = winterProducts?.filter(
-    (product: TProduct) => product.productSubCategory === productCategory
+    (product: TProduct) => product.subCategory === productSubCategory
   );
 
-  const products = productCategory === "" ? winterProducts : selectedProducts;
+  const products = productSubCategory === "" ? winterProducts : selectedProducts;
 
   return (
     <section>
@@ -53,17 +53,17 @@ const SesonalCollection = ({
         <div className="my-10 lg:my-20 grid grid-cols-4 md:grid-cols-8 text-center gap-3 lg:w-[90%] xl:w-[60%]">
           {buttons.map((btn, index) => (
             <div
-              onClick={() => setProductCategory(btn.value)}
+              onClick={() => setProductSubCategory(btn.value)}
               key={index}
               className={`p-0.5 border rounded active:scale-95 duration-500 ${
-                btn.value === productCategory && "border-black"
+                btn.value === productSubCategory && "border-black"
               }`}
             >
               <button
                 className={`${
                   smoochsans.className
                 } cursor-pointer md:text-xl w-full font-bold rounded ${
-                  btn.value === productCategory
+                  btn.value === productSubCategory
                     ? "bg-black text-white"
                     : "bg-white"
                 } py-1 md:py-2`}

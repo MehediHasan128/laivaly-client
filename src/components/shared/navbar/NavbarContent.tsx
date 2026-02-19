@@ -104,7 +104,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
         </Link>
 
         <div className="flex items-center gap-3 md:gap-5 2xl:gap-6">
-          <Link href="/wishlist" className="hidden lg:block">
+          <Link href="/wishlist">
             <Heart className="cursor-pointer size-5 2xl:size-6" />
           </Link>
           <Link href="/cart">

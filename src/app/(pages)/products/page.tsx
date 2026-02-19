@@ -32,13 +32,11 @@ const ProductsPage = async ({ searchParams }: TSearchParamsProp) => {
 
   const Filters = filters(resolvedSearchParams);
 
-  console.log(Filters);
-
   const allProducts = (await getAllProducts(Filters)) as TResponce;
   const products = rearrangeProducts(allProducts.data);
 
   return (
-    <main className="bg-red-400">
+    <main>
       <ProductFilters filters={filtersData} totalProducts={products.length} />
 
       <Suspense

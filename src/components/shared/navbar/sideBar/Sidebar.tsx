@@ -47,7 +47,7 @@ const Sidebar = ({ children, openMenu, setOpenMenu }: TSideDrawerProps) => {
       <DrawerTrigger asChild>{children}</DrawerTrigger>
 
       {/* Main drawer content */}
-      <DrawerContent className="data-[vaul-drawer-direction=left]:lg:max-w-[30vw] data-[vaul-drawer-direction=left]:xl:max-w-[25vw] data-[vaul-drawer-direction=left]:2xl:max-w-[20vw] z-[90]">
+      <DrawerContent className="data-[vaul-drawer-direction=left]:lg:max-w-[30vw] data-[vaul-drawer-direction=left]:xl:max-w-[25vw] data-[vaul-drawer-direction=left]:2xl:max-w-[20vw] data-[vaul-drawer-direction=top]:max-h-[100vh] z-[90]">
         <div className="relative h-screen">
           <div className="absolute top-0 z-10 w-full">
             <DrawerTitle />
@@ -58,7 +58,7 @@ const Sidebar = ({ children, openMenu, setOpenMenu }: TSideDrawerProps) => {
               <button></button>
             </DrawerClose>
           </div>
-          <nav>
+          <nav className="border-t md:border-none mt-[60px] md:mt-0">
             <NavItems drawerDirection={direction} setOpenMenu={setOpenMenu} />
           </nav>
         </div>

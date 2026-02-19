@@ -29,7 +29,7 @@ const NewArrival = ({
   const [productCategory, setProductCategory] = useState<string>("");
 
   const selectedProducts = newArrivalProducts?.filter(
-    (product: TProduct) => product.productCategory === productCategory
+    (product: TProduct) => product.category === productCategory
   );
 
   const products =
