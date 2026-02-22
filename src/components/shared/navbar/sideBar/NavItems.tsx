@@ -14,8 +14,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
@@ -108,6 +106,7 @@ const NavItems = ({
               <SubMenuItems
                 subMenu={subMenu}
                 setOpenMenu={setOpenMenu}
+                drawerDirection={drawerDirection}
               />
             </MenubarContent>
           </MenubarMenu>

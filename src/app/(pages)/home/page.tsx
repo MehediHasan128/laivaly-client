@@ -1,9 +1,6 @@
 import Banner from "@/components/pages/home/Banner";
 import FeaturedCategories from "@/components/pages/home/FeaturedCategories";
-import NewArrival from "@/components/pages/home/NewArrival";
-import SesonalCollection from "@/components/pages/home/SesonalCollection";
-import { getAllProducts } from "@/lib/api/products/products";
-import { TResponce } from "@/types/types";
+import SesonalCollection from "@/components/pages/home/FeaturedProducts";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -31,24 +28,23 @@ export const metadata: Metadata = {
 
 const HomePage = async() => {
 
-  const [newArrivalProducts, winterProducts] = await Promise.all([
-    getAllProducts([
-      {field: 'season', value: 'summer'},
-      {field: 'season', value: 'all-season'},
-      {field: 'limit', value: '15'},
-    ]),
-    getAllProducts([
-      {field: 'season', value: 'winter'},
-      {field: 'limit', value: '15'},
-    ]),
-  ]) as TResponce[];
+  // const [winterProducts] = await Promise.all([
+  //   getAllProducts([
+  //     {field: 'season', value: 'summer'},
+  //     {field: 'season', value: 'all-season'},
+  //     {field: 'limit', value: '15'},
+  //   ]),
+  //   getAllProducts([
+  //     {field: 'season', value: 'winter'},
+  //     {field: 'limit', value: '15'},
+  //   ]),
+  // ]) as TResponce[];
 
   return (
     <main>
       <Banner />
       <FeaturedCategories />
-      <NewArrival newArrivalProducts={newArrivalProducts?.data} />
-      <SesonalCollection winterProducts={winterProducts?.data} />
+      <SesonalCollection />
     </main>
   );
 };

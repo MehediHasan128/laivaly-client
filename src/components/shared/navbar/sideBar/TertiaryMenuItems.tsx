@@ -10,7 +10,7 @@ const TertiaryMenuItems = ({
 }: {
   tertiaryMenu: TNavItemsChildren;
   setOpenMenu: Dispatch<SetStateAction<boolean>>;
-  drawerDirection?: "left" | "top";
+  drawerDirection: "left" | "top";
 }) => {
   const tertiaryMenuItems = tertiaryMenu && tertiaryMenu[0]?.items;
 

@@ -38,30 +38,31 @@ const ProductImages = ({ images }: { images: string[] }) => {
             });
           }}
         >
-          <CarouselContent>
-            {images.map((image, index) => (
-              <CarouselItem key={index}>
-                <div
-                  key={index}
-                  className="relative w-full h-[70vh] md:h-screen"
-                >
-                  <Image
-                    src={image}
-                    alt="product"
-                    quality={100}
-                    fill
-                    className="object-cover md:object-center"
-                  />
-
-                  <div className="absolute top-0 right-0 p-6 md:p-10">
-                    <button>
-                      <Heart />
-                    </button>
+          <div className="relative">
+            <CarouselContent>
+              {images.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div
+                    key={index}
+                    className="relative w-full h-[70vh] md:h-screen"
+                  >
+                    <Image
+                      src={image}
+                      alt="product"
+                      quality={100}
+                      fill
+                      className="object-cover md:object-center"
+                    />
                   </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="absolute top-0 right-0 p-6 md:p-10">
+              <button>
+                <Heart />
+              </button>
+            </div>
+          </div>
         </Carousel>
         <div>
           <div className="relative w-full flex">

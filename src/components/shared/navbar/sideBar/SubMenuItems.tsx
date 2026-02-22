@@ -1,7 +1,4 @@
 import {
-  Menubar,
-  MenubarContent,
-  MenubarMenu,
   MenubarSub,
   MenubarSubTrigger,
 } from "@/components/ui/menubar";
@@ -25,7 +22,7 @@ const SubMenuItems = ({
 }: {
   subMenu: TNavItems;
   setOpenMenu: Dispatch<SetStateAction<boolean>>;
-  drawerDirection?: "left" | "top";
+  drawerDirection: "left" | "top";
 }) => {
   const [subMenuHoverIndex, setSubMenuHoverIndex] = useState<string | null>(
     null,
@@ -104,6 +101,7 @@ const SubMenuItems = ({
           <TertiaryMenuItems
             tertiaryMenu={tertiaryMenu as TNavItemsChildren}
             setOpenMenu={setOpenMenu}
+            drawerDirection={drawerDirection}
           />
         </MenubarSub>
       )}
