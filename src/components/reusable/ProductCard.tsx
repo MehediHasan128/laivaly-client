@@ -1,13 +1,19 @@
 "use client";
 
-import { handleProductAddToLocalStorage } from "@/lib/api/products/products";
+import {
+  getProductIdFromLocalStorage,
+  handleProductAddToLocalStorage,
+  handleProductRemoveToLocalStorage,
+} from "@/lib/api/products/products";
 import { TPartialProductData } from "@/types/product.type";
 import { TUser } from "@/types/user";
-import { Check, Heart } from "lucide-react";
+import { Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import { GoHeart, GoHeartFill } from "react-icons/go";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
 
 const ProductCard = ({
   product,
@@ -19,13 +25,27 @@ const ProductCard = ({
   const { title, productThumbnail, productLayout, productFor, _id } = product;
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [wishlistItems, setWishlistItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchWishliat = () => {
+      setWishlistItems(getProductIdFromLocalStorage());
+    };
+
+    fetchWishliat();
+    window.addEventListener("wishlist_updated", fetchWishliat);
+
+    return () => {
+      window.removeEventListener("wishlist_updated", fetchWishliat);
+    };
+  }, []);
 
   const showSuccessTick = () => {
     setIsSuccess(true);
     setTimeout(() => {
       setIsSuccess(false);
     }, 1000);
-  }
+  };
 
   const handleProductAddToWishlist = async (productId: string) => {
     setLoading(true);
@@ -33,12 +53,25 @@ const ProductCard = ({
     if (user) {
       console.log(5);
     } else {
-      await handleProductAddToLocalStorage(productId);
+      const res = await handleProductAddToLocalStorage(productId);
+      setLoading(false);
+      if (res !== null) {
+        showSuccessTick();
+      }
+    }
+  };
+
+  const handleProductRemoveToWishlist = async (productId: string) => {
+    setLoading(true);
+    setIsSuccess(false);
+    if (user) {
+      console.log(5);
+    } else {
+      await handleProductRemoveToLocalStorage(productId);
       setLoading(false);
       showSuccessTick();
     }
   };
-
 
   return (
     <div className="group">
@@ -64,17 +97,23 @@ const ProductCard = ({
           )}
         </Link>
 
-        <div className="absolute right-0 p-4 md:p-6">
+        <div className="absolute right-0 p-4">
           <button
             className="cursor-pointer"
-            onClick={() => handleProductAddToWishlist(_id)}
+            onClick={
+              wishlistItems.includes(_id)
+                ? () => handleProductRemoveToWishlist(_id)
+                : () => handleProductAddToWishlist(_id)
+            }
           >
             {loading ? (
-              <Spinner isDark={false} />
+              <Spinner isDark={false} className="size-4" />
             ) : isSuccess ? (
-              <Check className="size-5 md:size-6 text-green-600" />
+              <IoCheckmarkDoneSharp className="size-5 text-green-600" />
+            ) : wishlistItems.includes(_id) ? (
+              <GoHeartFill className="size-5 text-gray-700" />
             ) : (
-              <Heart className="size-5 md:size-6" />
+              <GoHeart className="size-5 text-gray-600" />
             )}
           </button>
         </div>

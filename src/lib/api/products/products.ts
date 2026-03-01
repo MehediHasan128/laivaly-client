@@ -47,11 +47,30 @@ export const handleProductAddToLocalStorage = (productId: string) => {
           "guest_wishlist_items",
           JSON.stringify(wishliastArray),
         );
+        window.dispatchEvent(new Event("wishlist_updated"));
         resolve("");
       }, 2000);
     });
   } else {
-    console.log("Product already in cart!");
-    alert("This product is already in your cart.");
+    return null;
   }
+};
+
+export const handleProductRemoveToLocalStorage = (productId: string) => {
+  const existingWishList = localStorage.getItem("guest_wishlist_items");
+  const wishliastArray = existingWishList ? JSON.parse(existingWishList) : [];
+  const newArry = wishliastArray.filter((item: string) => item !== productId);
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      localStorage.setItem("guest_wishlist_items", JSON.stringify(newArry));
+      window.dispatchEvent(new Event("wishlist_updated"));
+      resolve("");
+    }, 2000);
+  });
+};
+
+export const getProductIdFromLocalStorage = () => {
+  const existingWishList = localStorage.getItem("guest_wishlist_items");
+  return existingWishList ? JSON.parse(existingWishList) : [];
 };
