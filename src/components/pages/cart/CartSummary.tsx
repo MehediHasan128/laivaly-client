@@ -26,7 +26,7 @@ const CartSummary = ({
   return (
     <>
       {/* Promo Code */}
-      <div className="border-y">
+      <div className="border-b">
         <Accordion type="single" collapsible className="w-full" defaultValue="">
           <AccordionItem value="couponCode">
             <AccordionTrigger className="font-semibold hover:no-underline cursor-pointer">

@@ -197,8 +197,8 @@ const Checkout = ({
 
         {/* Shipping Method */}
         <div>
-          <div className="space-y-3 md:space-y-7 py-3 md:py-5">
-            <h1 className="md:text-xl font-medium">Shipping Method,</h1>
+          <div>
+            <h1 className="md:text-xl font-medium mt-10 mb-2.5">Shipping Method,</h1>
             <div className="border-t" />
           </div>
 
@@ -212,7 +212,7 @@ const Checkout = ({
               {shippingMethods.map((method) => (
                 <div
                   key={method.value}
-                  className="space-y-3 border-b pb-6 md:pb-10"
+                  className="space-y-3 border-b py-5"
                 >
                   <div className="flex items-center gap-3">
                     <RadioGroupItem value={method.value} id={method.value} />
@@ -255,7 +255,7 @@ const Checkout = ({
           </div>
         </div>
 
-        <div className="w-full mt-10">
+        <div className="w-full mt-5 hidden lg:block">
           <button
             onClick={() => handleStoreOrderData(orderData as TOrderData)}
             className="btn hover:underline"
@@ -289,6 +289,15 @@ const Checkout = ({
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="w-full lg:hidden mt-5">
+        <button
+          onClick={() => handleStoreOrderData(orderData as TOrderData)}
+          className="btn hover:underline"
+        >
+          {loading ? <Spinner /> : "Continue To Payment"}
+        </button>
       </div>
     </>
   );

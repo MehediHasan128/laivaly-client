@@ -1,10 +1,44 @@
+"use client";
+
+import { handleProductAddToLocalStorage } from "@/lib/api/products/products";
 import { TPartialProductData } from "@/types/product.type";
-import { Heart } from "lucide-react";
+import { TUser } from "@/types/user";
+import { Check, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import Spinner from "./Spinner";
 
-const ProductCard = ({ product }: { product: TPartialProductData }) => {
+const ProductCard = ({
+  product,
+  user,
+}: {
+  product: TPartialProductData;
+  user: TUser | null;
+}) => {
   const { title, productThumbnail, productLayout, productFor, _id } = product;
+  const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const showSuccessTick = () => {
+    setIsSuccess(true);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 1000);
+  }
+
+  const handleProductAddToWishlist = async (productId: string) => {
+    setLoading(true);
+    setIsSuccess(false);
+    if (user) {
+      console.log(5);
+    } else {
+      await handleProductAddToLocalStorage(productId);
+      setLoading(false);
+      showSuccessTick();
+    }
+  };
+
 
   return (
     <div className="group">
@@ -30,9 +64,18 @@ const ProductCard = ({ product }: { product: TPartialProductData }) => {
           )}
         </Link>
 
-        <div className="absolute right-0 p-6 cursor-pointer">
-          <button className="cursor-pointer">
-            <Heart />
+        <div className="absolute right-0 p-4 md:p-6">
+          <button
+            className="cursor-pointer"
+            onClick={() => handleProductAddToWishlist(_id)}
+          >
+            {loading ? (
+              <Spinner isDark={false} />
+            ) : isSuccess ? (
+              <Check className="size-5 md:size-6 text-green-600" />
+            ) : (
+              <Heart className="size-5 md:size-6" />
+            )}
           </button>
         </div>
       </div>

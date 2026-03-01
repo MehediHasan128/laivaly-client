@@ -12,10 +12,10 @@ const ProductCheckoutCard = ({ orderItems }: { orderItems: TOrderItems }) => {
 
   return (
     <div className="flex gap-2">
-      <div className="relative h-[140px] w-[25%] md:w-[15%] lg:w-[25%]">
+      <div className="relative h-[140px] w-24 lg:w-[25%]">
         <Image src={productImages} alt={title} quality={100} fill />
       </div>
-      <div className="text-sm font-medium space-y-2">
+      <div className="text-xs md:text-sm font-medium space-y-1.5 md:space-y-1">
         <h1>{title}</h1>
         <p className="text-gray-600">
           {selectedColorName} | {size}

@@ -53,7 +53,7 @@ const CheckOutPage = async () => {
 
   return (
     <main className="p-3 xl:p-16">
-      <div className="flex flex-col-reverse lg:flex-row xl:w-[90%] 2xl:w-[80%] gap-10 mx-auto">
+      <div className="flex flex-col lg:flex-row xl:w-[90%] 2xl:w-[80%] gap-0 lg:gap-10 mx-auto">
         <Checkout products={orderProducts} userData={userData} />
       </div>
     </main>

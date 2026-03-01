@@ -33,3 +33,25 @@ export const getSingleProducts = (productId: string) => {
     options: { method: "GET" },
   });
 };
+
+export const handleProductAddToLocalStorage = (productId: string) => {
+  const existingWishList = localStorage.getItem("guest_wishlist_items");
+  const wishliastArray = existingWishList ? JSON.parse(existingWishList) : [];
+  const id = productId.toString();
+
+  if (!wishliastArray.includes(id)) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        wishliastArray.push(id);
+        localStorage.setItem(
+          "guest_wishlist_items",
+          JSON.stringify(wishliastArray),
+        );
+        resolve("");
+      }, 2000);
+    });
+  } else {
+    console.log("Product already in cart!");
+    alert("This product is already in your cart.");
+  }
+};
