@@ -7,13 +7,13 @@ import {
 } from "@/lib/api/products/products";
 import { TPartialProductData } from "@/types/product.type";
 import { TUser } from "@/types/user";
-import { Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { GoHeart, GoHeartFill } from "react-icons/go";
-import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import { toast } from "sonner";
 
 const ProductCard = ({
   product,
@@ -24,7 +24,6 @@ const ProductCard = ({
 }) => {
   const { title, productThumbnail, productLayout, productFor, _id } = product;
   const [loading, setLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<string[]>([]);
 
   useEffect(() => {
@@ -40,36 +39,51 @@ const ProductCard = ({
     };
   }, []);
 
-  const showSuccessTick = () => {
-    setIsSuccess(true);
-    setTimeout(() => {
-      setIsSuccess(false);
-    }, 1000);
-  };
-
-  const handleProductAddToWishlist = async (productId: string) => {
+  const handleProductAddToWishlist = async (
+    productId: string,
+    productImage: string,
+  ) => {
     setLoading(true);
-    setIsSuccess(false);
     if (user) {
       console.log(5);
     } else {
-      const res = await handleProductAddToLocalStorage(productId);
+      await handleProductAddToLocalStorage(productId);
+      toast.success("This product has been added to your wishlist", {
+        unstyled: true,
+        classNames: {
+          toast:
+            "bg-white shadow-lg rounded-2xl flex gap-2 w-[420px] justify-between items-center border",
+          title: "text-sm font-semibold",
+          description: "text-[13px] font-semibold text-gray-600 underline ",
+          actionButton: "text-2xl font-bold p-3 cursor-pointer "
+        },
+        icon: (
+          <div className="relative h-20 w-16 rounded-l-lg overflow-hidden">
+            <Image src={productImage} alt="" fill className="scale-125" />
+          </div>
+        ),
+        description: (
+          <div>
+            <Link href={"/wishlist"}>Access your wishlist</Link>
+          </div>
+        ),
+        action: {
+          label: <RxCross2 />,
+          onClick: () => {},
+        },
+        duration: 1000000,
+      });
       setLoading(false);
-      if (res !== null) {
-        showSuccessTick();
-      }
     }
   };
 
   const handleProductRemoveToWishlist = async (productId: string) => {
     setLoading(true);
-    setIsSuccess(false);
     if (user) {
       console.log(5);
     } else {
       await handleProductRemoveToLocalStorage(productId);
       setLoading(false);
-      showSuccessTick();
     }
   };
 
@@ -103,13 +117,11 @@ const ProductCard = ({
             onClick={
               wishlistItems.includes(_id)
                 ? () => handleProductRemoveToWishlist(_id)
-                : () => handleProductAddToWishlist(_id)
+                : () => handleProductAddToWishlist(_id, productThumbnail)
             }
           >
             {loading ? (
               <Spinner isDark={false} className="size-4" />
-            ) : isSuccess ? (
-              <IoCheckmarkDoneSharp className="size-5 text-green-600" />
             ) : wishlistItems.includes(_id) ? (
               <GoHeartFill className="size-5 text-gray-700" />
             ) : (

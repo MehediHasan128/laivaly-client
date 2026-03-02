@@ -49,7 +49,7 @@ export const handleProductAddToLocalStorage = (productId: string) => {
         );
         window.dispatchEvent(new Event("wishlist_updated"));
         resolve("");
-      }, 2000);
+      }, 10);
     });
   } else {
     return null;
@@ -66,7 +66,7 @@ export const handleProductRemoveToLocalStorage = (productId: string) => {
       localStorage.setItem("guest_wishlist_items", JSON.stringify(newArry));
       window.dispatchEvent(new Event("wishlist_updated"));
       resolve("");
-    }, 2000);
+    }, 10);
   });
 };
 

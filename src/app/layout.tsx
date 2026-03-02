@@ -75,10 +75,9 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         {children}
         <Toaster
-          richColors
           position="top-center"
           swipeDirections={["top"]}
-          duration={3000}
+          duration={2000}
         />
       </body>
     </html>

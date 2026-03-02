@@ -19,16 +19,16 @@ const LoginForm = () => {
 
   // User login function
   const handleCustomerLogin = async (userCredential: FieldValues) => {
+    
     setLoading(true);
-    const toastId = toast.loading("Loading");
     try {
       const res = (await userLogin(userCredential)) as TResponce;
-      toast.success(res?.message, { id: toastId });
+      toast.success(res?.message);
       router.push("/home");
       setLoading(false);
     } catch (err) {
       const error = err as TError;
-      toast.error(error?.data?.message, { id: toastId });
+      toast.error(error?.data?.message);
       setLoading(false);
     }
   };
