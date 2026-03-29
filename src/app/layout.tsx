@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: {
     default: "Laivaly – Fashion for Men, Women & Kids",
-    template: "%s | Laivaly",
+    template: "Laivaly | %s",
   },
   description:
     "Laivaly is a modern clothing e-commerce platform offering trendy, high-quality fashion for men, women, and kids. Shop the latest styles with fast delivery and secure checkout.",
@@ -72,12 +72,12 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased bg-gray-50`}>
         {children}
         <Toaster
           position="top-center"
           swipeDirections={["top"]}
-          duration={2000}
+          duration={3000}
         />
       </body>
     </html>

@@ -3,7 +3,7 @@
 import Spinner from "@/components/reusable/Spinner";
 import { addProductToCart } from "@/lib/api/cart/cart";
 import { buySingleProduct, removeOrderData } from "@/lib/api/orders/orders";
-import { addProductToWishlist } from "@/lib/api/wishlist/wishlist";
+import { addProductToWishlist } from "@/lib/api/wishlist/wishlist.api";
 import { TCreateCartData, TCartProduct } from "@/types/cart.type";
 import { TProduct, TVariants } from "@/types/product.type";
 import { TError, TResponce } from "@/types/types";
@@ -30,14 +30,14 @@ const ProductColorSizeAndQuantity = ({
   isProductExistToWishlist,
   setImages,
 }: TProductColorSizeAndQuantityProps) => {
-  const { _id, title, price, discount, productFor, } = product;
+  const { _id, title, price, discount, productFor } = product;
   // User router
   const router = useRouter();
   // Set product color in array
 
   // product color size and quantity state
   const [productColor, setProductColor] = useState<string>(
-    variants[0].color as string
+    variants[0].color as string,
   );
   const [productSize, setProductSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(0);
@@ -48,13 +48,13 @@ const ProductColorSizeAndQuantity = ({
 
   // set product sizes and stock in array
   const getProductVariants = variants.find(
-    (variant) => variant.color === productColor
+    (variant) => variant.color === productColor,
   );
   const sizes = getProductVariants?.sizes;
   const images = getProductVariants?.images;
 
   const selectedSizeVariant = sizes!.find(
-    (variant) => variant.size === productSize
+    (variant) => variant.size === productSize,
   );
   const remainingProduct = selectedSizeVariant?.stock;
 
@@ -100,7 +100,7 @@ const ProductColorSizeAndQuantity = ({
 
       try {
         const res = (await buySingleProduct(
-          singleProductData as TCartProduct
+          singleProductData as TCartProduct,
         )) as TResponce;
         if (res.success) {
           router.push("/checkout");
@@ -156,7 +156,7 @@ const ProductColorSizeAndQuantity = ({
       setCartLoading(true);
       try {
         const res = (await addProductToCart(
-          cartData as TCreateCartData
+          cartData as TCreateCartData,
         )) as TResponce;
         toast.success(res.message, { id: toastId });
         setCartLoading(false);
@@ -211,7 +211,7 @@ const ProductColorSizeAndQuantity = ({
                 setProductColor(color?.color as string);
 
                 const foundSize = color.sizes.find(
-                  (s) => s.size === productSize
+                  (s) => s.size === productSize,
                 );
 
                 if (foundSize) {
@@ -298,7 +298,7 @@ const ProductColorSizeAndQuantity = ({
             }
             onClick={() => {
               setQuantity((quantity) =>
-                quantity <= 5 ? quantity + 1 : quantity
+                quantity <= 5 ? quantity + 1 : quantity,
               );
             }}
             className="bg-black text-white cursor-pointer active:scale-95 duration-700 px-2 py-1 rounded-r disabled:opacity-50 disabled:cursor-not-allowed"

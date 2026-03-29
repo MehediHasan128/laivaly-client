@@ -36,37 +36,44 @@ const NavbarContent = ({ user }: { user: TUser }) => {
 
   const path = usePathname();
 
+  const incluedPath = ['/cart', '/wishlist'].includes(path)
+
   const isProductDetailsPage = path.startsWith("/products");
 
   return (
-    <header className={`${isProductDetailsPage ? "" : "sticky top-0 lg:fixed lg:w-full"} z-[150] lg:z-50 group`}>
+    <header
+      className={`${isProductDetailsPage || incluedPath ? "sticky top-0" : "sticky top-0 lg:fixed lg:w-full"} z-[150] lg:z-50 group relative`}
+    >
       <div
-        className={`flex justify-between items-center px-4 md:px-10 lg:px-10 xl:px-16 py-3 group-hover:shadow duration-500 ${
-          scrollDown
+        className={`flex justify-between items-center px-4 md:px-10 lg:px-10 xl:px-16 py-5 xl:py-7 group-hover:shadow duration-500 ${
+          scrollDown || incluedPath
             ? `bg-white ${
                 isProductDetailsPage &&
                 "group-hover:bg-white lg:bg-transparent text-black"
               }`
             : `group-hover:bg-white ${
-                isProductDetailsPage
+                isProductDetailsPage || incluedPath
                   ? "text-black"
                   : "lg:text-white group-hover:text-black"
               }`
         }`}
       >
-        <div className="flex items-center gap-5 font-semibold w-28 lg:w-auto">
+        <div className="flex items-center gap-5 font-semibold w-28 lg:w-auto z-10">
           <SidebarButton
             className={`duration-500 ${
               scrollDown
                 ? `bg-black`
                 : `${
-                    isProductDetailsPage
+                    isProductDetailsPage || incluedPath
                       ? "bg-black"
                       : "bg-black lg:bg-white lg:group-hover:bg-black"
                   }`
             }`}
           />
-          <Searchbar searchBarOpen={searchBarOpen} setSearchBarOpen={setSearchBarOpen}>
+          <Searchbar
+            searchBarOpen={searchBarOpen}
+            setSearchBarOpen={setSearchBarOpen}
+          >
             <div
               className={`hidden lg:flex items-center gap-1.5 cursor-pointer text-sm xl:text-base`}
             >
@@ -74,7 +81,10 @@ const NavbarContent = ({ user }: { user: TUser }) => {
               <h1>Search</h1>
             </div>
           </Searchbar>
-          <Searchbar searchBarOpen={searchBarOpen} setSearchBarOpen={setSearchBarOpen}>
+          <Searchbar
+            searchBarOpen={searchBarOpen}
+            setSearchBarOpen={setSearchBarOpen}
+          >
             <div className="lg:hidden">
               <Search
                 className={`${
@@ -85,7 +95,10 @@ const NavbarContent = ({ user }: { user: TUser }) => {
           </Searchbar>
         </div>
 
-        <Link href="/home" className="w-full text-center">
+        <Link
+          href="/home"
+          className="w-full text-center fixed left-0"
+        >
           {/* <div className="relative size-8 md:size-12">
             <Image
               src="/images/logo/logo.png"
@@ -103,7 +116,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
           </div>
         </Link>
 
-        <div className="flex items-center gap-3 md:gap-5 2xl:gap-6">
+        <div className="flex items-center gap-3 md:gap-5 2xl:gap-6 z-10">
           <Link href="/wishlist">
             <Heart className="cursor-pointer size-5 2xl:size-6" />
           </Link>

@@ -9,7 +9,7 @@ export const addProductToWishlist = (productId: string) => {
 
 export const getAllProductFromWishlist = () => {
   return baseApi({
-    endPoints: '/wishlist',
+    endPoints: "/wishlist",
     options: { method: "GET" },
   });
 };

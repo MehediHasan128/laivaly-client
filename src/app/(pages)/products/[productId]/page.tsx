@@ -1,13 +1,8 @@
-import ProductColorSizeAndQuantity from "@/components/pages/productDetail/ProductColorSizeAndQuantity";
-import ProductDescriptionDrawer from "@/components/pages/productDetail/ProductDescriptionDrawer";
 import ProductDetailsHeader from "@/components/pages/productDetail/ProductDetailsHeader";
-import ProductImages from "@/components/pages/productDetail/ProductImages";
-import ProductReviewDrawer from "@/components/pages/productDetail/ProductReviewDrawer";
-import DiscoverMoreProductCard from "@/components/reusable/DiscoverMoreProductCard";
 import { currentUser } from "@/lib/api/currentUser";
-import { getAllProducts, getSingleProducts } from "@/lib/api/products/products";
+import { getSingleProducts } from "@/lib/api/products/products";
 import { getProductVariant } from "@/lib/api/productVariant/productVariant";
-import { productExistToWishlist } from "@/lib/api/wishlist/wishlist";
+import { productExistToWishlist } from "@/lib/api/wishlist/wishlist.api";
 import { TProduct, TVariants } from "@/types/product.type";
 import { TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
@@ -43,7 +38,9 @@ const ProductDetailsPage = async ({
   const product = data?.data as TProduct;
 
   // Get Product variants
-  const allVariants = (await getProductVariant(product?.productVariants)) as TResponce;
+  const allVariants = (await getProductVariant(
+    product?.productVariants,
+  )) as TResponce;
   const variants = allVariants?.data as TVariants[];
 
   let isProductExistToWishlist = false;

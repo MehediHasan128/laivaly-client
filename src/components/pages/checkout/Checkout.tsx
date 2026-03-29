@@ -198,7 +198,9 @@ const Checkout = ({
         {/* Shipping Method */}
         <div>
           <div>
-            <h1 className="md:text-xl font-medium mt-10 mb-2.5">Shipping Method,</h1>
+            <h1 className="md:text-xl font-medium mt-10 mb-2.5">
+              Shipping Method,
+            </h1>
             <div className="border-t" />
           </div>
 
@@ -210,10 +212,7 @@ const Checkout = ({
               }}
             >
               {shippingMethods.map((method) => (
-                <div
-                  key={method.value}
-                  className="space-y-3 border-b py-5"
-                >
+                <div key={method.value} className="space-y-3 border-b py-5">
                   <div className="flex items-center gap-3">
                     <RadioGroupItem value={method.value} id={method.value} />
                     <Label
@@ -280,9 +279,9 @@ const Checkout = ({
             <h1 className="text-sm font-medium">In your Shopping Bag</h1>
 
             <div className="flex flex-col gap-3 mt-5">
-              {items.map((item) => (
+              {items.map((item, index) => (
                 <ProductCheckoutCard
-                  key={item.productId}
+                  key={index}
                   orderItems={item as TOrderItems}
                 />
               ))}
