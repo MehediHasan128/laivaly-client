@@ -5,8 +5,6 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { getWishlistProductFromLocalStorage } from "./wishlist";
-import { decodedUserToken } from "@/utils";
-import { TUser } from "@/types/user";
 import { ProductWishlistType } from "@/types/wishlist.type";
 import { addWishlistProductToLocalStorage } from "@/lib/api/wishlist/wishlist.api";
 
@@ -23,7 +21,7 @@ export const handleCustomerLogin = async (
       const wishlistProducts =
         getWishlistProductFromLocalStorage() as ProductWishlistType[];
       if (wishlistProducts.length > 0) {
-        const productIds = wishlistProducts.map((product) => product.id);
+        const productIds = wishlistProducts.map((product) => product._id);
 
         const productIdsToAddInWishlist =
           (await addWishlistProductToLocalStorage(productIds)) as TResponce;
@@ -37,7 +35,6 @@ export const handleCustomerLogin = async (
     loading(false);
     router.push("/home");
   } catch (err) {
-    console.log(err);
     const error = err as TError;
     toast.error(error?.data?.message);
     loading(false);

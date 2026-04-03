@@ -69,7 +69,7 @@ const ProductCard = ({
           <button
             className="cursor-pointer"
             onClick={
-              wishlistItems.some((product) => product?.id === _id)
+              wishlistItems.some((product) => product?._id === _id)
                 ? () =>
                     handleProductRemoveToWishlist(
                       _id,
@@ -89,7 +89,7 @@ const ProductCard = ({
           >
             {loading ? (
               <Spinner isDark={false} className="size-4" />
-            ) : wishlistItems.some((product) => product.id === _id) ? (
+            ) : wishlistItems.some((product) => product._id === _id) ? (
               <GoHeartFill className="size-5 text-gray-700" />
             ) : (
               <GoHeart className="size-5 text-gray-600" />

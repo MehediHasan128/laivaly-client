@@ -1,4 +1,7 @@
+import { productRemoveToWishlist } from "@/lib/api/wishlist/wishlist.api";
+import { TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
@@ -81,7 +84,6 @@ export const handleProductRemoveToLocalStorage = (productId: string) => {
 };
 
 export const getWishlistProductFromLocalStorage = () => {
-
   if (typeof window === "undefined") return [];
 
   const existingWishList = localStorage.getItem("guest_wishlist_items");
@@ -113,10 +115,19 @@ export const handleProductRemoveToWishlist = async (
   productImage: string,
   loading: Dispatch<SetStateAction<boolean>>,
   user: TUser | null,
+  router: AppRouterInstance,
 ) => {
   loading(true);
   if (user) {
-    console.log(5);
+    const res = (await productRemoveToWishlist(productId)) as TResponce;
+    if (res.success) {
+      loading(false);
+      showToastMessage(
+        "This product has been removed from your wishlist",
+        productImage,
+      );
+      router.refresh();
+    }
   } else {
     await handleProductRemoveToLocalStorage(productId);
     loading(false);
@@ -128,5 +139,5 @@ export const handleProductRemoveToWishlist = async (
 };
 
 // export const handleProductAddOrRemoveFromWishlist = async () => {
-  
+
 // }

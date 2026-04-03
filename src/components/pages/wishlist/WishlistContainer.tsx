@@ -2,28 +2,44 @@
 
 import Button from "@/components/reusable/Button";
 import WishlistProductCard from "@/components/reusable/WishlistProductCard";
+import { getAllProductFromWishlist } from "@/lib/api/wishlist/wishlist.api";
 import { getWishlistProductFromLocalStorage } from "@/services/wishlist";
+import { TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
 import { ProductWishlistType } from "@/types/wishlist.type";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const WishlistContainer = ({ user }: { user: TUser | null }) => {
-
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
-    if(!user) {
+    if (!user) {
       const fetchWishlistProducts = () => {
         setProducts(getWishlistProductFromLocalStorage());
-      }
+      };
       fetchWishlistProducts();
       window.addEventListener("wishlist_updated", fetchWishlistProducts);
       return () => {
         window.removeEventListener("wishlist_updated", fetchWishlistProducts);
-      }
+      };
+    } else {
+      const fetchDataFromDB = async () => {
+        try {
+          const res = (await getAllProductFromWishlist()) as TResponce;
+          if (res.success) {
+            setProducts(res?.data);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      fetchDataFromDB();
     }
-  }, [user])
+  }, [user]);
 
   return (
     <div className="min-h-screen">
@@ -54,7 +70,7 @@ const WishlistContainer = ({ user }: { user: TUser | null }) => {
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {/* Wishlist products will be rendered here */}
         {products.map((product: ProductWishlistType) => (
-          <WishlistProductCard key={product.id} product={product} />
+          <WishlistProductCard key={product._id} user={user} product={product} router={router} />
         ))}
       </div>
     </div>

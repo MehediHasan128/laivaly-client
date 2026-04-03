@@ -29,6 +29,7 @@ export const productExistToWishlist = (productId: string) => {
 };
 
 export const productRemoveToWishlist = (productId: string) => {
+  console.log(productId);
   return baseApi({
     endPoints: `/wishlist/remove-product/${productId}`,
     options: { method: "DELETE" },

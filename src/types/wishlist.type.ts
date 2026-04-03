@@ -1,5 +1,5 @@
 export interface ProductWishlistType {
-  id: string;
-  image: string;
+  _id: string;
   title: string;
+  productThumbnail: string;
 }
