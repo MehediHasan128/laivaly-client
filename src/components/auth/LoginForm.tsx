@@ -4,51 +4,25 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
-import { FieldValues } from "react-hook-form";
 import { Label } from "../ui/label";
 import Spinner from "../reusable/Spinner";
-import { resetPasswordLink, userLogin } from "@/lib/api/auth/auth";
-import { toast } from "sonner";
-import { TError, TResponce } from "@/types/types";
+import {
+  handleCustomerLogin,
+  handleForgetUserPassword,
+} from "@/services/auth.services";
 import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  // User login function
-  const handleCustomerLogin = async (userCredential: FieldValues) => {
-    
-    setLoading(true);
-    try {
-      const res = (await userLogin(userCredential)) as TResponce;
-      toast.success(res?.message);
-      router.push("/home");
-      setLoading(false);
-    } catch (err) {
-      const error = err as TError;
-      toast.error(error?.data?.message);
-      setLoading(false);
-    }
-  };
-
-  // Forget User password
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  const handleForgetUserPassword = async () => {
-    const toastId = toast.loading("Loading");
-    try {
-      const res = (await resetPasswordLink(userEmail as string)) as TResponce;
-      toast.success(res?.message, { id: toastId });
-    } catch (err) {
-      const error = err as TError;
-      toast.error(error?.data?.message, { id: toastId });
-    }
-  };
+  const router = useRouter();
 
   return (
     <>
-      <LVForm onSubmit={handleCustomerLogin}>
+      <LVForm
+        onSubmit={(data) => handleCustomerLogin(data, setLoading, router)}
+      >
         <div className="space-y-3">
           {/* Email Input */}
           <div>
@@ -89,7 +63,7 @@ const LoginForm = () => {
             />
 
             <Label
-              onClick={handleForgetUserPassword}
+              onClick={() => handleForgetUserPassword(userEmail as string)}
               className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer"
             >
               Forget Password

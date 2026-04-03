@@ -51,7 +51,7 @@ const WishlistContainer = ({ user }: { user: TUser | null }) => {
       <div className="p-3 text-xl">
         {products.length !== 0 && <h1>My Wishlist ({products.length})</h1>}
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 bg-gray-100">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {/* Wishlist products will be rendered here */}
         {products.map((product: ProductWishlistType) => (
           <WishlistProductCard key={product.id} product={product} />

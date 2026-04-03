@@ -45,7 +45,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
       className={`${isProductDetailsPage || incluedPath ? "sticky top-0" : "sticky top-0 lg:fixed lg:w-full"} z-[150] lg:z-50 group relative`}
     >
       <div
-        className={`flex justify-between items-center px-4 md:px-10 lg:px-10 xl:px-16 py-5 xl:py-7 group-hover:shadow duration-500 ${
+        className={`flex justify-between items-center px-4 md:px-10 lg:px-10 xl:px-16 py-3 group-hover:shadow duration-500 ${
           scrollDown || incluedPath
             ? `bg-white ${
                 isProductDetailsPage &&
@@ -58,7 +58,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
               }`
         }`}
       >
-        <div className="flex items-center gap-5 font-semibold w-28 lg:w-auto z-10">
+        <div className="flex items-center gap-5 font-semibold w-[40%] lg:w-[20%]">
           <SidebarButton
             className={`duration-500 ${
               scrollDown
@@ -95,10 +95,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
           </Searchbar>
         </div>
 
-        <Link
-          href="/home"
-          className="w-full text-center fixed left-0"
-        >
+        <Link href="/home" className="w-full text-center ">
           {/* <div className="relative size-8 md:size-12">
             <Image
               src="/images/logo/logo.png"
@@ -116,7 +113,7 @@ const NavbarContent = ({ user }: { user: TUser }) => {
           </div>
         </Link>
 
-        <div className="flex items-center gap-3 md:gap-5 2xl:gap-6 z-10">
+        <div className="flex justify-end items-center gap-3 md:gap-5 2xl:gap-6 w-[40%] lg:w-[20%]">
           <Link href="/wishlist">
             <Heart className="cursor-pointer size-5 2xl:size-6" />
           </Link>

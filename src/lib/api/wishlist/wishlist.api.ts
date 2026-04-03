@@ -7,6 +7,13 @@ export const addProductToWishlist = (productId: string) => {
   });
 };
 
+export const addWishlistProductToLocalStorage = (productIds: string[]) => { 
+  return baseApi({
+    endPoints: "/wishlist/add-product-from-local-storage",
+    options: {method: "PATCH", body: JSON.stringify(productIds)},
+  });
+}
+
 export const getAllProductFromWishlist = () => {
   return baseApi({
     endPoints: "/wishlist",

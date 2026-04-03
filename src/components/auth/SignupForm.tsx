@@ -1,15 +1,12 @@
 "use client";
 
-import { FieldValues } from "react-hook-form";
 import LVForm from "../LVForm/LVForm";
 import LVInput from "../LVForm/LVInput";
 import { CircleCheck, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import Spinner from "../reusable/Spinner";
-import { toast } from "sonner";
-import { TError, TResponce } from "@/types/types";
-import { createCustomerAcoount } from "@/lib/api/user/user";
 import { useRouter } from "next/navigation";
+import { handleCreateCustomerAccount } from "@/services/auth.services";
 
 const SignupForm = () => {
   const [givenPassword, setGivenPassword] = useState<string | null>(null);
@@ -23,73 +20,25 @@ const SignupForm = () => {
   const passHaveCapitalLetter = /[A-Z]/.test(givenPassword as string);
   //   Check the password have at least on special characters
   const passHaveSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(
-    givenPassword as string
+    givenPassword as string,
   );
   //   Check the password have contain one number
   const passHaveNumber = /[0-9]/.test(givenPassword as string);
 
-  const handleCreateCustomerAccount = async (data: FieldValues) => {
-    setLoading(true);
-    const toastId = toast.loading("Loading...");
-    const { userName, userEmail, password, confirmPassword } = data;
-
-    if (
-      password === confirmPassword &&
-      passLength &&
-      passHaveCapitalLetter &&
-      passHaveSpecialChar &&
-      passHaveNumber
-    ) {
-      const customerData = {
-        password,
-        customer: {
-          userName,
-          userEmail,
-        },
-      };
-
-      try {
-        const res = (await createCustomerAcoount(customerData)) as TResponce;
-        toast.success(res.message, { id: toastId });
-        router.push(`/verify-email?userEmail=${res?.data[0].userEmail}`)
-        setLoading(false)
-      } catch (err) {
-        const error = err as TError;
-        toast.error(error?.data?.message, { id: toastId });
-        setLoading(false)
-      }
-    } else {
-      if (!passLength) {
-        toast.error("Password must be at least 8 characters long", {
-          id: toastId,
-        });
-        setLoading(false)
-      } else if (!passHaveCapitalLetter) {
-        toast.error("Password must contain at least one uppercase letter", {
-          id: toastId,
-        });
-        setLoading(false)
-      } else if (!passHaveSpecialChar) {
-        toast.error("Password must contain at least one special character", {
-          id: toastId,
-        });
-        setLoading(false)
-      } else if (!passHaveNumber) {
-        toast.error("Password must contain at least one number", {
-          id: toastId,
-        });
-        setLoading(false)
-      } else {
-        toast.error("Confirm password must be matched with new password", {
-          id: toastId,
-        });
-        setLoading(false)
-      }
-    }
-  };
-
   return (
-    <LVForm onSubmit={handleCreateCustomerAccount}>
+    <LVForm
+      onSubmit={(data) =>
+        handleCreateCustomerAccount(
+          data,
+          setLoading,
+          router,
+          passLength,
+          passHaveCapitalLetter,
+          passHaveSpecialChar,
+          passHaveNumber,
+        )
+      }
+    >
       <div className="space-y-3">
         {/* Name input */}
         <div className="flex flex-col md:flex-row items-center gap-3">

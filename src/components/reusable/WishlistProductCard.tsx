@@ -16,7 +16,7 @@ const WishlistProductCard = ({ product }: { product: ProductWishlistType }) => {
   return (
     <div className="relative">
       {/* Wishlist product card content will go here */}
-      <div className="h-52 md:h-72 lg:h-96 xl:h-[450px] 2xl:h-[500px] w-full">
+      <div className="relative h-52 md:h-80 lg:h-[400px] xl:h-[450px] 2xl:h-[500px] w-full">
         <Link href={`/products/${id}`}>
           <Image src={image} alt={title} fill className="object-cover" />
         </Link>
@@ -34,7 +34,7 @@ const WishlistProductCard = ({ product }: { product: ProductWishlistType }) => {
           />
         )}
       </div>
-      <div className="absolute bottom-0 text-xs lg:text-sm text-gray-600 font-medium p-2 lg:p-3">
+      <div className="md:absolute md:bottom-0 text-xs lg:text-sm text-gray-600 font-medium p-2 lg:p-3">
         <h1>{title}</h1>
       </div>
     </div>
