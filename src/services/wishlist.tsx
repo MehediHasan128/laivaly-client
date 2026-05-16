@@ -45,8 +45,8 @@ export const handleProductAddToLocalStorage = (
   const wishliastArray = existingWishList ? JSON.parse(existingWishList) : [];
 
   const product = {
-    id: productId.toString(),
-    image: productImage.toString(),
+    _id: productId.toString(),
+    productThumbnail: productImage.toString(),
     title: productTitle.toString(),
   };
 
@@ -71,7 +71,7 @@ export const handleProductRemoveToLocalStorage = (productId: string) => {
   const existingWishList = localStorage.getItem("guest_wishlist_items");
   const wishliastArray = existingWishList ? JSON.parse(existingWishList) : [];
   const newArry = wishliastArray.filter(
-    (item: { id: string }) => item.id !== productId,
+    (item: { _id: string }) => item._id !== productId,
   );
 
   return new Promise((resolve) => {

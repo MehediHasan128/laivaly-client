@@ -15,6 +15,7 @@ const WishlistContainer = ({ user }: { user: TUser | null }) => {
   const [products, setProducts] = useState([]);
   const router = useRouter();
 
+
   useEffect(() => {
     if (!user) {
       const fetchWishlistProducts = () => {

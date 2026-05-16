@@ -1,9 +1,10 @@
 import ProductDetailsHeader from "@/components/pages/productDetail/ProductDetailsHeader";
+import ProductCard from "@/components/reusable/ProductCard";
 import { currentUser } from "@/lib/api/currentUser";
-import { getSingleProducts } from "@/lib/api/products/products";
+import { getAllProducts, getSingleProducts } from "@/lib/api/products/products";
 import { getProductVariant } from "@/lib/api/productVariant/productVariant";
 import { productExistToWishlist } from "@/lib/api/wishlist/wishlist.api";
-import { TProduct, TVariants } from "@/types/product.type";
+import { TPartialProductData, TProduct, TVariants } from "@/types/product.type";
 import { TResponce } from "@/types/types";
 import { TUser } from "@/types/user";
 import { Metadata } from "next";
@@ -49,6 +50,13 @@ const ProductDetailsPage = async ({
     isProductExistToWishlist = data;
   }
 
+  const getSimilerProducts = await getAllProducts([
+    { field: "limit", value: "4" },
+    { field: "productFor", value: product?.productFor },
+  ]) as TResponce;
+
+  const similerProducts = getSimilerProducts?.data;
+
   return (
     <main>
       <ProductDetailsHeader
@@ -57,6 +65,19 @@ const ProductDetailsPage = async ({
         variants={variants}
         isProductExistToWishlist={isProductExistToWishlist}
       />
+
+      <section>
+        <div className="p-16 text-sm font-medium">
+          <h1>You May Also Like</h1>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-flow-dense">
+          {similerProducts?.map((product: TPartialProductData) => (
+            <div key={product._id}>
+              <ProductCard product={product} user={user} />
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 };

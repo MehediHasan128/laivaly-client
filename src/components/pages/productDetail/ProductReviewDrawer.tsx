@@ -95,14 +95,12 @@ const ProductReviewDrawer = ({
         <div className="flex justify-between items-center text-lg font-semibold cursor-pointer">
           <h1>Reviews</h1>
           <span className="flex gap-2 items-center">
-            {
-              Number(avarageRating) > 0 && <h1>{avarageRating}/5</h1>
-            }
+            {Number(avarageRating) > 0 && <h1>{avarageRating}/5</h1>}
             <ChevronRight />
           </span>
         </div>
       </DrawerTrigger>
-      <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-4xl">
+      <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-3xl">
         <DrawerHeader className="relative">
           <DrawerTitle className="text-center py-5">Product Review</DrawerTitle>
           <DrawerClose className="absolute top-0 right-0 p-5 cursor-pointer">
@@ -139,7 +137,7 @@ const ProductReviewDrawer = ({
                   <div className="w-full md:w-[60%] lg:w-full">
                     {ratings.map((rating) => {
                       const ratingData = ratingPercentages.find(
-                        (r) => r.rating === rating
+                        (r) => r.rating === rating,
                       );
                       const percent = ratingData ? ratingData.percent : "0%";
 

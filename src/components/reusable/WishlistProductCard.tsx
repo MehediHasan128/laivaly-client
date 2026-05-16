@@ -15,6 +15,8 @@ const WishlistProductCard = ({ product, user, router }: { user: TUser | null; pr
   const { _id, productThumbnail, title } = product;
   const [loading, setLoading] = useState(false);
 
+  console.log(productThumbnail);
+
   return (
     <div className="relative">
       {/* Wishlist product card content will go here */}
