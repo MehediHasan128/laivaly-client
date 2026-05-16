@@ -19,7 +19,7 @@ const SearchProductCard = ({
           <div className="cursor-pointer overflow-hidden">
             <div className="relative h-60 md:h-80 xl:h-[400px] 2xl:h-96">
               <Link
-                href={`/products/${product?.productFor}/${product?._id}`}
+                href={`/products/${product?._id}`}
                 onClick={() => setSearchBarOpen?.(false)}
               >
                 <Image

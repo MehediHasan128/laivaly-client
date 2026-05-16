@@ -5,30 +5,12 @@ import ProductSkeleton from "@/components/pages/products/ProductSkeleton";
 import { getAllProducts } from "@/lib/api/products/products";
 import { TResponce, TSearchParamsProp } from "@/types/types";
 import { rearrangeProducts } from "@/utils";
-import React, { Suspense } from "react";
-
-const filtersData = [
-  {
-    title: "Category",
-    field: "productCategory",
-    options: [
-      { value: "Tops", label: "Tops" },
-      { value: "Bottoms", label: "Bottoms" },
-    ],
-  },
-  {
-    title: "Season",
-    field: "season",
-    options: [
-      { value: "summer", label: "Summer" },
-      { value: "winter", label: "Winter" },
-      { value: "all-season", label: "All Season" },
-    ],
-  },
-];
+import { Suspense } from "react";
 
 const ProductsPage = async ({ searchParams }: TSearchParamsProp) => {
   const resolvedSearchParams = searchParams ? await searchParams : {};
+
+  
 
   const Filters = filters(resolvedSearchParams);
 
@@ -36,8 +18,8 @@ const ProductsPage = async ({ searchParams }: TSearchParamsProp) => {
   const products = rearrangeProducts(allProducts.data);
 
   return (
-    <main>
-      <ProductFilters filters={filtersData} totalProducts={products.length} />
+    <main className="relative">
+      <ProductFilters searchParams={resolvedSearchParams} />
 
       <Suspense
         key={JSON.stringify(searchParams)}

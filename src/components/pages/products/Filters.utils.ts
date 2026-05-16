@@ -5,10 +5,9 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 export const filters = (
   searchParams: Record<string, string | string[] | undefined>
 ) => {
-
   const productFilters = searchParams
     ? Object.entries(searchParams).map(([field, value]) => ({
-        field: field as "productFor" | "season" | "productGroup" | "searchTerm" | "productCategory",
+      field: field as "productFor" | "season" | "productGroup" | "searchTerm" | "productCategory" | "price",
         value,
       }))
     : [];

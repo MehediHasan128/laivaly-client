@@ -36,9 +36,17 @@ const NavbarContent = ({ user }: { user: TUser }) => {
 
   const path = usePathname();
 
-  const incluedPath = ['/cart', '/wishlist'].includes(path)
+  const incluedPath = ["/cart", "/wishlist", "/products"].includes(path);
 
-  const isProductDetailsPage = path.startsWith("/products");
+  let isProductDetailsPage;
+  const segments = path.split("/").filter(Boolean);
+
+  if (segments[0] === 'products' && segments[1]) {
+    isProductDetailsPage = true;
+  } else {
+    isProductDetailsPage = false;
+  }
+
 
   return (
     <header

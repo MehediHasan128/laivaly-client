@@ -2,13 +2,14 @@ import { baseApi } from "../baseApi/baseApi";
 
 export interface TProductQueryParams {
   field:
-    | "productFor"
-    | "season"
-    | "productGroup"
-    | "productCategory"
-    | "productSubCategory"
-    | "searchTerm"
-    | "limit";
+  | "productFor"
+  | "season"
+  | "productGroup"
+  | "productCategory"
+  | "productSubCategory"
+  | "searchTerm"
+  | "price"
+  | "limit";
   value: string | string[] | undefined;
 }
 

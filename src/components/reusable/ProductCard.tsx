@@ -22,7 +22,7 @@ const ProductCard = ({
   product: TPartialProductData;
   user: TUser | null;
 }) => {
-  const { title, productThumbnail, productLayout, productFor, _id } = product;
+  const { title, productThumbnail, productLayout, _id } = product;
   const [loading, setLoading] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<
     ProductWishlistType[] | []
@@ -49,7 +49,7 @@ const ProductCard = ({
           "h-[480px] md:h-[900px] lg:h-[800px] xl:h-[900px] 2xl:h-[1200px]"
         }`}
       >
-        <Link href={`/products/${productFor}/${_id}`}>
+        <Link href={`/products/${_id}`}>
           <Image
             src={productThumbnail}
             alt={title}

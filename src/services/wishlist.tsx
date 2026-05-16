@@ -115,7 +115,7 @@ export const handleProductRemoveToWishlist = async (
   productImage: string,
   loading: Dispatch<SetStateAction<boolean>>,
   user: TUser | null,
-  router: AppRouterInstance,
+  router?: AppRouterInstance,
 ) => {
   loading(true);
   if (user) {
@@ -126,7 +126,7 @@ export const handleProductRemoveToWishlist = async (
         "This product has been removed from your wishlist",
         productImage,
       );
-      router.refresh();
+      router?.refresh();
     }
   } else {
     await handleProductRemoveToLocalStorage(productId);
