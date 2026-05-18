@@ -37,6 +37,13 @@ export const placeOrderByCOD = (data: TOrderData) => {
   });
 };
 
+export const placeOrderByStripe = (data: TOrderData) => {
+  return baseApi({
+    endPoints: "/orders/stripe-payment",
+    options: { method: "POST", body: JSON.stringify(data) },
+  });
+};
+
 export const getOrdersByUserId = () => {
   return baseApi({
     endPoints: "/orders/my",

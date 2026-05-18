@@ -9,7 +9,11 @@ import {
 } from "../../ui/accordion";
 import Image from "next/image";
 import { TError, TResponce } from "@/types/types";
-import { placeOrderByCOD, placeOrderByKlarna } from "@/lib/api/orders/orders";
+import {
+  placeOrderByCOD,
+  placeOrderByKlarna,
+  placeOrderByStripe,
+} from "@/lib/api/orders/orders";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/reusable/Spinner";
@@ -42,11 +46,28 @@ const PaymentOptints = ({ order }: { order: TOrderData }) => {
     try {
       const res = (await placeOrderByCOD(orderData as TOrderData)) as TResponce;
       toast.success(res.message, { id: toastId });
-       router.push("/my-account/orders");
+      router.push("/my-account/orders");
       setLoading(false);
     } catch (err) {
       const error = err as TError;
       toast.error(error.data.message, { id: toastId });
+      setLoading(false);
+    }
+  };
+
+  const handlePlaceOrderWithStripePayment = async (orderData: TOrderData) => {
+    setLoading(true);
+    try {
+      const res = (await placeOrderByStripe(
+        orderData as TOrderData,
+      )) as TResponce;
+      toast.success(res.message);
+      window.location.href = res.data as string;;
+      // router.push("/my-account/orders");
+      setLoading(false);
+    } catch (err) {
+      const error = err as TError;
+      toast.error(error.data.message);
       setLoading(false);
     }
   };
@@ -78,7 +99,12 @@ const PaymentOptints = ({ order }: { order: TOrderData }) => {
               Stripe
             </h1>
           </div>
-          <button className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6 active:scale-95">
+          <button
+            onClick={() =>
+              handlePlaceOrderWithStripePayment(orderData as TOrderData)
+            }
+            className="border w-full rounded flex justify-center cursor-pointer bg-[#e5e8ff] border-[#aeb8fb] hover:border-[#5167FC] duration-500 mt-6 active:scale-95"
+          >
             <div className="relative size-12 md:size-14">
               <Image
                 src="/images/icon/stripe.png"

@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const DiscoverMoreProductCard = ({ product }: { product: TProduct }) => {
-  const { title, productThumbnail, price, discount, productFor, _id } = product;
+  const { title, productThumbnail, price, discount, _id } = product;
 
   const discountPrice = (price - price * (discount / 100)).toFixed(2);
 
   return (
-    <Link href={`/products/${productFor}/${_id}`}>
+    <Link href={`/products/${_id}`}>
       <div className="relative h-[250px] lg:h-[350px] xl:h-[300px] 2xl:h-[400px] w-full border-y border-r">
         <Image
           src={productThumbnail}
