@@ -28,12 +28,13 @@ const ProfileMenu = ({
   const router = useRouter();
 
   const handleUserLogout = async () => {
-    const toastId = toast.loading("Loading");
 
     await userLogout();
     router.refresh();
 
-    toast.success("User logout succesfully!", { id: toastId });
+    console.log(await userLogout());
+
+    toast.success("User logout succesfully!");
   };
 
   return (

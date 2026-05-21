@@ -39,8 +39,12 @@ const Checkout = ({
   // Get Shipping method and shipping address
   const [shippingMethod, setShippingMethod] = useState<string>("standard");
   const [address, setAddress] = useState<TShippingAddress | undefined>(
-    userData?.shippingAddress.find((address) => address.defaultAddress === true)
+    userData?.shippingAddress.find(
+      (address) => address.defaultAddress === true,
+    ),
   );
+
+  console.log(userData?.shippingAddress);
 
   // Set loading state for button loading
   const [loading, setLoading] = useState<boolean>(false);
@@ -95,7 +99,10 @@ const Checkout = ({
     tax,
     grandTotal,
     shippingMethod,
-    shippingAddress: address,
+    shippingAddress:
+      userData?.shippingAddress.length === 1
+        ? userData?.shippingAddress[0]
+        : address,
   };
 
   const handleStoreOrderData = async (data: TOrderData) => {
@@ -176,10 +183,15 @@ const Checkout = ({
               </div>
 
               <div className="flex gap-5">
-                <button className="border rounded flex justify-center items-center w-full py-3 md:py-4 hover:border-black cursor-pointer duration-500 gap-3 font-medium text-xs md:text-sm">
-                  <Plus className="size-4 md:size-5" />
-                  New Address
-                </button>
+                <ShippingAddressDialog
+                  dialogTitle="Add New Shipping Address"
+                  userId={userData?.customerId}
+                >
+                  <button className="border rounded flex justify-center items-center w-full py-3 md:py-4 hover:border-black cursor-pointer duration-500 gap-3 font-medium text-xs md:text-sm">
+                    <Plus className="size-4 md:size-5" />
+                    New Address
+                  </button>
+                </ShippingAddressDialog>
                 <AddressDrawer
                   shippingAddress={userData?.shippingAddress}
                   defaultAddress={address as TShippingAddress}
@@ -255,12 +267,23 @@ const Checkout = ({
         </div>
 
         <div className="w-full mt-5 hidden lg:block">
-          <button
-            onClick={() => handleStoreOrderData(orderData as TOrderData)}
-            className="btn hover:underline"
-          >
-            {loading ? <Spinner /> : "Continue To Payment"}
-          </button>
+          {userData?.shippingAddress.length === 0 ? (
+            <ShippingAddressDialog
+              dialogTitle="Add New Shipping Address"
+              userId={userData?.customerId}
+            >
+              <button className="btn hover:underline">
+                Continue To Payment
+              </button>
+            </ShippingAddressDialog>
+          ) : (
+            <button
+              onClick={() => handleStoreOrderData(orderData as TOrderData)}
+              className="btn hover:underline"
+            >
+              {loading ? <Spinner /> : "Continue To Payment"}
+            </button>
+          )}
         </div>
       </div>
 
@@ -291,12 +314,21 @@ const Checkout = ({
       </div>
 
       <div className="w-full lg:hidden mt-5">
-        <button
-          onClick={() => handleStoreOrderData(orderData as TOrderData)}
-          className="btn hover:underline"
-        >
-          {loading ? <Spinner /> : "Continue To Payment"}
-        </button>
+        {userData?.shippingAddress.length === 0 ? (
+          <ShippingAddressDialog
+            dialogTitle="Add New Shipping Address"
+            userId={userData?.customerId}
+          >
+            <button className="btn hover:underline">Continue To Payment</button>
+          </ShippingAddressDialog>
+        ) : (
+          <button
+            onClick={() => handleStoreOrderData(orderData as TOrderData)}
+            className="btn hover:underline"
+          >
+            {loading ? <Spinner /> : "Continue To Payment"}
+          </button>
+        )}
       </div>
     </>
   );
