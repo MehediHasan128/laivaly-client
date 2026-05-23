@@ -10,12 +10,12 @@ const ProductFilters = (produstsFilterProps: any) => {
   const paramsArray = Object.values(searchParams);
 
   return (
-    <div className="sticky top-[84px] z-50 bg-white border-t py-7 px-20 flex justify-between items-center">
+    <div className="sticky 2xl:top-[84px] z-50 bg-white border-t p-3 xl:py-7 xl:px-20 flex justify-between items-center">
       <div>
         <p className="font-medium text-sm">{`All ${!category && !subCategory ? "Products" : ""} ${subCategory ? capitalizeFirstLetter(subCategory?.[0]) : ""} ${category ? capitalizeFirstLetter(category) : ""} for ${capitalizeFirstLetter(productFor as string)}`}</p>
       </div>
       <div>
-        <FilterDrawer params={paramsArray as string[]} productFor={productFor}>
+        <FilterDrawer params={paramsArray as string[]}>
           <div className="flex items-center gap-2 border rounded-full px-5 py-2 text-sm font-medium cursor-pointer active:scale-95 duration-300">
             Filter
             <MdFilterList className="text-lg" />

@@ -7,10 +7,13 @@ import { toast } from "sonner";
 import { getWishlistProductFromLocalStorage } from "./wishlist";
 import { ProductWishlistType } from "@/types/wishlist.type";
 import { addWishlistProductToLocalStorage } from "@/lib/api/wishlist/wishlist.api";
+import { decodedUserToken } from "@/utils";
+import { TUser } from "@/types/user";
 
 export const handleCustomerLogin = async (
   userCredential: FieldValues,
   loading: (value: boolean) => void,
+  setIsPassWrong: (value: boolean) => void,
   router: AppRouterInstance,
 ) => {
   loading(true);
@@ -31,13 +34,27 @@ export const handleCustomerLogin = async (
       }
     }
 
+    const accessToken = res?.data.accessToken;
+
+    const userData = decodedUserToken(accessToken as string) as TUser;
+
+    switch (userData.userRole) {
+      case "customer":
+        router.push("/home");
+        break;
+      case "admin":
+        router.push("/admin/dashboard");
+        break;
+      default:
+        router.push("/home");
+    }
     toast.success(res?.message);
     loading(false);
-    router.push("/home");
   } catch (err) {
     const error = err as TError;
     toast.error(error?.data?.message);
     loading(false);
+    setIsPassWrong(true);
   }
 };
 

@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -43,9 +43,26 @@ const filters = [
 
 
 
-const FilterDrawer = ({ children, params, productFor }: { children: ReactNode, params: string[], productFor: string }) => {
+const FilterDrawer = ({ children, params, }: { children: ReactNode, params: string[] }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [direction, setDirection] = useState<"right" | "bottom">("bottom");
+
+  useEffect(() => {
+      const updateDirection = () => {
+        if (window.innerWidth >= 1024) {
+          setDirection("right");
+        } else {
+          setDirection("bottom");
+        }
+      };
+  
+      updateDirection();
+  
+      window.addEventListener("resize", updateDirection);
+  
+      return () => window.removeEventListener("resize", updateDirection);
+    }, []);
   
   const handleProductFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -64,9 +81,9 @@ const FilterDrawer = ({ children, params, productFor }: { children: ReactNode, p
   
 
   return (
-    <Drawer direction="right">
+    <Drawer direction={direction}>
       <DrawerTrigger>{children}</DrawerTrigger>
-      <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-xl py-10 px-24">
+      <DrawerContent className="data-[vaul-drawer-direction=right]:sm:max-w-xl data-[vaul-drawer-direction=bottom]:min-h-[90vh] xl:py-10 px-10 xl:px-24">
         <DrawerHeader className="flex flex-row justify-between items-center px-0">
           <DrawerTitle>Filter By</DrawerTitle>
           <DrawerClose className="cursor-pointer">
@@ -99,7 +116,10 @@ const FilterDrawer = ({ children, params, productFor }: { children: ReactNode, p
                         <RadioGroupItem value={option.value} id={option.id} />
                         <Label htmlFor={option.id}>{option.label}</Label>
                         {params.find((param) => param === option.value) && (
-                          <div onClick={() => removeSingleFilter(filter.field)} className="border rounded-full p-1.5">
+                          <div
+                            onClick={() => removeSingleFilter(filter.field)}
+                            className="border rounded-full p-1.5"
+                          >
                             <RxCross2 />
                           </div>
                         )}
@@ -112,9 +132,7 @@ const FilterDrawer = ({ children, params, productFor }: { children: ReactNode, p
           ))}
         </div>
         <DrawerFooter>
-          <button
-            className="bg-black w-full rounded py-2.5 text-white active:scale-95 cursor-pointer duration-300"
-          >
+          <button className="bg-black w-full rounded py-2.5 text-white active:scale-95 cursor-pointer duration-300">
             Clear Filter
           </button>
         </DrawerFooter>

@@ -4,12 +4,12 @@ export interface TUserName {
 }
 
 export interface TUser {
-  _id: string
+  _id: string;
   userId: string;
   id: string;
   userName: TUserName;
   userEmail: string;
   userProfileURL: string;
-  role: string;
+  userRole: string;
   status: string;
 }

@@ -15,13 +15,16 @@ import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isPassWrong, setIsPassWrong] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const router = useRouter();
 
   return (
     <>
       <LVForm
-        onSubmit={(data) => handleCustomerLogin(data, setLoading, router)}
+        onSubmit={(data) =>
+          handleCustomerLogin(data, setLoading, setIsPassWrong, router)
+        }
       >
         <div className="space-y-3">
           {/* Email Input */}
@@ -41,7 +44,7 @@ const LoginForm = () => {
               type={showPass ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              className="py-4"
+              className={`py-4 ${isPassWrong ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-black"}`}
               defaultValue="Bayzid@13"
               icon={
                 showPass ? (
@@ -62,6 +65,11 @@ const LoginForm = () => {
               }
             />
 
+            {isPassWrong && (
+              <Label className="absolute left-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer text-red-600">
+                Incorrect password
+              </Label>
+            )}
             <Label
               onClick={() => handleForgetUserPassword(userEmail as string)}
               className="absolute right-0 mt-1.5 font-medium p-0.5 hover:underline cursor-pointer"

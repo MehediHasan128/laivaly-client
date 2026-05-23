@@ -62,9 +62,13 @@ const ProfileUpdateForm = ({
         updatedCustomerInfo,
         customerData?.customerId
       )) as TResponce;
+
+      console.log(res);
+
       toast.success(res?.message, { id: toastId });
     } catch (err) {
       const error = err as TError;
+      console.log(error);
       toast.error(error?.data?.message, { id: toastId });
     }
   };

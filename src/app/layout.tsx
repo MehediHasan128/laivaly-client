@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Laivaly – Fashion for Men, Women & Kids",
-    template: "Laivaly | %s",
+    default: "Fashion for Men, Women & Kids",
+    template: "Laivaly - %s",
   },
   description:
     "Laivaly is a modern clothing e-commerce platform offering trendy, high-quality fashion for men, women, and kids. Shop the latest styles with fast delivery and secure checkout.",
