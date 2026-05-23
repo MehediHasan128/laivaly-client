@@ -1,10 +1,15 @@
 import ChartAreaInteractive from "@/components/admin/dashboard/ChartAreaInteractive";
 import LatestOrder from "@/components/admin/dashboard/LatestOrder";
 import MonthlyTargetChart from "@/components/admin/dashboard/MonthlyTargetChart";
+import { getAllInformationFromDB } from "@/lib/api/admin/adminApi";
+import { TResponce } from "@/types/types";
 import { CircleDollarSign, Shirt, ShoppingBasket, Users } from "lucide-react";
-import React from "react";
 
-const DashboardPage = () => {
+const DashboardPage = async() => {
+
+  const allDataFromDB = await getAllInformationFromDB() as TResponce;
+  const { totalSales, products, orders, customers } = allDataFromDB.data;
+
   return (
     <main>
       <div>
@@ -21,7 +26,7 @@ const DashboardPage = () => {
                 <CircleDollarSign className="size-8" />
               </div>
               <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">$ 983,410.00</h1>
+                <h1 className="text-2xl font-bold">$ {totalSales.toFixed(2)}</h1>
                 <div className="text-sm font-semibold text-end">
                   <h2 className="text-green-600">+3.38%</h2>
                   <p>vs last week</p>
@@ -37,7 +42,7 @@ const DashboardPage = () => {
                 <Shirt className="size-8" />
               </div>
               <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">58,375</h1>
+                <h1 className="text-2xl font-bold">{products}</h1>
                 <div className="text-sm font-semibold text-end">
                   <h2 className="text-red-600">-3.38%</h2>
                   <p>vs last week</p>
@@ -53,7 +58,7 @@ const DashboardPage = () => {
                 <ShoppingBasket className="size-8" />
               </div>
               <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">58,375</h1>
+                <h1 className="text-2xl font-bold">{orders}</h1>
                 <div className="text-sm font-semibold text-end">
                   <h2 className="text-red-600">-3.38%</h2>
                   <p>vs last week</p>
@@ -69,7 +74,7 @@ const DashboardPage = () => {
                 <Users className="size-8" />
               </div>
               <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">237,782</h1>
+                <h1 className="text-2xl font-bold">{customers}</h1>
                 <div className="text-sm font-semibold text-end">
                   <h2 className="text-green-600">+8.38%</h2>
                   <p>vs last week</p>
