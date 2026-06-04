@@ -1,4 +1,5 @@
 import { TShippingAddress } from "./customer.type";
+import { TUser } from "./user";
 
 export interface TOrderItems {
   title: string;
@@ -21,9 +22,9 @@ export interface TPaymentInfo {
 }
 
 export interface TOrderData {
-  _id?: string;
-  orderId?: string;
-  userId: string;
+  _id: string;
+  orderId: string;
+  userId: TUser;
   orderItems: TOrderItems[];
   subTotal: number;
   shippingCharge: number;
@@ -31,15 +32,15 @@ export interface TOrderData {
   grandTotal: number;
   shippingMethod: "standard" | "second Day" | "overnight";
   shippingAddress: TShippingAddress;
-  paymentMethod?: "stripe" | "sslcommerz" | "cod";
+  paymentMethod: "stripe" | "sslcommerz" | "cod";
   paymentInfo?: TPaymentInfo;
-  paymentStatus?: "pending" | "paid" | "failed" | "refunded";
-  orderStatus?:
+  paymentStatus: "pending" | "paid" | "failed" | "refunded";
+  orderStatus:
     | "pending"
     | "processing"
     | "shipped"
     | "delivered"
     | "cancelled"
     | "returned";
-  createdAt?: string;
+  createdAt: string;
 }

@@ -2,13 +2,17 @@ import ChartAreaInteractive from "@/components/admin/dashboard/ChartAreaInteract
 import LatestOrder from "@/components/admin/dashboard/LatestOrder";
 import MonthlyTargetChart from "@/components/admin/dashboard/MonthlyTargetChart";
 import { getAllInformationFromDB } from "@/lib/api/admin/adminApi";
+import { getAllOrderFromDB } from "@/lib/api/orders/orders";
+import { TOrderData } from "@/types/order.type";
 import { TResponce } from "@/types/types";
 import { CircleDollarSign, Shirt, ShoppingBasket, Users } from "lucide-react";
 
-const DashboardPage = async() => {
-
-  const allDataFromDB = await getAllInformationFromDB() as TResponce;
+const DashboardPage = async () => {
+  const allDataFromDB = (await getAllInformationFromDB()) as TResponce;
   const { totalSales, products, orders, customers } = allDataFromDB.data;
+
+  const getAllOrdersFromDB = (await getAllOrderFromDB([{ field: "limit", value: "5" }])) as TResponce;
+  const ordersData = getAllOrdersFromDB.data as TOrderData[];
 
   return (
     <main>
@@ -26,7 +30,9 @@ const DashboardPage = async() => {
                 <CircleDollarSign className="size-8" />
               </div>
               <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">$ {totalSales.toFixed(2)}</h1>
+                <h1 className="text-2xl font-bold">
+                  $ {totalSales.toFixed(2)}
+                </h1>
                 <div className="text-sm font-semibold text-end">
                   <h2 className="text-green-600">+3.38%</h2>
                   <p>vs last week</p>
@@ -92,13 +98,17 @@ const DashboardPage = async() => {
           <div className="row-span-2 bg-gray-50 h-full rounded-xl border">
             <MonthlyTargetChart />
           </div>
+
           <div className="col-span-2 row-span-2 bg-gray-50 h-full rounded-xl border overflow-scroll scrollbar-hide">
-            <LatestOrder />
+            <LatestOrder orders={ordersData} />
           </div>
+
           <div className="row-span-2 bg-gray-50 h-full rounded-xl border overflow-hidden">
             2
           </div>
-          <div className="row-span-2 bg-gray-50 h-full rounded-xl p-5 border">1</div>
+          <div className="row-span-2 bg-gray-50 h-full rounded-xl p-5 border">
+            1
+          </div>
         </div>
       </div>
     </main>

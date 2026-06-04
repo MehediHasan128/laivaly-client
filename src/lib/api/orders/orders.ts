@@ -53,7 +53,7 @@ export const getOrdersByUserId = () => {
 
 export const getOrdersHistoryByUserId = () => {
   return baseApi({
-    endPoints: '/orders/order-history',
+    endPoints: "/orders/order-history",
     options: { method: "GET" },
   });
 };
@@ -62,5 +62,25 @@ export const canceledOrder = (orderId: string) => {
   return baseApi({
     endPoints: `/orders/cancel-order/${orderId}`,
     options: { method: "PATCH" },
+  });
+};
+
+interface TOrderQueryParams {
+  field: "orderId" | "paymentMethod" | "searchTerm" | "limit";
+  value: string | string[] | undefined;
+}
+
+export const getAllOrderFromDB = (args?: TOrderQueryParams[]) => {
+  const params = new URLSearchParams();
+
+  if (params) {
+    args?.forEach((item: TOrderQueryParams) => {
+      params.append(item.field, item.value as string);
+     })
+  }
+
+  return baseApi({
+    endPoints: `/orders?${params}`,
+    options: { method: "GET" },
   });
 };

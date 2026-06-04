@@ -4,7 +4,6 @@ import React from "react";
 const ProductPage = () => {
   return (
     <main>
-
       <ProductsTable />
     </main>
   );
