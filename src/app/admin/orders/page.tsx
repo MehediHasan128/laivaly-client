@@ -1,10 +1,10 @@
-import React from 'react';
+import OrdersTable from '@/components/admin/orders/OrdersTable';
 
 const OrdersPage = () => {
     return (
-        <div>
-            <h1>This is orders page</h1>
-        </div>
+      <main>
+        <OrdersTable />
+      </main>
     );
 };
 

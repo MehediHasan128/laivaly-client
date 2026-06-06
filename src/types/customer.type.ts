@@ -23,4 +23,6 @@ export interface TCustomerProfile {
   dateOfBirth: string | null;
   gender: string | null;
   shippingAddress: TShippingAddress[] | [];
+  createdAt: string;
+  updatedAt: string;
 }
