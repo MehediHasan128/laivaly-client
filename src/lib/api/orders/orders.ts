@@ -51,6 +51,13 @@ export const getOrdersByUserId = () => {
   });
 };
 
+export const getSingleOrderFromDB = (Id: string) => {
+  return baseApi({
+    endPoints: `/orders/${Id}`,
+    options: { method: "GET" },
+  });
+};
+
 export const getOrdersHistoryByUserId = () => {
   return baseApi({
     endPoints: "/orders/order-history",

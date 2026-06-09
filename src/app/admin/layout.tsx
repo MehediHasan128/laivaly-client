@@ -17,7 +17,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       }
     >
       <AdminSidebar variant="inset" />
-      <SidebarInset>
+      <SidebarInset className="bg-gray-50">
         <div className="p-5 space-y-2">
           <SidebarTrigger className="cursor-pointer" />
           <div className="w-full">{children}</div>

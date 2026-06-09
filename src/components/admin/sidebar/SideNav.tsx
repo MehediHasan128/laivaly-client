@@ -30,11 +30,11 @@ const SideNav = ({
             <Link
               key={index}
               href={`/admin/${item.path[0]}`}
-              className={`px-5 py-3 rounded-md hover:scale-105 duration-300 ${item.path.some((p) => currentPath === `/admin${p}`) && 'bg-black text-white'}`}
+              className={`px-5 py-3 rounded-md hover:scale-105 duration-300 ${item.path.some((p) => currentPath === `/admin${p}`) && "bg-[#8b8ffc3a] text-[#7176ff]"}`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 text-xl">
                 {item.icon}
-                <h1 className="text-lg font-medium">{item.label}</h1>
+                <h1 className="text-sm font-medium">{item.label}</h1>
               </div>
             </Link>
           ))}

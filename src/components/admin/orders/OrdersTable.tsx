@@ -12,6 +12,7 @@ import { TOrderData } from "@/types/order.type";
 import { TResponce } from "@/types/types";
 import { capitalizeFirstLetter } from "@/utils";
 import { format } from "date-fns/format";
+import OrdersDetails from "./OrdersDetails";
 
 const tableColoums = [
   "Order ID",
@@ -35,7 +36,10 @@ const OrdersTable = async () => {
       <TableHeader>
         <TableRow>
           {tableColoums.map((coloum, indx) => (
-            <TableHead key={indx} className="text-gray-500 font-semibold last:text-center">
+            <TableHead
+              key={indx}
+              className="text-gray-500 font-semibold last:text-center"
+            >
               {coloum}
             </TableHead>
           ))}
@@ -57,7 +61,7 @@ const OrdersTable = async () => {
             <TableCell>{capitalizeFirstLetter(data.orderStatus)}</TableCell>
             <TableCell>{format(data.createdAt, "dd MMMM, yyyy")}</TableCell>
             <TableCell>
-              <button className="btn py-2 border">Details</button>
+              <OrdersDetails data={data} />
             </TableCell>
           </TableRow>
         ))}

@@ -122,13 +122,13 @@ const chartConfig = {
   visitors: {
     label: "Visitors",
   },
-  desktop: {
-    label: "revenue",
-    color: "var(--chart-1)",
+  sell: {
+    label: "Sell",
+    color: "#75cd9d",
   },
-  mobile: {
-    label: "sell",
-    color: "var(--chart-2)",
+  revenue: {
+    label: "Revenue",
+    color: "#8cbcfc",
   },
 } satisfies ChartConfig;
 
@@ -148,7 +148,7 @@ const ChartAreaInteractive = () => {
     return date >= startDate;
   });
   return (
-    <Card className="bg-transparent border-0 shadow-none">
+    <Card className="rounded-md shadow">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b">
         <div className="grid flex-1 gap-1">
           <CardTitle>Revenue Analytics</CardTitle>
@@ -177,10 +177,7 @@ const ChartAreaInteractive = () => {
         </Select>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className="h-[200px] w-full"
-        >
+        <ChartContainer config={chartConfig} className="w-full p-0">
           <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
@@ -240,20 +237,21 @@ const ChartAreaInteractive = () => {
             <Area
               dataKey="sell"
               type="natural"
-              fill="#7393B3"
-              stroke="#5076AF"
+              fill="#75cd9d"
+              stroke="#00863c"
               stackId="a"
             />
             <Area
               dataKey="revenue"
               type="natural"
-              fill="#B2BEB5"
-              stroke="#758A7A"
+              fill="#8cbcfc"
+              stroke="#004caf"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
         </ChartContainer>
+        <div className="bg-[#00863c]"></div>
       </CardContent>
     </Card>
   );

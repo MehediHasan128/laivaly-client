@@ -1,115 +1,117 @@
+import { BiSolidDollarCircle } from "react-icons/bi";
+import { IoShirtOutline } from "react-icons/io5";
+import { GiShoppingCart } from "react-icons/gi";
+import { FiUsers } from "react-icons/fi";
+import SalesOverviewChart from "@/components/admin/dashboard/SalesOverviewChart";
 import ChartAreaInteractive from "@/components/admin/dashboard/ChartAreaInteractive";
-import LatestOrder from "@/components/admin/dashboard/LatestOrder";
 import MonthlyTargetChart from "@/components/admin/dashboard/MonthlyTargetChart";
-import { getAllInformationFromDB } from "@/lib/api/admin/adminApi";
-import { getAllOrderFromDB } from "@/lib/api/orders/orders";
 import { TOrderData } from "@/types/order.type";
+import { getAllOrderFromDB } from "@/lib/api/orders/orders";
 import { TResponce } from "@/types/types";
-import { CircleDollarSign, Shirt, ShoppingBasket, Users } from "lucide-react";
+import LatestOrder from "@/components/admin/dashboard/LatestOrder";
+import TopSellingProducts from "@/components/admin/dashboard/TopSellingProducts";
 
 const DashboardPage = async () => {
-  const allDataFromDB = (await getAllInformationFromDB()) as TResponce;
-  const { totalSales, products, orders, customers } = allDataFromDB.data;
-
-  const getAllOrdersFromDB = (await getAllOrderFromDB([{ field: "limit", value: "5" }])) as TResponce;
+  const getAllOrdersFromDB = (await getAllOrderFromDB([
+    { field: "limit", value: "5" },
+  ])) as TResponce;
   const ordersData = getAllOrdersFromDB.data as TOrderData[];
 
   return (
     <main>
-      <div>
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-      </div>
-
-      <div className="mt-10">
-        <div className="grid grid-cols-4 grid-rows-5 gap-2">
-          {/* Total sell */}
-          <div className="bg-gray-50 h-full rounded-xl py-5 px-8 border">
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex justify-between items-center">
-                <h1 className="font-semibold">Total Sales</h1>
-                <CircleDollarSign className="size-8" />
+      <div className="grid grid-cols-4 gap-2">
+        <div className="border bg-white shadow w-full col-span-1 rounded-md p-5">
+          <div className="flex justify-between items-end">
+            <div className="flex items-center gap-5">
+              <div className="text-3xl bg-[#8b8efc] text-white p-5 rounded-full w-fit">
+                <BiSolidDollarCircle />
               </div>
-              <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">
-                  $ {totalSales.toFixed(2)}
-                </h1>
-                <div className="text-sm font-semibold text-end">
-                  <h2 className="text-green-600">+3.38%</h2>
-                  <p>vs last week</p>
-                </div>
+              <div className="font-bold">
+                <p className="text-sm">Total Sales</p>
+                <h1 className="text-2xl">$39.99</h1>
               </div>
             </div>
-          </div>
-          {/* Total Products */}
-          <div className="bg-gray-50 h-full rounded-xl py-5 px-8 border">
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex justify-between items-center">
-                <h1 className="font-semibold">Total Products</h1>
-                <Shirt className="size-8" />
-              </div>
-              <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">{products}</h1>
-                <div className="text-sm font-semibold text-end">
-                  <h2 className="text-red-600">-3.38%</h2>
-                  <p>vs last week</p>
-                </div>
-              </div>
+            <div className="text-xs font-extrabold">
+              <p className="text-green-500">+3.38%</p>
+              <p>vs last week</p>
             </div>
-          </div>
-          {/* Total orders */}
-          <div className="bg-gray-50 h-full rounded-xl py-5 px-8 border">
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex justify-between items-center">
-                <h1 className="font-semibold">Total Orders</h1>
-                <ShoppingBasket className="size-8" />
-              </div>
-              <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">{orders}</h1>
-                <div className="text-sm font-semibold text-end">
-                  <h2 className="text-red-600">-3.38%</h2>
-                  <p>vs last week</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Total customers */}
-          <div className="bg-gray-50 h-full rounded-xl py-5 px-8 border">
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex justify-between items-center">
-                <h1 className="font-semibold">Total Customers</h1>
-                <Users className="size-8" />
-              </div>
-              <div className="flex justify-between items-end">
-                <h1 className="text-2xl font-bold">{customers}</h1>
-                <div className="text-sm font-semibold text-end">
-                  <h2 className="text-green-600">+8.38%</h2>
-                  <p>vs last week</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="row-span-2 bg-gray-50 h-full rounded-xl p-5 border">
-            5
-          </div>
-          <div className=" col-span-2 row-span-2 bg-gray-50 h-full rounded-xl border">
-            <ChartAreaInteractive />
-          </div>
-          <div className="row-span-2 bg-gray-50 h-full rounded-xl border">
-            <MonthlyTargetChart />
-          </div>
-
-          <div className="col-span-2 row-span-2 bg-gray-50 h-full rounded-xl border overflow-scroll scrollbar-hide">
-            <LatestOrder orders={ordersData} />
-          </div>
-
-          <div className="row-span-2 bg-gray-50 h-full rounded-xl border overflow-hidden">
-            2
-          </div>
-          <div className="row-span-2 bg-gray-50 h-full rounded-xl p-5 border">
-            1
           </div>
         </div>
+        <div className="border bg-white shadow w-full col-span-1 rounded-md p-5">
+          <div className="flex justify-between items-end">
+            <div className="flex items-center gap-5">
+              <div className="text-3xl bg-[#75cd9d] p-5 rounded-full w-fit">
+                <IoShirtOutline />
+              </div>
+              <div className="font-bold">
+                <p className="text-sm">Total Products</p>
+                <h1 className="text-2xl">120</h1>
+              </div>
+            </div>
+            <div className="text-xs font-extrabold">
+              <p className="text-red-500">-3.38%</p>
+              <p>vs last week</p>
+            </div>
+          </div>
+        </div>
+        <div className="border bg-white shadow w-full col-span-1 rounded-md p-5">
+          <div className="flex justify-between items-end">
+            <div className="flex items-center gap-5">
+              <div className="text-3xl bg-[#fca96f] p-5 rounded-full w-fit">
+                <GiShoppingCart />
+              </div>
+              <div className="font-bold">
+                <p className="text-sm">Total Orders</p>
+                <h1 className="text-2xl">50</h1>
+              </div>
+            </div>
+            <div className="text-xs font-extrabold">
+              <p className="text-green-500">+5.38%</p>
+              <p>vs last week</p>
+            </div>
+          </div>
+        </div>
+        <div className="border bg-white shadow w-full col-span-1 rounded-md p-5">
+          <div className="flex justify-between items-end">
+            <div className="flex items-center gap-5">
+              <div className="text-3xl bg-[#8cbcfc] text-white p-5 rounded-full w-fit">
+                <FiUsers />
+              </div>
+              <div className="font-bold">
+                <p className="text-sm">Total Customers</p>
+                <h1 className="text-2xl">100</h1>
+              </div>
+            </div>
+            <div className="text-xs font-extrabold">
+              <p className="text-green-500">+8.38%</p>
+              <p>vs last week</p>
+            </div>
+          </div>
+        </div>
+        <div className="w-full col-span-3">
+          <div className="grid grid-cols-2 h-full gap-2">
+            <SalesOverviewChart />
+            <ChartAreaInteractive />
+          </div>
+        </div>
+        <div className="w-full col-span-1">
+          <MonthlyTargetChart />
+        </div>
+        <div className="w-full col-span-3">
+          <div className="grid grid-cols-5 h-full gap-2">
+            <div className="w-full col-span-3">
+              <LatestOrder orders={ordersData} />
+            </div>
+            <div className="w-full col-span-2">
+              <TopSellingProducts />
+            </div>
+          </div>
+        </div>
+        <div className="border w-full col-span-1 rounded-md p-5">10</div>
+        <div className="border w-full rounded-md p-5">11</div>
+        <div className="border w-full rounded-md p-5">12</div>
+        <div className="border w-full rounded-md p-5">13</div>
+        <div className="border w-full rounded-md p-5">14</div>
       </div>
     </main>
   );

@@ -1,4 +1,10 @@
-import { BriefcaseBusiness, LucideLayoutDashboard, Package2, PackageOpen, Users } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  LucideLayoutDashboard,
+  Package2,
+  PackageOpen,
+  Users,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,6 +15,11 @@ import SideNav from "./SideNav";
 import NavUser from "./NavUser";
 import Image from "next/image";
 import { smoochsans } from "@/styles/font";
+import { AiOutlineHome } from "react-icons/ai";
+import { PiPackageThin } from "react-icons/pi";
+import { LiaClipboardListSolid } from "react-icons/lia";
+import { LuUsers } from "react-icons/lu";
+import { LiaUsersCogSolid } from "react-icons/lia";
 
 const data = {
   user: {
@@ -17,12 +28,16 @@ const data = {
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
-    {path: ['/dashboard'], label: 'Dashboard', icon: <LucideLayoutDashboard />},
-    {path: ['/customers'], label: 'Customers', icon: <Users />},
-    {path: ['/staffs'], label: 'Staffs', icon: <BriefcaseBusiness />},
-    {path: ['/products', '/add-product'], label: 'Products', icon: <PackageOpen />},
-    {path: ['/orders'], label: 'Orders', icon: <Package2 />},
-  ]
+    { path: ["/dashboard"], label: "Dashboard", icon: <AiOutlineHome /> },
+    { path: ["/customers"], label: "Customers", icon: <LuUsers /> },
+    { path: ["/staffs"], label: "Staffs", icon: <LiaUsersCogSolid /> },
+    {
+      path: ["/products", "/add-product"],
+      label: "Products",
+      icon: <PiPackageThin />,
+    },
+    { path: ["/orders"], label: "Orders", icon: <LiaClipboardListSolid /> },
+  ],
 };
 
 const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {

@@ -13,7 +13,7 @@ import { TrendingUp } from "lucide-react";
 import { RadialBar, RadialBarChart } from "recharts";
 
 export const description = "A radial chart with stacked sections";
-const chartData = [{ name: "Completed", value: 68 }];
+const chartData = [{ name: "Completed", value: 100 }];
 
 const chartConfig = {
   desktop: {
@@ -28,7 +28,7 @@ const chartConfig = {
 
 const MonthlyTargetChart = () => {
   return (
-    <Card className="border-0 shadow-none bg-transparent">
+    <Card className="rounded-md shadow h-full">
       <CardHeader className="items-center pb-0">
         <CardTitle>Monthly Target</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
