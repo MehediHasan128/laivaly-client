@@ -10,6 +10,7 @@ import { getAllOrderFromDB } from "@/lib/api/orders/orders";
 import { TResponce } from "@/types/types";
 import LatestOrder from "@/components/admin/dashboard/LatestOrder";
 import TopSellingProducts from "@/components/admin/dashboard/TopSellingProducts";
+import LowStockProducts from "@/components/admin/dashboard/LowStockProducts";
 
 const DashboardPage = async () => {
   const getAllOrdersFromDB = (await getAllOrderFromDB([
@@ -107,7 +108,9 @@ const DashboardPage = async () => {
             </div>
           </div>
         </div>
-        <div className="border w-full col-span-1 rounded-md p-5">10</div>
+        <div className="w-full col-span-1">
+          <LowStockProducts />
+        </div>
         <div className="border w-full rounded-md p-5">11</div>
         <div className="border w-full rounded-md p-5">12</div>
         <div className="border w-full rounded-md p-5">13</div>
