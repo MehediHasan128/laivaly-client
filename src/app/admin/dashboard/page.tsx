@@ -12,6 +12,7 @@ import LatestOrder from "@/components/admin/dashboard/LatestOrder";
 import TopSellingProducts from "@/components/admin/dashboard/TopSellingProducts";
 import LowStockProducts from "@/components/admin/dashboard/LowStockProducts";
 import OrderStatusSummary from "@/components/admin/dashboard/OrderStatusSummary";
+import RecentCustomer from "@/components/admin/dashboard/RecentCustomer";
 
 const DashboardPage = async () => {
   const getAllOrdersFromDB = (await getAllOrderFromDB([
@@ -115,7 +116,9 @@ const DashboardPage = async () => {
         <div className="w-full">
           <OrderStatusSummary />
         </div>
-        <div className="border w-full rounded-md p-5">12</div>
+        <div className="w-full">
+          <RecentCustomer />
+        </div>
         <div className="border w-full rounded-md p-5">13</div>
         <div className="border w-full rounded-md p-5">14</div>
       </div>
