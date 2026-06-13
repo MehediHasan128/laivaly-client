@@ -44,8 +44,6 @@ const Checkout = ({
     ),
   );
 
-  console.log(userData?.shippingAddress);
-
   // Set loading state for button loading
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -278,7 +276,7 @@ const Checkout = ({
             </ShippingAddressDialog>
           ) : (
             <button
-              onClick={() => handleStoreOrderData(orderData as TOrderData)}
+              onClick={() => handleStoreOrderData(orderData as unknown as TOrderData)}
               className="btn hover:underline"
             >
               {loading ? <Spinner /> : "Continue To Payment"}
@@ -323,7 +321,7 @@ const Checkout = ({
           </ShippingAddressDialog>
         ) : (
           <button
-            onClick={() => handleStoreOrderData(orderData as TOrderData)}
+            onClick={() => handleStoreOrderData(orderData as unknown as TOrderData)}
             className="btn hover:underline"
           >
             {loading ? <Spinner /> : "Continue To Payment"}

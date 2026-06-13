@@ -13,8 +13,14 @@ import TopSellingProducts from "@/components/admin/dashboard/TopSellingProducts"
 import LowStockProducts from "@/components/admin/dashboard/LowStockProducts";
 import OrderStatusSummary from "@/components/admin/dashboard/OrderStatusSummary";
 import RecentCustomer from "@/components/admin/dashboard/RecentCustomer";
+import RecentReviews from "@/components/admin/dashboard/RecentReviews";
+import VisitorsCard from "@/components/admin/dashboard/VisitorsCard";
+import { getAllInformationFromDB } from "@/lib/api/admin/adminApi";
 
 const DashboardPage = async () => {
+  const allDataFromDB = (await getAllInformationFromDB()) as TResponce;
+  const { totalSales, products, orders, customers } = allDataFromDB.data;
+
   const getAllOrdersFromDB = (await getAllOrderFromDB([
     { field: "limit", value: "5" },
   ])) as TResponce;
@@ -31,7 +37,7 @@ const DashboardPage = async () => {
               </div>
               <div className="font-bold">
                 <p className="text-sm">Total Sales</p>
-                <h1 className="text-2xl">$39.99</h1>
+                <h1 className="text-2xl">${totalSales}</h1>
               </div>
             </div>
             <div className="text-xs font-extrabold">
@@ -48,7 +54,7 @@ const DashboardPage = async () => {
               </div>
               <div className="font-bold">
                 <p className="text-sm">Total Products</p>
-                <h1 className="text-2xl">120</h1>
+                <h1 className="text-2xl">{ products}</h1>
               </div>
             </div>
             <div className="text-xs font-extrabold">
@@ -65,7 +71,7 @@ const DashboardPage = async () => {
               </div>
               <div className="font-bold">
                 <p className="text-sm">Total Orders</p>
-                <h1 className="text-2xl">50</h1>
+                <h1 className="text-2xl">{ orders}</h1>
               </div>
             </div>
             <div className="text-xs font-extrabold">
@@ -82,7 +88,7 @@ const DashboardPage = async () => {
               </div>
               <div className="font-bold">
                 <p className="text-sm">Total Customers</p>
-                <h1 className="text-2xl">100</h1>
+                <h1 className="text-2xl">{ customers }</h1>
               </div>
             </div>
             <div className="text-xs font-extrabold">
@@ -119,8 +125,12 @@ const DashboardPage = async () => {
         <div className="w-full">
           <RecentCustomer />
         </div>
-        <div className="border w-full rounded-md p-5">13</div>
-        <div className="border w-full rounded-md p-5">14</div>
+        <div className="w-full">
+          <RecentReviews />
+        </div>
+        <div className="w-full">
+          <VisitorsCard />
+        </div>
       </div>
     </main>
   );

@@ -19,7 +19,7 @@ export const ProtectedRoute = async ({
   let userRole: string | undefined;
   if (token) {
     const userInfo = decodedUserToken(token?.value as string) as TUser;
-    userRole = userInfo?.role;
+    userRole = userInfo?.userRole;
   }
 
   if (!token || role !== userRole) {

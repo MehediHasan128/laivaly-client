@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ import {
   DropdownMenuSeparator,
 } from "@radix-ui/react-dropdown-menu";
 import React from "react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { IoChevronDownOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { AiFillCreditCard } from "react-icons/ai";
 import { IoNotificationsOutline } from "react-icons/io5";
@@ -44,9 +44,13 @@ const NavUser = ({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              <Avatar>
+                <AvatarImage
+                  src={user.avatar}
+                  alt={user.name}
+                  className="size-10 rounded-full"
+                />
+                <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -54,7 +58,7 @@ const NavUser = ({
                   {user.email}
                 </span>
               </div>
-              <BiDotsVerticalRounded className="ml-auto size-4" />
+              <IoChevronDownOutline className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent

@@ -2,6 +2,7 @@ import { TShippingAddress } from "./customer.type";
 import { TUser } from "./user";
 
 export interface TOrderItems {
+  productId: string;
   title: string;
   productFor: string;
   price: number;
@@ -11,7 +12,6 @@ export interface TOrderItems {
   color: string;
   size: string;
   SKU: string;
-  productId: string;
 }
 
 export interface TPaymentInfo {

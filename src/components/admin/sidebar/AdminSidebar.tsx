@@ -56,9 +56,9 @@ const AdminSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
       <SidebarContent className="py-5">
         <SideNav items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <NavUser user={data.user} />
-      </SidebarFooter>
+      </SidebarFooter> */}
     </Sidebar>
   );
 };

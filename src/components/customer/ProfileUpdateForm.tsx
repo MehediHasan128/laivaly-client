@@ -15,8 +15,8 @@ const startYear = new Date().getFullYear();
 const endYear = startYear - 60;
 
 const genderOptions = [
-  { label: "Men", value: "men" },
-  { label: "Women", value: "women" },
+  { label: "Male", value: "male" },
+  { label: "Female", value: "female" },
 ];
 
 const monthOptions = [
